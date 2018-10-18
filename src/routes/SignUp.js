@@ -51,7 +51,7 @@ class SignUp extends Component {
       
       console.log('signUp is ready_', user)
 
-      axios.post(`http://ec2-13-125-246-249.ap-northeast-2.compute.amazonaws.com:3000/api/user`, user)
+      axios.post(`http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user`, user)
       .then(res => {
         console.log('res', res);
         console.log('res.data', res.data);
