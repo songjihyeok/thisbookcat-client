@@ -15,34 +15,34 @@ class Nav2 extends Component {
     return false;
   }
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
-
   _sendPost = () => {
+    console.log("이게 props",this.props)
     axios
       .post(
-        "http://localhost:3001/api/post",
+        `http://localhost:3000/api/post/`,
         {
           title: this.props.posting.title,
           contents: this.props.posting.contents
         },
         {
           headers: {
-            Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mzk1MTIwNjUsImV4cCI6MTU0MTU4NTY2NX0.DM2Ci0TWGOzys8JTMis_gwmO4CWzy5woafWaLZ__dws`
+            Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTUzOTY1OTQ5MSwiZXhwIjoxNTQxNzMzMDkxfQ.n1h9TPgmN3PHAbpYh7t37GMghqEAG46YG0cL5uCTwS8`
           }
         }
       )
       .then(response => {
-        console.log(response.data, "======");
+        const formData = new FormData();
+        const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          'Authorization': `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTUzOTY1OTQ5MSwiZXhwIjoxNTQxNzMzMDkxfQ.n1h9TPgmN3PHAbpYh7t37GMghqEAG46YG0cL5uCTwS8`
+         }};    
+         formData.append('imgFile', this.props.posting.mainimage[0]);
+        console.log(response.data.id, "======");
         axios
           .post(
-            `http://localhost:3001/api/mainimage/${response.data.id}`,
-            {
-              mainImage: JSON.stringify(this.props.posting.mainimage[0])
-            },
-            {
-              headers: {
-                Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mzk1MTIwNjUsImV4cCI6MTU0MTU4NTY2NX0.DM2Ci0TWGOzys8JTMis_gwmO4CWzy5woafWaLZ__dws`
-              }
-            }
+            `http://localhost:3000/img/mainimage/${response.data.id}`,
+              formData,config
           )
           .then(response => {
             console.log(response.data, "this is response data");
