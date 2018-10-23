@@ -4,8 +4,6 @@ import MyBooks from "../components/MyPage/MyBooks";
 
 import MyPageProFile from "../components/MyPage/MyPageProFile";
 
-import "../components/MyPage/CSS/MyPage.css";
-
 class MyPage extends Component {
   render() {
     return (
