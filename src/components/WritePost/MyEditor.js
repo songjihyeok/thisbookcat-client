@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "./MyEditor.css";
 import axios from "axios";
-import ReactQuill from "react-quill";
+import ReactQuill, {Quill} from "react-quill";
+import {ImageResize} from "quill-image-resize-module";
 import windowScrollPosition from "window-scroll-position";
+//Quill.register("modules/imageResize", ImageResize);
+
 
 export default class MyEditor extends Component {
   constructor(props) {
@@ -30,6 +33,8 @@ export default class MyEditor extends Component {
   //     scrollTop: value
   //   });
   // }
+
+
 
   handleChange(html) {
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.

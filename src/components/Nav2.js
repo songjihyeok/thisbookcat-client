@@ -19,7 +19,7 @@ class Nav2 extends Component {
     console.log("이게 props",this.props)
     axios
       .post(
-        `http://localhost:3000/api/post/`,
+        `http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/post/`,
         {
           title: this.props.posting.title,
           contents: this.props.posting.contents
@@ -41,7 +41,7 @@ class Nav2 extends Component {
         console.log(response.data.id, "======");
         axios
           .post(
-            `http://localhost:3000/img/mainimage/${response.data.id}`,
+            `http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/img/mainimage/${response.data.id}`,
               formData,config
           )
           .then(response => {
