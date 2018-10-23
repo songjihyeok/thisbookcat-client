@@ -40,7 +40,7 @@ class SignUp extends Component {
       const user = {
         emailId : this.state.email,
         password : this.state.password
-      };  
+      };
     
       // TODO: {"emailId":"sueminee@gmail.com", "password": "123"} 이렇게 보내라길래.
       // 아래처럼 제이슨스트링거파이 했더니 400에러뜸.

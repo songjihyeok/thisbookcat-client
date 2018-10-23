@@ -1,7 +1,7 @@
 import React, {Component} from "react"
 import { Link } from 'react-router-dom';
 
-import './MyBookBoard.css'
+import './CSS/MyBookBoard.css'
 
 class MyBookBoard extends Component {
 
