@@ -47,7 +47,7 @@ class SettingModal extends Component {
       filename: this.state.ImageData
     }
 
-    axios.post('http://localhost:3000/api/user/update', filename, { headers: { 'Authorization': 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTUzOTY1OTQ5MSwiZXhwIjoxNTQxNzMzMDkxfQ.n1h9TPgmN3PHAbpYh7t37GMghqEAG46YG0cL5uCTwS8'}})
+    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', filename, { headers: { 'Authorization': `bearer ${token}` }})
     .then(response => console.log(response))
     .catch(error => console.log(error))
   }
