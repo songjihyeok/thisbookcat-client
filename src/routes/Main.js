@@ -52,7 +52,7 @@ class Main extends Component {
   _renderBooKCoverImage = () => {
     if(this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
-          return <BookBoard url={url.id} author={url.author} key={url.filename} />;
+          return <BookBoard url={url.id} author={url.author} key={url.filename}/>;
       });
       return bookcover;
     }
