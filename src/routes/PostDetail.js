@@ -86,23 +86,14 @@ class PostDetail extends Component {
     this.setState({selectedFile: e.target.files[0]})
   }
 
-  uploadHandler = () => {
-    console.log(this.state.selectedFile)
-
-    const formData = new FormData()
-    formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name)
-    axios.post('/file-upload', formData)
-    // axios.post('/file-upload', formData, {
-    // onUploadProgress: progressEvent => {
-    //   console.log(progressEvent.loaded / progressEvent.total)
-    // }
-    // })
-  }
-
   _getPostData = () => {
-    // this.props 가 어떻게 오는지 봐야함.
-    // axios.get()
-  }
+    console.log("this.props:",this.props)
+      axios.get(`http://localhost:3000/img/mainimage/2`,{headers : {Authorization :`bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU0MDM1MTE3NCwiZXhwIjoxNTQyNDI0Nzc0fQ.KSszmp2gOiFui39DwJy1D6iB5SqoKLpCzCZCu61Tz2k`}})
+       .then((result)=>{
+         console.log(result);
+        this.setState({thumbnail: `http://localhost:3000/upload/${result.data}`})
+       })
+      }
 
   _newReply = (e) => {
     this.setState({comment: e.target.value})
@@ -165,8 +156,7 @@ class PostDetail extends Component {
   }
 
   componentWillMount(){
-    this._getPostData(); //이 포스트에 대한 모든 정보
-    //이 포스트에 대한 나의 정보
+    this._getPostData(); 
     this._getBookInfo();
   }
 
@@ -177,7 +167,7 @@ class PostDetail extends Component {
         {console.log(this.props)}
         <div className='post_detail'>
           <div className='post_detail_left'>
-            <div> <img height={window.innerHeight * 0.6} src={this.props.location.state.imgUrl} alt={this.mockData.title}/></div>
+            <div> <img height={window.innerHeight * 0.6} src={this.state.thumbnail} alt={this.mockData.title}/></div>
             <h2>{this.mockData.title}</h2> 
             <div className='post_detail_content'>{this.mockData.content}</div> 
           </div>
@@ -185,11 +175,11 @@ class PostDetail extends Component {
           <div className='post_detail_right'>
 
             <div className='post_detail_right_1'>
-              <img src={this.mockData.userimg} className='img-circle' alt={this.props.location.state.username} />
+              <img src={this.mockData.userimg} className='img-circle' alt={"hello"} />
               {this.state.isFollowing ?
                   <h5 className='post_detail_following' onClick={this._handleFollowing}>팔로잉</h5> :
                   <h5 className='post_detail_follow' onClick={this._handleFollowing}>팔로우</h5>}
-              <h3 className='post_detail_username'>{this.props.location.state.username}</h3>
+              <h3 className='post_detail_username'>{"hello"}</h3>
             </div>
 
             <div className='post_detail_right_2'>

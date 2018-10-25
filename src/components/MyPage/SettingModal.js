@@ -6,36 +6,17 @@ import axios from 'axios'
 class SettingModal extends Component {
 
   state = {
-    ImageData:''
+    files:[]
   }
 
-  _getProfileImage = () => {
-    
-    let file = document.querySelector('input[type=file]').files[0]
-
-    /* let reader = new FileReader() */
-
-    let formData = new FormData();
-
-    /* reader.onload = (e) => {
-
-      this.setState({
-        ImageData: e.target.result
-      })
-    }
-
-    reader.(file); */
-  
-    console.log('this should be binary form',this.state.ImageData)
-
-    formData.append('imgFiles', file)
-
+  _handlingImage= (files) =>{
+    console.log(files);
     this.setState({
-      ImageData:formData
+      files : this.state.files.concat(files)
     })
 
-    console.log('this should be formData', this.state.ImageData)
   }
+
 
   _postProfileImagetoServer = () => {
 
@@ -43,11 +24,7 @@ class SettingModal extends Component {
 
     const token = window.localStorage.getItem('token');
 
-    let filename = {
-      filename: this.state.ImageData
-    }
-
-    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', filename, { headers: { 'Authorization': `bearer ${token}` }})
+    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', this.imageData, { headers: { 'Authorization': `bearer ${token}` }})
     .then(response => console.log(response))
     .catch(error => console.log(error))
   }
@@ -72,7 +49,7 @@ class SettingModal extends Component {
             <Modal.Body>
             <div className = 'PhotoUploadModal'>
             <Button bsStyle="primary">비밀번호변경</Button>
-            <input name = '프로필사진등록' type="file" onChange={this._getProfileImage}/>
+            <input name = '프로필사진등록' type="file" onChange={this._handlingImage.bind(this)}/>
             <Button bsStyle="primary">로그아웃하기</Button>
             </div>
             </Modal.Body>

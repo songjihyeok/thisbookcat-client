@@ -10,10 +10,10 @@ class MyPage extends Component {
       <div className="MyPage">
         <Nav1 />
         <div>
-          <MyPageProFile />
+          <MyPageProFile/>
         </div>
         <div style={{ margin: "20px" }}>
-          <MyBooks />
+          <MyBooks/>
         </div>
       </div>
     );
