@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+// import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 
@@ -9,7 +10,7 @@ import "../components/Main/CSS/Main.css";
 class Main extends Component {
   state = {
     items: 20,
-    coverurl:''
+    preItems: 0
   };
 
   componentDidMount() {
@@ -18,27 +19,41 @@ class Main extends Component {
   }
 
    _infiniteScroll = () => {
+
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
 
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
 
     let clientHeight = document.documentElement.clientHeight;
-    
+
     if(scrollTop + clientHeight === scrollHeight) {
+      
       this.setState({
-        items:this.state.items+20
+        preItems: this.state.items,
+        items: this.state.items+20,
       })
-      console.log(this.state.items)
+
       this._getUrls()
+      
+      console.log(this.state.preItems)
+      console.log(this.state.items)
+      console.log(this.state.coverurl)
     }
   }
 
+  /* _renderPreBooKCoverImage = () => {
+    if(this.state.preCoverUrl) {
+      const bookcover = this.state.preCoverUrl.map((url) => {
+        return <BookBoard url={url.id} author={url.author} key={url.id} />;
+      });
+      return bookcover;
+    }
+  }; */
+
   _renderBooKCoverImage = () => {
     if(this.state.coverurl) {
-      const bookcover = this.state.coverurl.map((url, index) => {
-        if(index<this.state.items) {
-          return <BookBoard url={url.id} author={url.author} key={url.id} />;
-        }
+      const bookcover = this.state.coverurl.map((url) => {
+          return <BookBoard url={url.id} author={url.author} key={url.filename}/>;
       });
       return bookcover;
     }
@@ -47,23 +62,27 @@ class Main extends Component {
 
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
-    this.setState({
-      coverurl
-    })
+    
+    if(this.state.coverurl===undefined) {
+      this.setState({
+        coverurl
+      })
+    } else {
+      this.setState({
+        coverurl: this.state.coverurl.concat(coverurl)
+      })
+    }
   };
 
   _callBookCoverAPI = () => {
     const booklistAPI = "https://picsum.photos/list";
-    return axios.get(booklistAPI).then(response => response.data)
+    return axios.get(booklistAPI)
     .then((response) => {
-      let newArray = []
-      response.forEach( (element, index) => {
-        if(index < this.state.items) {
-          newArray.push(element)
-        }
+      console.log(response.data)
+      let result = response.data.slice(this.state.preItems,this.state.items)
+      console.log(result)
+      return result;
       })
-      return newArray
-    })
   };
 
   render() {
@@ -74,12 +93,15 @@ class Main extends Component {
     return (
       <div className="Main">
         <Nav1/>
+       {/*  {this._renderPreBooKCoverImage()} */}
         {this._renderBooKCoverImage()}
       </div>
     );
   }}
 }
 export default Main;
+
+
 
   /* _infiniteScroll = () => {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
@@ -95,5 +117,3 @@ export default Main;
     }
  } */
 //모든 사진데이터에서 일부 뽑아내서 보여주는 infinite scroll 함수//
-
-

@@ -33,7 +33,7 @@ class Login extends Component {
       password : this.state.password
     }; 
 
-    axios.post(`http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`,
+    axios.post(`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`,
      body, {headers:{'Access-Control-Allow-Origin':'*'}}
     )
       .then(res => {

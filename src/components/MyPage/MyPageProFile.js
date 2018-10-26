@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
 import axios from "axios";
-import PhotoUploadModal from "./PhotoUploadModal";
+import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
+import Image from 'react-image-resizer';
+
+import './CSS/MyPageProFile.css'
 
 class MyPageProFile extends Component {
   constructor(props, context) {
@@ -12,7 +15,7 @@ class MyPageProFile extends Component {
       show: false,
       author: "Alejandro Escamilla",
       counter: 0,
-      ProfileImage: ""
+      ProfileImage: "http://profilepicturesdp.com/wp-content/uploads/2018/06/default-profile-picture-png-12.png",
     };
   }
 
@@ -24,11 +27,26 @@ class MyPageProFile extends Component {
     this.setState({ show: false });
   };
 
-  _getImageFromModal = image => {
+  _handleShow = () => {
+    this.setState({ show: true })
+  }
+
+  _getImageFromModal = (image1) => {
     this.setState({
-      ProfileImage: image
+      ProfileImage: image1,
     });
   };
+
+  _getServerImageFromModal = (image2) => {
+    this.setState({
+      imagetoServer: image2
+    })
+    console.log(this.state.imagetoServer)
+  }
+
+  _getProfileImage = () => {
+
+  }
 
   // _renderImages = () => {
   //   const images = this.state.images.map(image => {
@@ -57,7 +75,7 @@ class MyPageProFile extends Component {
   // };
 
   render() {
-    console.log(this.state.ProfileImage);
+    console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
@@ -74,14 +92,14 @@ class MyPageProFile extends Component {
             onClick={() => this.setState({ show: true })}
           />
         </div>
-        <PhotoUploadModal
+        <SettingModal
           show={this.state.show}
           hide={this._handleHide}
           callback={this._getImageFromModal}
         />
         {/* {this.state.images ? this._renderImages() : "Loading"} */}
       </div>
-    );
+    )
   }
 }
 
