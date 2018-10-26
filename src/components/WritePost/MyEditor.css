@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 .ql-editor {
   width: 100%;
   min-height: 500px;
@@ -27,6 +29,7 @@
   display: inline-block;
   line-height: 26px;
 }
+>>>>>>> 40e668f5b5e72f6be7fc788f1d5431989979b9a3
 .Write-container {
   width: 100%;
 }
@@ -44,10 +47,18 @@ input::placeholder {
 }
 .RichEditor-root {
   background: #fff;
+<<<<<<< HEAD
+  border: 1px solid #ddd;
+  font-family: "Georgia", serif;
+  font-size: 14px;
+  padding: 15px;
+  width: 85%;
+=======
   font-family: "Georgia", serif;
   font-size: 14px;
   padding: 15px;
   width: 100%;
+>>>>>>> 40e668f5b5e72f6be7fc788f1d5431989979b9a3
   min-height: 500px;
 }
 .RichEditor-root-custom {

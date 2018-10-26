@@ -5,6 +5,7 @@ import Nav1 from '../components/Nav1';
 import Reply from '../components/PostDetail/Reply';
 import "../components/PostDetail/PostDetail.css";
 import BookInfoModal from '../components/PostDetail/BookInfoModal';
+import server_url from '../url.json';
 
 class PostDetail extends Component {
   
@@ -45,9 +46,14 @@ class PostDetail extends Component {
     }
 
   state = {
+    postId : 14,
+    userId: '',
+    createdTime: '',
     thumbnail : '',
     title : '',
-    content: '',
+    contents: '',
+    likeCount: null, //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
+    
     reply: [
       {reply_id:1, username: '지혁', msg: '안녕하세요'},
       {reply_id:2, username: '명우', msg: '해리포터 좋아요!'},
@@ -73,7 +79,6 @@ class PostDetail extends Component {
      ],
     replyCount : '', //댓글 갯수
     isLike: false, // 지금 보고있는 유저가 이 포스트를 좋아하는지 아닌지 (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)- 클릭 하냐 마냐에 따라 likecount 도 변동되어야 함.
-    likeCount: 10, //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
     bookInfo: '',
     show : false,
     yap: '',
@@ -82,18 +87,41 @@ class PostDetail extends Component {
     selectedFile: null,
   }
 
-  fileChangedHandler = (e) => {
-    this.setState({selectedFile: e.target.files[0]})
-  }
+  // fileChangedHandler = (e) => {
+  //   this.setState({selectedFile: e.target.files[0]})
+  // }
+
 
   _getPostData = () => {
-    console.log("this.props:",this.props)
-      axios.get(`http://localhost:3000/img/mainimage/2`,{headers : {Authorization :`bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU0MDM1MTE3NCwiZXhwIjoxNTQyNDI0Nzc0fQ.KSszmp2gOiFui39DwJy1D6iB5SqoKLpCzCZCu61Tz2k`}})
-       .then((result)=>{
-         console.log(result);
-        this.setState({thumbnail: `http://localhost:3000/upload/${result.data}`})
+    // console.log("this.props:",this.props)
+      axios.get(`http://${server_url}:3000/api/post/14`,{
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
+      })
+       .then((res) => {
+         console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res', res);
+        this.setState({
+          thumbnail: `http://${server_url}:3000/upload/${res.data.mainImage}`,
+          contents: res.data.contents,
+          createdTime: res.data.createdTime,
+          userId: res.data.id,
+          likeCount: res.data.likeCount,
+          title: res.data.title,
+          username: res.data.userId,
+        })
        })
+       .catch(err => console.log('_getPostData get 못받음. error', err))
       }
+
+  // _getUserData = () => {
+      // axios.get(`http://${server_url}:3000/api/user/${this.state.userId}`,{
+      //   headers: {
+      //     Authorization: `bearer ${window.localStorage.getItem('token')}`
+      //   }
+      // })
+  // }
+
 
   _newReply = (e) => {
     this.setState({comment: e.target.value})
@@ -119,18 +147,42 @@ class PostDetail extends Component {
   _handleLike = () => {
     //레몬에 온클릭 함수로 걸고있음.
     //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
-    // axios.put
-    // .then
+
     if(this.state.isLike){
-      this.setState({
-        isLike: false,
-        likeCount : this.state.likeCount -1
+      //count-- 시키는 요청
+      //postid와 userid의 like join을 삭제하는 요청
+
+      axios.delete(`{http://${server_url}:3000/api/like/${this.state.postId}}`,{
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
       })
+      .then(res => {
+        console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res___", res)
+
+        this.setState({
+          isLike: false,
+          likeCount : this.state.likeCount -1
+        })
+      })
+      .catch(err => console.log("_handleLike함수에서 axios.delete 요청 실패", err))
     }else{
-      this.setState({
-        isLike: true,
-        likeCount : this.state.likeCount +1
+      //count++ 시키는 요청
+      //postid와 userid를 like join 하는 요청
+      axios.post(`{http://${server_url}:3000/api/like/${this.state.postId}}`,{
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
       })
+      .then(res => {
+        console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res___", res)
+
+        this.setState({
+          isLike: true,
+          likeCount : this.state.likeCount +1
+        })
+      })
+      .catch(err => console.log("_handleLike함수에서 axios.post 요청 실패", err))
     }
   }
 
@@ -158,6 +210,7 @@ class PostDetail extends Component {
   componentWillMount(){
     this._getPostData(); 
     this._getBookInfo();
+    console.log('PostDatail.js의 ComponentWillMount 함수에서 this.props를 찍어보겠습니다___', this.props.location.state)
   }
 
   render() {
@@ -167,19 +220,20 @@ class PostDetail extends Component {
         {console.log(this.props)}
         <div className='post_detail'>
           <div className='post_detail_left'>
-            <div> <img height={window.innerHeight * 0.6} src={this.state.thumbnail} alt={this.mockData.title}/></div>
-            <h2>{this.mockData.title}</h2> 
-            <div className='post_detail_content'>{this.mockData.content}</div> 
+            <div><img height={window.innerHeight * 0.6} src={this.state.thumbnail} alt={this.state.title}/>
+              </div>
+            <h2>{this.state.title}</h2> 
+            <div className='post_detail_content'>{this.state.contents}</div> 
           </div>
 
           <div className='post_detail_right'>
 
             <div className='post_detail_right_1'>
-              <img src={this.mockData.userimg} className='img-circle' alt={"hello"} />
+              <img src={this.state.thumbnail} className='img-circle' alt={"hello"} />
               {this.state.isFollowing ?
                   <h5 className='post_detail_following' onClick={this._handleFollowing}>팔로잉</h5> :
                   <h5 className='post_detail_follow' onClick={this._handleFollowing}>팔로우</h5>}
-              <h3 className='post_detail_username'>{"hello"}</h3>
+              <h3 className='post_detail_username'>{this.state.userId}</h3>
             </div>
 
             <div className='post_detail_right_2'>
@@ -209,13 +263,6 @@ class PostDetail extends Component {
                 <span onClick={this._makeReply}><Icon name="pencil alternate" fitted size="large" /></span>
               </form>
             </div>
-            
-            
-            <div>
-            <input type="file" onChange={this.fileChangedHandler} />
-            <button onClick={this.uploadHandler}>Upload!</button>
-            </div>
-
           </div>
         </div>
       </div>

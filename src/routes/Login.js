@@ -4,6 +4,7 @@ import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
+import url from '../url.json';
 
 class Login extends Component {
   state = {
@@ -53,7 +54,8 @@ class Login extends Component {
   }
 
   _googleAuth = (e) => {
-    axios.get('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/auth/google',{
+    axios.get(`{http://${url}:3000/api/post/postId}`)
+    axios.get('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/auth/google',{
       header:{'Access-Control-Allow-Origin':'*'}
     })
     .then(res => {

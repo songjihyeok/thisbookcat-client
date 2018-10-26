@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Item } from "../../../node_modules/semantic-ui-react";
+import server_url from '../../url.json';
+// import { Item } from "../../../node_modules/semantic-ui-react";
+
 
 class MyBooks extends Component {
   state = {
     mybooks: []
   };
+
+
   componentDidMount() {
     axios
-      .get("http://localhost:3001/api/post/27", {
+      .get(`http://${server_url}:3001/api/post/27`, {
         headers: {
-          Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mzk1MTIwNjUsImV4cCI6MTU0MTU4NTY2NX0.DM2Ci0TWGOzys8JTMis_gwmO4CWzy5woafWaLZ__dws`
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
         }
       })
       .then(response => {
-        console.log("this is data");
-        console.log(response.data, "ooooooooooo");
+        console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
         this.setState({
           mybooks: this.state.mybooks.concat(response.data)
         });
@@ -23,7 +26,7 @@ class MyBooks extends Component {
   }
 
   render() {
-    console.log(this.state.mybooks, "gogogogogogogogogogo");
+    console.log("MyBook.js의 render함수안에서 this.state.mybooks 찍는중___", this.state.mybooks);
     return (
       <div className="myBooks">
         {this.state.mybooks.map((item, index) => {

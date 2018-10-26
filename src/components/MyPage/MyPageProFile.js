@@ -75,7 +75,7 @@ class MyPageProFile extends Component {
   // };
 
   render() {
-    console.log(this.state.ProfileImage);
+    console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
