@@ -8,45 +8,9 @@ import BookInfoModal from '../components/PostDetail/BookInfoModal';
 import server_url from '../url.json';
 
 class PostDetail extends Component {
-  
-  mockData = 
-    {
-      username : '제니퍼 로렌스',
-      userimg : 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQzMjgyNDgwNjIxODIzNTU5/jennifer-lawrence_gettyimages-626382596jpg.jpg',
-      thumbnail : 'https://s2982.pcdn.co/wp-content/uploads/2014/08/HP_hc_new_1.jpeg',
-      title : 'Harry Potter and Philosopher\'s Stone',
-      content : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor possimus laboriosam porro obcaecati minus ipsa hic, alias eveniet explicabo id, quaerat et, expedita voluptatibus vitae ex perferendis similique illum blanditiis velit? Voluptate molestiae hic ipsam est tempora sapiente dolore suscipit. Quia sunt voluptates, est, at placeat aliquam soluta voluptas sequi architecto quas dolorum saepe. Assumenda blanditiis iste, modi aliquid voluptatum doloribus sequi saepe dolores atque alias fuga quasi nesciunt magnam qui, aspernatur eum, est perspiciatis mollitia. Earum in culpa qui eos quia alias corporis libero, labore, ipsa quam, suscipit iure veritatis velit dolor error. Adipisci cumque provident vero cum hic aspernatur molestiae beatae nulla recusandae pariatur, sed, ipsum eaque nobis id at. Esse expedita numquam accusantium ut recusandae sint explicabo est rerum nobis minima tenetur possimus, labore modi culpa consectetur dolorum, atque tempora, odio dolore repellat rem distinctio vitae totam eum? Maiores facere, sapiente numquam, culpa commodi perspiciatis dolore ab aliquid optio quaerat mollitia nobis harum doloremque distinctio. Illo quia atque harum unde deleniti quas. Quis possimus, harum quod, ducimus itaque dolorum quidem aut nisi quae labore facere est consequuntur, ex laborum? Delectus tempora incidunt quae amet facilis aut velit fuga sed dolore dignissimos dicta odio quo dolorem iste consequatur deleniti quam iusto quibusdam facere blanditiis accusantium, quia est dolor illum! Suscipit fuga maxime eaque incidunt beatae odit et animi officiis alias officia aperiam ipsum natus sed hic, in quidem magnam quibusdam harum omnis exercitationem dolore eum at pariatur sapiente! Quidem dolores, molestias itaque, soluta distinctio illum a ipsam ipsa deleniti officiis tempore? Eum, blanditiis mollitia iure a aspernatur placeat autem, debitis qui quod similique ut corrupti. Laborum, provident! Assumenda eum placeat ad debitis voluptates deleniti velit est ab unde voluptatum reprehenderit at ipsam eveniet, aperiam dicta corporis fuga beatae architecto? Deserunt soluta deleniti eum dolore repellendus possimus iure illo reiciendis culpa ex eveniet facilis ratione at, nisi eaque magni nobis aut cupiditate quia dicta omnis velit. Quibusdam quo molestiae, quis aliquid illo dolorum velit ad, inventore quaerat, fugiat dolores officiis voluptate vero necessitatibus distinctio numquam! Quisquam doloremque veritatis, debitis perspiciatis officiis est unde totam! Repellat, repellendus! Alias quis repellendus minima aperiam pariatur quia deserunt quod explicabo blanditiis vitae maxime placeat voluptatibus, corrupti eligendi nobis ducimus quaerat! Delectus cum quam pariatur, quaerat saepe at quas optio eum, quia eaque porro quasi quisquam laboriosam praesentium minus sequi dolor doloribus. Quae, expedita obcaecati ad hic vel mollitia neque optio minima porro. Optio ad nihil accusantium officiis aut maiores dolorum consectetur alias esse architecto placeat perferendis reprehenderit nesciunt modi, vel soluta eius quo debitis deleniti omnis, est quod! Architecto earum tempore recusandae eius debitis ullam veritatis sapiente eos voluptates nisi modi quam, aliquam laboriosam error minima omnis asperiores facilis nemo officia, eligendi quae nihil odit saepe? Laborum, magni debitis non autem ad nesciunt culpa qui dolorum incidunt, accusantium aspernatur inventore perspiciatis placeat, optio explicabo quis praesentium. Reprehenderit velit quae excepturi, illum possimus optio deleniti dicta ab facilis, iusto consequatur saepe aliquid at ipsa tenetur veritatis, explicabo iure odio mollitia architecto omnis quasi. Ipsa.',
-      reply : [
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'}
-       ],
-      isLike : true,
-      likeCount:5,
-      isFollowing: false,
-    }
-
   state = {
-    postId : 14,
+    postId : 10,
+    // postId는 props로 받아야 함.
     userId: '',
     createdTime: '',
     thumbnail : '',
@@ -94,7 +58,7 @@ class PostDetail extends Component {
 
   _getPostData = () => {
     // console.log("this.props:",this.props)
-      axios.get(`http://${server_url}:3000/api/post/14`,{
+      axios.get(`http://${server_url}:3000/api/post/${this.state.postId}`,{
         headers: {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
         }
@@ -105,10 +69,9 @@ class PostDetail extends Component {
           thumbnail: `http://${server_url}:3000/upload/${res.data.mainImage}`,
           contents: res.data.contents,
           createdTime: res.data.createdTime,
-          userId: res.data.id,
           likeCount: res.data.likeCount,
           title: res.data.title,
-          username: res.data.userId,
+          userId: res.data.userId,
         })
        })
        .catch(err => console.log('_getPostData get 못받음. error', err))
@@ -121,6 +84,48 @@ class PostDetail extends Component {
       //   }
       // })
   // }
+
+  _handleLike = () => {
+    //레몬에 온클릭 함수로 걸고있음.
+    //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
+
+    if(this.state.isLike){
+      //count-- 시키는 요청
+      //postid와 userid의 like join을 삭제하는 요청
+
+      axios.delete(`http://${server_url}:3000/api/like/${this.state.postId}`, {
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
+      })
+      .then(res => {
+        console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res___", res)
+
+        this.setState({
+          isLike: false,
+          likeCount : this.state.likeCount -1
+        })
+      })
+      .catch(err => console.log("_handleLike함수에서 axios.delete 요청 실패", err))
+    }else{
+      //count++ 시키는 요청
+      //postid와 userid를 like join 하는 요청
+      axios.post(`http://${server_url}:3000/api/like/${this.state.postId}`, {}, {
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
+      })
+      .then(res => {
+        console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res___", res)
+
+        this.setState({
+          isLike: true,
+          likeCount : this.state.likeCount +1
+        })
+      })
+      .catch(err => console.log("_handleLike함수에서 axios.post 요청 실패", err))
+    }
+  }
 
 
   _newReply = (e) => {
@@ -142,48 +147,6 @@ class PostDetail extends Component {
 
   _getBookInfo = () => {
     //알라딘에서 책 정보 가져오기
-  }
-
-  _handleLike = () => {
-    //레몬에 온클릭 함수로 걸고있음.
-    //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
-
-    if(this.state.isLike){
-      //count-- 시키는 요청
-      //postid와 userid의 like join을 삭제하는 요청
-
-      axios.delete(`{http://${server_url}:3000/api/like/${this.state.postId}}`,{
-        headers: {
-          Authorization: `bearer ${window.localStorage.getItem('token')}`
-        }
-      })
-      .then(res => {
-        console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res___", res)
-
-        this.setState({
-          isLike: false,
-          likeCount : this.state.likeCount -1
-        })
-      })
-      .catch(err => console.log("_handleLike함수에서 axios.delete 요청 실패", err))
-    }else{
-      //count++ 시키는 요청
-      //postid와 userid를 like join 하는 요청
-      axios.post(`{http://${server_url}:3000/api/like/${this.state.postId}}`,{
-        headers: {
-          Authorization: `bearer ${window.localStorage.getItem('token')}`
-        }
-      })
-      .then(res => {
-        console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res___", res)
-
-        this.setState({
-          isLike: true,
-          likeCount : this.state.likeCount +1
-        })
-      })
-      .catch(err => console.log("_handleLike함수에서 axios.post 요청 실패", err))
-    }
   }
 
   _handleClose = () => {

@@ -1,5 +1,6 @@
 .MyLike {
     text-align: center;
+    max-width: 30px;
 }
 
 .LikeBookBoard {
@@ -8,6 +9,8 @@
     border-width: 1px;
     border-color: white;
     border-radius: 25px;
+    max-width: 30px;
+    height: auto;
     margin: 2%;
     size:100%;
     padding: 3%;
@@ -21,4 +24,8 @@
     position: relative;
     border-radius: 25px;
     right:5%;
+}
+
+img{
+    width: 300px;
 }
