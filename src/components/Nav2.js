@@ -38,7 +38,7 @@ class Nav2 extends Component {
           'Authorization': `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTUzOTY1OTQ5MSwiZXhwIjoxNTQxNzMzMDkxfQ.n1h9TPgmN3PHAbpYh7t37GMghqEAG46YG0cL5uCTwS8`
          }};    
          formData.append('imgFile', this.props.posting.mainimage[0]);
-        console.log(response.data.id, "======");
+        console.log(response, "======");
         axios
           .post(
             `http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/img/mainimage/${response.data.id}`,

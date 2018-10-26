@@ -5,6 +5,7 @@ import Nav1 from '../components/Nav1';
 import Reply from '../components/PostDetail/Reply';
 import "../components/PostDetail/PostDetail.css";
 import BookInfoModal from '../components/PostDetail/BookInfoModal';
+import server_url from '../url.json';
 
 class PostDetail extends Component {
   
@@ -80,30 +81,74 @@ class PostDetail extends Component {
     isFollowing: true,
     comment:'',
     selectedFile: null,
+    postId : 5,
   }
 
   fileChangedHandler = (e) => {
     this.setState({selectedFile: e.target.files[0]})
   }
 
-  uploadHandler = () => {
-    console.log(this.state.selectedFile)
+  // uploadHandler = () => {
+  //   console.log(this.state.selectedFile)
 
-    const formData = new FormData()
-    formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name)
-    axios.post('/file-upload', formData)
-    // axios.post('/file-upload', formData, {
-    // onUploadProgress: progressEvent => {
-    //   console.log(progressEvent.loaded / progressEvent.total)
-    // }
-    // })
-  }
+  //   const formData = new FormData()
+  //   formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name)
+  //   axios.post('/file-upload', formData)
+  //   // axios.post('/file-upload', formData, {
+  //   // onUploadProgress: progressEvent => {
+  //   //   console.log(progressEvent.loaded / progressEvent.total)
+  //   // }
+  //   // })
+  // }
 
   _getPostData = () => {
-    // this.props 가 어떻게 오는지 봐야함.
-    // axios.get()
+    // 내가 클릭한 BookBoard.js 에서 state에 postId라는걸 보내줘야함.
+    // const postId = this.props.location.state.postId;
+    // 되면 위에꺼로 쓰기 일단, postId가 1이라고 가정하고,
+    //get요청 보내는 주소는 url.json 만 변경하면 됨.
+    console.log("url.json에서 import해온 server_url", server_url);
+    // axios.get(`http://${server_url}:3000/api/post/${this.state.postId}`)
+    // axios.get(`http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/post/1`, {
+    axios.get(`http://${server_url}:3000/api/post/${this.state.postId}`,{
+      headers: {
+        Authorization: `bearer ${window.localStorage.getItem('token')}`
+      }
+    }
+
+    )
+    // axios.get(`{http://localhost:3000/api/post/postId}`)
+    .then(res => console.log(res))
+    .catch(err => console.log('_getPostData get 못받음. error'))
+
   }
 
+  _getMainImage = () => {
+    axios.get(`http://${server_url}:3000/img/mainimage/${this.state.postId}`, {
+      headers: {
+        Authorization: `bearer ${window.localStorage.getItem('token')}`
+      }
+    })
+    .then(res => {
+      console.log(res)
+      this.setState({imgsrc: `http://${server_url}:3000${res.data}`})
+    })
+    .catch(err => console.log('_getMainImage에서 get 못받음. error'))
+  }
+
+  // _renderBooKCoverImage = () => {
+  //   if(this.state.coverurl) {
+  //     const bookcover = this.state.coverurl.map((url, index) => {
+  //       if(index<this.state.items) {
+  //         return <BookBoard url={url.id} author={url.author} key={url.id} />;
+  //       }
+  //     });
+  //     return bookcover;
+  //   }
+  //   return "Loading"
+  // };
+
+
+  
   _newReply = (e) => {
     this.setState({comment: e.target.value})
   }
@@ -130,12 +175,23 @@ class PostDetail extends Component {
     //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
     // axios.put
     // .then
-    if(this.state.isLike){
+
+    if(this.state.isLike ===true){
+      //count-- 시키는 요청
+      axios.post(`{http://${server_url}:3000/image/mainimage/${this.state.postId}}`)
+      //postid와 userid의 like join을 삭제하는 요청
+      axios.delete(`{http://${server_url}:3000/image/mainimage/${this.state.postId}}`)
+
       this.setState({
         isLike: false,
         likeCount : this.state.likeCount -1
       })
     }else{
+      //count++ 시키는 요청
+      axios.post(`{http://${server_url}:3000/image/mainimage/${this.state.postId}}`)
+      //postid와 userid를 like join 하는 요청
+      axios.delete(`{http://${server_url}:3000/image/mainimage/${this.state.postId}}`)
+
       this.setState({
         isLike: true,
         likeCount : this.state.likeCount +1
@@ -168,6 +224,8 @@ class PostDetail extends Component {
     this._getPostData(); //이 포스트에 대한 모든 정보
     //이 포스트에 대한 나의 정보
     this._getBookInfo();
+    this._getMainImage();
+    console.log('컴포넌트윌마운트이고요, this.props를 찍어보겠습니다.', this.props.location.state)
   }
 
   render() {
@@ -177,7 +235,8 @@ class PostDetail extends Component {
         {console.log(this.props)}
         <div className='post_detail'>
           <div className='post_detail_left'>
-            <div> <img height={window.innerHeight * 0.6} src={this.props.location.state.imgUrl} alt={this.mockData.title}/></div>
+            <div><img height={window.innerHeight * 0.6} src={this.state.imgsrc} alt={this.mockData.title}/>
+              </div>
             <h2>{this.mockData.title}</h2> 
             <div className='post_detail_content'>{this.mockData.content}</div> 
           </div>
@@ -185,7 +244,7 @@ class PostDetail extends Component {
           <div className='post_detail_right'>
 
             <div className='post_detail_right_1'>
-              <img src={this.mockData.userimg} className='img-circle' alt={this.props.location.state.username} />
+              <img src={this.state.imgsrc}/>
               {this.state.isFollowing ?
                   <h5 className='post_detail_following' onClick={this._handleFollowing}>팔로잉</h5> :
                   <h5 className='post_detail_follow' onClick={this._handleFollowing}>팔로우</h5>}
@@ -219,13 +278,10 @@ class PostDetail extends Component {
                 <span onClick={this._makeReply}><Icon name="pencil alternate" fitted size="large" /></span>
               </form>
             </div>
-            
-            
-            <div>
+            {/* <div>
             <input type="file" onChange={this.fileChangedHandler} />
             <button onClick={this.uploadHandler}>Upload!</button>
-            </div>
-
+            </div> */}
           </div>
         </div>
       </div>
