@@ -7,21 +7,10 @@ class Block extends Component {
   }
 
 _handleClick = (e) => {
-  if(e.target.id==='샵') {
-
-    this._toggleBlockStatus();
-
-    console.log(e.target)
-
-    /* this._selectedCallBack(") */
-
-    
-  } else {
-
+  
     this._toggleBlockStatus();
     this._selectedCallBack(e.target.id)
-    
-  }
+  
 }
 
 _changeCssonClick = () => {

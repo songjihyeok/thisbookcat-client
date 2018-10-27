@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 // import Nav1 from "../components/Nav1";
 import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
-import BackImg from '../img/backimg.png'
 
 class Login extends Component {
   state = {
@@ -28,14 +27,14 @@ class Login extends Component {
     e.preventDefault();
     console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
     
-    const body = {
+    const user = {
       emailId : this.state.email,
       password : this.state.password
     }; 
 
-    axios.post(`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`,
-     body, {headers:{'Access-Control-Allow-Origin':'*'}}
-    )
+    
+
+    axios.post(`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`, user)
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -55,7 +54,7 @@ class Login extends Component {
 
   _googleAuth = (e) => {
     axios.get('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/auth/google',{
-      header:{'Access-Control-Allow-Origin':'*'}
+      header:{'Access-Control-Allow-Origin':'*',}
     })
     .then(res => {
       console.log('google Auth res입니다.', res)
@@ -76,9 +75,7 @@ class Login extends Component {
       </div>)
     }else{
       return (
-        <Fragment>
-         {/*  <img src = {BackImg} alt='backgroundimg' className='backimg'/> */}
-           <div className='login_container' >
+        <div className='login_container' >
           <div className='login_container_1'>
             <div className='login_container_2'>
             <h5>책, 콘텐츠를 모두와 공유하기</h5>
@@ -101,7 +98,6 @@ class Login extends Component {
             </div>
           </div>
         </div>
-        </Fragment>
     );
   }}
 }

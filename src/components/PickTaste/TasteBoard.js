@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import {Button} from 'react-bootstrap'
+/* import {NavLink} from 'react-router-dom' */
 import axios from 'axios'
 
 import TasteBlock from './TasteBlock'
@@ -9,24 +10,25 @@ class TasteBoard extends Component {
     state = {
 
         taste: [
-            '#만화',
-            '#취업',
-            '#심리',
-            '#우울',
-            '#스타트업',
-            '#힐링',
-            '#여행',
-            '#블록체인',
-            '#스트레스',
-            '#pc게임',
-            '#영화',
+            '만화',
+            '취업',
+            '심리',
+            '우울',
+            '스타트업',
+            '힐링',
+            '여행',
+            '블록체인',
+            '스트레스',
+            'pc게임',
+            '영화',
             '샵'
         ],
 
-        userName:'',
+        userName:null,
 
+        selected: [],
 
-        selected: []
+        customTag: []
     }
 
     _collectSellection = (taste) => {
@@ -59,14 +61,8 @@ class TasteBoard extends Component {
     }
 
     _gotoMain = () => {
-        this.props.history.push('/main')
-    }
 
-    //서버에 취향 어레이 보내는 함수(go to main 함수와 같이 쓰면 될듯합니다.)//
-    _sendTastetoServer = () => {
-        axios.post ('서버주소', {taste: this.state.selected})
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
+        this.props.history.push('/main')
     }
 
     _renderTasteBlock = () => {
@@ -76,24 +72,63 @@ class TasteBoard extends Component {
         return tasteblocks
     }
 
-    _setUserName = (e) => {
+    _setUserName = () => {
+        
+        const inputData = document.getElementsByClassName('getUserName')[0].value
 
-        this.setState({userName:e.target.value})
+        console.log(inputData)
+
+        this.setState ({
+            userName:inputData
+        })
 
         console.log(this.state.userName)
+    }
 
+    _submitTasteNUserName = () => {
+
+        let token = window.localStorage.getItem('token')
+
+        let customNUser = {
+            preference : this.state.customTag,
+            userName: this.state.userName
+        }
+
+        let defaultTaste = {
+            defaultTags: this.state.selected
+        }
+
+        axios.post ('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/preference', customNUser, {
+            headers: {Authorization: `bearer ${token}`}
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+
+        axios.post ('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/defaultpreference', defaultTaste, {
+            headers: {Authorization: `bearer ${token}`}
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
+    _handleSubmit = async () => {
+
+        await this._setUserName()
+
+        this._submitTasteNUserName()
     }
 
   render() {
+      console.log(this.state.userName)
     return (
       <div className = 'TasteBoard'>
       <div className = 'WelcomeUser'>
-      <input type='text' className="getUserName" value={this.state.userName} onChange={this._setUserName}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
+      <input type='text' className="getUserName" /* onChange={} */></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
       </div>
       <div className = 'blockContainer'>
       {this._renderTasteBlock()}
       </div>
-      <Button className = 'selectComplete' onClick={this.state.selected.length<3?()=>{alert('취향 또는 장르를 3개이상 고르셔야 합니다.')}:this._gotoMain}>선택완료</Button>
+      <Button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</Button>
       </div>
     )
   }
