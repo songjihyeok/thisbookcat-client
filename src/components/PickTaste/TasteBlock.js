@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 
 class Block extends Component {
 
@@ -7,9 +7,21 @@ class Block extends Component {
   }
 
 _handleClick = (e) => {
-  this._toggleBlockStatus();
-  this._selectedCallBack(e.target.id)
-  
+  if(e.target.id==='샵') {
+
+    this._toggleBlockStatus();
+
+    console.log(e.target)
+
+    /* this._selectedCallBack(") */
+
+    
+  } else {
+
+    this._toggleBlockStatus();
+    this._selectedCallBack(e.target.id)
+    
+  }
 }
 
 _changeCssonClick = () => {
@@ -44,7 +56,7 @@ _toggleBlockStatus = () => {
   render() {
     return (
       <div className = 'Block' style ={{backgroundColor:this._changeCssonClick()}} id = {this.props.select} onClick={(e)=>{this._handleClick(e)}} key={this.props.key}>
-        <h1 className = 'tagName'>{this.props.select}</h1>
+        {this.props.select==='샵'?<Fragment><h1 className = 'tagName'>#</h1><input className='customTag'type="text"/></Fragment>:<h1 className = 'tagName'>{this.props.select}</h1>}
       </div>
     )
   }

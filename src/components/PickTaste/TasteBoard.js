@@ -20,10 +20,11 @@ class TasteBoard extends Component {
             '#스트레스',
             '#pc게임',
             '#영화',
-            '#'
+            '샵'
         ],
 
-        pageStatus: 'taste',
+        userName:'',
+
 
         selected: []
     }
@@ -75,11 +76,19 @@ class TasteBoard extends Component {
         return tasteblocks
     }
 
+    _setUserName = (e) => {
+
+        this.setState({userName:e.target.value})
+
+        console.log(this.state.userName)
+
+    }
+
   render() {
     return (
       <div className = 'TasteBoard'>
       <div className = 'WelcomeUser'>
-      Alejandra님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
+      <input type='text' className="getUserName" value={this.state.userName} onChange={this._setUserName}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
       </div>
       <div className = 'blockContainer'>
       {this._renderTasteBlock()}

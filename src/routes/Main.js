@@ -85,6 +85,7 @@ class Main extends Component {
   };
 
   render() {
+    console.log(window.localStorage.getItem('token'))
     //토큰이 없으면 로그인 페이지로 가라.
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />

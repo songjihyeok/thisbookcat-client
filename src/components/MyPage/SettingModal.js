@@ -13,28 +13,9 @@ class SettingModal extends Component {
     
     let file = document.querySelector('input[type=file]').files[0]
 
-    /* let reader = new FileReader() */
-
-    let formData = new FormData();
-
-    /* reader.onload = (e) => {
-
-      this.setState({
-        ImageData: e.target.result
-      })
-    }
-
-    reader.(file); */
-  
-    console.log('this should be binary form',this.state.ImageData)
-
-    formData.append('imgFiles', file)
-
     this.setState({
-      ImageData:formData
+      ImageData:file
     })
-
-    console.log('this should be formData', this.state.ImageData)
   }
 
   _postProfileImagetoServer = () => {
@@ -43,11 +24,17 @@ class SettingModal extends Component {
 
     const token = window.localStorage.getItem('token');
 
-    let filename = {
-      filename: this.state.ImageData
+    const formData = new FormData();
+
+    formData.append('imgFile', this.state.ImageData)
+
+    console.log(formData)
+
+    let file = {
+      formData
     }
 
-    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', filename, { headers: { 'Authorization': `bearer ${token}` }})
+    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update/', file, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
     .then(response => console.log(response))
     .catch(error => console.log(error))
   }
