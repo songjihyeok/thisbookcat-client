@@ -18,6 +18,7 @@ class Nav2 extends Component {
   }
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
   _sendPost = () => {
+
     console.log("Nav2.js 의 _sendPost 함수에서 this.props___",this.props)
 
     axios
@@ -29,6 +30,7 @@ class Nav2 extends Component {
         },
         {
           headers: {
+
             Authorization: `bearer ${window.localStorage.getItem('token')}`
           }
         }
@@ -40,6 +42,7 @@ class Nav2 extends Component {
         const config = {
         headers: {
           'content-type': 'multipart/form-data',
+
           'Authorization': `bearer ${window.localStorage.getItem('token')}`
          }};    
          formData.append('imgFile', this.props.posting.mainimage[0]);

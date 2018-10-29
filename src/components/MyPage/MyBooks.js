@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
+
+import { Item } from "../../../node_modules/semantic-ui-react";
+import Image from 'react-image-resizer';
 import server_url from '../../url.json';
-// import { Item } from "../../../node_modules/semantic-ui-react";
 
 
 class MyBooks extends Component {
@@ -11,7 +13,12 @@ class MyBooks extends Component {
 
 
   componentDidMount() {
+
+    const token = window.localStorage.getItem('token')
+
+    console.log(token)
     axios
+
       .get(`http://${server_url}:3001/api/post/27`, {
         headers: {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
@@ -33,8 +40,9 @@ class MyBooks extends Component {
           return (
             <div key={index}>
               <h1>Title : {item.title}</h1>
-              <h2>Contents: {item.contents}</h2>
-              <img src={item.mainImage.preview} alt={index} />
+              <h1 dangerouslySetInnerHTML={{__html:item.contents}}></h1>
+              <Image src={`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/upload/${item.mainImage}`} alt={index}  height={240}
+          width={240}/>
             </div>
           );
         })}
