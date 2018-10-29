@@ -60,7 +60,6 @@ class MyLike extends Component {
     return (
       <div className="MyLike">
         <Nav1 />
-
         {this.state.likePosts.length ? 
           this.state.likePosts.map((likePost, index) => <LikeBookBoard likePost={likePost} key={index}/>) :
           "Loading"}

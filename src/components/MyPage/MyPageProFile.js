@@ -79,7 +79,7 @@ class MyPageProFile extends Component {
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
-          <img className="ProfilePhoto" src={this.state.ProfileImage} alt="" />
+          <Image className="ProfilePhoto" src={this.state.ProfileImage} alt="" width={200} height={200} />
         </div>
         <div className="ProFileDetail">
           <span className="ID_user">{this.state.author}</span>

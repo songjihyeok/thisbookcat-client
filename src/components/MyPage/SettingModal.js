@@ -15,6 +15,7 @@ class SettingModal extends Component {
     this.setState({
       ImageData:file
     })
+  }
 
   _handlingImage= (files) =>{
     console.log(files);
