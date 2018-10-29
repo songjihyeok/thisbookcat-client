@@ -5,49 +5,19 @@ import Nav1 from '../components/Nav1';
 import Reply from '../components/PostDetail/Reply';
 import "../components/PostDetail/PostDetail.css";
 import BookInfoModal from '../components/PostDetail/BookInfoModal';
+import server_url from '../url.json';
 
 class PostDetail extends Component {
-  
-  mockData = 
-    {
-      username : '제니퍼 로렌스',
-      userimg : 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQzMjgyNDgwNjIxODIzNTU5/jennifer-lawrence_gettyimages-626382596jpg.jpg',
-      thumbnail : 'https://s2982.pcdn.co/wp-content/uploads/2014/08/HP_hc_new_1.jpeg',
-      title : 'Harry Potter and Philosopher\'s Stone',
-      content : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor possimus laboriosam porro obcaecati minus ipsa hic, alias eveniet explicabo id, quaerat et, expedita voluptatibus vitae ex perferendis similique illum blanditiis velit? Voluptate molestiae hic ipsam est tempora sapiente dolore suscipit. Quia sunt voluptates, est, at placeat aliquam soluta voluptas sequi architecto quas dolorum saepe. Assumenda blanditiis iste, modi aliquid voluptatum doloribus sequi saepe dolores atque alias fuga quasi nesciunt magnam qui, aspernatur eum, est perspiciatis mollitia. Earum in culpa qui eos quia alias corporis libero, labore, ipsa quam, suscipit iure veritatis velit dolor error. Adipisci cumque provident vero cum hic aspernatur molestiae beatae nulla recusandae pariatur, sed, ipsum eaque nobis id at. Esse expedita numquam accusantium ut recusandae sint explicabo est rerum nobis minima tenetur possimus, labore modi culpa consectetur dolorum, atque tempora, odio dolore repellat rem distinctio vitae totam eum? Maiores facere, sapiente numquam, culpa commodi perspiciatis dolore ab aliquid optio quaerat mollitia nobis harum doloremque distinctio. Illo quia atque harum unde deleniti quas. Quis possimus, harum quod, ducimus itaque dolorum quidem aut nisi quae labore facere est consequuntur, ex laborum? Delectus tempora incidunt quae amet facilis aut velit fuga sed dolore dignissimos dicta odio quo dolorem iste consequatur deleniti quam iusto quibusdam facere blanditiis accusantium, quia est dolor illum! Suscipit fuga maxime eaque incidunt beatae odit et animi officiis alias officia aperiam ipsum natus sed hic, in quidem magnam quibusdam harum omnis exercitationem dolore eum at pariatur sapiente! Quidem dolores, molestias itaque, soluta distinctio illum a ipsam ipsa deleniti officiis tempore? Eum, blanditiis mollitia iure a aspernatur placeat autem, debitis qui quod similique ut corrupti. Laborum, provident! Assumenda eum placeat ad debitis voluptates deleniti velit est ab unde voluptatum reprehenderit at ipsam eveniet, aperiam dicta corporis fuga beatae architecto? Deserunt soluta deleniti eum dolore repellendus possimus iure illo reiciendis culpa ex eveniet facilis ratione at, nisi eaque magni nobis aut cupiditate quia dicta omnis velit. Quibusdam quo molestiae, quis aliquid illo dolorum velit ad, inventore quaerat, fugiat dolores officiis voluptate vero necessitatibus distinctio numquam! Quisquam doloremque veritatis, debitis perspiciatis officiis est unde totam! Repellat, repellendus! Alias quis repellendus minima aperiam pariatur quia deserunt quod explicabo blanditiis vitae maxime placeat voluptatibus, corrupti eligendi nobis ducimus quaerat! Delectus cum quam pariatur, quaerat saepe at quas optio eum, quia eaque porro quasi quisquam laboriosam praesentium minus sequi dolor doloribus. Quae, expedita obcaecati ad hic vel mollitia neque optio minima porro. Optio ad nihil accusantium officiis aut maiores dolorum consectetur alias esse architecto placeat perferendis reprehenderit nesciunt modi, vel soluta eius quo debitis deleniti omnis, est quod! Architecto earum tempore recusandae eius debitis ullam veritatis sapiente eos voluptates nisi modi quam, aliquam laboriosam error minima omnis asperiores facilis nemo officia, eligendi quae nihil odit saepe? Laborum, magni debitis non autem ad nesciunt culpa qui dolorum incidunt, accusantium aspernatur inventore perspiciatis placeat, optio explicabo quis praesentium. Reprehenderit velit quae excepturi, illum possimus optio deleniti dicta ab facilis, iusto consequatur saepe aliquid at ipsa tenetur veritatis, explicabo iure odio mollitia architecto omnis quasi. Ipsa.',
-      reply : [
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '지혁', msg: '안녕하세요'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'},
-        {username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-        {username: '명우', msg: '해리포터 좋아요!'},
-        {username: '원석', msg: 'Na to the Fla'}
-       ],
-      isLike : true,
-      likeCount:5,
-      isFollowing: false,
-    }
-
   state = {
+    postId : 10,
+    // postId는 props로 받아야 함.
+    userId: '',
+    createdTime: '',
     thumbnail : '',
     title : '',
-    content: '',
+    contents: '',
+    likeCount: null, //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
+    
     reply: [
       {reply_id:1, username: '지혁', msg: '안녕하세요'},
       {reply_id:2, username: '명우', msg: '해리포터 좋아요!'},
@@ -73,7 +43,6 @@ class PostDetail extends Component {
      ],
     replyCount : '', //댓글 갯수
     isLike: false, // 지금 보고있는 유저가 이 포스트를 좋아하는지 아닌지 (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)- 클릭 하냐 마냐에 따라 likecount 도 변동되어야 함.
-    likeCount: 10, //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
     bookInfo: '',
     show : false,
     yap: '',
@@ -82,27 +51,82 @@ class PostDetail extends Component {
     selectedFile: null,
   }
 
-  fileChangedHandler = (e) => {
-    this.setState({selectedFile: e.target.files[0]})
-  }
+  // fileChangedHandler = (e) => {
+  //   this.setState({selectedFile: e.target.files[0]})
+  // }
 
-  uploadHandler = () => {
-    console.log(this.state.selectedFile)
-
-    const formData = new FormData()
-    formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name)
-    axios.post('/file-upload', formData)
-    // axios.post('/file-upload', formData, {
-    // onUploadProgress: progressEvent => {
-    //   console.log(progressEvent.loaded / progressEvent.total)
-    // }
-    // })
-  }
 
   _getPostData = () => {
-    // this.props 가 어떻게 오는지 봐야함.
-    // axios.get()
+    // console.log("this.props:",this.props)
+      axios.get(`http://${server_url}:3000/api/post/${this.state.postId}`,{
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
+      })
+       .then((res) => {
+         console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res', res);
+        this.setState({
+          thumbnail: `http://${server_url}:3000/upload/${res.data.mainImage}`,
+          contents: res.data.contents,
+          createdTime: res.data.createdTime,
+          likeCount: res.data.likeCount,
+          title: res.data.title,
+          userId: res.data.userId,
+        })
+       })
+       .catch(err => console.log('_getPostData get 못받음. error', err))
+      }
+
+  // _getUserData = () => {
+      // axios.get(`http://${server_url}:3000/api/user/${this.state.userId}`,{
+      //   headers: {
+      //     Authorization: `bearer ${window.localStorage.getItem('token')}`
+      //   }
+      // })
+  // }
+
+  _handleLike = () => {
+    //레몬에 온클릭 함수로 걸고있음.
+    //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
+
+    if(this.state.isLike){
+      //count-- 시키는 요청
+      //postid와 userid의 like join을 삭제하는 요청
+
+      axios.delete(`http://${server_url}:3000/api/like/${this.state.postId}`, {
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
+      })
+      .then(res => {
+        console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res___", res)
+
+        this.setState({
+          isLike: false,
+          likeCount : this.state.likeCount -1
+        })
+      })
+      .catch(err => console.log("_handleLike함수에서 axios.delete 요청 실패", err))
+    }else{
+      //count++ 시키는 요청
+      //postid와 userid를 like join 하는 요청
+      axios.post(`http://${server_url}:3000/api/like/${this.state.postId}`, {}, {
+        headers: {
+          Authorization: `bearer ${window.localStorage.getItem('token')}`
+        }
+      })
+      .then(res => {
+        console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res___", res)
+
+        this.setState({
+          isLike: true,
+          likeCount : this.state.likeCount +1
+        })
+      })
+      .catch(err => console.log("_handleLike함수에서 axios.post 요청 실패", err))
+    }
   }
+
 
   _newReply = (e) => {
     this.setState({comment: e.target.value})
@@ -123,24 +147,6 @@ class PostDetail extends Component {
 
   _getBookInfo = () => {
     //알라딘에서 책 정보 가져오기
-  }
-
-  _handleLike = () => {
-    //레몬에 온클릭 함수로 걸고있음.
-    //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
-    // axios.put
-    // .then
-    if(this.state.isLike){
-      this.setState({
-        isLike: false,
-        likeCount : this.state.likeCount -1
-      })
-    }else{
-      this.setState({
-        isLike: true,
-        likeCount : this.state.likeCount +1
-      })
-    }
   }
 
   _handleClose = () => {
@@ -165,9 +171,9 @@ class PostDetail extends Component {
   }
 
   componentWillMount(){
-    this._getPostData(); //이 포스트에 대한 모든 정보
-    //이 포스트에 대한 나의 정보
+    this._getPostData(); 
     this._getBookInfo();
+    console.log('PostDatail.js의 ComponentWillMount 함수에서 this.props를 찍어보겠습니다___', this.props.location.state)
   }
 
   render() {
@@ -177,19 +183,20 @@ class PostDetail extends Component {
         {console.log(this.props)}
         <div className='post_detail'>
           <div className='post_detail_left'>
-            <div> <img height={window.innerHeight * 0.6} src={this.props.location.state.imgUrl} alt={this.mockData.title}/></div>
-            <h2>{this.mockData.title}</h2> 
-            <div className='post_detail_content'>{this.mockData.content}</div> 
+            <div><img height={window.innerHeight * 0.6} src={this.state.thumbnail} alt={this.state.title}/>
+              </div>
+            <h2>{this.state.title}</h2> 
+            <div className='post_detail_content'>{this.state.contents}</div> 
           </div>
 
           <div className='post_detail_right'>
 
             <div className='post_detail_right_1'>
-              <img src={this.mockData.userimg} className='img-circle' alt={this.props.location.state.username} />
+              <img src={this.state.thumbnail} className='img-circle' alt={"hello"} />
               {this.state.isFollowing ?
                   <h5 className='post_detail_following' onClick={this._handleFollowing}>팔로잉</h5> :
                   <h5 className='post_detail_follow' onClick={this._handleFollowing}>팔로우</h5>}
-              <h3 className='post_detail_username'>{this.props.location.state.username}</h3>
+              <h3 className='post_detail_username'>{this.state.userId}</h3>
             </div>
 
             <div className='post_detail_right_2'>
@@ -219,13 +226,6 @@ class PostDetail extends Component {
                 <span onClick={this._makeReply}><Icon name="pencil alternate" fitted size="large" /></span>
               </form>
             </div>
-            
-            
-            <div>
-            <input type="file" onChange={this.fileChangedHandler} />
-            <button onClick={this.uploadHandler}>Upload!</button>
-            </div>
-
           </div>
         </div>
       </div>

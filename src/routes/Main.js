@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+// import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 

@@ -4,6 +4,7 @@ import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
+import url from '../url.json';
 
 class Login extends Component {
   state = {
@@ -32,9 +33,10 @@ class Login extends Component {
       password : this.state.password
     }; 
 
+
     
 
-    axios.post(`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`, user)
+    axios.post(`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`, user, {headers:{'Access-Control-Allow-Origin':'*'})
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -53,8 +55,10 @@ class Login extends Component {
   }
 
   _googleAuth = (e) => {
-    axios.get('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/auth/google',{
-      header:{'Access-Control-Allow-Origin':'*',}
+    
+    /*axios.get(`{http://${url}:3000/api/post/postId}`)*/
+    axios.get('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/auth/google',{
+      header:{'Access-Control-Allow-Origin':'*'}
     })
     .then(res => {
       console.log('google Auth res입니다.', res)
