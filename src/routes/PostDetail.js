@@ -18,6 +18,10 @@ class PostDetail extends Component {
     contents: '',
     likeCount: null, //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
     
+    isLike: false, // 지금 보고있는 유저가 이 포스트를 좋아하는지 아닌지 (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)- 클릭 하냐 마냐에 따라 likecount 도 변동되어야 함.
+    
+
+
     reply: [
       {reply_id:1, username: '지혁', msg: '안녕하세요'},
       {reply_id:2, username: '명우', msg: '해리포터 좋아요!'},
@@ -42,7 +46,6 @@ class PostDetail extends Component {
       {reply_id:21, username: '원석', msg: 'Na to the Fla'}
      ],
     replyCount : '', //댓글 갯수
-    isLike: false, // 지금 보고있는 유저가 이 포스트를 좋아하는지 아닌지 (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)- 클릭 하냐 마냐에 따라 likecount 도 변동되어야 함.
     bookInfo: '',
     show : false,
     yap: '',
