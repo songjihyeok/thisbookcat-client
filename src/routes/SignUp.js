@@ -4,7 +4,6 @@ import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import server_url from '../url.json';
-// import SignUpErr from '../components/SignUp/SignUpErr';
 
 class SignUp extends Component {
   state = {
@@ -47,7 +46,8 @@ class SignUp extends Component {
       
       console.log('signUp is ready_', user)
 
-      axios.post(`http://${server_url}:3000/api/user`, user)
+      // axios.post(`http://${server_url}:3000/api/user`, user)
+      axios.post(`http://${server_url}:3000/api/user`, user, {headers:{'Access-Control-Allow-Origin':'*'}})
       .then(res => {
         console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
         console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);

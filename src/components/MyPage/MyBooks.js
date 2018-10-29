@@ -16,7 +16,7 @@ class MyBooks extends Component {
     const token = window.localStorage.getItem('token')
 
     console.log(token)
-    axios.get(`http://${server_url}:3000/api/post/27`, {
+    axios.get(`http://${server_url}:3000/api/post/mypage`, {
         headers: {
           Authorization: `bearer ${token}`
         }
@@ -38,7 +38,7 @@ class MyBooks extends Component {
             <div key={index}>
               <h1>Title : {item.title}</h1>
               <h1 dangerouslySetInnerHTML={{__html:item.contents}}></h1>
-              <Image src={`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/upload/${item.mainImage}`} alt={index}  height={240}
+              <Image src={`http://${server_url}:3000/upload/${item.mainImage}`} alt={index}  height={240}
           width={240}/>
             </div>
           );

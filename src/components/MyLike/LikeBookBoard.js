@@ -15,7 +15,7 @@ class LikeBookBoard extends Component {
                 }
             }}>
                 <div className ='LikeBookBoard'>
-                    <img className = 'likeThumbnail' src = {`http://${server_url}:3000/upload/${this.props.likePost.mainImage}`} alt='bookcover' />
+                    <img className = 'likeThumbnail' src = {`http://${server_url}:3000/upload/${this.props.likePost.mainImage}`} alt='bookcover'/>
                 </div>
             </Link>
 

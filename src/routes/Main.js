@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-// import server_url from '../url.json';
+import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 
@@ -28,10 +28,10 @@ class Main extends Component {
 
     if(scrollTop + clientHeight === scrollHeight) {
       
-      this.setState({
+     /*  this.setState({
         preItems: this.state.items,
         items: this.state.items+20,
-      })
+      }) */
 
       this._getUrls()
       
@@ -75,11 +75,13 @@ class Main extends Component {
   };
 
   _callBookCoverAPI = () => {
-    const booklistAPI = "https://picsum.photos/list";
-    return axios.get(booklistAPI)
+
+    let token = window.localStorage.getItem('token')
+
+    return axios.get(`http://${server_url}:3000/api/userTagpost`,{headers:{Authorization: `bearer ${token}` }})
     .then((response) => {
-      console.log(response.data)
-      let result = response.data.slice(this.state.preItems,this.state.items)
+      console.log('there should be data here',response.data)
+      let result = response.data
       console.log(result)
       return result;
       })

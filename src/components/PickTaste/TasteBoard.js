@@ -4,6 +4,8 @@ import {Button} from 'react-bootstrap'
 import axios from 'axios'
 import server_url from '../../url.json'
 
+
+
 import TasteBlock from './TasteBlock'
 
 class TasteBoard extends Component {
@@ -25,7 +27,7 @@ class TasteBoard extends Component {
             '샵'
         ],
 
-        userName:null,
+        userName: '',
 
         selected: [],
 
@@ -87,16 +89,19 @@ class TasteBoard extends Component {
     }
 
     _submitTasteNUserName = () => {
+
+        /* await this._setUserName() */
+
         let token = window.localStorage.getItem('token')
 
         let customNUser = {
-            preference : this.state.customTag,
+            preference : this.state.selected,
             userName: this.state.userName
         }
 
-        let defaultTaste = {
+        /* let defaultTaste = {
             defaultTags: this.state.selected
-        }
+        } */
 
         axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
             headers: {Authorization: `bearer ${token}`}
@@ -104,11 +109,11 @@ class TasteBoard extends Component {
         .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res___', res))
         .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 err___', err))
 
-        axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
-            headers: {Authorization: `bearer ${token}`}
-        })
-        .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 res___', res))
-        .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
+        // axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
+        //     headers: {Authorization: `bearer ${token}`}
+        // })
+        // .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 res___', res))
+        // .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
     }
     //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
     _handleSubmit = async () => {

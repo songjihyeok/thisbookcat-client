@@ -20,7 +20,7 @@ class Nav2 extends Component {
   _sendPost = () => {
 
     console.log("Nav2.js 의 _sendPost 함수에서 this.props___",this.props)
-
+    console.log(window.localStorage.getItem('token'))
     axios
       .post(
         `http://${server_url}:3000/api/post/`,
@@ -30,7 +30,6 @@ class Nav2 extends Component {
         },
         {
           headers: {
-
             Authorization: `bearer ${window.localStorage.getItem('token')}`
           }
         }
