@@ -3,6 +3,9 @@ import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import server_url from '../url.json';
+
+
 
 class SignUp extends Component {
   state = {
@@ -51,7 +54,7 @@ class SignUp extends Component {
       
       console.log('signUp is ready_', user)
 
-      axios.post(`http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user`, user)
+      axios.post(`http://${server_url}:3000/api/user`, user, {headers:{'Access-Control-Allow-Origin':'*'}})
       .then(res => {
         console.log('res', res);
         console.log('res.data', res.data);

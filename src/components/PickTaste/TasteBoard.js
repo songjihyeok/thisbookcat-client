@@ -3,6 +3,10 @@ import {Button} from 'react-bootstrap'
 /* import {NavLink} from 'react-router-dom' */
 import axios from 'axios'
 
+import server_url from '../../url.json';
+
+
+
 import TasteBlock from './TasteBlock'
 
 class TasteBoard extends Component {
@@ -24,7 +28,7 @@ class TasteBoard extends Component {
             '샵'
         ],
 
-        userName:null,
+        userName: '',
 
         selected: [],
 
@@ -87,35 +91,37 @@ class TasteBoard extends Component {
 
     _submitTasteNUserName = () => {
 
+        /* await this._setUserName() */
+
         let token = window.localStorage.getItem('token')
 
         let customNUser = {
-            preference : this.state.customTag,
+            preference : this.state.selected,
             userName: this.state.userName
         }
 
-        let defaultTaste = {
+        /* let defaultTaste = {
             defaultTags: this.state.selected
-        }
+        } */
 
-        axios.post ('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/preference', customNUser, {
+        axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
             headers: {Authorization: `bearer ${token}`}
         })
         .then(res => console.log(res))
         .catch(err => console.log(err))
 
-        axios.post ('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/defaultpreference', defaultTaste, {
+        /* axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
             headers: {Authorization: `bearer ${token}`}
         })
         .then(res => console.log(res))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err)) */
     }
 
     _handleSubmit = async () => {
 
         await this._setUserName()
 
-        this._submitTasteNUserName()
+        await this._submitTasteNUserName()
     }
 
   render() {
