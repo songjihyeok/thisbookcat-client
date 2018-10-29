@@ -8,13 +8,19 @@ class SettingModal extends Component {
   state = {
     files:[]
   }
+  _getProfileImage = () => {
+    
+    let file = document.querySelector('input[type=file]').files[0]
+
+    this.setState({
+      ImageData:file
+    })
 
   _handlingImage= (files) =>{
     console.log(files);
     this.setState({
       files : this.state.files.concat(files)
     })
-
   }
 
 
@@ -24,7 +30,19 @@ class SettingModal extends Component {
 
     const token = window.localStorage.getItem('token');
 
-    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', this.imageData, { headers: { 'Authorization': `bearer ${token}` }})
+
+    const formData = new FormData();
+
+    formData.append('imgFile', this.state.ImageData)
+
+    console.log(formData)
+
+    let file = {
+      formData
+    }
+
+    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update/', file, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
+    /*axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', this.imageData, { headers: { 'Authorization': `bearer ${token}` }})*/
     .then(response => console.log(response))
     .catch(error => console.log(error))
   }
