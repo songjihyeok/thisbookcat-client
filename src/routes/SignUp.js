@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import server_url from '../url.json';
 
-
-
 class SignUp extends Component {
   state = {
     email : '',
@@ -14,6 +12,7 @@ class SignUp extends Component {
     confirmPassword : true,
     signUp_Done : false,
     signUp_Err: false,
+    postedEmail:'',
   }
 
   _setEmail = (e) => {
@@ -44,39 +43,36 @@ class SignUp extends Component {
         emailId : this.state.email,
         password : this.state.password
       };
-    
-      // TODO: {"emailId":"sueminee@gmail.com", "password": "123"} 이렇게 보내라길래.
-      // 아래처럼 제이슨스트링거파이 했더니 400에러뜸.
-      // const user = JSON.stringify({
-      //   emailId : this.state.email,
-      //   password : this.state.password
-      // }); 
       
       console.log('signUp is ready_', user)
 
+      // axios.post(`http://${server_url}:3000/api/user`, user)
       axios.post(`http://${server_url}:3000/api/user`, user, {headers:{'Access-Control-Allow-Origin':'*'}})
       .then(res => {
-        console.log('res', res);
-        console.log('res.data', res.data);
-        if(res.status === 200){
+        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
+        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);
+        // if(res.status === 200){
           this.setState({
             signUp_Done : true,
             signUp_Err : false,
+            postedEmail : user.emailId, 
           })
-
-        }else{
+      })
+      .catch(err => {
+        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 실패후 받는 err__', err)
+        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 실패후 받는 err.response.status__', err.response.status)
+        if(err.response.status === 400){ //400err 면 이미 가입 되어있는 아이디입니다.
           this.setState({
             signUp_Done : false,
-            signUp_Err : true})
-            // TODO:sign up 실패했다는 신호가 나오면, 이메일 비밀번호가 일치하지 않습니다.
-            // alert창? 띄우기? 아니면 그 메세지div만 추가?
+            signUp_Err : true,
+            postedEmail : user.emailId,
+          })
         }
       })
     }
   }
 
   render() {
-    // TODO: 서버랑 통신되면 여기 주석 풀기
     if(this.state.signUp_Done){
       return(
         <div>
@@ -84,13 +80,13 @@ class SignUp extends Component {
             <Link to="/"><div>로그인하러 가기</div></Link>
         </div>
       )
-    }else if(this.state.signUp_Err){
-      return(
-        <div>
-          <div>회원가입에 실패했습니다.</div>
-            <Link to="/signup"><div>다시 회원가입하러 가기</div></Link>
-        </div>
-      )
+    // }else if(this.state.signUp_Err){
+    //   return(
+    //      <div>
+    //       <div>{this.state.email}은 이미 가입되어 있는 아이디입니다.</div>
+    //         <Link to="/signup"><div height="800px">다시 회원가입하러 가기</div></Link>
+    //     </div> 
+    //   )
     }else{
       return (
         <div className='login_container' >
@@ -99,6 +95,9 @@ class SignUp extends Component {
             <h5>책, 콘텐츠를 모두와 공유하기</h5>
             <h1>이책반냥<Icon name="paw" size="small" /></h1>
             <h3>회원가입하기</h3>
+            { this.state.signUp_Err ?
+            <div>{this.state.postedEmail}은 이미 가입되어 있는 아이디입니다.</div> :
+            <div></div>}
             </div>
             <form onSubmit={this._handleSubmit}>
               <div className='signup_email'>

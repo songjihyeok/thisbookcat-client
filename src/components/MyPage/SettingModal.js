@@ -25,6 +25,7 @@ class SettingModal extends Component {
   }
 
 
+
   _postProfileImagetoServer = () => {
 
     console.log(this.state.ImageData)

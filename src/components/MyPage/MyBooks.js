@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-
-import { Item } from "../../../node_modules/semantic-ui-react";
+// import { Item } from "../../../node_modules/semantic-ui-react";
 import Image from 'react-image-resizer';
 import server_url from '../../url.json';
 
