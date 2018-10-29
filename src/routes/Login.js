@@ -4,80 +4,80 @@ import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
-import url from '../url.json';
+import server_url from '../url.json';
 
 class Login extends Component {
   state = {
     email : '',
     password : '',
     isLogin : false,
-    login_err:false,
+    login_err: false,
+    preference: [],
   }
 
   _setEmail = (e) => {
-    console.log('Login.js의 setEmail함수입니다. e.target.value 찍는중', e.target.value)
+    console.log('Login.js의 setEmail함수입니다. e.target.value___', e.target.value)
     this.setState({email : e.target.value});
   }
 
   _setPassword = (e) => {
-    console.log('Login.js의 setPw함수입니다. e.target.value 찍는중', e.target.value)
+    console.log('Login.js의 setPw함수입니다. e.target.value___', e.target.value)
     this.setState({password : e.target.value});
   }
 
   _handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
-    
+    console.log('Login.js의 handleSubmit함수입니다. this.state___', this.state)
     const user = {
       emailId : this.state.email,
       password : this.state.password
     }; 
 
-
-    
-
-    axios.post(`http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/login`, user, {headers:{'Access-Control-Allow-Origin':'*'})
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        if(res.status===200){
-          window.localStorage.setItem('token', res.data)
+    axios.post(`http://${server_url}:3000/api/user/login`, user, {headers:{'Access-Control-Allow-Origin':'*'}})
+      .then(res => { //여기로 들어왔다는건 axios.post 성공했다는 거
+        window.localStorage.setItem('token', res.data) //받은 토큰을 localStorage에 심고,
+        
+        axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{ //preference가 있는지 확인한다.
+          headers: {
+            Authorization: `bearer ${res.data}`
+          }
+        })
+        .then(res => {
+          console.log('pickedOrnot에 get요청 후 받는 res___', res)
           this.setState({
             isLogin : true,
-            login_err : false})
-        }else{
-          this.setState({
-            isLogin : false,
-            login_err : true})
-          // 이메일 혹은 비밀번호가 올바르지 않습니다.
-        }
+            login_err : false,
+            preference : res.data,
+            })
+          
+        })
+      })
+      .catch(err => {
+        console.log('login.js > _handleSubmit함수에서 axios.post 요청보냈는데, err___', err)
+        this.setState({
+              isLogin : false,
+              login_err : true})
       })
   }
 
-  _googleAuth = (e) => {
-    
-    /*axios.get(`{http://${url}:3000/api/post/postId}`)*/
-    axios.get('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/auth/google',{
-      header:{'Access-Control-Allow-Origin':'*'}
-    })
-    .then(res => {
-      console.log('google Auth res입니다.', res)
-    })
-  }
+  // _googleAuth = (e) => {
+  //   /*axios.get(`{http://${url}:3000/api/post/postId}`)*/
+  //   axios.get(`http://${server_url}:3000/auth/google`, {
+  //     header:{'Access-Control-Allow-Origin':'*'}
+  //   })
+  //   .then(res => {
+  //     console.log('google Auth res입니다.', res)
+  //   })
+  // }
 
   render() {
-    // TODO: 서버랑 통신되면 여기 주석 풀기
-    if(window.localStorage.getItem('token')){
+    if(window.localStorage.getItem('token') && this.state.preference.length){
       return <Redirect to ='/' />;
     }
-    else if(this.state.login_err){
-      return(
-      <div>
-          <h1>로그인할 수 없습니다.</h1>
-          <h2>이메일 혹은 비밀번호가 올바르지 않습니다.</h2>
-          <Link to="/signup"><h4>다시 회원가입하러 가기</h4></Link>
-      </div>)
-    }else{
+    else if(window.localStorage.getItem('token') && this.state.preference.length===0){
+      return <Redirect to ='/picktaste' />;
+    }
+    else{
       return (
         <div className='login_container' >
           <div className='login_container_1'>
@@ -85,6 +85,15 @@ class Login extends Component {
             <h5>책, 콘텐츠를 모두와 공유하기</h5>
             <h1>이책반냥<Icon name="paw" size="small" /></h1>
             <h3>이책반냥에 오신 것을 환영합니다.</h3>
+            {this.state.login_err
+              ?
+              <div>
+                <div>로그인할 수 없습니다.</div>
+                <div>이메일 혹은 비밀번호가 올바르지 않습니다.</div>
+              </div>
+               :
+              <div></div>
+              }
             </div>
             <form onSubmit={this._handleSubmit}>
               <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요" onChange={this._setEmail}></input></div>

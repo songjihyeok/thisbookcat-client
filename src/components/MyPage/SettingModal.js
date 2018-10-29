@@ -15,6 +15,7 @@ class SettingModal extends Component {
     this.setState({
       ImageData:file
     })
+  }
 
   _handlingImage= (files) =>{
     console.log(files);
@@ -22,6 +23,7 @@ class SettingModal extends Component {
       files : this.state.files.concat(files)
     })
   }
+
 
 
   _postProfileImagetoServer = () => {

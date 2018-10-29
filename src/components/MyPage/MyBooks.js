@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-
-import { Item } from "../../../node_modules/semantic-ui-react";
+// import { Item } from "../../../node_modules/semantic-ui-react";
 import Image from 'react-image-resizer';
 import server_url from '../../url.json';
 
@@ -17,11 +16,9 @@ class MyBooks extends Component {
     const token = window.localStorage.getItem('token')
 
     console.log(token)
-    axios
-
-      .get(`http://${server_url}:3001/api/post/27`, {
+    axios.get(`http://${server_url}:3000/api/post/27`, {
         headers: {
-          Authorization: `bearer ${window.localStorage.getItem('token')}`
+          Authorization: `bearer ${token}`
         }
       })
       .then(response => {

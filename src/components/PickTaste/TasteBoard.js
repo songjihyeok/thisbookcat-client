@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import {Button} from 'react-bootstrap'
 /* import {NavLink} from 'react-router-dom' */
 import axios from 'axios'
+import server_url from '../../url.json'
 
 import TasteBlock from './TasteBlock'
 
@@ -35,7 +36,7 @@ class TasteBoard extends Component {
         this.setState({
             selected: [...this.state.selected, taste]
         })
-        console.log(this.state.selected)
+        console.log('TasteBoard.js > _collectSellection 함수에서 this.state.selected___', this.state.selected)
     }
 
 
@@ -49,7 +50,7 @@ class TasteBoard extends Component {
             selected: array
         })
 
-        console.log(this.state.selected)
+        console.log('TasteBoard.js > _deleteSellection 함수에서 this.state.selected___', this.state.selected)
     }
 
     _isSelected = () => {
@@ -76,17 +77,16 @@ class TasteBoard extends Component {
         
         const inputData = document.getElementsByClassName('getUserName')[0].value
 
-        console.log(inputData)
+        console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
 
         this.setState ({
             userName:inputData
         })
 
-        console.log(this.state.userName)
+        console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
     }
 
     _submitTasteNUserName = () => {
-
         let token = window.localStorage.getItem('token')
 
         let customNUser = {
@@ -98,28 +98,26 @@ class TasteBoard extends Component {
             defaultTags: this.state.selected
         }
 
-        axios.post ('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/preference', customNUser, {
+        axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
             headers: {Authorization: `bearer ${token}`}
         })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res___', res))
+        .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 err___', err))
 
-        axios.post ('http://ec2-13-209-72-215.ap-northeast-2.compute.amazonaws.com:3000/api/user/defaultpreference', defaultTaste, {
+        axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
             headers: {Authorization: `bearer ${token}`}
         })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 res___', res))
+        .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
     }
-
+    //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
     _handleSubmit = async () => {
-
         await this._setUserName()
-
-        this._submitTasteNUserName()
+        await this._submitTasteNUserName()
     }
 
   render() {
-      console.log(this.state.userName)
+      console.log('render함수에서 this.state.userName___' , this.state.userName)
     return (
       <div className = 'TasteBoard'>
       <div className = 'WelcomeUser'>
