@@ -1,9 +1,11 @@
 import React, { Component} from 'react'
 import {Button} from 'react-bootstrap'
-/* import {NavLink} from 'react-router-dom' */
+/* import {Link} from 'react-router-dom' */
+import { withRouter } from "react-router-dom";
 import axios from 'axios'
 import server_url from '../../url.json'
 
+import './CSS/PickTaste.css'
 
 
 import TasteBlock from './TasteBlock'
@@ -65,7 +67,9 @@ class TasteBoard extends Component {
 
     _gotoMain = () => {
 
-        this.props.history.push('/main')
+        console.log('there should be history in here', this.props)
+
+        this.props.history.push('/')
     }
 
     _renderTasteBlock = () => {
@@ -119,6 +123,7 @@ class TasteBoard extends Component {
     _handleSubmit = async () => {
         await this._setUserName()
         await this._submitTasteNUserName()
+        await this._gotoMain()
     }
 
   render() {
@@ -131,10 +136,10 @@ class TasteBoard extends Component {
       <div className = 'blockContainer'>
       {this._renderTasteBlock()}
       </div>
-      <Button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</Button>
+    <Button className = 'selectComplete' onClick={this.state.selected.length<3?()=>{alert('3개이상 고르셔야합니다!')}:this._handleSubmit}>선택완료</Button>
       </div>
     )
   }
 }
 
-export default TasteBoard 
+export default withRouter(TasteBoard) 

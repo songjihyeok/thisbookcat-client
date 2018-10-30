@@ -66,9 +66,9 @@ class MyPageProFile extends Component {
     console.log(this.state.imagetoServer)
   }
 
-  _getProfileImage = () => {
+  /* _getProfileImage = () => {
 
-  }
+  } */
 
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
