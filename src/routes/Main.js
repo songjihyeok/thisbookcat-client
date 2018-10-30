@@ -53,7 +53,7 @@ class Main extends Component {
   _renderBooKCoverImage = () => {
     if(this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
-          return <BookBoard url={url.id} author={url.author} key={url.filename}/>;
+          return <BookBoard url={url.mainImage} postid={url.id}/>;
       });
       return bookcover;
     }
@@ -78,7 +78,7 @@ class Main extends Component {
 
     let token = window.localStorage.getItem('token')
 
-    return axios.get(`http://${server_url}:3000/api/userTagpost`,{headers:{Authorization: `bearer ${token}` }})
+    return axios.get(`http://${server_url}:3000/api/userTagpost`,{headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
       console.log('there should be data here',response.data)
       let result = response.data
