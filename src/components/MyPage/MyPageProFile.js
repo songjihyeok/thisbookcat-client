@@ -5,6 +5,8 @@ import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import Image from 'react-image-resizer';
 
+import server_url from '../../url.json'
+
 import './CSS/MyPageProFile.css'
 
 class MyPageProFile extends Component {
@@ -13,15 +15,35 @@ class MyPageProFile extends Component {
 
     this.state = {
       show: false,
-      author: "Alejandro Escamilla",
+      author:'',
       counter: 0,
       ProfileImage: "http://profilepicturesdp.com/wp-content/uploads/2018/06/default-profile-picture-png-12.png",
+      myPosts: []
     };
   }
 
-  // componentDidMount() {
-  //   this._getIamges();
-  // }
+   componentDidMount() {
+     /* this._getIamges(); */
+     this._callmyPostAPI()
+  }
+
+  _callmyPostAPI = () => {
+
+    const token = window.localStorage.getItem('token')
+
+    console.log(token)
+    axios.get(`http://${server_url}:3000/api/post/mypage`, {
+        headers: {
+          Authorization: `bearer ${token}`
+        }
+      })
+      .then(response => {
+        console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+        this.setState({
+          myPosts: this.state.myPosts.concat(response.data),
+        });
+      })
+  }
 
   _handleHide = () => {
     this.setState({ show: false });
@@ -48,18 +70,21 @@ class MyPageProFile extends Component {
 
   }
 
-  // _renderImages = () => {
-  //   const images = this.state.images.map(image => {
-  //     if (this.state.author === image.author) {
-  //       return (
-  //         <MyBookBoard image={image.id} author={image.author} key={image.id} />
-  //       );
-  //     }
-  //     return images;
-  //   });
-  //   console.log(this.state.images);
-  //   return images;
-  // };
+  _renderPost = () => {
+    const posts = this.state.myPosts.map(post => {
+        return (
+          <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postID={post.id} />
+        );
+    });
+    console.log(this.state.myPosts)
+    return posts
+  };
+
+ /*  _countPosts = () => {
+    this.setState({
+      counter: this.state.counter+this.myPosts.length
+    })
+  } */
 
   // _getIamges = async () => {
   //   const images = await this._callImageAPI();
@@ -82,8 +107,7 @@ class MyPageProFile extends Component {
           <Image className="ProfilePhoto" src={this.state.ProfileImage} alt="" width={200} height={200} />
         </div>
         <div className="ProFileDetail">
-          <span className="ID_user">{this.state.author}</span>
-          <span className="PostNumber">{this.state.counter}개</span>
+          <span className="ID_user">{}</span>
           <span className="Follower">팔로워 200</span>
           <Icon
             name="cog"
@@ -97,7 +121,9 @@ class MyPageProFile extends Component {
           hide={this._handleHide}
           callback={this._getImageFromModal}
         />
-        {/* {this.state.images ? this._renderImages() : "Loading"} */}
+        <div style={{ margin: "20px" }}>
+        {this.state.myPosts ? this._renderPost() : "Loading"}
+        </div>
       </div>
     )
   }

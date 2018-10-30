@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Nav1 from "../components/Nav1";
-import MyBooks from "../components/MyPage/MyBooks";
+
 
 import MyPageProFile from "../components/MyPage/MyPageProFile";
 
@@ -11,9 +11,6 @@ class MyPage extends Component {
         <Nav1 />
         <div>
           <MyPageProFile/>
-        </div>
-        <div style={{ margin: "20px" }}>
-          <MyBooks/>
         </div>
       </div>
     );
