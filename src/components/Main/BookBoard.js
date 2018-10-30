@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import { Link } from 'react-router-dom'
 import Image from 'react-image-resizer'
+import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json'
 
 class BookBoard extends Component {
@@ -16,6 +17,7 @@ class BookBoard extends Component {
             }}>
                 <div className ='BookBoard'>
                     <Image className = 'likeThumbnail' src = {`http://${server_url}:3000/upload/${this.props.url}`} alt='bookcover' width={200} height={200} />
+                    <Icon name="heart outline" size="big"/>
                 </div>
             </Link>
 

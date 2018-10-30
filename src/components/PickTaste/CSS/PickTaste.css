@@ -114,3 +114,8 @@
 .customTag {
     position: relative;
 }
+
+.selectCompleted {
+
+    all: unset;
+}
