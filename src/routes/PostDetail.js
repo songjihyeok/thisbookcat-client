@@ -236,7 +236,7 @@ class PostDetail extends Component {
   }
 
   render() {
-    {console.log('PostDetail.js > render함수 안에서 this.props', this.props)}
+    {console.log('PostDetail.js > render함수 안에서 this.props', this.state.postId)}
     return (
       <div>
         <Nav1 />

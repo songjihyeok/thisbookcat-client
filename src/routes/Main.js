@@ -15,7 +15,7 @@ class Main extends Component {
 
   componentDidMount() {
     this._getUrls()
-    window.addEventListener('scroll', this._infiniteScroll, true)
+    /* window.addEventListener('scroll', this._infiniteScroll, true) */
   }
 
    _infiniteScroll = () => {
@@ -28,10 +28,10 @@ class Main extends Component {
 
     if(scrollTop + clientHeight === scrollHeight) {
       
-     /*  this.setState({
+      this.setState({
         preItems: this.state.items,
         items: this.state.items+20,
-      }) */
+      })
 
       this._getUrls()
       
@@ -53,7 +53,7 @@ class Main extends Component {
   _renderBooKCoverImage = () => {
     if(this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
-          return <BookBoard url={url.mainImage} postid={url.id}/>;
+          return <BookBoard url={url.mainImage} postid={url.id} title={url.title} likecount={url.likeCount} key={url.id}/>;
       });
       return bookcover;
     }
@@ -85,6 +85,7 @@ class Main extends Component {
       console.log(result)
       return result;
       })
+      .catch(err => console.log(err))
   };
 
   render() {
@@ -96,7 +97,6 @@ class Main extends Component {
     return (
       <div className="Main">
         <Nav1/>
-       {/*  {this._renderPreBooKCoverImage()} */}
         {this._renderBooKCoverImage()}
       </div>
     );

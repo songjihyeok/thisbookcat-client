@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import FollowingBoard from "../components/Followings/FollowingBoard";
 import Nav1 from "../components/Nav1";
 import axios from 'axios'
+import server_url from '../url.json'
 
 import "../components/Followings/CSS/Followings.css"
 
@@ -66,7 +67,6 @@ class Followings extends Component {
          {this._renderFollowingPost()}
          </div>
          <div className = 'gridThree'></div>
-        
          </div>
       </Fragment>
      

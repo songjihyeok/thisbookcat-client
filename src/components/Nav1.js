@@ -42,7 +42,7 @@ class Nav1 extends Component {
               <Icon name="tags" size="big" />
             </NavItem>
             <NavItem eventKey={2} href="/mylike">
-              <Icon name="heart outline" size="big" />
+              <Icon name="heart outline" size="big"/>
             </NavItem>
             <NavItem eventKey={2} href="/writepost">
               <Icon name="pencil" size="big" />

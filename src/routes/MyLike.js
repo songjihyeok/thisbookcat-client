@@ -10,47 +10,44 @@ import "../components/MyLike/CSS/MyLike.css";
 class MyLike extends Component {
 
   state = {
-    likePosts : [],
+
   };
 
-  // componentDidMount() {
-  //   this._getMyLikePost();
-  // }
+  componentDidMount() {
+    this._setMyLikePost()
+  }
 
   
   _getMyLikePost = () => {
-    axios.get(`http://${server_url}:3000/api/like/user`,{
+
+    return axios.get(`http://${server_url}:3000/api/like/user`,{
         headers: {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
         }
       })
-       .then((res) => {
-         console.log('MyLike.js 컴포 > _getMyLikePost 함수 > axios.get 요청 후 받는 res', res);
-        this.setState({
-          likePosts : res.data[0].posts
-        })
-       })
+       .then(res => res.data[0].posts)
        .catch(err => console.log('_getPostData get 못받음. error', err))
   }
 
-  componentWillMount() {
-    this._getMyLikePost();
-    // this._renderBooKCoverImage();
+  _setMyLikePost = async () => {
+    const likePosts = await this._getMyLikePost()
+
+    console.log(likePosts)
+
+    this.setState({
+      likePosts
+    })
   }
 
-  _renderBooKCoverImage = () => {
-    // console.log(this.state.likePost)
-    if(this.state.likePosts.length){
+  _renderMyLikePost = () => {
+    console.log(this.state.likePosts)
+    if(this.state.likePosts){
+      const mylike = 
       this.state.likePosts.map((likePost) => {
-      // console.log(likePost)
-      return <LikeBookBoard likePost={likePost}/>
+      return <LikeBookBoard likePost={likePost} key={likePost.id}/>
       })
-    
-      // if(url.author===this.state.author) {
-      //   return <LikeBookBoard url={url.id} author={url.author} key={url.id}/>;
-      // }
+      return mylike
     }
-    // return bookcover;
   };
 
   render() {
@@ -60,9 +57,7 @@ class MyLike extends Component {
     return (
       <div className="MyLike">
         <Nav1 />
-        {this.state.likePosts.length ? 
-          this.state.likePosts.map((likePost, index) => <LikeBookBoard likePost={likePost} key={index}/>) :
-          "Loading"}
+        {this._renderMyLikePost()}
       </div>
     );
   }}
