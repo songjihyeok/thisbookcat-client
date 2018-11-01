@@ -73,7 +73,7 @@ class MyPageProFile extends Component {
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
         return (
-          <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postID={post.id} />
+          <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postid={post.id} likecount={post.likeCount} />
         );
     });
     console.log(this.state.myPosts)

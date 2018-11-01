@@ -10,17 +10,31 @@ class BookBoard extends Component {
 
     state = {
 
-        liked:false
+        liked:false,
+        likeCount:this.props.likecount
 
     }
 
     componentDidMount () {
 
+        this._getLikeData()
+
     }
 
-    _likedOrNot = () => {
-        
+    _getLikeData = () => {
+
+        let token = window.localStorage.getItem('token')
+
+        axios.get(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
+        .then(response => {
+            this.setState({
+                liked: response.data[0][0][1]
+              })
+              console.log('liked', this.state.liked)
+        })
+        .catch(error => console.log(error))
     }
+
 
     _handleLike = () => {
 
@@ -28,29 +42,41 @@ class BookBoard extends Component {
 
         if(this.state.liked) {
 
-            axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
-            .then(response => console.log(response))
+            axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    liked:false,
+                    likeCount: this.state.likeCount-1
+                })
+                console.log('liked should change', this.state.liked)
+            })
             .catch(error => console.log(error))
 
+        } else {
+
+            axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {headers:{Authorization: `bearer ${token}`}})
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    liked:true,
+                    likeCount: this.state.likeCount+1
+                })
+                console.log('liked should change', this.state.liked)
+            })
+            .catch(error => console.log(error))
         }
-        
-        axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
-
     }
 
-    _changeHeart = () => {
+    /* _changeHeart = () => {
         this.state.liked?this.setState({liked:false}):this.setState({liked:true})
-    }
+    } */
 
-    _handleClick = async () => {
+    /* _handleClick =  () => {
+        
+        this._handleLike()
 
-        await this._changeHeart()
-
-        await this._handleLike()
-
-    }
+    } */
 
     render(){
         return(
@@ -63,8 +89,10 @@ class BookBoard extends Component {
                 } */}}>
                 <Image className = 'likeThumbnail' src = {`http://${server_url}:3000/upload/${this.props.url}`} alt='bookcover' width={240} height={240} />
                 </Link>
-                    <Icon name={this.state.liked?'heart':'heart outline'} size="large" className={this.props.postid} onClick={this._handleClick}/>
-                    <span>{this.props.title}</span>
+                {this.state.liked?
+                <span> <Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>: 
+                <span> <Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>}
+                <span>{this.props.title}</span>
                 </div>
 
            // <Link to={`/postdetail/${this.props.url}`}>
