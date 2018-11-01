@@ -142,4 +142,4 @@ class TasteBoard extends Component {
   }
 }
 
-export default withRouter(TasteBoard) 
+export default withRouter(TasteBoard)

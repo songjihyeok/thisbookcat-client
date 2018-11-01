@@ -3,14 +3,21 @@
 }
 
 .thisBook {
-  font-weight: bold;
-  color: #9999ff;
+  font-family: BMDoHyeon-OTF;
+  font-size: 28.4px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1f1f1f;
 }
 
 form{
+  display: inline;
   height: 100px;
   width: 500px;
-  display: inline;
 }
 
 input {

@@ -4,6 +4,7 @@ import server_url from '../../url.json'
 import Image from 'react-image-resizer'
 
 import './CSS/MyBookBoard.css'
+import { Icon } from "semantic-ui-react";
 
 class MyBookBoard extends Component {
 
@@ -19,8 +20,9 @@ class MyBookBoard extends Component {
             }}>
                 <div className ='MyBookBoard'>
                     {console.log('BookBoard component에서 this.props 찍는중', this.props)}
-                    <Image className = 'likeThumbnail' src = {`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover' width={200} height={200}/>
-                    <h1>{this.props.title}</h1>
+                    <Image src = {`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover' width={240} height={240}/>
+                    <div className = 'likeBar'><Icon name="heart outline" size="large"/><p>1,2000</p></div>
+                    <p>{this.props.title}</p>
                 </div>
             </Link>
 
