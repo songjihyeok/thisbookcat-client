@@ -9,42 +9,21 @@ import server_url from '../url.json';
 
 class PostDetail extends Component {
   state = {
-    postId : 10,
+    postId : this.props.location.pathname.slice(12),
     // postId는 props로 받아야 함.
-    userId: '',
+    userId: '',// TODO: 얘 필요하나요?
+    userName: '',
+    userImage: '',
     createdTime: '',
-    thumbnail : '',
+    mainImage : '',
     title : '',
     contents: '',
     likeCount: null, //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
     isLike: false, // 지금 보고있는 유저가 이 포스트를 좋아하는지 아닌지 (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)- 클릭 하냐 마냐에 따라 likecount 도 변동되어야 함.
-    
-
-
-    reply: [
-      {reply_id:1, username: '지혁', msg: '안녕하세요'},
-      {reply_id:2, username: '명우', msg: '해리포터 좋아요!'},
-      {reply_id:3, username: '원석', msg: 'Na to the Fla'},
-      {reply_id:4, username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-      {reply_id:5, username: '지혁', msg: '안녕하세요'},
-      {reply_id:6, username: '명우', msg: '해리포터 좋아요!'},
-      {reply_id:7, username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-      {reply_id:8, username: '지혁', msg: '안녕하세요'},
-      {reply_id:9, username: '명우', msg: '해리포터 좋아요!'},
-      {reply_id:10, username: '원석', msg: 'Na to the Fla'},
-      {reply_id:11, username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-      {reply_id:12, username: '지혁', msg: '안녕하세요'},
-      {reply_id:13, username: '명우', msg: '해리포터 좋아요!'},
-      {reply_id:14, username: '원석', msg: 'Na to the Fla'},
-      {reply_id:15, username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-      {reply_id:16, username: '지혁', msg: '안녕하세요'},
-      {reply_id:17, username: '명우', msg: '해리포터 좋아요!'},
-      {reply_id:18, username: '원석', msg: 'Na to the Fla'},
-      {reply_id:19, username: '정민', msg: '안녕하세요. 허교익입니다. 떡볶이는 맛이 없는 음식입니다. 쏘ㅑㄹ라 소ㅑㄹ라 소ㅑㄹㄹ쇗라'},
-      {reply_id:20, username: '명우', msg: '해리포터 좋아요!'},
-      {reply_id:21, username: '원석', msg: 'Na to the Fla'}
-     ],
+    reply:[],
     replyCount : '', //댓글 갯수
+
+
     bookInfo: '',
     show : false,
     yap: '',
@@ -68,7 +47,7 @@ class PostDetail extends Component {
        .then((res) => {
          console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res', res);
         this.setState({
-          thumbnail: `http://${server_url}:3000/upload/${res.data.mainImage}`,
+          mainImage: `http://${server_url}:3000/upload/${res.data.mainImage}`,
           contents: res.data.contents,
           createdTime: res.data.createdTime,
           likeCount: res.data.likeCount,
@@ -79,22 +58,70 @@ class PostDetail extends Component {
        .catch(err => console.log('_getPostData get 못받음. error', err))
       }
 
-  // _getUserData = () => {
-      // axios.get(`http://${server_url}:3000/api/user/${this.state.userId}`,{
-      //   headers: {
-      //     Authorization: `bearer ${window.localStorage.getItem('token')}`
-      //   }
-      // })
-  // }
+    _getReply = () => {
+      // console.log("this.props:",this.props)
+        axios.get(`http://${server_url}:3000/api/reply/${this.state.postId}`,{
+          headers: {
+            Authorization: `bearer ${window.localStorage.getItem('token')}`
+          }
+        })
+          .then((res) => {
+            console.log('postdetail 컴포 > _getReply 함수 > axios.get 요청 후 받는 res', res);
+          this.setState({
+            reply: res.data,
+            replyCount: res.data.length,
+          })
+          })
+          .catch(err => {
+            console.log('_getReply get 못받음. error', err.response.status)
+            if(err.response.status === 400) {//there is no reply
+              this.setState({
+                reply: [],
+                replyCount: 0,
+              })
+              //TODO: 아직 아무댓글이 없습니다. 혹은 댓글을 남겨주세요. 같은 메세지를 띄울까염?
+            }
+          })
+          .then(res => console.log('야호야호 this.state', this.state))
+    
+        }
+
+  _getLikeData = () => {
+    axios.get(`http://${server_url}:3000/api/like/${this.state.postId}`,{
+      headers: {
+        Authorization: `bearer ${window.localStorage.getItem('token')}`
+      }
+    })
+    .then(res => {
+      console.log("_getLikeData에서 get 해오는 res ===", res.data)
+      this.setState({
+        isLike: res.data[0][0][1], 
+        likeCount: res.data[0][1][1], //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)
+      })
+    })
+  }
+
+  _getUserData = () => {
+    axios.get(`http://${server_url}:3000/api/post/postedUserName/${this.state.postId}`,{
+      headers: {
+        Authorization: `bearer ${window.localStorage.getItem('token')}`
+      }
+    })
+    .then(res => {
+      console.log('_getUserData에서 res =========',res)
+      this.setState({
+        userName: res.data.userName,
+        userImage: `http://${server_url}:3000/upload/${res.data.profileImage}`,})
+  
+    })
+  }
 
   _handleLike = () => {
     //레몬에 온클릭 함수로 걸고있음.
     //클릭할때마다 axios 요청 보내기.&& state를 setting 하기
 
     if(this.state.isLike){
-      //count-- 시키는 요청
-      //postid와 userid의 like join을 삭제하는 요청
-
+      //count-- 시키는 요청 & //postid와 userid의 like join을 삭제하는 요청
       axios.delete(`http://${server_url}:3000/api/like/${this.state.postId}`, {
         headers: {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
@@ -110,8 +137,7 @@ class PostDetail extends Component {
       })
       .catch(err => console.log("_handleLike함수에서 axios.delete 요청 실패", err))
     }else{
-      //count++ 시키는 요청
-      //postid와 userid를 like join 하는 요청
+      //count++ 시키는 요청 & //postid와 userid를 like join 하는 요청
       axios.post(`http://${server_url}:3000/api/like/${this.state.postId}`, {}, {
         headers: {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
@@ -129,7 +155,6 @@ class PostDetail extends Component {
     }
   }
 
-
   _newReply = (e) => {
     this.setState({comment: e.target.value})
   }
@@ -139,6 +164,31 @@ class PostDetail extends Component {
     //axios.post ()
     // res 받기 ()
     // this.setState({reply:'썸띵썸띵'});
+    axios.post(`http://${server_url}:3000/api/reply/${this.state.postId}`,
+      {replyContents: '얄루얄루'}
+      , {
+      headers: {
+        Authorization: `bearer ${window.localStorage.getItem('token')}`
+      }
+    })
+      .then((res) => {
+        console.log('postdetail 컴포 > _makeReply 함수 > axios.get 요청 후 받는 res', res);
+      // this.setState({
+      //   reply:[],
+      // })
+      })
+      .catch(err => {
+        console.log('_makeReply res 못받음. error', err.response.status)
+        // if(err.response.status === 400) {//there is no reply
+        //   this.setState({
+        //     reply: [],
+        //     replyCount: 0,
+        //   })
+        //   //TODO: 아직 아무댓글이 없습니다. 혹은 댓글을 남겨주세요. 같은 메세지를 띄울까염?
+        // }
+      })
+
+
     const reply = this.state.reply
     reply.push({
       reply_id: this.state.reply.length,
@@ -173,19 +223,26 @@ class PostDetail extends Component {
   }
 
   componentWillMount(){
-    this._getPostData(); 
-    this._getBookInfo();
+    this._getPostData();
+    this._getReply();
+    this._getLikeData();
+    this._getUserData();
+    // this._getBookInfo();
     console.log('PostDatail.js의 ComponentWillMount 함수에서 this.props를 찍어보겠습니다___', this.props.location.state)
+    
+  }
+  componentDidMount(){
+    console.log('PostDatail.js의 ComponentDidMount 함수에서 this.state를 찍어보겠습니다___', this.state)
   }
 
   render() {
+    {console.log('PostDetail.js > render함수 안에서 this.props', this.props)}
     return (
       <div>
         <Nav1 />
-        {console.log(this.props)}
         <div className='post_detail'>
           <div className='post_detail_left'>
-            <div><img height={window.innerHeight * 0.6} src={this.state.thumbnail} alt={this.state.title}/>
+            <div><img height={window.innerHeight * 0.6} src={this.state.mainImage} alt={this.state.title}/>
               </div>
             <h2>{this.state.title}</h2> 
             <div className='post_detail_content'>{this.state.contents}</div> 
@@ -194,11 +251,12 @@ class PostDetail extends Component {
           <div className='post_detail_right'>
 
             <div className='post_detail_right_1'>
+              
               <img src={this.state.thumbnail} className='img-circle' alt={"hello"} />
               {this.state.isFollowing ?
                   <h5 className='post_detail_following' onClick={this._handleFollowing}>팔로잉</h5> :
                   <h5 className='post_detail_follow' onClick={this._handleFollowing}>팔로우</h5>}
-              <h3 className='post_detail_username'>{this.state.userId}</h3>
+              <h3 className='post_detail_username'>{this.state.userName}</h3>
             </div>
 
             <div className='post_detail_right_2'>
