@@ -11,7 +11,7 @@ class MyLike extends Component {
 
   state = {
 
-    per: 1,
+    per: 5,
     page: 1,
     totalPage: ''
 
@@ -19,6 +19,26 @@ class MyLike extends Component {
 
   componentDidMount() {
     this._setMyLikePost()
+    window.addEventListener('scroll', this._infiniteScroll, true)
+  }
+
+  _infiniteScroll = () => {
+
+    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+
+    let clientHeight = document.documentElement.clientHeight;
+
+    if(scrollTop + clientHeight === scrollHeight) {
+
+      if(this.state.page!==this.state.totalPage) {
+        this.setState({
+          page: this.state.page+1
+        })
+        this._setMyLikePost()
+      }
+    }
   }
 
   
@@ -29,7 +49,12 @@ class MyLike extends Component {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
         }
       })
-       .then(res => res.data.perArray)
+       .then(res => {
+         this.setState({
+           totalPage: res.data.totalpage
+         })
+         return res.data.perArray
+       })
        .catch(err => console.log('_getPostData get 못받음. error', err))
   }
 
@@ -38,34 +63,40 @@ class MyLike extends Component {
 
     console.log(likePosts)
 
-    this.setState({
-      likePosts
-    })
+    if(this.state.likePosts===undefined) {
+      this.setState({
+        likePosts
+      })
+    } else {
+      this.setState({
+        likePosts: this.state.likePosts.concat(likePosts)
+      })
+    }
   }
 
   _renderMyLikePost = () => {
-    console.log(this.state.likePosts)
-    if(this.state.likPosts===undefined) {
-      return "아직 좋아요하신 포스트가 없습니다."
-    }
-    if(this.state.likePosts){
-      const mylike = 
-      this.state.likePosts.map((likePost) => {
-      return <LikeBookBoard likePost={likePost} key={likePost.id}/>
+      if(this.state.likePosts){
+        const result = this.state.likePosts.map((likePost) => {
+        if(likePost) {
+          return <LikeBookBoard likePost={likePost} key={likePost.id}/>
+        }
       })
-      return mylike
-    }
-    return "Loading"
+      return result;
+      }
+      return "Loading"
   };
 
   render() {
+    console.log(this.state.page)
+    console.log(this.state.totalPage)
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />
     }else{
     return (
       <div className="MyLike">
         <Nav1 />
-        {this._renderMyLikePost()}
+        {this.state.likePosts===undefined?'아직 좋아요하신 포스트가 없습니다':this._renderMyLikePost()}<br/>
+        {this.state.page===this.state.totalPage?<span>'더이상 콘텐츠가 없습니다!'</span>:''}
       </div>
     );
   }}

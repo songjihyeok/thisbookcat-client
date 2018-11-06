@@ -27,7 +27,7 @@ class PostDetail extends Component {
     bookInfo: '',
     show : false,
     yap: '',
-    isFollowing: false,
+    isFollowing:'',
     comment:'',
     selectedFile: null,
   }
