@@ -30,6 +30,26 @@ class MyPageProFile extends Component {
      /* this._getIamges(); */
      this._callmyPostAPI()
      this._getMyProfile()
+     window.addEventListener('scroll', this._infiniteScroll, true)
+  }
+
+  _infiniteScroll = () => {
+
+    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+
+    let clientHeight = document.documentElement.clientHeight;
+
+    if(scrollTop + clientHeight === scrollHeight) {
+
+      if(this.state.page!==this.state.totalPage) {
+        this.setState({
+          page: this.state.page+1
+        })
+        this._callmyPostAPI()
+      }
+    }
   }
 
   _getMyProfile = () => {
@@ -57,7 +77,7 @@ class MyPageProFile extends Component {
       .then(response => {
         console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
         this.setState({
-          totalPage: response.data.totalPage,
+          totalPage: response.data.totalpage,
           myPosts: this.state.myPosts.concat(response.data.perArray),
         });
       })
@@ -90,9 +110,9 @@ class MyPageProFile extends Component {
 
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
-        return (
-          <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postid={post.id} likecount={post.likeCount} />
-        );
+      if(post) {
+        return <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postid={post.id} likecount={post.likeCount} />
+      }
     });
     console.log(this.state.myPosts)
     return posts
@@ -122,6 +142,8 @@ class MyPageProFile extends Component {
     console.log('myprofile', this.state.myProfile)
     console.log('totalpage', this.state.totalPage)
     console.log('myprofile', this.state.myPosts)
+    console.log(this.state.page)
+    console.log(this.state.totalPage)
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
@@ -143,7 +165,8 @@ class MyPageProFile extends Component {
           callback={this._getImageFromModal}
         />
         <div style={{ margin: "20px" }}>
-        {this.state.myPosts ? this._renderPost() : "Loading"}
+        {this.state.myPosts ? this._renderPost() : "Loading"}<br/>
+        {this.state.page===this.state.totalPage?<span>'더이상 콘텐츠가 없습니다!'</span>:''}
         </div>
       </div>
     )

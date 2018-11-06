@@ -11,12 +11,13 @@ class Followings extends Component {
   state = {
     page: 1,
     per: 4,
-    totalPage:''
+    totalPage:'',
+    followPost:[]
   };
 
   componentDidMount() {
     this._getFollowPosts()
-    /* window.addEventListener('scroll', this._infiniteScroll, true) */
+    window.addEventListener('scroll', this._infiniteScroll, true)
   }
 
   _infiniteScroll = () => {
@@ -27,17 +28,23 @@ class Followings extends Component {
     let clientHeight = document.documentElement.clientHeight;
     
     if(scrollTop + clientHeight === scrollHeight) {
-      this.setState({
-        items:this.state.items+20
-      })
+
+        if(this.state.page!==this.state.totalPage) {
+          this.setState({
+            page: this.state.page+1
+          })
+          this._getFollowPosts()
+        }
     }
   }
 
   _renderFollowingPost = () => {
-    console.log(this.state.followPost)
+    console.log('this is following post',this.state.followPost)
     if(this.state.followPost) {
       const follow = this.state.followPost.map((url, index) => {
-          return <FollowingBoard image={url.mainImage} key={index} title={url.title} likecount={url.likecount} contents={url.contents} />;
+        if(url) {
+          return <FollowingBoard image={url.mainImage} key={index} title={url.title} likecount={url.likeCount} contents={url.contents} postid={url.id} />;
+        }
       })
       return follow;
     }
@@ -47,7 +54,7 @@ class Followings extends Component {
   _getFollowPosts = async () => {
     const followPost = await this._callFollowAPI();
     this.setState({
-      followPost
+      followPost:this.state.followPost.concat(followPost)
     })
     console.log(this.state.followPost)
   };
@@ -55,17 +62,26 @@ class Followings extends Component {
   _callFollowAPI = () => {
     let token = window.localStorage.getItem('token')
     return axios.get(`http://${server_url}:3000/api/follow/posts/${this.state.per}/${this.state.page}`, {headers:{Authorization: `bearer ${token}`}})
-    .then(response => response.data.perArray)
+    .then(response => {
+      this.setState({
+        totalPage: response.data.totalpage
+      })
+      console.log(response.data)
+      return response.data.perArray
+    })
   };
 
   render() {
+    console.log(this.state.page)
+    console.log(this.state.totalPage)
     return (
       <Fragment>
          <Nav1/>
          <div className="Followings">
          <div className = 'gridOne'></div>
          <div className = 'gridTwo'>
-         {this._renderFollowingPost()}
+         {this.state.followPost.length===0?<span>팔로우하신 유저가 없습니다!</span>:this._renderFollowingPost()}<br/>
+         {this.state.page===this.state.totalPage?<span>더이상 콘텐츠가 없습니다!</span>:''}
          </div>
          <div className = 'gridThree'></div>
          </div>
