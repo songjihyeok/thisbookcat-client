@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Modal, Button} from 'react-bootstrap'
 import './CSS/SettingModal.css'
+import server_url from '../../url.json'
 import axios from 'axios'
 
 class SettingModal extends Component {
@@ -43,7 +44,7 @@ class SettingModal extends Component {
       formData
     }
 
-    axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update/', file, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
+    axios.post(`http://${server_url}:3000/api/user/update/`, file, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
     /*axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', this.imageData, { headers: { 'Authorization': `bearer ${token}` }})*/
     .then(response => console.log(response))
     .catch(error => console.log(error))

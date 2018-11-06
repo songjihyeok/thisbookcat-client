@@ -9,12 +9,14 @@ import "../components/Followings/CSS/Followings.css"
 class Followings extends Component {
 
   state = {
-    items: 20
+    page: 1,
+    per: 4,
+    totalPage:''
   };
 
   componentDidMount() {
-    this._getUrls()
-    window.addEventListener('scroll', this._infiniteScroll, true)
+    this._getFollowPosts()
+    /* window.addEventListener('scroll', this._infiniteScroll, true) */
   }
 
   _infiniteScroll = () => {
@@ -32,29 +34,28 @@ class Followings extends Component {
   }
 
   _renderFollowingPost = () => {
-    console.log(this.state.followurl)
-    if(this.state.followurl) {
-      const follow = this.state.followurl.map((url, index) => {
-        if(index<this.state.items) {
-          return <FollowingBoard url={url.id} author={url.author} key={url.id} />;
-        }
-      });
+    console.log(this.state.followPost)
+    if(this.state.followPost) {
+      const follow = this.state.followPost.map((url, index) => {
+          return <FollowingBoard image={url.mainImage} key={index} title={url.title} likecount={url.likecount} contents={url.contents} />;
+      })
       return follow;
     }
     return "Loading"
   };
 
-  _getUrls = async () => {
-    const followurl = await this._callBookCoverAPI();
+  _getFollowPosts = async () => {
+    const followPost = await this._callFollowAPI();
     this.setState({
-      followurl
+      followPost
     })
-    console.log(this.state.followurl)
+    console.log(this.state.followPost)
   };
 
-  _callBookCoverAPI = () => {
-    const booklistAPI = "https://picsum.photos/list";
-    return axios.get(booklistAPI).then( response => response.data)
+  _callFollowAPI = () => {
+    let token = window.localStorage.getItem('token')
+    return axios.get(`http://${server_url}:3000/api/follow/posts/${this.state.per}/${this.state.page}`, {headers:{Authorization: `bearer ${token}`}})
+    .then(response => response.data.perArray)
   };
 
   render() {
