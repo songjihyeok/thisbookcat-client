@@ -27,7 +27,7 @@ class PostDetail extends Component {
     bookInfo: '',
     show : false,
     yap: '',
-    isFollowing: true,
+    isFollowing: false,
     comment:'',
     selectedFile: null,
   }
@@ -36,6 +36,9 @@ class PostDetail extends Component {
   //   this.setState({selectedFile: e.target.files[0]})
   // }
 
+  componentDidMount = () => {
+    this._getFollowingData()
+  }
 
   _getPostData = () => {
     // console.log("this.props:",this.props)
@@ -111,8 +114,9 @@ class PostDetail extends Component {
       console.log('_getUserData에서 res =========',res)
       this.setState({
         userName: res.data.userName,
-        userImage: `http://${server_url}:3000/upload/${res.data.profileImage}`,})
-  
+        userImage: `http://${server_url}:3000/upload/${res.data.profileImage}`,
+        userId: res.data.id
+      })
     })
   }
 
@@ -211,14 +215,39 @@ class PostDetail extends Component {
     // console.log('모달을 보여줘. this.state.show',this.state)
   }
 
+  _getFollowingData = () => {
+
+    let token = window.localStorage.getItem('token')
+
+    axios.get(`http://${server_url}:3000/api/follow/check/${this.state.userId}`, {headers:{Authorization: `bearer ${token}`}})
+    .then(response => {
+      console.log('this should be ture or false',response.data)
+      this.setState({
+        isFollowing: response.data
+      })
+    })
+  }
+
+  
+
   _handleFollowing = () => {
     // "팔로우" 버튼 클릭하면, "팔로잉"으로 바뀌고(팔로우하기) "팔로잉" 버튼 클릭하면, "팔로우"로 바뀌기 (언팔하기)
     //axios.put()// 1. 내가 팔로우 또는 언팔 한다는 거 
     // .then( // 그 정보를 잘 보냈으면, 스테이트 바꾸기
+    let token = window.localStorage.getItem('token')
+
     if(this.state.isFollowing){
-      this.setState({isFollowing: false})
+      axios.delete(`http://${server_url}:3000/api/follow/delete/${this.state.userId}`, {headers:{Authorization: `bearer ${token}`}})
+      .then(response =>{
+        console.log(response)
+        this.setState({isFollowing: false})
+      })
     }else{
-      this.setState({isFollowing: true})
+      axios.post(`http://${server_url}:3000/api/follow/${this.state.userId}`,{}, {headers:{Authorization: `bearer ${token}`}})
+      .then(response =>{
+        console.log(response)
+        this.setState({isFollowing: true})
+      })
     }
   }
 
@@ -236,7 +265,9 @@ class PostDetail extends Component {
   }
 
   render() {
-    {console.log('PostDetail.js > render함수 안에서 this.props', this.state.postId)}
+    console.log('PostDetail.js > render함수 안에서 this.props', this.state.postId)
+    console.log('this is user id', this.state.userId)
+    console.log('this is isFollowing', this.state.isFollowing)
     return (
       <div>
         <Nav1 />
@@ -245,7 +276,8 @@ class PostDetail extends Component {
             <div><img height={window.innerHeight * 0.6} src={this.state.mainImage} alt={this.state.title}/>
               </div>
             <h2>{this.state.title}</h2> 
-            <div className='post_detail_content'>{this.state.contents}</div> 
+            <div className='post_detail_content' dangerouslySetInnerHTML={{__html: this.state.contents}}>
+            </div>
           </div>
 
           <div className='post_detail_right'>

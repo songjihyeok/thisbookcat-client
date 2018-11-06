@@ -11,6 +11,10 @@ class MyLike extends Component {
 
   state = {
 
+    per: 1,
+    page: 1,
+    totalPage: ''
+
   };
 
   componentDidMount() {
@@ -20,12 +24,12 @@ class MyLike extends Component {
   
   _getMyLikePost = () => {
 
-    return axios.get(`http://${server_url}:3000/api/like/user`,{
+    return axios.get(`http://${server_url}:3000/api/like/user/${this.state.per}/${this.state.page}`,{
         headers: {
           Authorization: `bearer ${window.localStorage.getItem('token')}`
         }
       })
-       .then(res => res.data[0].posts)
+       .then(res => res.data.perArray)
        .catch(err => console.log('_getPostData get 못받음. error', err))
   }
 
@@ -41,6 +45,9 @@ class MyLike extends Component {
 
   _renderMyLikePost = () => {
     console.log(this.state.likePosts)
+    if(this.state.likPosts===undefined) {
+      return "아직 좋아요하신 포스트가 없습니다."
+    }
     if(this.state.likePosts){
       const mylike = 
       this.state.likePosts.map((likePost) => {
@@ -48,6 +55,7 @@ class MyLike extends Component {
       })
       return mylike
     }
+    return "Loading"
   };
 
   render() {

@@ -9,13 +9,28 @@ import "../components/Main/CSS/Main.css";
 
 class Main extends Component {
   state = {
-    items: 20,
-    preItems: 0
+    per: 4,
+    page: 1,
+    totalPage:'',
+    myProfile:''
   };
 
   componentDidMount() {
     this._getUrls()
     /* window.addEventListener('scroll', this._infiniteScroll, true) */
+    this._getMyProfile()
+  }
+
+  _getMyProfile = () => {
+    let token = window.localStorage.getItem('token')
+
+     axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
+    .then(response => {
+      console.log('this is myprofileresponse',response)
+      this.setState({
+        myProfile: response.data
+      })
+    })
   }
 
    _infiniteScroll = () => {
@@ -29,15 +44,12 @@ class Main extends Component {
     if(scrollTop + clientHeight === scrollHeight) {
       
       this.setState({
-        preItems: this.state.items,
-        items: this.state.items+20,
+        per: this.state.per+2,
+        page: this.state.page+1
       })
 
       this._getUrls()
       
-      console.log(this.state.preItems)
-      console.log(this.state.items)
-      console.log(this.state.coverurl)
     }
   }
 
@@ -62,6 +74,8 @@ class Main extends Component {
 
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
+
+    console.log(coverurl)
     
     if(this.state.coverurl===undefined) {
       this.setState({
@@ -78,10 +92,13 @@ class Main extends Component {
 
     let token = window.localStorage.getItem('token')
 
-    return axios.get(`http://${server_url}:3000/api/userTagpost`,{headers:{Authorization: `bearer ${token}`}})
+    return axios.get(`http://${server_url}:3000/api/userTagpost/${this.state.per}/${this.state.page}`,{headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
       console.log('there should be data here',response.data)
-      let result = response.data
+      this.setState({
+        totalPage: response.data.totalpage
+      })
+      let result = response.data.perArray
       console.log(result)
       return result;
       })
@@ -90,6 +107,7 @@ class Main extends Component {
 
   render() {
     console.log(window.localStorage.getItem('token'))
+    console.log('this is totalpage', this.state.totalPage)
     //토큰이 없으면 로그인 페이지로 가라.
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />

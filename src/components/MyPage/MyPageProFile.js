@@ -18,13 +18,30 @@ class MyPageProFile extends Component {
       author:'',
       counter: 0,
       ProfileImage: "http://profilepicturesdp.com/wp-content/uploads/2018/06/default-profile-picture-png-12.png",
-      myPosts: []
+      myPosts: [],
+      myProfile: [],
+      per: 5,
+      page: 1,
+      totalPage:''
     };
   }
 
    componentDidMount() {
      /* this._getIamges(); */
      this._callmyPostAPI()
+     this._getMyProfile()
+  }
+
+  _getMyProfile = () => {
+    let token = window.localStorage.getItem('token')
+
+     axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
+    .then(response => {
+      console.log('this is myprofileresponse',response)
+      this.setState({
+        myProfile: response.data
+      })
+    })
   }
 
   _callmyPostAPI = () => {
@@ -32,7 +49,7 @@ class MyPageProFile extends Component {
     const token = window.localStorage.getItem('token')
 
     console.log(token)
-    axios.get(`http://${server_url}:3000/api/post/mypage`, {
+    axios.get(`http://${server_url}:3000/api/post/mypage/${this.state.per}/${this.state.page}`, {
         headers: {
           Authorization: `bearer ${token}`
         }
@@ -40,7 +57,8 @@ class MyPageProFile extends Component {
       .then(response => {
         console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
         this.setState({
-          myPosts: this.state.myPosts.concat(response.data),
+          totalPage: response.data.totalPage,
+          myPosts: this.state.myPosts.concat(response.data.perArray),
         });
       })
   }
@@ -101,13 +119,16 @@ class MyPageProFile extends Component {
 
   render() {
     console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
+    console.log('myprofile', this.state.myProfile)
+    console.log('totalpage', this.state.totalPage)
+    console.log('myprofile', this.state.myPosts)
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
           <Image className="ProfilePhoto" src={this.state.ProfileImage} alt="" width={200} height={200} />
         </div>
         <div className="ProFileDetail">
-          <span className="ID_user">{}</span>
+          <span className="ID_user">{this.state.myProfile.userName} 님 환영합니다!</span>
           <span className="Follower">팔로워 200</span>
           <Icon
             name="cog"

@@ -1,30 +1,33 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
+import Image from 'react-image-resizer'
+import server_url from '../../url.json'
+
 
 class FollowingBoard extends Component {
 
   render(){
+          console.log(this.props.contents)
     return(
     <div className ='FollowingBoard'>
     <div className = 'imagePart'>
     <Link to={{
         pathname : `/postdetail/${this.props.url}`,
-        state : {
+       /*  state : {
                 imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
                 username : this.props.author,
-            }
+            } */
             }}>
-            <img className = 'FollowThumbnail' src = {`https://picsum.photos/400/400?image=${this.props.url}`} alt='bookcover' />
+            <Image className = 'FollowThumbnail' src = {`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover' width={240} height={240} />
             </Link>
             </div>
-    <div className = 'textPart'>
-    <p>여기에는 유저별 포스트 글이 간략하게 올라갈 예정입니다!</p>
-    </div>
+    <div className = 'textPart' dangerouslySetInnerHTML={{__html:this.props.contents}}></div>
     <div className = 'followFooter'>
-            <Icon className = 'heart' name="heart outline" size="big" />
-            <h2 className = 'FollowerID'>{this.props.author}</h2></div>
-            </div>
+    <Icon className = 'heart' name="heart outline" size="big" />
+    <span className = 'FollowerID'>{this.props.title}</span>
+    </div>
+    </div>
     )
 }
 }
