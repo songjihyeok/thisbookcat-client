@@ -119,3 +119,10 @@
 
     all: unset;
 }
+
+.selectUserName {
+    display: -webkit-inline-box;
+    position: relative;
+    bottom: 58%;
+    left: 51%;
+}
