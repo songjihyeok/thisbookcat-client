@@ -84,17 +84,16 @@ class TasteBoard extends Component {
         const inputData = document.getElementsByClassName('getUserName')[0].value
 
         console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
-
+        
         this.setState ({
+
             userName:inputData
         })
-
+        
         console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
     }
 
     _submitTasteNUserName = () => {
-
-        /* await this._setUserName() */
 
         let token = window.localStorage.getItem('token')
 
@@ -120,10 +119,24 @@ class TasteBoard extends Component {
         // .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
     }
     //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
+    
     _handleSubmit = async () => {
+
+        if(this.state.userName==='') {
+            alert('유저네임을 입력하셔야 합니다!')
+        }
+        else if (this.state.selected.length<3) {
+            alert('취향을 3개이상 고르셔야합니다!')
+        } else {
+            await this._submitTasteNUserName()
+            await this._gotoMain()
+        }
+    }
+
+    _hadelUserName = async () => {
+
         await this._setUserName()
-        await this._submitTasteNUserName()
-        await this._gotoMain()
+        await alert('유저네임이 설정 됐습니다.')
     }
 
   render() {
@@ -131,12 +144,13 @@ class TasteBoard extends Component {
     return (
       <div className = 'TasteBoard'>
       <div className = 'WelcomeUser'>
-      <input type='text' className="getUserName" /* onChange={} */></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
+      <input type='text' className="getUserName" onChange={this._setUserName}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
+      <Button className = 'selectUserName' /* onClick={this._setUserName} */>중복검사</Button>
       </div>
       <div className = 'blockContainer'>
       {this._renderTasteBlock()}
       </div>
-    <Button className = 'selectComplete' onClick={this.state.selected.length<3?()=>{alert('3개이상 고르셔야합니다!')}:this._handleSubmit}>선택완료</Button>
+    <Button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</Button>
       </div>
     )
   }

@@ -98,7 +98,7 @@ export default class PostInfo extends Component {
               삭제
             </Button>
             </div> : null}
-        <BookInfoModal show={modal} hide={this._closeModal} />
+        <BookInfoModal show={modal} hide={this._closeModal}/>
     </div>
     )
   }

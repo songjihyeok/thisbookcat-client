@@ -8,6 +8,7 @@ import BookBoard from "../components/Main/BookBoard";
 import "../components/Main/CSS/Main.css";
 
 class Main extends Component {
+  
   state = {
     per: 5,
     //한페이지당 가지게될 포스트의 개수
