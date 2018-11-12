@@ -18,12 +18,22 @@ class Nav2 extends Component {
   }
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
   _sendPost = () => {
-
+    let sendurl = ''
+    console.log(window.location.href,'==================');
+    if(window.location.href !== `http://localhost:3000/writepost`){
+      console.log('================================')
+      let postid = window.location.href.slice(-2);
+      sendurl = `http://${server_url}:3000/api/post/edit/${postid}`
+    
+    }else{
+      sendurl = `http://${server_url}:3000/api/post/`
+    }
+    console.log(sendurl,'sendurl')
     console.log("Nav2.js 의 _sendPost 함수에서 this.props___",this.props)
     console.log(window.localStorage.getItem('token'))
     axios
       .post(
-        `http://${server_url}:3000/api/post/`,
+        sendurl,
         {
           title: this.props.posting.title,
           contents: this.props.posting.contents
