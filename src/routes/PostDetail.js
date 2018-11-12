@@ -58,6 +58,7 @@ class PostDetail extends Component {
       likeCount: res_getPost.data.likeCount,
       title: res_getPost.data.title,
       userId: res_getPost.data.userId,
+      mypost: res_getPost.data.isthePoster
     })
   }
 
@@ -105,7 +106,7 @@ class PostDetail extends Component {
           <PostContent postId={postId} />
           <div className='post_detail_right'>
               <PostWriter postId={postId} userId={userId} />
-              <PostInfo postId={postId} replyCount={replyCount} />
+              <PostInfo postId={postId} replyCount={replyCount} mypost={this.state.mypost} postId={this.state.postId} history={this.props.history}/>
             
             <div className='post_detail_right_3'>
               {replys.map((reply, index) => <Reply reply={reply} postId={postId} key={index}/>)}
