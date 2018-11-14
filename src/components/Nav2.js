@@ -54,8 +54,12 @@ class Nav2 extends Component {
 
           'Authorization': `bearer ${window.localStorage.getItem('token')}`
          }};    
-         console.log("formdata에 담기는 것-----------------",this.props.posting.mainimage[0])
+
+
+         console.log('this is original imagedata-------------------', this.props.posting.mainimage[0])
          formData.append('imgFile', this.props.posting.mainimage[0]);
+
+         console.log('this is form data------------------', formData)
         
         axios
           .post(

@@ -7,10 +7,8 @@ class Block extends Component {
   }
 
 _handleClick = (e) => {
-  
     this._toggleBlockStatus();
     this._selectedCallBack(e.target.id)
-  
 }
 
 _changeCssonClick = () => {
