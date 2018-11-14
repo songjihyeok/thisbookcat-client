@@ -16,17 +16,20 @@ class SignUp extends Component {
   }
 
   _setEmail = (e) => {
-    console.log('Login.js의 setEmail함수입니다. e.target.value 찍는중', e.target.value)
+    // console.log('Login.js의 setEmail함수입니다. e.target.value 찍는중', e.target.value)
     this.setState({email : e.target.value});
+    //TODO: 이거 굳이 state 안에 둘 필요없을듯
   }
 
   _setPassword = (e) => {
-    console.log('Login.js의 setPw함수입니다. e.target.value 찍는중', e.target.value)
+    // console.log('Login.js의 setPw함수입니다. e.target.value 찍는중', e.target.value)
     this.setState({password : e.target.value});
+    //TODO: 이거 굳이 state 안에 둘 필요없을듯
+
   }
 
   _checkPassword = (e) => {
-    console.log('Login.js의 checkPw함수입니다. e.target.value 찍는중', e.target.value)
+    // console.log('Login.js의 checkPw함수입니다. e.target.value 찍는중', e.target.value)
     if(this.state.password === e.target.value) {
       this.setState({confirmPassword : true})
     }else{
@@ -36,7 +39,7 @@ class SignUp extends Component {
 
   _handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
+    // console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
 
     if(this.state.email && this.state.password && this.state.confirmPassword){
       const user = {
@@ -44,14 +47,12 @@ class SignUp extends Component {
         password : this.state.password
       };
       
-      console.log('signUp is ready_', user)
+      // console.log('signUp is ready_', user)
 
-      // axios.post(`http://${server_url}:3000/api/user`, user)
       axios.post(`http://${server_url}:3000/api/user`, user, {headers:{'Access-Control-Allow-Origin':'*'}})
       .then(res => {
-        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
-        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);
-        // if(res.status === 200){
+        // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
+        // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);
           this.setState({
             signUp_Done : true,
             signUp_Err : false,
@@ -80,13 +81,6 @@ class SignUp extends Component {
             <Link to="/"><div>로그인하러 가기</div></Link>
         </div>
       )
-    // }else if(this.state.signUp_Err){
-    //   return(
-    //      <div>
-    //       <div>{this.state.email}은 이미 가입되어 있는 아이디입니다.</div>
-    //         <Link to="/signup"><div height="800px">다시 회원가입하러 가기</div></Link>
-    //     </div> 
-    //   )
     }else{
       return (
         <div className='login_container' >
@@ -95,9 +89,10 @@ class SignUp extends Component {
             <h5>책, 콘텐츠를 모두와 공유하기</h5>
             <h1>이책반냥<Icon name="paw" size="small" /></h1>
             <h3>회원가입하기</h3>
-            { this.state.signUp_Err ?
-            <div>{this.state.postedEmail}은 이미 가입되어 있는 아이디입니다.</div> :
-            <div></div>}
+            { this.state.signUp_Err
+            ? <div>{this.state.postedEmail}은 이미 가입되어 있는 아이디입니다.</div>
+            : <div></div>
+            }
             </div>
             <form onSubmit={this._handleSubmit}>
               <div className='signup_email'>
@@ -114,8 +109,8 @@ class SignUp extends Component {
                       onChange={this._setPassword}></input>
                 </div>
                   
-                {this.state.confirmPassword ?
-                
+                {this.state.confirmPassword
+                ?
                   <div>
                     <input className='login_input'
                       type="password"
@@ -123,7 +118,7 @@ class SignUp extends Component {
                       onChange={this._checkPassword}>
                     </input>
                   </div>
-                  :
+                :
                   <div>
                     <input className='login_input'
                       type="password"
