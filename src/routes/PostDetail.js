@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Icon } from "semantic-ui-react";
 import axios from 'axios';
 import server_url from '../url.json';
@@ -7,7 +7,6 @@ import Reply from '../components/PostDetail/Reply';
 import PostContent from '../components/PostDetail/PostContent';
 import PostWriter from '../components/PostDetail/PostWriter';
 import PostInfo from '../components/PostDetail/PostInfo';
-
 import "../components/PostDetail/PostDetail.css";
 // import BookInfoModal from '../components/PostDetail/BookInfoModal';
 
@@ -41,8 +40,8 @@ class PostDetail extends Component {
   //   console.log('PostDatail.js의 ComponentDidMount 함수에서 this.state를 찍어보겠습니다___', this.state)
   // }
 
-  async componentWillMount(){
-    await this._getPostData();
+  async componentWillMount(){ //TODO:이렇게 await 안 await 섞어 써도 되나....여..
+    this._getPostData();
     await this._getReply();
     const replyCount = await this._countReply();
     this.setState({replyCount: replyCount})
@@ -94,7 +93,8 @@ class PostDetail extends Component {
     //input 창에서 onChange로 작동된 _newReply 함수가 comment 라는 애를 새로 만듭니다.
     //그 this.comment가 이 axios 요청의 바디형태와 같습니다.
     //그걸로 포스트 요청 보내고, 다시 그 글의 전체 reply정보 받아오는 _getReply 함수를 실행합니다.
-    const res_postReply = await axios.post(`http://${server_url}:3000/api/reply/${this.state.postId}`
+    // const res_postReply = 
+    await axios.post(`http://${server_url}:3000/api/reply/${this.state.postId}`
       , this.comment 
       , this.authHeader)
     // console.log('postdetail 컴포 > _makeReply 함수 > axios.get 요청 후 받는 res_postReply', res_postReply);
@@ -108,7 +108,7 @@ class PostDetail extends Component {
   render() {
     const {postId, userId, replys, replyCount, isMypost} = this.state;
     return (
-      <div>
+      <Fragment>
         <Nav1 />
         <div className='post_detail'>
           <PostContent postId={postId} />
@@ -141,7 +141,7 @@ class PostDetail extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
