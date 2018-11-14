@@ -43,7 +43,7 @@ _toggleBlockStatus = () => {
   render() {
     return (
       <div className = 'Block' style ={{backgroundColor:this._changeCssonClick()}} id = {this.props.select} onClick={(e)=>{this._handleClick(e)}} key={this.props.key}>
-        {this.props.select==='샵'?<Fragment><h1 className = 'tagName'>#</h1><input className='customTag'type="text"/></Fragment>:<h1 className = 'tagName'>{this.props.select}</h1>}
+      <h1 className = 'tagName'>{this.props.select}</h1>
       </div>
     )
   }
