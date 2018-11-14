@@ -74,13 +74,14 @@ class Followings extends Component {
   render() {
     console.log(this.state.page)
     console.log(this.state.totalPage)
+    console.log(this.state.followPost[0])
     return (
       <Fragment>
          <Nav1/>
          <div className="Followings">
          <div className = 'gridOne'></div>
          <div className = 'gridTwo'>
-         {this.state.followPost.length===0?<span>팔로우하신 유저가 없습니다!</span>:this._renderFollowingPost()}<br/>
+         {this.state.followPost[0]===undefined?<span>팔로우하신 유저가 없습니다!</span>:this._renderFollowingPost()}<br/>
          {this.state.page===this.state.totalPage?<span>더이상 콘텐츠가 없습니다!</span>:''}
          </div>
          <div className = 'gridThree'></div>

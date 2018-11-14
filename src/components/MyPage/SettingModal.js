@@ -7,55 +7,57 @@ import axios from 'axios'
 class SettingModal extends Component {
 
   state = {
-    files:[]
+    files:''
   }
+
   _getProfileImage = () => {
     
     let file = document.querySelector('input[type=file]').files[0]
 
     this.setState({
-      ImageData:file
+      files: file
     })
+
+    console.log('this is imageData', this.state.files)
   }
 
-  _handlingImage= (files) =>{
+ /*  _handlingImage= (files) =>{
     console.log(files);
     this.setState({
       files : this.state.files.concat(files)
     })
-  }
+  } */
 
 
 
   _postProfileImagetoServer = () => {
 
-    console.log(this.state.ImageData)
+    console.log('there should be something here', this.state.files)
 
     const token = window.localStorage.getItem('token');
 
+    let formData = new FormData()
 
-    const formData = new FormData();
+    let file = this.state.files
 
-    formData.append('imgFile', this.state.ImageData)
+    formData.append('image', file)
 
-    console.log(formData)
-
-    let file = {
-      formData
-    }
-
-    axios.post(`http://${server_url}:3000/api/user/update/`, file, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
+    axios.post(`http://${server_url}:3000/api/user/update`, formData, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
     /*axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', this.imageData, { headers: { 'Authorization': `bearer ${token}` }})*/
     .then(response => console.log(response))
     .catch(error => console.log(error))
   }
 
-  _handleConfirm = () => {
-    this.props.hide()
-    this._postProfileImagetoServer()
-  }
+  _handleConfirm = async () => {
 
-    render() {
+    await this._postProfileImagetoServer()
+
+    await this.props.callback()
+
+    await this.props.hide()
+  }
+  
+  render() {
       return (
            <Modal
             show={this.props.show}
@@ -70,7 +72,7 @@ class SettingModal extends Component {
             <Modal.Body>
             <div className = 'PhotoUploadModal'>
             <Button bsStyle="primary">비밀번호변경</Button>
-            <input name = '프로필사진등록' type="file" onChange={this._handlingImage.bind(this)}/>
+            <input type="file" name="choose image" onChange={this._getProfileImage}></input>
             <Button bsStyle="primary">로그아웃하기</Button>
             </div>
             </Modal.Body>

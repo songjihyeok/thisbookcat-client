@@ -56,15 +56,7 @@ class TasteBoard extends Component {
 
         console.log('TasteBoard.js > _deleteSellection 함수에서 this.state.selected___', this.state.selected)
     }
-
-    _isSelected = () => {
-        if(this.state.selected.length<4) {
-            alert('취향 또는 장르를 3개이상 고르셔야 합니다.')
-            return false
-        }
-        return true
-    }
-
+    
     _gotoMain = () => {
 
         console.log('there should be history in here', this.props)
@@ -93,6 +85,27 @@ class TasteBoard extends Component {
         console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
     }
 
+    _checkUserName = () => {
+
+        const username = this.state.userName;
+
+        const token = window.localStorage.getItem('token')
+
+        console.log('TasteBoard.js > _setUserName 함수에서 inputData___', username)
+
+        axios.post (`http://${server_url}:3000/api/user/checkuserName`, {userName: username}, {
+            headers: {Authorization: `bearer ${token}`}
+        })
+        .then(res => {
+            if(res.status===200) {
+                alert('사용가능한 유저이름입니다!')
+            }
+        })
+        .catch(err => {
+            alert('이미 사용중인 유저이름입니다.')
+        })
+    }
+
     _submitTasteNUserName = () => {
 
         let token = window.localStorage.getItem('token')
@@ -119,7 +132,7 @@ class TasteBoard extends Component {
         // .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
     }
     //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
-    
+
     _handleSubmit = async () => {
 
         if(this.state.userName==='') {
@@ -145,7 +158,7 @@ class TasteBoard extends Component {
       <div className = 'TasteBoard'>
       <div className = 'WelcomeUser'>
       <input type='text' className="getUserName" onChange={this._setUserName}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
-      <Button className = 'selectUserName' /* onClick={this._setUserName} */>중복검사</Button>
+      <Button className = 'selectUserName' onClick={this._checkUserName}>중복검사</Button>
       </div>
       <div className = 'blockContainer'>
       {this._renderTasteBlock()}

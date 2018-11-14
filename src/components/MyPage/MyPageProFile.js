@@ -63,7 +63,7 @@ class MyPageProFile extends Component {
       })
     })
   }
-
+  
   _callmyPostAPI = () => {
 
     const token = window.localStorage.getItem('token')
@@ -91,18 +91,18 @@ class MyPageProFile extends Component {
     this.setState({ show: true })
   }
 
-  _getImageFromModal = (image1) => {
+ /*  _getImageFromModal = (image1) => {
     this.setState({
       ProfileImage: image1,
     });
-  };
+  }; */
 
-  _getServerImageFromModal = (image2) => {
+ /*  _getServerImageFromModal = (image2) => {
     this.setState({
       imagetoServer: image2
     })
     console.log(this.state.imagetoServer)
-  }
+  } */
 
   /* _getProfileImage = () => {
 
@@ -162,10 +162,11 @@ class MyPageProFile extends Component {
         <SettingModal
           show={this.state.show}
           hide={this._handleHide}
-          callback={this._getImageFromModal}
+          callback={this._getMyProfile}
+
         />
         <div style={{ margin: "20px" }}>
-        {this.state.myPosts ? this._renderPost() : "Loading"}<br/>
+        {this.state.myPosts[0]===undefined?<span>아직 올린 게시물이 없습니다!</span>:this._renderPost()}<br/>
         {this.state.page===this.state.totalPage?<span>'더이상 콘텐츠가 없습니다!'</span>:''}
         </div>
       </div>
