@@ -22,12 +22,11 @@ class MyPageProFile extends Component {
       myProfile: [],
       per: 5,
       page: 1,
-      totalPage:''
+      totalPage:'',
     };
   }
 
    componentDidMount() {
-     /* this._getIamges(); */
      this._callmyPostAPI()
      this._getMyProfile()
      window.addEventListener('scroll', this._infiniteScroll, true)
@@ -59,7 +58,8 @@ class MyPageProFile extends Component {
     .then(response => {
       console.log('this is myprofileresponse',response)
       this.setState({
-        myProfile: response.data
+        myProfile: response.data,
+        ProfileImage: `http://${server_url}:3000/upload/${response.data.profileImage}`,
       })
     })
   }
@@ -83,31 +83,6 @@ class MyPageProFile extends Component {
       })
   }
 
-  _handleHide = () => {
-    this.setState({ show: false });
-  };
-
-  _handleShow = () => {
-    this.setState({ show: true })
-  }
-
- /*  _getImageFromModal = (image1) => {
-    this.setState({
-      ProfileImage: image1,
-    });
-  }; */
-
- /*  _getServerImageFromModal = (image2) => {
-    this.setState({
-      imagetoServer: image2
-    })
-    console.log(this.state.imagetoServer)
-  } */
-
-  /* _getProfileImage = () => {
-
-  } */
-
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
       if(post) {
@@ -118,24 +93,20 @@ class MyPageProFile extends Component {
     return posts
   };
 
- /*  _countPosts = () => {
-    this.setState({
-      counter: this.state.counter+this.myPosts.length
-    })
-  } */
+  _getImageFromModal = (image) => {
+    console.log('_getImageFromModal 이 작동하고 있어요!!')
+    if(image) {
+      this._getMyProfile()
+    }
+  }
 
-  // _getIamges = async () => {
-  //   const images = await this._callImageAPI();
-  //   console.log(images);
-  //   this.setState({
-  //     images: images
-  //   });
-  // };
+  _handleHide = () => {
+    this.setState({ show: false });
+  };
 
-  // _callImageAPI = () => {
-  //   const imagelistAPI = "https://picsum.photos/list";
-  //   return axios.get(imagelistAPI).then(response => response.data);
-  // };
+  _handleShow = () => {
+    this.setState({ show: true })
+  }
 
   render() {
     console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
@@ -144,6 +115,7 @@ class MyPageProFile extends Component {
     console.log('myprofile', this.state.myPosts)
     console.log(this.state.page)
     console.log(this.state.totalPage)
+    console.log('this is profileImage', this.state.ProfileImage)
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
@@ -162,8 +134,7 @@ class MyPageProFile extends Component {
         <SettingModal
           show={this.state.show}
           hide={this._handleHide}
-          callback={this._getMyProfile}
-
+          callback={this._getImageFromModal}
         />
         <div style={{ margin: "20px" }}>
         {this.state.myPosts[0]===undefined?<span>아직 올린 게시물이 없습니다!</span>:this._renderPost()}<br/>

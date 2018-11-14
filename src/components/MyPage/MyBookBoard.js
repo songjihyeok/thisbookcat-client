@@ -29,7 +29,7 @@ class MyBookBoard extends Component {
             this.setState({
                 liked: response.data[0][0][1]
               })
-              console.log('liked', this.state.liked)
+             /*  console.log('liked', this.state.liked) */
         })
         .catch(error => console.log(error))
     }
@@ -47,7 +47,7 @@ class MyBookBoard extends Component {
                     liked:false,
                     likeCount: this.state.likeCount-1
                 })
-                console.log('liked should change', this.state.liked)
+               /*  console.log('liked should change', this.state.liked) */
             })
             .catch(error => console.log(error))
 
@@ -60,18 +60,18 @@ class MyBookBoard extends Component {
                     liked:true,
                     likeCount: this.state.likeCount+1
                 })
-                console.log('liked should change', this.state.liked)
+                /* console.log('liked should change', this.state.liked) */
             })
             .catch(error => console.log(error))
         }
     }
 
     render(){
-        console.log(this.props)
+        /* console.log(this.props) */
         return(
             
                 <div className ='MyBookBoard'>
-                    {console.log('BookBoard component에서 this.props 찍는중', this.props)}
+                   {/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}
                 <Link to={{
                 pathname : `/postdetail/${this.props.postid}`,
                 /* state : {
