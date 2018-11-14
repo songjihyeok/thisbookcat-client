@@ -7,24 +7,23 @@ import axios from 'axios'
 class SettingModal extends Component {
 
   state = {
-    files:''
+    files:[]
   }
 
-  _getProfileImage = () => {
-    
-    let file = document.querySelector('input[type=file]').files[0]
 
+  _handlingImage= (event) =>{
+    console.log("받은 files",event.target.files[0]);
+    const file = event.target.files[0]
     this.setState({
-      files: file
+      files : this.state.files.concat(file)
     })
-
-    console.log('this is imageData', this.state.files)
   }
 
  /*  _handlingImage= (files) =>{
     console.log(files);
     this.setState({
       files : this.state.files.concat(files)
+>>>>>>> ca1c17a1d5be1ac920dec91e4359e106929ca380
     })
   } */
 
@@ -32,21 +31,24 @@ class SettingModal extends Component {
 
   _postProfileImagetoServer = () => {
 
-    console.log('there should be something here', this.state.files)
+
+    console.log("imageData---------",this.state.files[0])
 
     const token = window.localStorage.getItem('token');
 
-    let formData = new FormData()
+    const formData = new FormData();
 
-    let file = this.state.files
+    formData.append('imgFile', this.state.files[0]);
 
-    formData.append('image', file)
+    console.log(formData)
+
 
     axios.post(`http://${server_url}:3000/api/user/update`, formData, { headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}})
     /*axios.post('http://ec2-54-180-29-101.ap-northeast-2.compute.amazonaws.com:3000/api/user/update', this.imageData, { headers: { 'Authorization': `bearer ${token}` }})*/
     .then(response => console.log(response))
     .catch(error => console.log(error))
   }
+
 
   _handleConfirm = async () => {
 
