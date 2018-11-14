@@ -10,7 +10,7 @@ export default class PostInfo extends Component {
     isLike: null,
     likeCount: 0,
     modal: false,
-    mypost: false
+    isMypost: false,
   }
 
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
@@ -52,13 +52,10 @@ export default class PostInfo extends Component {
     // console.log('모달을 보여줘. this.state.show',this.state)
   }
 
-  _handleDelete = () => {
-    let token = window.localStorage.getItem('token')
-    axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`,  {headers:{Authorization: `bearer ${token}`}})
-    .then(response => {
-      console.log(response.data,'삭제되었습니다');
-      this.props.history.goBack();
-    })
+  _handleDelete = async() => {
+    const res_deletePost = await axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
+    console.log(res_deletePost.data,'삭제되었습니다');
+    this.props.history.goBack();
   }
 
   _handleEdit = () => {
@@ -67,7 +64,7 @@ export default class PostInfo extends Component {
 
   render() {
     const { isLike, likeCount, modal } = this.state
-    const { replyCount } = this.props
+    const { replyCount, isMypost } = this.props
     return (
       <div className='post_detail_right_2'>
         <div className='post_detail_icon'><Icon name="pencil alternate" size="large" fitted/>
@@ -85,7 +82,8 @@ export default class PostInfo extends Component {
         <div className='post_detail_icon' onClick={this._showModal}>
           <Icon name="book" size="large" fitted/> info
         </div>
-        {this.props.mypost ? 
+        {(this.props.isMypost)
+        ? 
           <div>
             <Button inverted color='blue' onClick={()=>{
               this._handleEdit();
@@ -97,7 +95,8 @@ export default class PostInfo extends Component {
             }}>
               삭제
             </Button>
-            </div> : null}
+            </div>
+        : null}
         <BookInfoModal show={modal} hide={this._closeModal}/>
     </div>
     )
