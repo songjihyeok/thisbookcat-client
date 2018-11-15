@@ -78,7 +78,7 @@ class MyLike extends Component {
       if(this.state.likePosts){
         const result = this.state.likePosts.map((likePost) => {
         if(likePost) {
-          return <LikeBookBoard likePost={likePost} key={likePost.id}/>
+          return <LikeBookBoard likePost={likePost} key={likePost.id} postid={likePost.id}/>
         }
       })
       return result;

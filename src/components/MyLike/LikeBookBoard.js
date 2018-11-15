@@ -52,11 +52,11 @@ class LikeBookBoard extends Component {
         return(
                 <div className ='LikeBookBoard'>
                 <Link to={{
-               /*  pathname : `/postdetail/${this.props.url}`,
-                state : {
-                    imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-                    username : this.props.author
-                } */
+                pathname : `/postdetail/${this.props.postid}`,
+                // state : {
+                //     imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
+                //     username : this.props.author
+                // } 
                 }}>
                 <Image className = 'likeThumbnail' src = {`http://${server_url}:3000/upload/${this.props.likePost.mainImage}`} alt='bookcover' width={240} height={240}/>
                 </Link>
