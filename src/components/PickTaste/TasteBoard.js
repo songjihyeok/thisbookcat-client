@@ -9,6 +9,7 @@ import './CSS/PickTaste.css'
 
 
 import TasteBlock from './TasteBlock'
+import NewTagModal from './NewTagModal.js';
 
 class TasteBoard extends Component {
 
@@ -25,36 +26,76 @@ class TasteBoard extends Component {
             '블록체인',
             '스트레스',
             'pc게임',
-            '영화',
-            '샵'
+            '영화'
         ],
+
+        newTaste: [],
 
         userName: '',
 
         selected: [],
 
-        customTag: []
+        newTagSelected: [],
+
+        isOktoUse: false,
+
+        confirmUN: false,
+
+        show: false
     }
 
-    _collectSellection = (taste) => {
+    _collectSellection = (e) => {
+
+        console.log(e)
+
+        let isInOrNot = this.state.taste.indexOf(e)
+
+        if(isInOrNot===-1) {
+            this.setState({
+                newTagSelected: [...this.state.newTagSelected, e]
+            })
+        } else {
+            this.setState({
+                selected: [...this.state.selected, e]
+            })
+        }
+
+        console.log('TasteBoard.js > _collectSellection 함수에서 this.state.selected___', this.state.selected)
+        console.log('TasteBoard.js > _collectSellection 함수에서 this.state.newTagselected', this.state.newTagSelected)
+    }
+
+    _deleteSellection = (e) => {
+
+        console.log(e)
+
+        let isInOrNot = this.state.taste.indexOf(e)
+
+        if(isInOrNot===-1) {
+            let array = this.state.newTagSelected
+            let index = this.state.newTagSelected.indexOf(e)
+            console.log('이게 인덱스 값이여',index)
+            array.splice(index,1)
+            this.setState({
+                newTagselected: array
+            })
+        } else {
+            let array = this.state.selected
+            let index = this.state.selected.indexOf(e)
+            array.splice(index,1)
+            this.setState({
+                selected: array
+            })
+        }
+        console.log('TasteBoard.js > _deleteSellection 함수에서 this.state.selected___', this.state.selected)
+        console.log('TasteBoard.js > _deleteSellection 함수에서 this.state.newTagselected___', this.state.newTagselected)
+    }
+
+    _addTaste = (newTaste) => {
+
         this.setState({
-            selected: [...this.state.selected, taste]
+            newTaste: [...this.state.newTaste, newTaste]
         })
         console.log('TasteBoard.js > _collectSellection 함수에서 this.state.selected___', this.state.selected)
-    }
-
-
-    _deleteSellection = (taste) => {
-
-        let array = [...this.state.selected]
-        let index = this.state.selected.indexOf(taste)
-        array.splice(index,1)
-        
-        this.setState({
-            selected: array
-        })
-
-        console.log('TasteBoard.js > _deleteSellection 함수에서 this.state.selected___', this.state.selected)
     }
     
     _gotoMain = () => {
@@ -65,7 +106,10 @@ class TasteBoard extends Component {
     }
 
     _renderTasteBlock = () => {
-        const tasteblocks = this.state.taste.map((select, index) => {
+
+        const wholeTaste = this.state.taste.concat(this.state.newTaste)
+
+        const tasteblocks = wholeTaste.map((select, index) => {
             return <TasteBlock select = {select} key = {index} collect = {this._collectSellection} delete = {this._deleteSellection} selectedColor = {this.state.selected}/>
         })
         return tasteblocks
@@ -93,18 +137,36 @@ class TasteBoard extends Component {
 
         console.log('TasteBoard.js > _setUserName 함수에서 inputData___', username)
 
-        axios.post (`http://${server_url}:3000/api/user/checkuserName`, {userName: username}, {
+        if(username==='') {
+            alert('유저네임을 입력하셔야 합니다!')
+        } else {
+            axios.post (`http://${server_url}:3000/api/user/checkuserName`, {userName: username}, {
             headers: {Authorization: `bearer ${token}`}
         })
         .then(res => {
             if(res.status===200) {
                 alert('사용가능한 유저이름입니다!')
+                this.setState({
+                    isOktoUse: true
+                })
+                if(window.confirm(`${this.state.userName}을(를) 유저네임으로 사용하시겠습니까?`)) {
+                    this.setState({
+                        confirmUN: true
+                    })
+                }
+                else {
+                    return
+                }
             }
         })
         .catch(err => {
             alert('이미 사용중인 유저이름입니다.')
+            this.setState({
+                isOktoUse: false
+            })
         })
     }
+}
 
     _submitTasteNUserName = () => {
 
@@ -113,6 +175,10 @@ class TasteBoard extends Component {
         let customNUser = {
             preference : this.state.selected,
             userName: this.state.userName
+        }
+
+        let newPreference = {
+            newPreference: this.state.newTagSelected
         }
 
         /* let defaultTaste = {
@@ -124,6 +190,12 @@ class TasteBoard extends Component {
         })
         .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res___', res))
         .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 err___', err))
+
+        axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
+            headers: {Authorization: `bearer ${token}`}
+        })
+        .then(res => console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 res___', res))
+        .catch(err => console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 err___', err))
 
         // axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
         //     headers: {Authorization: `bearer ${token}`}
@@ -138,32 +210,51 @@ class TasteBoard extends Component {
         if(this.state.userName==='') {
             alert('유저네임을 입력하셔야 합니다!')
         }
+        else if(this.state.isOktoUse===false) {
+            alert('중복된 유저네임 입니다!')
+        }
         else if (this.state.selected.length<3) {
             alert('취향을 3개이상 고르셔야합니다!')
-        } else {
+        }
+        else if (this.state.userName&&this.state.isOktoUse&&this.state.selected.length>=3){
+
             await this._submitTasteNUserName()
             await this._gotoMain()
         }
     }
 
-    _hadelUserName = async () => {
+    _handleHide = () => {
+        this.setState({ show: false })
+    }
+      
+    _handleShow = () => {
+        this.setState({ show: true })
+    }
+
+    /* _hadelUserName = async () => {
 
         await this._setUserName()
         await alert('유저네임이 설정 됐습니다.')
-    }
+    } */
 
   render() {
       console.log('render함수에서 this.state.userName___' , this.state.userName)
     return (
       <div className = 'TasteBoard'>
       <div className = 'WelcomeUser'>
-      <input type='text' className="getUserName" onChange={this._setUserName}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
-      <Button className = 'selectUserName' onClick={this._checkUserName}>중복검사</Button>
+      <input type='text' className="getUserName" onChange={this._setUserName} readOnly={this.state.confirmUN}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
+      <Button className = 'selectUserName' onClick={this.state.confirmUN?null:this._checkUserName}>중복검사</Button>
+      <Button className = 'createNewTag' onClick={this._handleShow}>태그생성</Button>
       </div>
       <div className = 'blockContainer'>
       {this._renderTasteBlock()}
       </div>
     <Button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</Button>
+    <NewTagModal
+          show={this.state.show}
+          hide={this._handleHide}
+          callback={this._addTaste}
+        />
       </div>
     )
   }

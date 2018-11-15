@@ -128,7 +128,7 @@ class MyPageProFile extends Component {
             name="cog"
             size="big"
             className="custom-icon"
-            onClick={() => this.setState({ show: true })}
+            onClick={this._handleShow}
           />
         </div>
         <SettingModal
