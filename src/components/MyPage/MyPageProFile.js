@@ -20,7 +20,7 @@ class MyPageProFile extends Component {
       ProfileImage: "http://profilepicturesdp.com/wp-content/uploads/2018/06/default-profile-picture-png-12.png",
       myPosts: [],
       myProfile: [],
-      per: 5,
+      per: 8,
       page: 1,
       totalPage:'',
       followed: 0,
