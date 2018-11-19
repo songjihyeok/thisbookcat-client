@@ -5,9 +5,8 @@ import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 
-import "../components/Main/CSS/Main.css";
-
-class Main extends Component {
+class TagSearchPage extends Component {
+  
   
   state = {
     per: 8,
@@ -17,29 +16,13 @@ class Main extends Component {
     totalPage:''
   };
 
-//새로 추가된 사항: per와 page추가 됐습니다. per는 1페이지에 보여줄 포스트의 갯수이고 page는 정해주는 per만큼의 post를 가지고 있는 페이지 입니다.
-//client에서 정해준대로 받아오는 것이 가능합니다. 그래서 현재 스크롤을 끝까지 내리면 페이지 수를 추가하여 페이지가 더 존재하면 컨텐츠를 받아오고 끝이면
-//더이상 콘텐츠가 없다는 메시지가 나오게 했습니다. 해당사항은 main이외의 다른페이지도 똑같이 적용됐습니다.
-
   componentDidMount() {
     this._getUrls()
     window.addEventListener('scroll', this._infiniteScroll, true)
    // this._getMyProfile()
   }
 
-  // _getMyProfile = () => {
-  //   let token = window.localStorage.getItem('token')
-
-  //    axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
-  //   .then(response => {
-  //     console.log('this is myprofileresponse',response)
-  //     this.setState({
-  //       myProfile: response.data
-  //     })
-  //   })
-  // }
-
-   _infiniteScroll = () => {
+  _infiniteScroll = () => {
 
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
 
@@ -58,16 +41,8 @@ class Main extends Component {
     }
   }
 
-  /* _renderPreBooKCoverImage = () => {
-    if(this.state.preCoverUrl) {
-      const bookcover = this.state.preCoverUrl.map((url) => {
-        return <BookBoard url={url.id} author={url.author} key={url.id} />;
-      });
-      return bookcover;
-    }
-  }; */
-
   _renderBooKCoverImage = () => {
+    console.log("rendering")
     if(this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
         if(url) {
@@ -80,9 +55,10 @@ class Main extends Component {
   };
 
   _getUrls = async () => {
-    const coverurl = await this._callBookCoverAPI();
+    console.log("gettingUrls")
+    const coverurl = await this._callTheTagBookCoverAPI();
 
-    console.log(coverurl)
+    console.log("get url 과정?",coverurl)
     
     if(this.state.coverurl===undefined) {
       this.setState({
@@ -95,11 +71,11 @@ class Main extends Component {
     }
   };
 
-  _callBookCoverAPI = () => {
-
+  _callTheTagBookCoverAPI = () => {
+    console.log("uri 가져옵시다")
     let token = window.localStorage.getItem('token')
 
-    return axios.get(`http://${server_url}:3000/api/userTagpost/${this.state.per}/${this.state.page}`,{headers:{Authorization: `bearer ${token}`}})
+    return axios.post(`http://${server_url}:3000/api/post/tag/${this.state.per}/${this.state.page}`,{tagName : this.props.match.params.TagName},{headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
       console.log('there should be data here',response.data)
       this.setState({
@@ -112,12 +88,17 @@ class Main extends Component {
       .catch(err => console.log(err))
   };
 
-  render() {
-    console.log(window.localStorage.getItem('token'))
-    console.log('this is totalpage---------', this.state.totalPage)
-    //토큰이 없으면 로그인 페이지로 가라.
 
+
+  render() {
+    console.log("params--------------",this.props.match.params.TagName)
+    console.log(window.localStorage.getItem('token'))
+    console.log('this is totalpage', this.state.totalPage)
+    console.log("이미 커버유알엘?",this.state.coverurl)
+    
+    //토큰이 없으면 로그인 페이지로 가라.
     if(!window.localStorage.getItem("token")){
+      console.log("picka")
       return <Redirect to="/login" />
     }else{
     return (
@@ -129,19 +110,5 @@ class Main extends Component {
     );
   }}
 }
-export default Main;
 
-  /* _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-
-    let clientHeight = document.documentElement.clientHeight;
-    
-    if(scrollTop + clientHeight === scrollHeight) {
-      this.setState({
-        items:this.state.items+20
-      })
-    }
- } */
-//모든 사진데이터에서 일부 뽑아내서 보여주는 infinite scroll 함수//
+export default TagSearchPage

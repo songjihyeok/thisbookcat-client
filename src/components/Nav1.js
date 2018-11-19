@@ -7,12 +7,20 @@ import "./Nav1.css";
 class Nav1 extends Component {
   state={
     isLogin: true,
+    searchingValue : ""
   }
 
   _logout = (e) => {
     e.preventDefault();
     window.localStorage.removeItem('token');
     this.setState({isLogin: false})
+  }
+
+  _searchHandler = (event)=>{
+    const searchingValue = event.target.value;
+    this.setState({
+      searchingValue : searchingValue
+    })
   }
 
   render() {
@@ -31,8 +39,10 @@ class Nav1 extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <form>
-            <input placeholder="(예: 힐링, 자기계발, 칼세이건...)"/>
-            <button><Icon name="lemon" size="large" fitted color="yellow"/></button>
+            <input placeholder="(예: 힐링, 자기계발, 칼세이건...)" onChange={(event)=>{this._searchHandler(event)}}/>
+            <Link to={`/tagSearchPage/${this.state.searchingValue}`}>
+              <button><Icon name="search" size="large" fitted color="black"/></button>
+            </Link>
           </form>
           {/* <Navbar.Form pullLeft>
             <Input action={{ icon: "search" }} placeholder="(예: 힐링, 자기계발, 칼세이건...)" />
