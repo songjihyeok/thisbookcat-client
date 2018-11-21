@@ -19,21 +19,19 @@ class Nav2 extends Component {
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
   _sendPost = () => {
     let sendurl = ''
-    console.log(window.location.href,'==================');
-    if(window.location.href !== `http://localhost:3000/writepost`){
-      console.log('================================')
-      let postid = window.location.href.slice(-2);
+    // console.log(window.location.href,'==================');
+    if (window.location.href !== `http://localhost:3000/writepost`) {
+      // console.log('================================')
+      let postid = window.location.href.slice(-2)
       sendurl = `http://${server_url}:3000/api/post/edit/${postid}`
     
-    }else{
+    } else {
       sendurl = `http://${server_url}:3000/api/post/`
     }
-    console.log(sendurl,'sendurl')
-    console.log("Nav2.js 의 _sendPost 함수에서 this.props___",this.props)
-    console.log(window.localStorage.getItem('token'))
-    axios
-      .post(
-        sendurl,
+    // console.log(sendurl,'sendurl')
+    // console.log("Nav2.js 의 _sendPost 함수에서 this.props___",this.props)
+    // console.log(window.localStorage.getItem('token'))
+    axios.post(sendurl,
         {
           title: this.props.posting.title,
           contents: this.props.posting.contents
@@ -45,34 +43,27 @@ class Nav2 extends Component {
         }
       )
       .then(response => {
-        console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response___", response);
-
+        // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response___", response);
         const formData = new FormData();
         const config = {
-        headers: {
-          'content-type': 'multipart/form-data',
-
-          'Authorization': `bearer ${window.localStorage.getItem('token')}`
-         }};    
+          headers: {
+            'content-type': 'multipart/form-data',
+            'Authorization': `bearer ${window.localStorage.getItem('token')}`
+          }};    
 
          let uploadingImgs = this.props.posting.mainimage
-         console.log('this is original imagedata-------------------',uploadingImgs[uploadingImgs.length-1] )
+        //  console.log('this is original imagedata-------------------',uploadingImgs[uploadingImgs.length-1] )
          formData.append('imgFile', uploadingImgs[uploadingImgs.length-1]);
-
-         console.log('this is form data------------------', formData)
+        //  console.log('this is form data------------------', formData)
         
-        axios
-          .post(
-            `http://${server_url}:3000/img/mainimage/${response.data.id}`,
-              formData,config
-          )
-          .then(response => {
-            console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청 후 받은 response.data___", response);
-            this.props._postSuccess();
-          })
-          .catch(error => {
-            console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청했는데 error__", error);
-          });
+        axios.post(`http://${server_url}:3000/img/mainimage/${response.data.id}`, formData,config)
+        .then(response => {
+          // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청 후 받은 response.data___", response);
+          this.props._postSuccess();
+        })
+        .catch(error => {
+          // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청했는데 error__", error);
+        });
       })
       .catch(error => {
         console.log("Nav2.js 의 _sendPost 함수에서 axios.post 했는데 error__", error);
@@ -82,22 +73,18 @@ class Nav2 extends Component {
   // 이미지랑 글이랑 보내는 endpoint가 달라서 저렇게 짜 놓았습니다.
 
   render() {
-    console.log("Nav2.js 의 render 안에서 this.props.posting.mainimage[0]___", this.props.posting.mainimage[0]);
+    // console.log("Nav2.js 의 render 안에서 this.props.posting.mainimage[0]___", this.props.posting.mainimage[0]);
     return (
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/main">
-              <div className="thisBook">이 책 반 냥</div>
-            </Link>
+            <Link to="/main"><div className="thisBook">이 책 반 냥</div></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav pullLeft>
-            <NavItem eventKey={1} href="#">
-              Draft
-            </NavItem>
+            <NavItem eventKey={1} href="#">Draft</NavItem>
           </Nav>
           <Nav pullRight>
             <NavItem eventKey={2} href="#" onClick={this._sendPost}>

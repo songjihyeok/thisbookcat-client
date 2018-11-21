@@ -4,6 +4,7 @@ import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class FindPw extends Component {
+  //TODO: functional 로 바꾸기
   render() {
     return (
       <div className='login_container' >

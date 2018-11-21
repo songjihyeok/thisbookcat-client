@@ -69,7 +69,7 @@ class PostDetail extends Component {
     return count
   }
 
-  _newReply = (e) => {
+  _newReply = e => {
     this.comment = {replyContents: e.target.value}
   }
 
@@ -97,38 +97,28 @@ class PostDetail extends Component {
         <div className='post_detail'>
           <PostContent postId={postId} />
           <div className='post_detail_right'>
-              <PostWriter postId={postId}
-                          userId={userId}
-                          isMypost={isMypost} />
-              <PostInfo postId={postId}
-                        replyCount={replyCount}
-                        postId={this.state.postId}
-                        history={this.props.history}/>
-            
+            <PostWriter postId={postId} userId={userId} isMypost={isMypost} />
+            <PostInfo postId={postId} replyCount={replyCount} history={this.props.history}/>
             <div className='post_detail_3_reply'>
               {typeof(replys) === 'string'
-              ?
-              <div> '댓글이 없습니다.'</div>
+              ? <div> '댓글이 없습니다.'</div>
               :
-              <div>
-                {replys.map((reply, index) => {
-                  return <Reply reply={reply}
-                                postId={postId}
-                                key={index}
-                                _getReply={this._getReply}/>
-                })}
-              </div>
+                <div>
+                  {replys.map((reply, index) => {
+                    return <Reply reply={reply} postId={postId} key={index}
+                                  _getReply={this._getReply}/>
+                  })}
+                </div>
               }
             </div>
 
             <div className='post_detail_right_2'>
               <form>
-                <input
-                  className='post_detail_reply_input'
-                  type="text"
-                  placeholder="댓글을 입력해라"
-                  onChange={this._newReply}></input>
-                <span onClick={this._makeReply}><Icon name="pencil alternate" fitted size="large" /></span>
+                <input className='post_detail_reply_input' type="text"
+                      placeholder="댓글을 입력해라" onChange={this._newReply}/>
+                <span onClick={this._makeReply}>
+                  <Icon name="pencil alternate" fitted size="large" />
+                </span>
               </form>
             </div>
           </div>

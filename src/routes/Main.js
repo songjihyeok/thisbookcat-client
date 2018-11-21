@@ -27,8 +27,8 @@ class Main extends Component {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
-    if(scrollTop + clientHeight === scrollHeight) {
-      if(this.state.page !== this.state.totalPage) {
+    if (scrollTop + clientHeight === scrollHeight) {
+      if (this.state.page !== this.state.totalPage) {
         this.setState({page: this.state.page+1})
         this._getUrls()
       }
@@ -36,9 +36,9 @@ class Main extends Component {
   }
 
   _renderBooKCoverImage = () => {
-    if(this.state.coverurl) {
+    if (this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
-        if(url) {
+        if (url) {
           return <BookBoard url={url.mainImage}
                             postid={url.id}
                             title={url.title}
@@ -55,7 +55,7 @@ class Main extends Component {
     const coverurl = await this._callBookCoverAPI();
     // console.log(coverurl)
     if (this.state.coverurl === undefined) {
-      this.setState({coverurl}) //TODO:key-value 값 아니어도 되나요??
+      this.setState({coverurl})
     } else {
       this.setState({coverurl: this.state.coverurl.concat(coverurl)})
     }
@@ -77,17 +77,14 @@ class Main extends Component {
 
   render() {
     // console.log('this is totalpage---------', this.state.totalPage)
-    if(!window.localStorage.getItem("token")){
+    if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
       return (
         <div className="Main">
           <Nav1/>
           {this._renderBooKCoverImage()}<br/>
-          {this.state.page === this.state.totalPage
-           ?  <span>'더이상 콘텐츠가 없습니다!'</span>
-           :  ''
-          }
+          {this.state.page === this.state.totalPage ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
         </div>
       )
     }

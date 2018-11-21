@@ -14,14 +14,14 @@ _handleClick = (e) => {
 }
 
 _changeCssonClick = () => {
-    if(this.state.isClicked === true) {
+    if (this.state.isClicked === true) {
       return {'border': 'solid', 'borderWidth': '3px', 'borderColor': 'blue'}
     } else if (this.state.isClicked === false) {
       return {'border': 'solid', 'borderWidth': '3px', 'borderColor': 'white'}
     }
 }
 
-_selectedCallBack = (e) => {
+_selectedCallBack = e => {
   if (!this.state.isClicked) {
     this.props.collect(e) 
   } else {
@@ -39,16 +39,12 @@ _toggleBlockStatus = () => {
 
   render() {
     return (
-      <div className='Block'
-          style ={this._changeCssonClick()}
-          id = {this.props.select}
-          onClick={this._handleClick}
-          key={this.props.key}>
+      <div className='Block' style ={this._changeCssonClick()} id = {this.props.select}
+          onClick={this._handleClick} key={this.props.key}>
         <span className='tagName'>{this.props.select}</span>
-        <Image className='BlockImage'
+        <Image className='BlockImage' rounded
               src={this.props.imgUrl === 1 ? null : this.props.imgUrl}
-              alt={this.props.imgUrl === 1 ? null : 'blockimage'}
-              rounded></Image>
+              alt={this.props.imgUrl === 1 ? null : 'blockimage'}/>
       </div>
     )
   }

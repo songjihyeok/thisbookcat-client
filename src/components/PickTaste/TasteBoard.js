@@ -58,17 +58,13 @@ class TasteBoard extends Component {
 		show: false
 	}
 
-	_collectSellection = (e) => {
+	_collectSellection = e => {
 		console.log('TasteBoard.js > _collectSellection 함수 : 이게 받아온 아이디 값이여 ===> ', e)
 		let isInOrNot = this.state.taste.indexOf(e)
 		if (isInOrNot === -1) {
-			this.setState({
-					newTagSelected: [...this.state.newTagSelected, e]
-			})
+			this.setState({newTagSelected: [...this.state.newTagSelected, e]})
 		} else {
-			this.setState({
-					selected: [...this.state.selected, e]
-			})
+			this.setState({selected: [...this.state.selected, e]})
 		}
 		// console.log('TasteBoard.js > _collectSellection 함수에서 this.state.selected___', this.state.selected)
 		// console.log('TasteBoard.js > _collectSellection 함수에서 this.state.newTagselected', this.state.newTagSelected)
@@ -119,12 +115,8 @@ class TasteBoard extends Component {
 	_renderTasteBlock = () => {
 		const wholeTaste = Object.assign(this.state.tasteImgUrl,this.state.newTaste)
 		const tasteblocks = Object.keys(wholeTaste).map((key, index) => {
-			return <TasteBlock select = {key}
-												key = {index}
-												collect = {this._collectSellection}
-												delete = {this._deleteSellection}
-												selectedColor = {this.state.selected}
-												imgUrl={wholeTaste[key]}/>
+			return <TasteBlock select = {key} key = {index} collect = {this._collectSellection} imgUrl={wholeTaste[key]}
+												delete = {this._deleteSellection} selectedColor = {this.state.selected}/>
 		})
 		return tasteblocks
 	}                                                   
@@ -145,15 +137,13 @@ class TasteBoard extends Component {
 			} else {
 				axios.post (`http://${server_url}:3000/api/user/checkuserName`, {
 					userName: username}, {
-					headers: {
-						Authorization: `bearer ${token}`
-					}
+					headers: {Authorization: `bearer ${token}`}
 				})
 				.then(res => {
-					if(res.status === 200) {
+					if (res.status === 200) {
 						alert('사용가능한 유저이름입니다!')
 						this.setState({isOktoUse: true})
-						if(window.confirm(`${this.state.userName}을(를) 유저네임으로 사용하시겠습니까?`)) {
+						if (window.confirm(`${this.state.userName}을(를) 유저네임으로 사용하시겠습니까?`)) {
 							this.setState({confirmUN: true})
 						}
 						else {
@@ -205,7 +195,6 @@ class TasteBoard extends Component {
 //       if (result) {
 //         await this._gotoMain()
 //        }   
-      
 		}
 	}
     
@@ -217,7 +206,6 @@ class TasteBoard extends Component {
 			this.setState({show: true})
 	}
 
-
     /* _hadelUserName = async () => {
 
         await this._setUserName()
@@ -225,14 +213,14 @@ class TasteBoard extends Component {
     } */
 
 	_handleButtonFontColor = () => {
-		if(this.state.confirmUN) {
+		if (this.state.confirmUN) {
 			return 'black'
 		}
 	}
 
 	_handleUserNamePart = () => {
-		if(this.state.confirmUN) {
-			return(
+		if (this.state.confirmUN) {
+			return (
 				<div className = 'WelcomeUser'>
 					<div className='userNamePart'>
 						<span className='confirmedUser'>{this.state.userName}</span>
@@ -240,11 +228,8 @@ class TasteBoard extends Component {
 					</div>
 					<button className='pref'>관심</button>
 					<button className='jangre'>장르</button>
-					<button className = 'createNewTag'
-									onClick={this._handleShow}
-									bssize="large">태그생성</button>
-					<button className = 'selectComplete'
-									onClick={this._handleSubmit}>선택완료</button><br/>
+					<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
+					<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
 				</div>
 			)
 		} else {
@@ -268,8 +253,6 @@ class TasteBoard extends Component {
 		}
 	}
 
-
-
   render() {
     //   console.log('render함수에서 this.state.userName___' , this.state.userName)
     return (
@@ -279,9 +262,7 @@ class TasteBoard extends Component {
 					{/* <div className = 'blockContainer'> */}
 					{this._renderTasteBlock()}
 				</div>
-				<NewTagModal show={this.state.show}
-										hide={this._handleHide}
-										callback={this._addTaste}/>
+				<NewTagModal show={this.state.show} hide={this._handleHide} callback={this._addTaste}/>
 			</Fragment>
 
     )

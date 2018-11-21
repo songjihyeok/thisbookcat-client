@@ -41,10 +41,10 @@ class SignUp extends Component {
     e.preventDefault();
     // console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
 
-    if(this.state.email && this.state.password && this.state.confirmPassword){
+    if (this.state.email && this.state.password && this.state.confirmPassword) {
       const user = {
-        emailId : this.state.email,
-        password : this.state.password
+        emailId: this.state.email,
+        password: this.state.password
       };
       
       // console.log('signUp is ready_', user)
@@ -54,19 +54,19 @@ class SignUp extends Component {
         // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
         // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);
           this.setState({
-            signUp_Done : true,
-            signUp_Err : false,
-            postedEmail : user.emailId, 
+            signUp_Done: true,
+            signUp_Err: false,
+            postedEmail: user.emailId, 
           })
       })
       .catch(err => {
         console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 실패후 받는 err__', err)
         console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 실패후 받는 err.response.status__', err.response.status)
-        if(err.response.status === 400){ //400err 면 이미 가입 되어있는 아이디입니다.
+        if (err.response.status === 400) { //400err 면 이미 가입 되어있는 아이디입니다.
           this.setState({
-            signUp_Done : false,
-            signUp_Err : true,
-            postedEmail : user.emailId,
+            signUp_Done: false,
+            signUp_Err: true,
+            postedEmail: user.emailId,
           })
         }
       })
@@ -74,14 +74,14 @@ class SignUp extends Component {
   }
 
   render() {
-    if(this.state.signUp_Done){
+    if (this.state.signUp_Done) {
       return(
         <div>
           <div>{this.state.email}님! 이책반냥에 가입해주셔서 감사합니다.</div>
             <Link to="/"><div>로그인하러 가기</div></Link>
         </div>
       )
-    }else{
+    } else {
       return (
         <div className='login_container' >
           <div className='signup_container_1'>
@@ -96,34 +96,30 @@ class SignUp extends Component {
             </div>
             <form onSubmit={this._handleSubmit}>
               <div className='signup_email'>
-                  <input className='login_input'
-                    type="email"
-                    placeholder="이메일을 입력해주세요"
-                    onChange={this._setEmail}></input>
+                  <input className='login_input' type="email"
+                        placeholder="이메일을 입력해주세요"
+                        onChange={this._setEmail}></input>
               </div>
               
               <div className='signup_email'>
-                <div><input className='login_input'
-                      type="password"
-                      placeholder="비밀번호를 입력해주세요"
-                      onChange={this._setPassword}></input>
+                <div><input className='login_input' type="password"
+                            placeholder="비밀번호를 입력해주세요"
+                            onChange={this._setPassword}></input>
                 </div>
                   
                 {this.state.confirmPassword
                 ?
                   <div>
-                    <input className='login_input'
-                      type="password"
-                      placeholder="비밀번호를 다시 한번 입력해주세요"
-                      onChange={this._checkPassword}>
+                    <input className='login_input' type="password"
+                          placeholder="비밀번호를 다시 한번 입력해주세요"
+                          onChange={this._checkPassword}>
                     </input>
                   </div>
                 :
                   <div>
-                    <input className='login_input'
-                      type="password"
-                      placeholder="비밀번호를 다시 한번 입력해주세요"
-                      onChange={this._checkPassword}>
+                    <input className='login_input' type="password"
+                          placeholder="비밀번호를 다시 한번 입력해주세요"
+                          onChange={this._checkPassword}>
                     </input>
                     <div style={{color:'red'}}>비밀번호가 일치하지 않습니다.</div>
                   </div>

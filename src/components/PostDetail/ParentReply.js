@@ -9,14 +9,14 @@ export default class ParentReply extends Component {
   }
 
   reComment = {};
-  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}};
+  authHeader = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}};
 
   _handleReReplyInput = () => { //대댓글 쓰고싶다고 하면 input창 보여주기.
     let show_reReplyInput = this.state.show_reReplyInput
     this.setState({show_reReplyInput : !show_reReplyInput})
   }
 
-  _newReReply = (e) => { //input 창에 걸어주는 onChange 함수
+  _newReReply = e => { //input 창에 걸어주는 onChange 함수
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
     const { userName, id, } = this.props.reply
     this.reComment = {
@@ -26,12 +26,10 @@ export default class ParentReply extends Component {
     }
   }
 
-  _makeReReply = async() => { //input창에 쓴거 submit 하면 post 날리는 함수.
+  _makeReReply = async () => { //input창에 쓴거 submit 하면 post 날리는 함수.
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
     // const res_postReReply = 
-    await axios.post(`http://${server_url}:3000/api/reply2/${this.props.postId}`
-      , this.reComment
-      , this.authHeader)
+    await axios.post(`http://${server_url}:3000/api/reply2/${this.props.postId}`, this.reComment, this.authHeader)
     // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();
   }
@@ -46,7 +44,7 @@ export default class ParentReply extends Component {
         <div>
           <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt={userName} />
           <span className='reply_username'>{userName} </span>
-          <span className='reply_time'>{createdTime.substring(4,24)}</span>
+          <span className='reply_time'>{createdTime.substring(4, 24)}</span>
         </div>
         <div>
           <span className='reply_msg'>{replyContents} </span>
@@ -59,13 +57,8 @@ export default class ParentReply extends Component {
              ?
                <div id="rereply">
                  <form>
-                  <input
-                    id="rereply_input"
-                    type="text"
-                    name="reply"
-                    placeholder={`@${userName}`}
-                    onChange={this._newReReply}
-                  />
+                  <input id="rereply_input" type="text" name="reply"
+                        placeholder={`@${userName}`} onChange={this._newReReply}/>
                   <span id="rereply_btn" onClick={this._makeReReply}>
                     <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
                   </span>

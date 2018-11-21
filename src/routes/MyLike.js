@@ -10,11 +10,9 @@ import "../components/MyLike/CSS/MyLike.css";
 class MyLike extends Component {
 
   state = {
-
     per: 10,
     page: 1,
     totalPage: ''
-
   };
 
   componentDidMount() {
@@ -23,36 +21,23 @@ class MyLike extends Component {
   }
 
   _infiniteScroll = () => {
-
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-
     let clientHeight = document.documentElement.clientHeight;
-
-    if(scrollTop + clientHeight === scrollHeight) {
-
-      if(this.state.page!==this.state.totalPage) {
-        this.setState({
-          page: this.state.page+1
-        })
+    if (scrollTop + clientHeight === scrollHeight) {
+      if (this.state.page !== this.state.totalPage) {
+        this.setState({page: this.state.page+1})
         this._setMyLikePost()
       }
     }
   }
 
-  
   _getMyLikePost = () => {
-
     return axios.get(`http://${server_url}:3000/api/like/user/${this.state.per}/${this.state.page}`,{
-        headers: {
-          Authorization: `bearer ${window.localStorage.getItem('token')}`
-        }
+        headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
       })
        .then(res => {
-         this.setState({
-           totalPage: res.data.totalpage
-         })
+         this.setState({totalPage: res.data.totalpage})
          return res.data.perArray
        })
        .catch(err => console.log('_getPostData get 못받음. error', err))
@@ -60,24 +45,18 @@ class MyLike extends Component {
 
   _setMyLikePost = async () => {
     const likePosts = await this._getMyLikePost()
-
     // console.log(likePosts)
-
-    if(this.state.likePosts===undefined) {
-      this.setState({
-        likePosts
-      })
+    if (this.state.likePosts === undefined) {
+      this.setState({likePosts})
     } else {
-      this.setState({
-        likePosts: this.state.likePosts.concat(likePosts)
-      })
+      this.setState({likePosts: this.state.likePosts.concat(likePosts)})
     }
   }
 
   _renderMyLikePost = () => {
       if(this.state.likePosts){
         const result = this.state.likePosts.map((likePost) => {
-        if(likePost) {
+        if (likePost) {
           return <LikeBookBoard likePost={likePost} key={likePost.id} postid={likePost.id}/>
         }
       })
@@ -89,16 +68,16 @@ class MyLike extends Component {
   render() {
     // console.log(this.state.page)
     // console.log(this.state.totalPage)
-    if(!window.localStorage.getItem("token")){
+    if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
-    }else{
-    return (
-      <div className="MyLike">
-        <Nav1 />
-        {this.state.likePosts===undefined?'아직 좋아요하신 포스트가 없습니다':this._renderMyLikePost()}<br/>
-        {this.state.page===this.state.totalPage?<span>'더이상 콘텐츠가 없습니다!'</span>:''}
-      </div>
-    );
+    } else {
+      return (
+        <div className="MyLike">
+          <Nav1 />
+          {this.state.likePosts === undefined ? '아직 좋아요하신 포스트가 없습니다' : this._renderMyLikePost()}<br/>
+          {this.state.page === this.state.totalPage ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
+        </div>
+      );
   }}
 }
 

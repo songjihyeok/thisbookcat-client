@@ -18,7 +18,7 @@ export default class PostWriter extends Component {
     await this._getFollowingData()
   }
 
-  _getUserData = async() => {
+  _getUserData = async () => {
     const res_getUser = await axios.get(`http://${server_url}:3000/api/post/postedUserName/${this.props.postId}`, this.authHeader)
     // console.log('_getUserData에서 res_getUser =========',res_getUser)
     this.setState({
@@ -29,22 +29,19 @@ export default class PostWriter extends Component {
     })
   }
 
-  _getFollowingData = async() => {
+  _getFollowingData = async () => {
     const res_getFollowing = await axios.get(`http://${server_url}:3000/api/follow/check/${this.props.userId}`, this.authHeader)
     // console.log('_getFollowingData 함수에서 axios.get 받아온 res_getFollowing.data 찍는중... this should be ture or false', res_getFollowing.data)
-    this.setState({
-      isFollowing: res_getFollowing.data
-    })
+    this.setState({isFollowing: res_getFollowing.data})
   }
 
-  _handleFollowing = async() => {
-    // let token = window.localStorage.getItem('token')
-    if(this.state.isFollowing){
+  _handleFollowing = async () => {
+    if (this.state.isFollowing) {
       // const res_deleteFollowing = 
       await axios.delete(`http://${server_url}:3000/api/follow/delete/${this.props.userId}`, this.authHeader)
       // console.log('postDetail.js의 _handleFollowing 함수에서 팔로우 off(삭제)요청 보낸 후 res_deleteFollowing', res_deleteFollowing)
       this.setState({isFollowing: false})
-    }else{
+    } else {
       // const res_postFollowing = 
       await axios.post(`http://${server_url}:3000/api/follow/${this.props.userId}`, {}, this.authHeader)
       // console.log('postDetail.js의 _handleFollowing 함수에서 팔로우 on(포스트)요청 보낸 후 res_postFollowing', res_postFollowing)
@@ -52,16 +49,15 @@ export default class PostWriter extends Component {
     }
   }
 
-  _handleDelete = async() => {
+  _handleDelete = async () => {
     const res_deletePost = await axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
-    console.log(res_deletePost.data,'삭제되었습니다');
+    console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
     this.props.history.goBack();
   }
 
   _handleEdit = () => {
     this.props.history.push(`/writepost/${this.props.postId}`);
   }
-
 
   render() {
     const {userImage, userName, isFollowing} = this.state
@@ -72,24 +68,14 @@ export default class PostWriter extends Component {
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
           <div>
-            <Button inverted color='blue' onClick={this._handleEdit}>
-              이 POST 수정
-            </Button>
-            <Button inverted color='red' onClick={this._handleDelete}>
-              이 POST 삭제
-            </Button>
+            <Button inverted color='blue' onClick={this._handleEdit}>이 POST 수정</Button>
+            <Button inverted color='red' onClick={this._handleDelete}>이 POST 삭제</Button>
           </div>
         : 
           <div>
             {(isFollowing)
-            ? 
-              <button className="ui grey button" onClick={this._handleFollowing}>
-                팔로우하기
-              </button> 
-            : 
-              <button className="ui teal button" onClick={this._handleFollowing}>
-                팔로우중입니다
-              </button>
+            ? <button className="ui grey button" onClick={this._handleFollowing}>팔로우하기</button> 
+            : <button className="ui teal button" onClick={this._handleFollowing}>팔로우중입니다</button>
             }
           </div>
         }

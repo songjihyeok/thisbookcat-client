@@ -26,6 +26,8 @@ class MyPageProFile extends Component {
     };
   }
 
+  token = window.localStorage.getItem('token')
+
    componentDidMount() {
      this._getFollowingFollowed()
      this._callmyPostAPI()
@@ -37,21 +39,16 @@ class MyPageProFile extends Component {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
-    if(scrollTop + clientHeight === scrollHeight) {
-      if(this.state.page !== this.state.totalPage) {
-        this.setState({ page: this.state.page+1 })
+    if (scrollTop + clientHeight === scrollHeight) {
+      if (this.state.page !== this.state.totalPage) {
+        this.setState({page: this.state.page + 1})
         this._callmyPostAPI()
       }
     }
   }
 
   _getMyProfile = () => {
-    let token = window.localStorage.getItem('token')
-     axios.get(`http://${server_url}:3000/api/user`, {
-       headers: {
-         Authorization: `bearer ${token}`
-        }
-      })
+    axios.get(`http://${server_url}:3000/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
       // console.log('this is myprofileresponse',response)
       this.setState({
@@ -62,29 +59,23 @@ class MyPageProFile extends Component {
   }
   
   _callmyPostAPI = () => {
-    const token = window.localStorage.getItem('token')
     axios.get(`http://${server_url}:3000/api/post/mypage/${this.state.per}/${this.state.page}`, {
-        headers: {
-          Authorization: `bearer ${token}`
-        }
-      })
-      .then(response => {
-        // console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
-        this.setState({
-          totalPage: response.data.totalpage,
-          myPosts: this.state.myPosts.concat(response.data.perArray),
-        });
-      })
+      headers: {Authorization: `bearer ${this.token}`}
+    })
+    .then(response => {
+      // console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+      this.setState({
+        totalPage: response.data.totalpage,
+        myPosts: this.state.myPosts.concat(response.data.perArray),
+      });
+    })
   }
 
   _getFollowingFollowed = () => {
-    const token = window.localStorage.getItem('token') 
     axios.get(`http://${server_url}:3000/api/follow/followingFollowedIds`, {
-        headers: {
-          Authorization : `bearer ${token}`
-        }
+      headers: {Authorization : `bearer ${this.token}`}
     })
-    .then( response => {
+    .then(response => {
       //  console.log("follow response----" ,response);
       //  console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
       this.setState({
@@ -96,31 +87,28 @@ class MyPageProFile extends Component {
 
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
-      if(post) {
-        return <MyBookBoard image={post.mainImage}
-                            title={post.title}
-                            key={post.id}
-                            postid={post.id}
-                            likecount={post.likeCount} />
+      if (post) {
+        return <MyBookBoard image={post.mainImage} title={post.title} key={post.id}
+                            postid={post.id} likecount={post.likeCount} />
       }
     });
     // console.log(this.state.myPosts)
     return posts
   };
 
-  _getImageFromModal = (image) => {
+  _getImageFromModal = image => {
     // console.log('_getImageFromModal 이 작동하고 있어요!!')
-    if(image) {
+    if (image) {
       this._getMyProfile()
     }
   }
 
   _handleHide = () => {
-    this.setState({ show: false });
+    this.setState({show: false});
   };
 
   _handleShow = () => {
-    this.setState({ show: true })
+    this.setState({show: true})
   }
 
   render() {
@@ -140,27 +128,12 @@ class MyPageProFile extends Component {
           <span className="ID_user">{this.state.myProfile.userName} 님 환영합니다!</span>
           <span className="Follower">팔로워 : {this.state.followed}</span>
           <span className="Following">팔로잉 : {this.state.following}</span>
-          <Icon name="cog"
-                size="big"
-                className="custom-icon"
-                onClick={this._handleShow}/>
+          <Icon name="cog" size="big" className="custom-icon" onClick={this._handleShow}/>
         </div>
-        <SettingModal show={this.state.show}
-                      hide={this._handleHide}
-                      callback={this._getImageFromModal}/>
+        <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
         <div style={{ margin: "20px" }}>
-        {(this.state.myPosts[0] === undefined)
-        ?
-          <span>아직 올린 게시물이 없습니다!</span>
-        :
-          this._renderPost()
-        }<br/>
-        {(this.state.page === this.state.totalPage)
-        ?
-          <span>'더이상 콘텐츠가 없습니다!'</span>
-        :
-          ''
-        }
+          {(this.state.myPosts[0] === undefined) ? <span>아직 올린 게시물이 없습니다!</span> : this._renderPost()}<br/>
+          {(this.state.page === this.state.totalPage) ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
         </div>
       </div>
     )
