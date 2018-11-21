@@ -3,22 +3,21 @@ import { Icon } from "semantic-ui-react"
 import axios from 'axios'
 import server_url from '../../url.json'
 
-
 export default class ParentReply extends Component {
   state = {
-    show_reReplyInput : false,
+    show_reReplyInput: false,
   }
 
   reComment = {};
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}};
 
-  _handleReReplyInput = () => {
+  _handleReReplyInput = () => { //대댓글 쓰고싶다고 하면 input창 보여주기.
     let show_reReplyInput = this.state.show_reReplyInput
     this.setState({show_reReplyInput : !show_reReplyInput})
   }
 
-  _newReReply = (e) => {
-    console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
+  _newReReply = (e) => { //input 창에 걸어주는 onChange 함수
+    // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
     const { userId, id, } = this.props.reply
     this.reComment = {
       replyContents: `@${userId} ${e.target.value}`,
@@ -26,21 +25,20 @@ export default class ParentReply extends Component {
       targetUsername: `${userId}`}
   }
 
-
-  _makeReReply = async() => {
-    console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
-    const res_postReReply = await axios.post(`http://${server_url}:3000/api/reply2/${this.props.postId}`
+  _makeReReply = async() => { //input창에 쓴거 submit 하면 post 날리는 함수.
+    // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
+    // const res_postReReply = 
+    await axios.post(`http://${server_url}:3000/api/reply2/${this.props.postId}`
       , this.reComment
       , this.authHeader)
-    console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
+    // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();
   }
 
 
   render() {
     const { userId, replyContents } = this.props.reply;
-    console.log(this.props.reply, '{id:3, replyContents:"얄루얄루", userId: 3, postId: 16, parentReplyId: null}')
-
+    
     return (
       <div className='reply'>
         {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지*
@@ -49,7 +47,7 @@ export default class ParentReply extends Component {
         <span className='reply_msg'>{replyContents} </span>
         <span onClick={this._handleReReplyInput}>답글</span>
         
-        {/* 이 아래는 대댓글을 쓰고싶다고 하면! 인풋창을 보여주고, 아니면 나타나지 않는 부분입니다. */}
+        {/* 이 아래는 대댓글을 쓰고싶다고 하면! 아래와 같은 인풋창을 보여주고, 아니면 나타나지 않는 부분입니다. */}
         <div>
              {(this.state.show_reReplyInput) 
              ?

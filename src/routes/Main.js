@@ -10,12 +10,11 @@ import "../components/Main/CSS/Main.css";
 class Main extends Component {
   
   state = {
-    per: 10,
+    per: 8,
     //한페이지당 가지게될 포스트의 개수
     page: 1,
     //정해진 per만큼의 포스트를 가지는 페이지
-    totalPage:'',
-    myProfile:''
+    totalPage:''
   };
 
 //새로 추가된 사항: per와 page추가 됐습니다. per는 1페이지에 보여줄 포스트의 갯수이고 page는 정해주는 per만큼의 post를 가지고 있는 페이지 입니다.
@@ -25,20 +24,20 @@ class Main extends Component {
   componentDidMount() {
     this._getUrls()
     window.addEventListener('scroll', this._infiniteScroll, true)
-    this._getMyProfile()
+   // this._getMyProfile()
   }
 
-  _getMyProfile = () => {
-    let token = window.localStorage.getItem('token')
+  // _getMyProfile = () => {
+  //   let token = window.localStorage.getItem('token')
 
-     axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
-    .then(response => {
-      console.log('this is myprofileresponse',response)
-      this.setState({
-        myProfile: response.data
-      })
-    })
-  }
+  //    axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
+  //   .then(response => {
+  //     console.log('this is myprofileresponse',response)
+  //     this.setState({
+  //       myProfile: response.data
+  //     })
+  //   })
+  // }
 
    _infiniteScroll = () => {
 
@@ -115,8 +114,7 @@ class Main extends Component {
 
   render() {
     console.log(window.localStorage.getItem('token'))
-    console.log('this is coverurl',this.state.coverurl)
-    console.log('this is totalpage', this.state.totalPage)
+    console.log('this is totalpage---------', this.state.totalPage)
     //토큰이 없으면 로그인 페이지로 가라.
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />

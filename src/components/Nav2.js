@@ -55,9 +55,9 @@ class Nav2 extends Component {
           'Authorization': `bearer ${window.localStorage.getItem('token')}`
          }};    
 
-
-         console.log('this is original imagedata-------------------', this.props.posting.mainimage[0])
-         formData.append('imgFile', this.props.posting.mainimage[0]);
+         let uploadingImgs = this.props.posting.mainimage
+         console.log('this is original imagedata-------------------',uploadingImgs[uploadingImgs.length-1] )
+         formData.append('imgFile', uploadingImgs[uploadingImgs.length-1]);
 
          console.log('this is form data------------------', formData)
         

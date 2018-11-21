@@ -37,8 +37,9 @@ export default class PostContent extends Component {
     const { title, mainImage, contents } = this.state
     return (
       <div className='post_detail_left'>
-        <div><img height={window.innerHeight * 0.6} src={mainImage} alt={title}/>
-          </div>
+        <div>
+          <img style= {{width:500,height:500}}  src={mainImage} alt={title}/>
+        </div>
         <h2>{title}</h2> 
         <div className='post_detail_content' dangerouslySetInnerHTML={{__html: contents}}>
         </div>

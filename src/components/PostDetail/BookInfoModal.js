@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {Modal, Button} from 'react-bootstrap'
 import './BookInfoModal.css'
 export default class BookInfoModal extends Component {
     render() {
       console.log(this.props)
       return (
-        <div>
+        <Fragment>
         <Modal
             show={this.props.show}
             onHide={this.props.hide}
@@ -25,7 +25,7 @@ export default class BookInfoModal extends Component {
               <Button onClick={this.props.hide}>닫기</Button>
             </Modal.Footer>
           </Modal>
-        </div>
+        </Fragment>
 
       );
     }
