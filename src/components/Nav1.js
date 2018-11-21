@@ -22,14 +22,13 @@ class Nav1 extends Component {
       searchingValue : searchingValue
     })
   }
-
   render() {
     if(!this.state.isLogin){
       return <Redirect to ='/login' />;
     }else{
     return (
       <Navbar collapseOnSelect>
-        <Navbar.Header>
+        <Navbar.Header className='navLeft'>
           <Navbar.Brand>
             <Link to="/main">
               <div className="thisBook">이 책 반 냥</div>
