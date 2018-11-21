@@ -102,7 +102,7 @@ class TasteBoard extends Component {
 
         console.log('there should be history in here', this.props)
 
-        this.props.history.push('/')
+        this.props.history.push('/main')
     }
 
     _renderTasteBlock = () => {
@@ -168,12 +168,12 @@ class TasteBoard extends Component {
     }
 }
 
-    _submitTasteNUserName = () => {
+    _submitTasteNUserName = async() => {
 
         let token = window.localStorage.getItem('token')
 
         let customNUser = {
-            preference : this.state.selected,
+            preference : this.state.selected.concat(this.state.newTagSelected),
             userName: this.state.userName
         }
 
@@ -184,24 +184,16 @@ class TasteBoard extends Component {
         /* let defaultTaste = {
             defaultTags: this.state.selected
         } */
-
-        axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
+            if(newPreference.length>0){
+            const addResult = await axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
             headers: {Authorization: `bearer ${token}`}
-        })
-        .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res___', res))
-        .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 err___', err))
-
-        axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
-            headers: {Authorization: `bearer ${token}`}
-        })
-        .then(res => console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 res___', res))
-        .catch(err => console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 err___', err))
-
-        // axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
-        //     headers: {Authorization: `bearer ${token}`}
-        // })
-        // .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 res___', res))
-        // .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
+            })
+            }
+            console.log("보내는 TAGS!-----", customNUser)
+            const result = await axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
+                headers: {Authorization: `bearer ${token}`}
+            }) 
+        return result
     }
     //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
 
@@ -211,15 +203,16 @@ class TasteBoard extends Component {
             alert('유저네임을 입력하셔야 합니다!')
         }
         else if(this.state.isOktoUse===false) {
-            alert('중복된 유저네임 입니다!')
+            alert('중복검사를 하셔야합니다')
         }
-        else if (this.state.selected.length<3) {
+        else if ((this.state.selected.length + this.state.newTagSelected.length)<3) {
             alert('취향을 3개이상 고르셔야합니다!')
         }
         else if (this.state.userName&&this.state.isOktoUse&&this.state.selected.length>=3){
-
-            await this._submitTasteNUserName()
+            const result = await this._submitTasteNUserName()
+            if(result){
             await this._gotoMain()
+            }    
         }
     }
 
@@ -230,12 +223,6 @@ class TasteBoard extends Component {
     _handleShow = () => {
         this.setState({ show: true })
     }
-
-    /* _hadelUserName = async () => {
-
-        await this._setUserName()
-        await alert('유저네임이 설정 됐습니다.')
-    } */
 
   render() {
       console.log('render함수에서 this.state.userName___' , this.state.userName)
