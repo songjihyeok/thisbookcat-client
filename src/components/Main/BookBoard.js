@@ -12,16 +12,15 @@ class BookBoard extends Component {
 			likeCount: this.props.likecount
 	}
 
+	token = window.localStorage.getItem('token')
+
 	componentDidMount () {
 			this._getLikeData()
 	}
 
 	_getLikeData = () => {
-		let token = window.localStorage.getItem('token')
 		axios.get(`http://${server_url}:3000/api/like/${this.props.postid}`, {
-			headers: {
-				Authorization: `bearer ${token}`
-			}
+			headers: {Authorization: `bearer ${this.token}`}
 		})
 		.then(response => {
 			this.setState({liked: response.data[0][0][1]})
@@ -32,34 +31,28 @@ class BookBoard extends Component {
 
 
 	_handleLike = () => {
-		let token = window.localStorage.getItem('token')
 		if (this.state.liked) {
 			axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {
-				headers: {
-					Authorization: `bearer ${token}`
-				}
+				headers: {Authorization: `bearer ${this.token}`}
 			})
 			.then(response => {
 					// console.log(response)
 				this.setState({
-						liked:false,
-						likeCount: this.state.likeCount-1
+					liked:false,
+					likeCount: this.state.likeCount-1
 				})
 				// console.log('liked should change', this.state.liked)
 			})
 			.catch(error => console.log(error))
 		} else {
-			axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`,
-				{}, {
-					headers: {
-						Authorization: `bearer ${token}`
-					}
+			axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {
+					headers: {Authorization: `bearer ${this.token}`}
 				})
 			.then(response => {
 				// console.log(response)
 				this.setState({
-						liked: true,
-						likeCount: this.state.likeCount+1
+					liked: true,
+					likeCount: this.state.likeCount+1
 				})
 				// console.log('liked should change', this.state.liked)
 			})
@@ -72,9 +65,7 @@ class BookBoard extends Component {
 	} */
 
 	/* _handleClick =  () => {
-			
 			this._handleLike()
-
 	} */
 
 	render(){
@@ -86,21 +77,12 @@ class BookBoard extends Component {
 						imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
 						username : this.props.author,
 				} */}}>
-					<Image className = 'likeThumbnail'
-								src = {`http://${server_url}:3000/upload/${this.props.url}`}
-								alt='bookcover'
-								width={240}
-								height={240} />
+					<Image className = 'likeThumbnail' alt='bookcover' width={240} height={240}
+								src = {`http://${server_url}:3000/upload/${this.props.url}`}/>
 				</Link>
 				{this.state.liked
-				?
-					<span>
-						<Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}
-					</span>
-				: 
-					<span>
-						<Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}
-					</span>
+				? <span><Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
+				: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
 				}
 				<span>{this.props.title}</span>
 			</div>

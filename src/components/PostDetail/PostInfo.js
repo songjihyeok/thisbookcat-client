@@ -19,7 +19,7 @@ export default class PostInfo extends Component {
     this._getLikeData();
   }
 
-  _getLikeData = async() => {
+  _getLikeData = async () => {
     const res_getLike = await axios.get(`http://${server_url}:3000/api/like/${this.props.postId}`, this.authHeader)
     console.log("_getLikeData에서 get 해오는 res_getLike.data ===", res_getLike.data)
     this.setState({
@@ -28,13 +28,13 @@ export default class PostInfo extends Component {
     })
   }
 
-  _handleLike = async() => { //레몬에 온클릭 함수로 걸고있음. 클릭할때마다 axios 요청 보내기.&& state를 setting 하기
-    if(this.state.isLike){ //라이크 되어있는데, 라이크 누르는거면 delete 요청 보내야함.
+  _handleLike = async () => { //레몬에 온클릭 함수로 걸고있음. 클릭할때마다 axios 요청 보내기.&& state를 setting 하기
+    if (this.state.isLike) { //라이크 되어있는데, 라이크 누르는거면 delete 요청 보내야함.
       //count-- 시키는 요청 & //postid와 userid의 like join을 삭제하는 요청
       // const res_deleteLike = 
       await axios.delete(`http://${server_url}:3000/api/like/${this.props.postId}`, this.authHeader)
     //console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res_deleteLike", res_deleteLike)
-    } else{ //count++ 시키는 요청 & //postid와 userid를 like join 하는 요청
+    } else { //count++ 시키는 요청 & //postid와 userid를 like join 하는 요청
       // const res_postLike = 
       await axios.post(`http://${server_url}:3000/api/like/${this.props.postId}`, {}, this.authHeader)
       //console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res_postLike", res_postLike)
@@ -58,16 +58,13 @@ export default class PostInfo extends Component {
     return (
       <div className='post_detail_right_2_postInfo'>
         <div className='post_detail_icon'><Icon name="pencil alternate" size="large" fitted/>
-          <span>
-          {replyCount
-          ? `X ${replyCount}`
-          : `X 0`}
-        </span>
+          <span>{(replyCount) ? `X ${replyCount}` : `X 0`}</span>
         </div>
         <div className='post_detail_icon'>
-          {isLike ?
-            <span><Icon name="lemon" size="large" fitted color="yellow"onClick={this._handleLike} />X {likeCount}</span> :
-            <span><Icon name="lemon" size="large" fitted  color="grey" onClick={this._handleLike} />X {likeCount}</span>}
+          {(isLike)
+          ? <span><Icon name="lemon" size="large" fitted color="yellow"onClick={this._handleLike} />X {likeCount}</span>
+          : <span><Icon name="lemon" size="large" fitted  color="grey" onClick={this._handleLike} />X {likeCount}</span>
+          }
         </div>
         <div className='post_detail_icon' onClick={this._showModal}>
           <Icon name="book" size="large" fitted/> info

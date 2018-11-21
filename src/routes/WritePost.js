@@ -42,11 +42,8 @@ class WritePost extends Component {
     return (
       (this.state.posted)
       ?
-      (
         <Redirect to="/mypage" /> // 글이 저장되면 마이페이지로 리다이렉트하는 부분입니다.
-      )
       :
-      (
         <div>
           <Nav2 _postSuccess={this._postSuccess}
                 posting={{
@@ -57,35 +54,20 @@ class WritePost extends Component {
           <Grid>
             {/* react-bootstrap Grid를 사용해서 layout짠 부분입니다. */}
             <Row className="show-grid">
-              <Col xs={12}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    height: "400px"}}>
-                <div style={{
-                      display: "flex",
-                      flex: "0.5",
-                      justifyContent: "center",
-                      alignItems: "center"}}>
+              <Col xs={12} style={{display: "flex", justifyContent: "center", height: "400px"}}>
+                <div style={{display: "flex", flex: "0.5", justifyContent: "center", alignItems: "center"}}>
                   <Thumbnail _handleMainImage={this._handleMainImage} />
                   {/* 대표이미지를 업로드하는 부분입니다. */}
                 </div>
-                <div  style={{
-                        display: "flex",
-                        flex: "0.5",
-                        justifyContent: "center",
-                        alignItems: "center"}}>
+                <div style={{display: "flex", flex: "0.5", justifyContent: "center", alignItems: "center"}}>
                   <Bookapi />
                   {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}
                 </div>
               </Col>
             </Row>
             <Row className="show-grid">
-              <Col xs={12} style={{ display: "flex" }}>
-                <div style={{
-                      display: "flex",
-                      flex: "1",
-                      marginTop: "30px"}}>
+              <Col xs={12} style={{display: "flex"}}>
+                <div style={{display: "flex", flex: "1", marginTop: "30px"}}>
                   <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
                   {/* 글 쓰는 부분입니다. */}
                 </div>
@@ -93,7 +75,6 @@ class WritePost extends Component {
             </Row>
           </Grid>
         </div>
-      )
     )
   }
 }
