@@ -11,7 +11,7 @@ class MyLike extends Component {
 
   state = {
 
-    per: 5,
+    per: 10,
     page: 1,
     totalPage: ''
 
