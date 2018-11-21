@@ -39,7 +39,7 @@ class Followings extends Component {
   }
 
   _renderFollowingPost = () => {
-    console.log('this is following post',this.state.followPost)
+    // console.log('this is following post',this.state.followPost)
     if(this.state.followPost) {
       const follow = this.state.followPost.map((url, index) => {
         if(url) {
@@ -56,7 +56,7 @@ class Followings extends Component {
     this.setState({
       followPost:this.state.followPost.concat(followPost)
     })
-    console.log(this.state.followPost)
+    // console.log(this.state.followPost)
   };
 
   _callFollowAPI = () => {
@@ -66,15 +66,15 @@ class Followings extends Component {
       this.setState({
         totalPage: response.data.totalpage
       })
-      console.log(response.data)
+      // console.log(response.data)
       return response.data.perArray
     })
   };
 
   render() {
-    console.log(this.state.page)
-    console.log(this.state.totalPage)
-    console.log(this.state.followPost[0])
+    // console.log(this.state.page)
+    // console.log(this.state.totalPage)
+    // console.log(this.state.followPost[0])
     return (
       <Fragment>
          <Nav1/>

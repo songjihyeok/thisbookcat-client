@@ -30,13 +30,13 @@ _selectedCallBack = (e) => {
 
 _toggleBlockStatus = () => {
   if(this.state.isClicked===false) {
-    console.log('aquamarine')
+    // console.log('aquamarine')
     this.setState({isClicked:true})
-    console.log(this.state.isClicked)
+    // console.log(this.state.isClicked)
   } else if (this.state.isClicked===true) {
-    console.log('white')
+    // console.log('white')
     this.setState({isClicked:false})
-    console.log(this.state.isClicked)
+    // console.log(this.state.isClicked)
   }
 }
 

@@ -1,6 +1,6 @@
 .post_detail{
-  width: 80%;
-  
+  width: 1280px;
+  height: 841px;
   margin: 0 auto;
   /* 블록 레벨 엘리먼트의 width를 설정하면 컨테이너의 좌우 가장자리로 늘어나지 않게 할 수 있습니다.
   그런 다음 좌우 마진을 auto로 설정해 해당 엘리먼트를 컨테이너 안에서 가로 중앙에 오게 할 수 있습니다.
@@ -21,11 +21,20 @@
 
 .post_detail_left {
  flex: 70%;
+ height: 841px;
  padding-right: 20px;
  overflow : scroll;
  overflow-x: hidden;
 }
 .post_detail_left::-webkit-scrollbar {
+  display: none;
+ }
+
+ .post_detail_3_reply{
+  overflow : scroll;
+  overflow-x: hidden;
+ }
+ .post_detail_3_reply::-webkit-scrollbar {
   display: none;
  }
 
@@ -44,21 +53,48 @@
 
 .img-circle {
   width: 50px;
-  height: auto;
+  height: 50px;
   border-radius: 50%;
   margin: 10px;
 }
 
 .reply_username{
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 16px;
 }
 
-.reply{
-  padding-bottom: 0.7rem;
+.reply_time{
+  font-size: 12px;
+  color: lightslategray;
 }
+
+.reply_targetName{
+  font-size: 15px;
+  font-weight: bold;
+  color: mediumslateblue;
+}
+
+
+.parent_reply{
+  padding: 20px;
+  text-align: left;
+  border: 0.1em solid grey;
+  border-top-style: none;
+}
+
+.child_reply{
+  text-align: left;
+  padding: 20px 20px 20px 40px;
+  border: 0.1em solid grey;
+  border-top-style: none;
+}
+
 .reply_msg{
-  font-size: 1.1em;
+  font-size: 15px;
+}
+
+.make_rereply{
+  
 }
 
 .post_detail_right_1_postWriter{

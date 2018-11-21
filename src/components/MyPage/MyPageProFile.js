@@ -59,7 +59,7 @@ class MyPageProFile extends Component {
 
      axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      console.log('this is myprofileresponse',response)
+      // console.log('this is myprofileresponse',response)
       this.setState({
         myProfile: response.data,
         ProfileImage: `http://${server_url}:3000/upload/${response.data.profileImage}`,
@@ -68,17 +68,14 @@ class MyPageProFile extends Component {
   }
   
   _callmyPostAPI = () => {
-
     const token = window.localStorage.getItem('token')
-
-    console.log(token)
     axios.get(`http://${server_url}:3000/api/post/mypage/${this.state.per}/${this.state.page}`, {
         headers: {
           Authorization: `bearer ${token}`
         }
       })
       .then(response => {
-        console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+        // console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
         this.setState({
           totalPage: response.data.totalpage,
           myPosts: this.state.myPosts.concat(response.data.perArray),
@@ -95,8 +92,8 @@ class MyPageProFile extends Component {
         }
     })
     .then( response =>{
-       console.log("follow response----" ,response);
-       console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
+      //  console.log("follow response----" ,response);
+      //  console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
       this.setState({following :response.data[1].length, followed :response.data[3].length});
     })
   }
@@ -107,12 +104,12 @@ class MyPageProFile extends Component {
         return <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postid={post.id} likecount={post.likeCount} />
       }
     });
-    console.log(this.state.myPosts)
+    // console.log(this.state.myPosts)
     return posts
   };
 
   _getImageFromModal = (image) => {
-    console.log('_getImageFromModal 이 작동하고 있어요!!')
+    // console.log('_getImageFromModal 이 작동하고 있어요!!')
     if(image) {
       this._getMyProfile()
     }
@@ -127,13 +124,13 @@ class MyPageProFile extends Component {
   }
 
   render() {
-    console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
-    console.log('myprofile', this.state.myProfile)
-    console.log('totalpage', this.state.totalPage)
-    console.log('myprofile', this.state.myPosts)
-    console.log(this.state.page)
-    console.log(this.state.totalPage)
-    console.log('this is profileImage', this.state.ProfileImage)
+    // console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
+    // console.log('myprofile', this.state.myProfile)
+    // console.log('totalpage', this.state.totalPage)
+    // console.log('myprofile', this.state.myPosts)
+    // console.log(this.state.page)
+    // console.log(this.state.totalPage)
+    // console.log('this is profileImage', this.state.ProfileImage)
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">

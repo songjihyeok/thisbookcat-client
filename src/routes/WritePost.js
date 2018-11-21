@@ -45,8 +45,8 @@ class WritePost extends Component {
   }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
   render() {
-    console.log(this.state.mainimage, this.state.title, this.state.contents);
-    console.log(this.state.posted, "this is posted");
+    // console.log(this.state.mainimage, this.state.title, this.state.contents);
+    // console.log(this.state.posted, "this is posted");
     return this.state.posted ? (
       <Redirect to="/mypage" /> // 글이 저장되면 마이페이지로 리다이렉트하는 부분입니다.
     ) : (

@@ -42,7 +42,7 @@ class MyBookBoard extends Component {
 
             axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setState({
                     liked:false,
                     likeCount: this.state.likeCount-1
@@ -55,7 +55,7 @@ class MyBookBoard extends Component {
 
             axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {headers:{Authorization: `bearer ${token}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setState({
                     liked:true,
                     likeCount: this.state.likeCount+1

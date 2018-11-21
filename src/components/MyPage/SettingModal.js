@@ -14,18 +14,18 @@ class SettingModal extends Component {
     
     let file = document.querySelector('input[type=file]').files[0]
 
-    console.log('this is the first file', file)
+    // console.log('this is the first file', file)
 
     this.setState({
       files: file,
       fileName: file.name
     })
-    console.log('this is imageData', this.state.files)
+    // console.log('this is imageData', this.state.files)
   }
   
   _postProfileImagetoServer = () => {
 
-    console.log('there should be something here', this.state.files)
+    // console.log('there should be something here', this.state.files)
 
     const token = window.localStorage.getItem('token');
 

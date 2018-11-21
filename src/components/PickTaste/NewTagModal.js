@@ -10,14 +10,14 @@ export default class NewTagModal extends Component {
         
         const inputData = document.getElementsByClassName('getNewTag')[0].value
 
-        console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
+        // console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
         
         this.setState ({
 
             tag:inputData
         })
         
-        console.log('NewTagModal.js > _setTag 함수에서 this.state.tag___', this.state.tag)
+        // console.log('NewTagModal.js > _setTag 함수에서 this.state.tag___', this.state.tag)
     }
 
     _handleNewTag = () => {

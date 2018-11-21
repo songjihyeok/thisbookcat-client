@@ -20,17 +20,17 @@ componentDidMount () {
 
     _getLikeData = () => {
 
-        console.log(this.props.postid)
+        // console.log(this.props.postid)
 
         let token = window.localStorage.getItem('token')
 
         axios.get(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
         .then(response => {
-                console.log(response.data[0][0][1])
+                // console.log(response.data[0][0][1])
             this.setState({
                 liked: response.data[0][0][1]
               })
-              console.log('liked', this.state.liked)
+            //   console.log('liked', this.state.liked)
         })
         .catch(error => console.log(error))
     }
@@ -43,12 +43,12 @@ componentDidMount () {
 
             axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setState({
                     liked:false,
                     likeCount: this.state.likeCount-1
                 })
-                console.log('liked should change', this.state.liked)
+                // console.log('liked should change', this.state.liked)
             })
             .catch(error => console.log(error))
 
@@ -56,12 +56,12 @@ componentDidMount () {
 
             axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {headers:{Authorization: `bearer ${token}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setState({
                     liked:true,
                     likeCount: this.state.likeCount+1
                 })
-                console.log('liked should change', this.state.liked)
+                // console.log('liked should change', this.state.liked)
             })
             .catch(error => console.log(error))
         }
@@ -69,8 +69,8 @@ componentDidMount () {
 
 
     render(){
-          console.log(this.props.contents)
-          console.log(this.props.likecount)
+        //   console.log(this.props.contents)
+        //   console.log(this.props.likecount)
     return(
     <div className ='FollowingBoard'>
     <div className = 'imagePart'>

@@ -18,11 +18,11 @@ export default class ChildReply extends Component {
 
   _newReReply = (e) => {
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
-    const { userId, parentsReplyId, } = this.props.reply
+    const { userName, parentsReplyId, } = this.props.reply
     this.reComment = {
       replyContents: e.target.value,
       parentsReplyId: parentsReplyId,
-      targetUsername: userId //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
+      targetUsername: userName //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
     }
   }
 
@@ -39,15 +39,21 @@ export default class ChildReply extends Component {
 
   render() {
     console.log('ChildReply.js의 render함수에서 this.props.reply를 찍고 있다 ===', this.props.reply)
-    const { userId, replyContents, targetUsername } = this.props.reply;
+    const { userName, profileImage, replyContents, targetUsername, createdTime } = this.props.reply;
     return (
        <div className='child_reply'>
-        {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지*
-        <img src={this.props.reply.userimg} className='img-circle' alt={this.props.reply.username} /> */}
-        <span className='child_reply_username'>{userId} </span>
-        <span >{`@${targetUsername}`}</span>
-        <span className='child_reply_msg'>{replyContents} </span>
-        <span onClick={this._handleReReplyInput}>답글</span>
+        {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지* */}
+        <div>
+          <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt={userName} />
+          <span className='reply_username'>{userName} </span>
+          <span className='reply_time'>{createdTime.substring(4,24)}</span>
+        </div>
+        <div>
+          <span className='reply_targetName'>{`@${targetUsername}`}</span>
+          <span className='reply_msg'>{replyContents} </span>
+          <span onClick={this._handleReReplyInput}>답글</span>
+        </div>
+        
         
         {/* 이 아래는 대댓글을 쓰고싶다고 하면! 인풋창을 보여주고, 아니면 나타나지 않는 부분입니다. */}
         {/* TODO:여기도 컴포넌트화 해야하나 */}
@@ -60,7 +66,7 @@ export default class ChildReply extends Component {
                     id="rereply_input"
                     type="text"
                     name="reply"
-                    placeholder={`@${userId}`}
+                    placeholder={`@${userName}`}
                     onChange={this._newReReply}
                   />
                   <span id="rereply_btn" onClick={this._makeReReply}>

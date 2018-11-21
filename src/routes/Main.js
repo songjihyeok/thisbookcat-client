@@ -82,7 +82,7 @@ class Main extends Component {
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
 
-    console.log(coverurl)
+    // console.log(coverurl)
     
     if(this.state.coverurl===undefined) {
       this.setState({
@@ -101,21 +101,19 @@ class Main extends Component {
 
     return axios.get(`http://${server_url}:3000/api/userTagpost/${this.state.per}/${this.state.page}`,{headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
-      console.log('there should be data here',response.data)
+      // console.log('there should be data here',response.data)
       this.setState({
         totalPage: response.data.totalpage
       })
       let result = response.data.perArray
-      console.log(result)
+      // console.log(result)
       return result;
       })
       .catch(err => console.log(err))
   };
 
   render() {
-    console.log(window.localStorage.getItem('token'))
-    console.log('this is totalpage---------', this.state.totalPage)
-    //토큰이 없으면 로그인 페이지로 가라.
+    // console.log('this is totalpage---------', this.state.totalPage)
 
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />

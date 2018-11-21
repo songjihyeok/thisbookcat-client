@@ -30,7 +30,7 @@ class BookBoard extends Component {
             this.setState({
                 liked: response.data[0][0][1]
               })
-              console.log('liked', this.state.liked)
+            //   console.log('liked', this.state.liked)
         })
         .catch(error => console.log(error))
     }
@@ -44,12 +44,12 @@ class BookBoard extends Component {
 
             axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {headers:{Authorization: `bearer ${token}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setState({
                     liked:false,
                     likeCount: this.state.likeCount-1
                 })
-                console.log('liked should change', this.state.liked)
+                // console.log('liked should change', this.state.liked)
             })
             .catch(error => console.log(error))
 
@@ -57,12 +57,12 @@ class BookBoard extends Component {
 
             axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {headers:{Authorization: `bearer ${token}`}})
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 this.setState({
                     liked:true,
                     likeCount: this.state.likeCount+1
                 })
-                console.log('liked should change', this.state.liked)
+                // console.log('liked should change', this.state.liked)
             })
             .catch(error => console.log(error))
         }

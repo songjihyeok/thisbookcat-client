@@ -83,11 +83,11 @@ export default class PostWriter extends Component {
           <div>
             {(isFollowing)
             ? 
-              <button class="ui grey button" onClick={this._handleFollowing}>
+              <button className="ui grey button" onClick={this._handleFollowing}>
                 팔로우하기
               </button> 
             : 
-              <button class="ui teal button" onClick={this._handleFollowing}>
+              <button className="ui teal button" onClick={this._handleFollowing}>
                 팔로우중입니다
               </button>
             }

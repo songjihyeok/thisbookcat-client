@@ -19,7 +19,7 @@ class TagSearchPage extends Component {
       coverurl: null,
       tagName : this.props.match.params.TagName
     }
-    console.log("construtor")
+    // console.log("construtor")
   }
 
   shouldComponentUpdate(nextProps,nextState){
@@ -34,9 +34,9 @@ class TagSearchPage extends Component {
   }
 
   async componentWillReceiveProps (nextProps) {
-    console.log(this.props.match.params.TagName, "and", nextProps.match.params.TagName)
+    // console.log(this.props.match.params.TagName, "and", nextProps.match.params.TagName)
     if (this.props.match.params.TagName !== nextProps.match.params.TagName) {
-      console.log("다르네!")
+      // console.log("다르네!")
       await this.setState(()=>({coverurl: null}))
       await this.setState({tagName: nextProps.match.params.TagName})
       await this._getUrls();
@@ -63,7 +63,7 @@ class TagSearchPage extends Component {
   }
 
   _renderBooKCoverImage = () => {
-    console.log("rendering")
+    // console.log("rendering")
     if(this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
         if(url) {
@@ -76,10 +76,10 @@ class TagSearchPage extends Component {
   };
 
   _getUrls = async () => {
-    console.log("gettingUrls")
+    // console.log("gettingUrls")
     const coverurl = await this._callTheTagBookCoverAPI();
 
-    console.log("get url 과정?",coverurl)
+    // console.log("get url 과정?",coverurl)
     
     if(this.state.coverurl===null) {
       await this.setState({
@@ -93,17 +93,17 @@ class TagSearchPage extends Component {
   };
 
   _callTheTagBookCoverAPI = async() => {
-    console.log("uri 가져옵시다")
+    // console.log("uri 가져옵시다")
     let token = window.localStorage.getItem('token')
 
     return  axios.post(`http://${server_url}:3000/api/post/tag/${this.state.per}/${this.state.page}`,{tagName : this.state.tagName},{headers:{Authorization: `bearer ${token}`}})
     .then(async(response) => {
-      console.log('there should be data here',response.data)
+      // console.log('there should be data here',response.data)
       await this.setState({
         totalPage: response.data.totalpage
       })
         let result = response.data.perArray
-        console.log("결과물은??_______",result)
+        // console.log("결과물은??_______",result)
         return result;
       })
       .catch(err => console.log(err))
@@ -112,13 +112,13 @@ class TagSearchPage extends Component {
 
 
   render() {
-    console.log("params--------------",this.props.match.params.TagName)
-    console.log(window.localStorage.getItem('token'))
-    console.log('this is totalpage', this.state.totalPage)
-    console.log("이미 커버유알엘?",this.state.coverurl)
+    // console.log("params--------------",this.props.match.params.TagName)
+    // console.log(window.localStorage.getItem('token'))
+    // console.log('this is totalpage', this.state.totalPage)
+    // console.log("이미 커버유알엘?",this.state.coverurl)
     //토큰이 없으면 로그인 페이지로 가라.
     if(!window.localStorage.getItem("token")){
-      console.log("picka")
+      // console.log("picka")
       return <Redirect to="/login" />
     } else {
     return (
