@@ -61,7 +61,7 @@ class MyLike extends Component {
   _setMyLikePost = async () => {
     const likePosts = await this._getMyLikePost()
 
-    console.log(likePosts)
+    // console.log(likePosts)
 
     if(this.state.likePosts===undefined) {
       this.setState({
@@ -87,8 +87,8 @@ class MyLike extends Component {
   };
 
   render() {
-    console.log(this.state.page)
-    console.log(this.state.totalPage)
+    // console.log(this.state.page)
+    // console.log(this.state.totalPage)
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />
     }else{

@@ -4,9 +4,7 @@ import axios from "axios";
 import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import Image from 'react-image-resizer';
-
-import server_url from '../../url.json'
-
+import server_url from '../../url.json';
 import './CSS/MyPageProFile.css'
 
 class MyPageProFile extends Component {
@@ -36,19 +34,12 @@ class MyPageProFile extends Component {
   }
 
   _infiniteScroll = () => {
-
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-
     let clientHeight = document.documentElement.clientHeight;
-
     if(scrollTop + clientHeight === scrollHeight) {
-
-      if(this.state.page!==this.state.totalPage) {
-        this.setState({
-          page: this.state.page+1
-        })
+      if(this.state.page !== this.state.totalPage) {
+        this.setState({ page: this.state.page+1 })
         this._callmyPostAPI()
       }
     }
@@ -56,10 +47,13 @@ class MyPageProFile extends Component {
 
   _getMyProfile = () => {
     let token = window.localStorage.getItem('token')
-
-     axios.get(`http://${server_url}:3000/api/user`, {headers:{Authorization: `bearer ${token}`}})
+     axios.get(`http://${server_url}:3000/api/user`, {
+       headers: {
+         Authorization: `bearer ${token}`
+        }
+      })
     .then(response => {
-      console.log('this is myprofileresponse',response)
+      // console.log('this is myprofileresponse',response)
       this.setState({
         myProfile: response.data,
         ProfileImage: `http://${server_url}:3000/upload/${response.data.profileImage}`,
@@ -68,17 +62,14 @@ class MyPageProFile extends Component {
   }
   
   _callmyPostAPI = () => {
-
     const token = window.localStorage.getItem('token')
-
-    console.log(token)
     axios.get(`http://${server_url}:3000/api/post/mypage/${this.state.per}/${this.state.page}`, {
         headers: {
           Authorization: `bearer ${token}`
         }
       })
       .then(response => {
-        console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+        // console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
         this.setState({
           totalPage: response.data.totalpage,
           myPosts: this.state.myPosts.concat(response.data.perArray),
@@ -86,33 +77,39 @@ class MyPageProFile extends Component {
       })
   }
 
-  _getFollowingFollowed=()=>{
+  _getFollowingFollowed = () => {
     const token = window.localStorage.getItem('token') 
-
     axios.get(`http://${server_url}:3000/api/follow/followingFollowedIds`, {
-        headers:{
+        headers: {
           Authorization : `bearer ${token}`
         }
     })
-    .then( response =>{
-       console.log("follow response----" ,response);
-       console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
-      this.setState({following :response.data[1].length, followed :response.data[3].length});
+    .then( response => {
+      //  console.log("follow response----" ,response);
+      //  console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
+      this.setState({
+        following: response.data[1].length,
+        followed: response.data[3].length
+      });
     })
   }
 
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
       if(post) {
-        return <MyBookBoard image={post.mainImage} title={post.title} key={post.id} postid={post.id} likecount={post.likeCount} />
+        return <MyBookBoard image={post.mainImage}
+                            title={post.title}
+                            key={post.id}
+                            postid={post.id}
+                            likecount={post.likeCount} />
       }
     });
-    console.log(this.state.myPosts)
+    // console.log(this.state.myPosts)
     return posts
   };
 
   _getImageFromModal = (image) => {
-    console.log('_getImageFromModal 이 작동하고 있어요!!')
+    // console.log('_getImageFromModal 이 작동하고 있어요!!')
     if(image) {
       this._getMyProfile()
     }
@@ -127,13 +124,13 @@ class MyPageProFile extends Component {
   }
 
   render() {
-    console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
-    console.log('myprofile', this.state.myProfile)
-    console.log('totalpage', this.state.totalPage)
-    console.log('myprofile', this.state.myPosts)
-    console.log(this.state.page)
-    console.log(this.state.totalPage)
-    console.log('this is profileImage', this.state.ProfileImage)
+    // console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
+    // console.log('myprofile', this.state.myProfile)
+    // console.log('totalpage', this.state.totalPage)
+    // console.log('myprofile', this.state.myPosts)
+    // console.log(this.state.page)
+    // console.log(this.state.totalPage)
+    // console.log('this is profileImage', this.state.ProfileImage)
     return (
       <div className="MyPageProFile">
         <div className="ProFilePhotoContainer">
@@ -143,21 +140,27 @@ class MyPageProFile extends Component {
           <span className="ID_user">{this.state.myProfile.userName} 님 환영합니다!</span>
           <span className="Follower">팔로워 : {this.state.followed}</span>
           <span className="Following">팔로잉 : {this.state.following}</span>
-          <Icon
-            name="cog"
-            size="big"
-            className="custom-icon"
-            onClick={this._handleShow}
-          />
+          <Icon name="cog"
+                size="big"
+                className="custom-icon"
+                onClick={this._handleShow}/>
         </div>
-        <SettingModal
-          show={this.state.show}
-          hide={this._handleHide}
-          callback={this._getImageFromModal}
-        />
+        <SettingModal show={this.state.show}
+                      hide={this._handleHide}
+                      callback={this._getImageFromModal}/>
         <div style={{ margin: "20px" }}>
-        {this.state.myPosts[0]===undefined?<span>아직 올린 게시물이 없습니다!</span>:this._renderPost()}<br/>
-        {this.state.page===this.state.totalPage?<span>'더이상 콘텐츠가 없습니다!'</span>:''}
+        {(this.state.myPosts[0] === undefined)
+        ?
+          <span>아직 올린 게시물이 없습니다!</span>
+        :
+          this._renderPost()
+        }<br/>
+        {(this.state.page === this.state.totalPage)
+        ?
+          <span>'더이상 콘텐츠가 없습니다!'</span>
+        :
+          ''
+        }
         </div>
       </div>
     )

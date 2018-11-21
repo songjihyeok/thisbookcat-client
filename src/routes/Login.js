@@ -38,7 +38,7 @@ class Login extends Component {
     window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
     const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{ //preference가 있는지 확인한다.
         headers: {Authorization: `bearer ${res_postLogin.data}`}})
-    console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
+    // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
     this.setState({
       isLogin : true,
       login_err : false,

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Button, button } from "semantic-ui-react";
 import axios from 'axios';
 import server_url from '../../url.json';
 import "./PostDetail.css";
@@ -51,16 +52,47 @@ export default class PostWriter extends Component {
     }
   }
 
+  _handleDelete = async() => {
+    const res_deletePost = await axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
+    console.log(res_deletePost.data,'삭제되었습니다');
+    this.props.history.goBack();
+  }
+
+  _handleEdit = () => {
+    this.props.history.push(`/writepost/${this.props.postId}`);
+  }
+
 
   render() {
     const {userImage, userName, isFollowing} = this.state
     return (
-      <div className='post_detail_right_1'>
+      <div className='post_detail_right_1_postWriter'>
         <img src={userImage} className='img-circle' alt={"hello"} />
-          {isFollowing ?
-              <h5 className='post_detail_following' onClick={this._handleFollowing}>팔로잉</h5> :
-              <h5 className='post_detail_follow' onClick={this._handleFollowing}>팔로우</h5>}
-          <h3 className='post_detail_username'>{userName}</h3>
+        <h3 className='post_detail_username'>{userName}</h3>
+        {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
+        ? 
+          <div>
+            <Button inverted color='blue' onClick={this._handleEdit}>
+              이 POST 수정
+            </Button>
+            <Button inverted color='red' onClick={this._handleDelete}>
+              이 POST 삭제
+            </Button>
+          </div>
+        : 
+          <div>
+            {(isFollowing)
+            ? 
+              <button className="ui grey button" onClick={this._handleFollowing}>
+                팔로우하기
+              </button> 
+            : 
+              <button className="ui teal button" onClick={this._handleFollowing}>
+                팔로우중입니다
+              </button>
+            }
+          </div>
+        }
       </div>
     )
   }
