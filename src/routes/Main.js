@@ -10,7 +10,7 @@ import "../components/Main/CSS/Main.css";
 class Main extends Component {
   
   state = {
-    per: 5,
+    per: 10,
     //한페이지당 가지게될 포스트의 개수
     page: 1,
     //정해진 per만큼의 포스트를 가지는 페이지
@@ -115,6 +115,7 @@ class Main extends Component {
 
   render() {
     console.log(window.localStorage.getItem('token'))
+    console.log('this is coverurl',this.state.coverurl)
     console.log('this is totalpage', this.state.totalPage)
     //토큰이 없으면 로그인 페이지로 가라.
     if(!window.localStorage.getItem("token")){

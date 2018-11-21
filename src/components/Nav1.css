@@ -1,9 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon');
+
 .navbar-default {
   border-bottom-color: #ccccff;
 }
 
+.navbar {
+  margin-bottom: 0%;
+}
+
+.container {
+  width: 100%;
+}
+
+/* .navLeft {
+  margin-left:2%
+} */
+
 .thisBook {
-  font-family: BMDoHyeon-OTF;
+  font-family: 'Do Hyeon', sans-serif;
   font-size: 28.4px;
   font-weight: normal;
   font-style: normal;
@@ -14,13 +28,35 @@
   color: #1f1f1f;
 }
 
-form{
+.navMiddle {
+  width: 100%;
+}
+
+.navSearch {
+  position: relative;
+  bottom: 10%;
+  width: 70%;
+}
+
+.searchBar {
+  width: 100%
+}
+
+.navRight {
+  float: right!important;
+  /* margin-right: 2%; */
+}
+
+
+
+/* form{
   display: inline;
   height: 100px;
   width: 500px;
-}
+} */
 
-input {
+/* input {
   width : 50%;
   height: 50px;
-}
+  border-radius: 5px;
+} */

@@ -1,12 +1,11 @@
-import React, { Component} from 'react'
-import {Button} from 'react-bootstrap'
+import React, { Component, Fragment} from 'react'
+import {Button, ButtonGroup} from 'react-bootstrap'
 /* import {Link} from 'react-router-dom' */
 import { withRouter } from "react-router-dom";
 import axios from 'axios'
 import server_url from '../../url.json'
 
 import './CSS/PickTaste.css'
-
 
 import TasteBlock from './TasteBlock'
 import NewTagModal from './NewTagModal.js';
@@ -29,7 +28,35 @@ class TasteBoard extends Component {
             '영화'
         ],
 
-        newTaste: [],
+        tasteImgUrl: {
+            '만화':'https://i-h1.pinimg.com/564x/7a/29/a8/7a29a8f6592b0436c1cb278c07d615c6.jpg',
+            '취업':'https://techcrunch.com/wp-content/uploads/2015/06/interviews-e1433244493315.jpg?w=1390&crop=1',
+            '심리':'https://www.dynamicbusiness.com.au/wp-content/uploads/2015/06/psychology.jpg',
+            '우울':'https://lh3.googleusercontent.com/ostgNb0oXveZvjpeikfjjvpQAmezaDrCfXtC_4zBCNlTA_156nGVHoTrpI2yIEi8YV4dDPYbCGoVNyhI6Y77tw=s750',
+            '스타트업':'https://www.businessmentors.org.nz/BMNZWeb/media/websiteimages/refresh%20images/startup-hero_1.png',
+            '힐링':'http://mutualflourishing.org/wp-content/uploads/2015/10/Dollarphotoclub_55022145.jpg',
+            '여행':'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/01/11/13/travel-hiking-app.jpg?w968h681',
+            '블록체인':'https://cdn-images-1.medium.com/max/1600/1*3hyWN8UhcrL7P0Opbu7IQg.jpeg',
+            '스트레스':'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5NC84MzMvb3JpZ2luYWwvc3RyZXNzLXNjcmVhbS5qcGc=',
+            'pc게임':'https://cdn.mos.cms.futurecdn.net/p5xpJzmH4NSNFvSbxbFLEP.jpg',
+            '영화': 'https://cdn20.patchcdn.com/users/22924509/20180619/041753/styles/T800x600/public/processed_images/jag_cz_movie_theater_retro_shutterstock_594132752-1529438777-6045.jpg'
+        },
+
+        tasteImgUrl2: [
+            'https://i-h1.pinimg.com/564x/7a/29/a8/7a29a8f6592b0436c1cb278c07d615c6.jpg',
+            'https://techcrunch.com/wp-content/uploads/2015/06/interviews-e1433244493315.jpg?w=1390&crop=1',
+            'https://www.dynamicbusiness.com.au/wp-content/uploads/2015/06/psychology.jpg',
+            'https://lh3.googleusercontent.com/ostgNb0oXveZvjpeikfjjvpQAmezaDrCfXtC_4zBCNlTA_156nGVHoTrpI2yIEi8YV4dDPYbCGoVNyhI6Y77tw=s750',
+            'https://www.businessmentors.org.nz/BMNZWeb/media/websiteimages/refresh%20images/startup-hero_1.png',
+            'http://mutualflourishing.org/wp-content/uploads/2015/10/Dollarphotoclub_55022145.jpg',
+            'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/01/11/13/travel-hiking-app.jpg?w968h681',
+            'https://cdn-images-1.medium.com/max/1600/1*3hyWN8UhcrL7P0Opbu7IQg.jpeg',
+            'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5NC84MzMvb3JpZ2luYWwvc3RyZXNzLXNjcmVhbS5qcGc=',
+            'https://cdn.mos.cms.futurecdn.net/p5xpJzmH4NSNFvSbxbFLEP.jpg',
+            'https://cdn20.patchcdn.com/users/22924509/20180619/041753/styles/T800x600/public/processed_images/jag_cz_movie_theater_retro_shutterstock_594132752-1529438777-6045.jpg'
+        ],
+
+        newTaste: {},
 
         userName: '',
 
@@ -46,7 +73,7 @@ class TasteBoard extends Component {
 
     _collectSellection = (e) => {
 
-        console.log(e)
+        console.log('이게 받아온 아이디 값이여', e)
 
         let isInOrNot = this.state.taste.indexOf(e)
 
@@ -92,10 +119,22 @@ class TasteBoard extends Component {
 
     _addTaste = (newTaste) => {
 
+        console.log(newTaste)
+
+        const addCustomTaste = (customTaste) => {
+
+            let result = this.state.newTaste
+
+            result[customTaste]=1
+
+            return result
+        }
+
         this.setState({
-            newTaste: [...this.state.newTaste, newTaste]
+            newTaste: addCustomTaste(newTaste)
         })
-        console.log('TasteBoard.js > _collectSellection 함수에서 this.state.selected___', this.state.selected)
+        
+        console.log('TasteBoard.js > _addTaste 함수에서 this.state.newTaste___', this.state.newTaste)
     }
     
     _gotoMain = () => {
@@ -107,10 +146,10 @@ class TasteBoard extends Component {
 
     _renderTasteBlock = () => {
 
-        const wholeTaste = this.state.taste.concat(this.state.newTaste)
+        const wholeTaste = Object.assign(this.state.tasteImgUrl,this.state.newTaste)
 
-        const tasteblocks = wholeTaste.map((select, index) => {
-            return <TasteBlock select = {select} key = {index} collect = {this._collectSellection} delete = {this._deleteSellection} selectedColor = {this.state.selected}/>
+        const tasteblocks = Object.keys(wholeTaste).map((key, index) => {
+            return <TasteBlock select = {key} key = {index} collect = {this._collectSellection} delete = {this._deleteSellection} selectedColor = {this.state.selected} imgUrl={wholeTaste[key]}/>
         })
         return tasteblocks
     }
@@ -130,7 +169,6 @@ class TasteBoard extends Component {
     }
 
     _checkUserName = () => {
-
         const username = this.state.userName;
 
         const token = window.localStorage.getItem('token')
@@ -167,7 +205,6 @@ class TasteBoard extends Component {
         })
     }
 }
-
     _submitTasteNUserName = () => {
 
         let token = window.localStorage.getItem('token')
@@ -237,25 +274,55 @@ class TasteBoard extends Component {
         await alert('유저네임이 설정 됐습니다.')
     } */
 
+    _handleButtonFontColor = () => {
+        if(this.state.confirmUN) {
+            return 'black'
+        }
+    }
+
+    _handleUserNamePart = () => {
+        if(this.state.confirmUN) {
+            return(
+                <div className = 'WelcomeUser'>
+                <div className='userNamePart'>
+                <span className='confirmedUser'>{this.state.userName}</span>
+                <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
+                </div>
+                <button className='pref'>관심</button>
+        <button className='jangre'>장르</button>
+            <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+            </div>
+            )
+        } else {
+            return <div className = 'WelcomeUser'>
+            <div className='userNamePart'>
+            <form className = 'userNameWrapper'>
+            <input type='text' className="getUserName" onChange={this._setUserName}></input>
+             <button className = 'selectUserName' style={{backgroundColor:this.state.userName===''?'#c7c7c7':'#3376ff'}} onClick={this.state.confirmUN?null:this._checkUserName}>중복확인</button>
+            </form>
+            <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
+            </div>
+            <button className='pref'>관심</button>
+        <button className='jangre'>장르</button>
+            <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+            </div>
+        }
+    }
+
   render() {
       console.log('render함수에서 this.state.userName___' , this.state.userName)
     return (
-      <div className = 'TasteBoard'>
-      <div className = 'WelcomeUser'>
-      <input type='text' className="getUserName" onChange={this._setUserName} readOnly={this.state.confirmUN}></input>님 마음에 드는 책 종류를 선택해 주세요. (3개이상)
-      <Button className = 'selectUserName' onClick={this.state.confirmUN?null:this._checkUserName}>중복검사</Button>
-      <Button className = 'createNewTag' onClick={this._handleShow}>태그생성</Button>
-      </div>
-      <div className = 'blockContainer'>
-      {this._renderTasteBlock()}
-      </div>
-    <Button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</Button>
+    <Fragment>
+    {this._handleUserNamePart()}
+    <div className = 'TasteBoard'>
+    {/* <div className = 'blockContainer'> */}
+    {this._renderTasteBlock()}
+    </div>
     <NewTagModal
           show={this.state.show}
           hide={this._handleHide}
-          callback={this._addTaste}
-        />
-      </div>
+          callback={this._addTaste}/>
+          </Fragment>
     )
   }
 }
