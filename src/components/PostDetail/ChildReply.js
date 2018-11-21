@@ -18,10 +18,10 @@ export default class ChildReply extends Component {
 
   _newReReply = (e) => {
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
-    const { userId, id, } = this.props.reply
+    const { userId, parentsReplyId, } = this.props.reply
     this.reComment = {
       replyContents: `@${userId} ${e.target.value}`,
-      parentsReplyId: id,
+      parentsReplyId: parentsReplyId,
       targetUsername: `${userId}`}
   }
 
@@ -37,6 +37,7 @@ export default class ChildReply extends Component {
 
 
   render() {
+    //console.log('this.props.reply 랑 this.props.reply.id', this.props.reply ,this.props.reply.id)
     const { userId, replyContents } = this.props.reply;
     return (
        <div className='child_reply'>
