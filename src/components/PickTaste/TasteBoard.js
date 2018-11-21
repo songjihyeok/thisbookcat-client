@@ -109,12 +109,13 @@ class TasteBoard extends Component {
 	}
     
 	_gotoMain = (r) => {
+      //나는 여기에 parameter 받아서, 있으면, 으로 처리했는데, 지혁님 코드가 나은듯;
 			// console.log('there should be history in here', this.props)
 		if (r) {
 			this.props.history.push('/')
 		}
 	}
-
+  
 	_renderTasteBlock = () => {
 		const wholeTaste = Object.assign(this.state.tasteImgUrl,this.state.newTaste)
 		const tasteblocks = Object.keys(wholeTaste).map((key, index) => {
@@ -126,17 +127,15 @@ class TasteBoard extends Component {
 												imgUrl={wholeTaste[key]}/>
 		})
 		return tasteblocks
-	}
+	}                                                   
 
 	_setUserName = () => {
 		const inputData = document.getElementsByClassName('getUserName')[0].value
 		// console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
-		this.setState ({
-				userName:inputData
-		})
+		this.setState ({userName:inputData})
 		// console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
 	}
-
+    
 	_checkUserName = () => {
 			const username = this.state.userName;
 			const token = window.localStorage.getItem('token')
@@ -175,38 +174,38 @@ class TasteBoard extends Component {
 			preference : this.state.selected.concat(this.state.newTagSelected),
 			userName: this.state.userName
 		}
-		let newPreference = {
-			newPreference: this.state.newTagSelected
-		}
-		/* let defaultTaste = {
-				defaultTags: this.state.selected
-		} */
+		let newPreference = {newPreference: this.state.newTagSelected}
+		/* let defaultTaste = {defaultTags: this.state.selected} */
 		if (newPreference.length > 0) {
 			const res_postNewPref = await axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
 					headers: {Authorization: `bearer ${token}`}
 			})
 			console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 res_postNewPref ____', res_postNewPref)
 		}
+    console.log("보내는 TAGS!-----", customNUser)
 		const res_postPref = await axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
 			headers: {Authorization: `bearer ${token}`}
 		})
 		console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res_postPref ___', res_postPref)
-		return (res_postPref);
-		// .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res___', res))
-		// .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 err___', err))
+		return res_postPref;
 	}
-
+  
 	_handleSubmit = async () => {
 		if(this.state.userName === '') {
 			alert('유저네임을 입력하셔야 합니다!')
-		} else if(this.state.isOktoUse === false) {
+		} else if (this.state.isOktoUse === false) {
 			alert('중복된 유저네임 입니다!')
 		} else if (this.state.selected.length < 3) {
 			alert('취향을 3개이상 고르셔야합니다!')
 		} else if (this.state.userName && this.state.isOktoUse && this.state.selected.length >= 3) {
 			const res_submitTaste = await this._submitTasteNUserName()
 			await this._gotoMain(res_submitTaste)
-					// console.log('_handleSubmit 함수에서 await this._submitTasteNUserName()', await this._submitTasteNUserName())			
+//       이 아래가 지혁님 코드
+//       const result = await this._submitTasteNUserName()
+//       if (result) {
+//         await this._gotoMain()
+//        }   
+      
 		}
 	}
     
@@ -217,6 +216,7 @@ class TasteBoard extends Component {
 	_handleShow = () => {
 			this.setState({show: true})
 	}
+
 
     /* _hadelUserName = async () => {
 
@@ -268,6 +268,8 @@ class TasteBoard extends Component {
 		}
 	}
 
+
+
   render() {
     //   console.log('render함수에서 this.state.userName___' , this.state.userName)
     return (
@@ -281,6 +283,7 @@ class TasteBoard extends Component {
 										hide={this._handleHide}
 										callback={this._addTaste}/>
 			</Fragment>
+
     )
   }
 }
