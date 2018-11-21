@@ -61,7 +61,7 @@
   font-size: 1.1em;
 }
 
-.post_detail_right_1{
+.post_detail_right_1_postWriter{
   /* background-color: #ffcc5c; */
   border-bottom: 0.1em solid grey;
   padding-bottom: 20px;
@@ -84,7 +84,7 @@
   color: white;
 }
 
-.post_detail_right_2{
+.post_detail_right_2_postInfo{
   border-bottom: 0.1em solid grey;
   padding: 10px 0 10px 10px;
   /* padding-left: 10px; */
@@ -98,14 +98,14 @@
   align-content: center; */
 }
 
-.post_detail_right_3{
+.post_detail_right_3_reply{
   height: 450px;
   overflow: auto;
   padding-top: 10px;
   padding-left: 10px;
 }
 
-.post_detail_right_3::-webkit-scrollbar {
+.post_detail_right_3_reply::-webkit-scrollbar {
   display: none;
  }
 

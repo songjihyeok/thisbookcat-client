@@ -20,9 +20,10 @@ export default class ParentReply extends Component {
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
     const { userId, id, } = this.props.reply
     this.reComment = {
-      replyContents: `@${userId} ${e.target.value}`,
+      replyContents: e.target.value,
       parentsReplyId: id,
-      targetUsername: `${userId}`}
+      targetUsername: userId  //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
+    }
   }
 
   _makeReReply = async() => { //input창에 쓴거 submit 하면 post 날리는 함수.
@@ -37,6 +38,7 @@ export default class ParentReply extends Component {
 
 
   render() {
+    console.log('ParentReply.js의 render 함수에서 this.props.reply 찍는중....', this.props.reply)
     const { userId, replyContents } = this.props.reply;
     
     return (

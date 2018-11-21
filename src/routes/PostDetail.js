@@ -45,7 +45,7 @@ class PostDetail extends Component {
 
   _getReply = async() => {
     const res_getReply = await axios.get(`http://${server_url}:3000/api/reply/${this.state.postId}`, this.authHeader)
-    console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
+    // console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
     if (res_getReply.data === "There is no reply") {
       this.setState({
         replys: [],
@@ -97,17 +97,25 @@ class PostDetail extends Component {
         <div className='post_detail'>
           <PostContent postId={postId} />
           <div className='post_detail_right'>
-              <PostWriter postId={postId} userId={userId} />
-              <PostInfo postId={postId} replyCount={replyCount} isMypost={isMypost} postId={this.state.postId} history={this.props.history}/>
+              <PostWriter postId={postId}
+                          userId={userId}
+                          isMypost={isMypost} />
+              <PostInfo postId={postId}
+                        replyCount={replyCount}
+                        postId={this.state.postId}
+                        history={this.props.history}/>
             
-            <div className='post_detail_right_3'>
+            <div className='post_detail_3_reply'>
               {typeof(replys) === 'string'
               ?
               <div> '댓글이 없습니다.'</div>
               :
               <div>
                 {replys.map((reply, index) => {
-                  return <Reply reply={reply} postId={postId} key={index} _getReply={this._getReply}/>
+                  return <Reply reply={reply}
+                                postId={postId}
+                                key={index}
+                                _getReply={this._getReply}/>
                 })}
               </div>
               }

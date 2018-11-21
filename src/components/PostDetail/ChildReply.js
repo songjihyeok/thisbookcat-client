@@ -20,9 +20,10 @@ export default class ChildReply extends Component {
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
     const { userId, parentsReplyId, } = this.props.reply
     this.reComment = {
-      replyContents: `@${userId} ${e.target.value}`,
+      replyContents: e.target.value,
       parentsReplyId: parentsReplyId,
-      targetUsername: `${userId}`}
+      targetUsername: userId //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
+    }
   }
 
   _makeReReply = async() => {
@@ -33,17 +34,18 @@ export default class ChildReply extends Component {
       , this.authHeader)
     // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();
-  }
+  }   
 
 
   render() {
-    //console.log('this.props.reply 랑 this.props.reply.id', this.props.reply ,this.props.reply.id)
-    const { userId, replyContents } = this.props.reply;
+    console.log('ChildReply.js의 render함수에서 this.props.reply를 찍고 있다 ===', this.props.reply)
+    const { userId, replyContents, targetUsername } = this.props.reply;
     return (
        <div className='child_reply'>
         {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지*
         <img src={this.props.reply.userimg} className='img-circle' alt={this.props.reply.username} /> */}
         <span className='child_reply_username'>{userId} </span>
+        <span >{`@${targetUsername}`}</span>
         <span className='child_reply_msg'>{replyContents} </span>
         <span onClick={this._handleReReplyInput}>답글</span>
         
