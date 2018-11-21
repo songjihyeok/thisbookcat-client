@@ -6,6 +6,7 @@ import Nav1 from '../components/Nav1'
 import '../components/PickTaste/CSS/PickTaste.css'
 
 class PickTaste extends Component {
+   
   render() {
     if(!window.localStorage.getItem("token")){
       return <Redirect to="/login" />

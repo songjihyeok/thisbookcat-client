@@ -1,5 +1,5 @@
-import React, { Component, Fragment} from 'react'
-import {Button, ButtonGroup} from 'react-bootstrap'
+import React, { Component, Fragment } from 'react'
+/* import {Button, ButtonGroup} from 'react-bootstrap' */
 /* import {Link} from 'react-router-dom' */
 import { withRouter } from "react-router-dom";
 import axios from 'axios'
@@ -42,7 +42,7 @@ class TasteBoard extends Component {
             '영화': 'https://cdn20.patchcdn.com/users/22924509/20180619/041753/styles/T800x600/public/processed_images/jag_cz_movie_theater_retro_shutterstock_594132752-1529438777-6045.jpg'
         },
 
-        tasteImgUrl2: [
+       /*  tasteImgUrl2: [
             'https://i-h1.pinimg.com/564x/7a/29/a8/7a29a8f6592b0436c1cb278c07d615c6.jpg',
             'https://techcrunch.com/wp-content/uploads/2015/06/interviews-e1433244493315.jpg?w=1390&crop=1',
             'https://www.dynamicbusiness.com.au/wp-content/uploads/2015/06/psychology.jpg',
@@ -55,7 +55,7 @@ class TasteBoard extends Component {
             'https://cdn.mos.cms.futurecdn.net/p5xpJzmH4NSNFvSbxbFLEP.jpg',
             'https://cdn20.patchcdn.com/users/22924509/20180619/041753/styles/T800x600/public/processed_images/jag_cz_movie_theater_retro_shutterstock_594132752-1529438777-6045.jpg'
         ],
-
+ */
         newTaste: {},
 
         userName: '',
@@ -148,8 +148,8 @@ class TasteBoard extends Component {
 
         const wholeTaste = Object.assign(this.state.tasteImgUrl,this.state.newTaste)
 
-        const tasteblocks = Object.keys(wholeTaste).map((key, index) => {
-            return <TasteBlock select = {key} key = {index} collect = {this._collectSellection} delete = {this._deleteSellection} selectedColor = {this.state.selected} imgUrl={wholeTaste[key]}/>
+        const tasteblocks = Object.keys(wholeTaste).map((element, index) => {
+            return <TasteBlock select = {element} key = {index} collect = {this._collectSellection} delete = {this._deleteSellection} selectedColor = {this.state.selected} imgUrl={wholeTaste[element]}/>
         })
         return tasteblocks
     }
@@ -169,6 +169,7 @@ class TasteBoard extends Component {
     }
 
     _checkUserName = () => {
+
         const username = this.state.userName;
 
         const token = window.localStorage.getItem('token')
@@ -178,6 +179,7 @@ class TasteBoard extends Component {
         if(username==='') {
             alert('유저네임을 입력하셔야 합니다!')
         } else {
+            console.log('이게 떠야 작동하는것이여', this.state.userName)
             axios.post (`http://${server_url}:3000/api/user/checkuserName`, {userName: username}, {
             headers: {Authorization: `bearer ${token}`}
         })
@@ -205,7 +207,8 @@ class TasteBoard extends Component {
         })
     }
 }
-    _submitTasteNUserName = () => {
+
+_submitTasteNUserName = async() => {
 
         let token = window.localStorage.getItem('token')
 
@@ -218,27 +221,16 @@ class TasteBoard extends Component {
             newPreference: this.state.newTagSelected
         }
 
-        /* let defaultTaste = {
-            defaultTags: this.state.selected
-        } */
-
-        axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
+            if(newPreference.length>0){
+            const addResult = await axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
             headers: {Authorization: `bearer ${token}`}
-        })
-        .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res___', res))
-        .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 err___', err))
-
-        axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
-            headers: {Authorization: `bearer ${token}`}
-        })
-        .then(res => console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 res___', res))
-        .catch(err => console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 err___', err))
-
-        // axios.post (`http://${server_url}:3000/api/user/defaultpreference`, defaultTaste, {
-        //     headers: {Authorization: `bearer ${token}`}
-        // })
-        // .then(res => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 res___', res))
-        // .catch(err => console.log('_submitTasteNUserName 함수에서  axios.post(defaultpreference) 후 err___', err))
+            })
+            }
+            console.log("보내는 TAGS!-----", customNUser)
+            const result = await axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
+                headers: {Authorization: `bearer ${token}`}
+            }) 
+        return result
     }
     //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
 
@@ -248,15 +240,16 @@ class TasteBoard extends Component {
             alert('유저네임을 입력하셔야 합니다!')
         }
         else if(this.state.isOktoUse===false) {
-            alert('중복된 유저네임 입니다!')
+            alert('중복검사를 하셔야합니다')
         }
-        else if (this.state.selected.length<3) {
+        else if ((this.state.selected.length + this.state.newTagSelected.length)<3) {
             alert('취향을 3개이상 고르셔야합니다!')
         }
         else if (this.state.userName&&this.state.isOktoUse&&this.state.selected.length>=3){
-
-            await this._submitTasteNUserName()
+            const result = await this._submitTasteNUserName()
+            if(result){
             await this._gotoMain()
+            }    
         }
     }
 
@@ -274,11 +267,11 @@ class TasteBoard extends Component {
         await alert('유저네임이 설정 됐습니다.')
     } */
 
-    _handleButtonFontColor = () => {
+    /* _handleButtonFontColor = () => {
         if(this.state.confirmUN) {
             return 'black'
         }
-    }
+    } */
 
     _handleUserNamePart = () => {
         if(this.state.confirmUN) {
@@ -289,8 +282,8 @@ class TasteBoard extends Component {
                 <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
                 </div>
                 <button className='pref'>관심</button>
-        <button className='jangre'>장르</button>
-            <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+                <button className='jangre'>장르</button>
+            <button className = 'createNewTag' onClick={this._handleShow}>태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
             </div>
             )
         } else {
@@ -298,24 +291,25 @@ class TasteBoard extends Component {
             <div className='userNamePart'>
             <form className = 'userNameWrapper'>
             <input type='text' className="getUserName" onChange={this._setUserName}></input>
-             <button className = 'selectUserName' style={{backgroundColor:this.state.userName===''?'#c7c7c7':'#3376ff'}} onClick={this.state.confirmUN?null:this._checkUserName}>중복확인</button>
+             <button className = 'selectUserName' style={{backgroundColor:this.state.userName?'#3376ff':'#c7c7c7'}} onClick={this.state.confirmUN?null:this._checkUserName}>중복확인</button>
             </form>
             <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
             </div>
             <button className='pref'>관심</button>
         <button className='jangre'>장르</button>
-            <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+            <button className = 'createNewTag' onClick={this._handleShow}>태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
             </div>
         }
     }
 
   render() {
       console.log('render함수에서 this.state.userName___' , this.state.userName)
+      console.log('render함수에서 this.state.isOktoUse___', this.state.isOktoUse)
+      console.log('render함수에서 this.state.confirmUN____',this.state.confirmUN)
     return (
     <Fragment>
     {this._handleUserNamePart()}
     <div className = 'TasteBoard'>
-    {/* <div className = 'blockContainer'> */}
     {this._renderTasteBlock()}
     </div>
     <NewTagModal
@@ -326,5 +320,4 @@ class TasteBoard extends Component {
     )
   }
 }
-
 export default withRouter(TasteBoard)

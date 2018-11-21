@@ -40,7 +40,7 @@ _toggleBlockStatus = () => {
 
   render() {
     return (
-      <div className = 'Block' style ={this._changeCssonClick()} id = {this.props.select} onClick={this._handleClick} key={this.props.key}>
+      <div className = 'Block' style ={this._changeCssonClick()} id = {this.props.select} onClick={this._handleClick} key={this.props.element}>
        <span className = 'tagName'>{this.props.select}</span>
       <Image className='BlockImage' src={this.props.imgUrl===1?null:this.props.imgUrl} alt={this.props.imgUrl===1?null:'blockimage'} rounded></Image>
       </div>
