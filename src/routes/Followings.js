@@ -22,72 +22,63 @@ class Followings extends Component {
 
   _infiniteScroll = () => {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-
     let clientHeight = document.documentElement.clientHeight;
-    
-    if(scrollTop + clientHeight === scrollHeight) {
-
-        if(this.state.page!==this.state.totalPage) {
-          this.setState({
-            page: this.state.page+1
-          })
+    if (scrollTop + clientHeight === scrollHeight) {
+        if (this.state.page !== this.state.totalPage) {
+          this.setState({page: this.state.page+1})
           this._getFollowPosts()
         }
     }
   }
 
   _renderFollowingPost = () => {
-    console.log('this is following post',this.state.followPost)
-    if(this.state.followPost) {
+    // console.log('this is following post',this.state.followPost)
+    if (this.state.followPost) {
       const follow = this.state.followPost.map((url, index) => {
-        if(url) {
-          return <FollowingBoard image={url.mainImage} key={index} title={url.title} likecount={url.likeCount} contents={url.contents} postid={url.id} />;
+        if (url) {
+          return <FollowingBoard image={url.mainImage} key={index} title={url.title}
+                                likecount={url.likeCount} contents={url.contents} postid={url.id} />
         }
       })
-      return follow;
+      return follow
     }
     return "Loading"
   };
 
   _getFollowPosts = async () => {
-    const followPost = await this._callFollowAPI();
-    this.setState({
-      followPost:this.state.followPost.concat(followPost)
-    })
-    console.log(this.state.followPost)
+    const followPost = await this._callFollowAPI()
+    this.setState({followPost: this.state.followPost.concat(followPost)})
+    // console.log(this.state.followPost)
   };
 
   _callFollowAPI = () => {
     let token = window.localStorage.getItem('token')
-    return axios.get(`http://${server_url}:3000/api/follow/posts/${this.state.per}/${this.state.page}`, {headers:{Authorization: `bearer ${token}`}})
+    return axios.get(`http://${server_url}:3000/api/follow/posts/${this.state.per}/${this.state.page}`, {
+                      headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      this.setState({
-        totalPage: response.data.totalpage
-      })
-      console.log(response.data)
+      this.setState({totalPage: response.data.totalpage})
+      // console.log(response.data)
       return response.data.perArray
     })
   };
 
   render() {
-    console.log(this.state.page)
-    console.log(this.state.totalPage)
-    console.log(this.state.followPost[0])
+    // console.log(this.state.page)
+    // console.log(this.state.totalPage)
+    // console.log(this.state.followPost[0])
     return (
       <Fragment>
          <Nav1/>
          <div className="Followings">
-         <div className = 'gridOne'></div>
-         <div className = 'gridTwo'>
-         {this.state.followPost[0]===undefined?<span>팔로우하신 유저가 없습니다!</span>:this._renderFollowingPost()}<br/>
-         {this.state.page===this.state.totalPage?<span>더이상 콘텐츠가 없습니다!</span>:''}
-         </div>
-         <div className = 'gridThree'></div>
+          <div className = 'gridOne'></div>
+          <div className = 'gridTwo'>
+            {this.state.followPost[0] === undefined ? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}<br/>
+            {this.state.page === this.state.totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
+          </div>
+          <div className = 'gridThree'></div>
          </div>
       </Fragment>
-     
     );
   }
 }
