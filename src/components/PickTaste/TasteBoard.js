@@ -128,19 +128,20 @@ class TasteBoard extends Component {
 		// console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
 	}
     
-	_checkUserName = () => {
-        const username = this.state.userName;
-        const token = window.localStorage.getItem('token')
-            // console.log('TasteBoard.js > _setUserName 함수에서 inputData___', username)
-            if (username === '') {
-                alert('유저네임을 입력하셔야 합니다!')
-            } else {
-                axios.post (`http://${server_url}:3000/api/user/checkuserName`, {
-                    userName: username}, {
-                        headers: {Authorization: `bearer ${token}`}
-                })
-                .then(res => {
-                    if (res.status === 200) {
+    _checkUserName = (e) => {
+			e.preventDefault();
+			const username = this.state.userName;
+			const token = window.localStorage.getItem('token')
+			// console.log('TasteBoard.js > _setUserName 함수에서 inputData___', username)
+			if (username === '') {
+				alert('유저네임을 입력하셔야 합니다!')
+			} else {
+				axios.post (`http://${server_url}:3000/api/user/checkuserName`, {
+					userName: username}, {
+					headers: {Authorization: `bearer ${token}`}
+				})
+				.then(res => {
+					if (res.status === 200) {
 						alert('사용가능한 유저이름입니다!')
 						this.setState({isOktoUse: true})
 						if (window.confirm(`${this.state.userName}을(를) 유저네임으로 사용하시겠습니까?`)) {
@@ -166,7 +167,7 @@ class TasteBoard extends Component {
 		}
 		let newPreference = {newPreference: this.state.newTagSelected}
 		/* let defaultTaste = {defaultTags: this.state.selected} */
-		if (newPreference.length > 0) {
+		if (this.state.newTagSelected.length > 0) {
 			const res_postNewPref = await axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
 					headers: {Authorization: `bearer ${token}`}
 			})
@@ -181,6 +182,7 @@ class TasteBoard extends Component {
 	}
   
 	_handleSubmit = async () => {
+		console.log("newTagSelected",this.state.newTagSelected)
 		if(this.state.userName === '') {
 			alert('유저네임을 입력하셔야 합니다!')
 		} else if (this.state.isOktoUse === false) {
@@ -190,11 +192,10 @@ class TasteBoard extends Component {
 		} else if (this.state.userName && this.state.isOktoUse && this.state.selected.length >= 3) {
 			const res_submitTaste = await this._submitTasteNUserName()
 			await this._gotoMain(res_submitTaste)
-//       이 아래가 지혁님 코드
-//       const result = await this._submitTasteNUserName()
-//       if (result) {
-//         await this._gotoMain()
-//        }   
+      const result = await this._submitTasteNUserName()
+      if (result) {
+        await this._gotoMain()
+       }   
 		}
 	}
     
@@ -227,7 +228,7 @@ class TasteBoard extends Component {
 						<span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
 					</div>
 					<button className='pref'>관심</button>
-					<button className='jangre'>장르</button>
+					<button className='genre'>장르</button>
 					<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
 					<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
 				</div>

@@ -32,24 +32,21 @@ class Login extends Component {
       emailId: this.state.email,
       password: this.state.password
     }; 
-
+    try {
     const res_postLogin = await axios.post(`http://${server_url}:3000/api/user/login`, user, {
       headers: {'Access-Control-Allow-Origin': '*'}})
-    window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
-    const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{ //preference가 있는지 확인한다.
-      headers: {Authorization: `bearer ${res_postLogin.data}`}})
-    // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
-    this.setState({
-      isLogin: true,
-      login_err: false,
-      preference: res_getPreference.data,
-    })
-      // .catch(err => {
-      //   console.log('login.js > _handleSubmit함수에서 axios.post 요청보냈는데, err___', err)
-      //   this.setState({
-      //         isLogin : false,
-      //         login_err : true})
-      // })
+      window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
+      const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{ //preference가 있는지 확인한다.
+        headers: {Authorization: `bearer ${res_postLogin.data}`}})
+      this.setState({
+        isLogin: true,
+        login_err: false,
+        preference: res_getPreference.data,
+      })
+    }
+    catch (err){
+        alert("아이디나 비번이 맞지 않습니다. 다시 확인해주세요.")
+    }
   }
 
   // _googleAuth = (e) => {
