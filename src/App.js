@@ -11,6 +11,7 @@ import Followings from "./routes/Followings";
 import WritePost from "./routes/WritePost";
 import PostDetail from "./routes/PostDetail";
 import MyPage from "./routes/MyPage";
+import TagSearchPage from "./routes/TagSearchPage"
 import "./App.css";
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
             <Route path="/writepost" component={WritePost} />
             <Route path="/postdetail" component={PostDetail} />
             <Route path="/mypage" component={MyPage} />
+            <Route path="/TagSearchPage/:TagName" exact component = {TagSearchPage}/>
           </Switch>
         </Router>
       </div>

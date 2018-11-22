@@ -141,7 +141,7 @@ class TasteBoard extends Component {
 
         console.log('there should be history in here', this.props)
 
-        this.props.history.push('/')
+        this.props.history.push('/main')
     }
 
     _renderTasteBlock = () => {
@@ -183,9 +183,9 @@ class TasteBoard extends Component {
             axios.post (`http://${server_url}:3000/api/user/checkuserName`, {userName: username}, {
             headers: {Authorization: `bearer ${token}`}
         })
-        .then(res => {
+        .then(async (res) => {
             if(res.status===200) {
-                alert('사용가능한 유저이름입니다!')
+                await alert('사용가능한 유저이름입니다!')
                 this.setState({
                     isOktoUse: true
                 })
@@ -213,7 +213,7 @@ _submitTasteNUserName = async() => {
         let token = window.localStorage.getItem('token')
 
         let customNUser = {
-            preference : this.state.selected,
+            preference : this.state.selected.concat(this.state.newTagSelected),
             userName: this.state.userName
         }
 
@@ -261,6 +261,7 @@ _submitTasteNUserName = async() => {
         this.setState({ show: true })
     }
 
+
     /* _hadelUserName = async () => {
 
         await this._setUserName()
@@ -296,11 +297,12 @@ _submitTasteNUserName = async() => {
             <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
             </div>
             <button className='pref'>관심</button>
-        <button className='jangre'>장르</button>
+            <button className='jangre'>장르</button>
             <button className = 'createNewTag' onClick={this._handleShow}>태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
             </div>
         }
     }
+
 
   render() {
       console.log('render함수에서 this.state.userName___' , this.state.userName)
@@ -316,7 +318,7 @@ _submitTasteNUserName = async() => {
           show={this.state.show}
           hide={this._handleHide}
           callback={this._addTaste}/>
-          </Fragment>
+    </Fragment>
     )
   }
 }

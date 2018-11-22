@@ -20,13 +20,16 @@ class MyPageProFile extends Component {
       ProfileImage: "http://profilepicturesdp.com/wp-content/uploads/2018/06/default-profile-picture-png-12.png",
       myPosts: [],
       myProfile: [],
-      per: 10,
+      per: 8,
       page: 1,
       totalPage:'',
+      followed: 0,
+      following: 0
     };
   }
 
    componentDidMount() {
+     this._getFollowingFollowed()
      this._callmyPostAPI()
      this._getMyProfile()
      window.addEventListener('scroll', this._infiniteScroll, true)
@@ -83,6 +86,21 @@ class MyPageProFile extends Component {
       })
   }
 
+  _getFollowingFollowed=()=>{
+    const token = window.localStorage.getItem('token') 
+
+    axios.get(`http://${server_url}:3000/api/follow/followingFollowedIds`, {
+        headers:{
+          Authorization : `bearer ${token}`
+        }
+    })
+    .then( response =>{
+       console.log("follow response----" ,response);
+       console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
+      this.setState({following :response.data[1].length, followed :response.data[3].length});
+    })
+  }
+
   _renderPost = () => {
     const posts = this.state.myPosts.map(post => {
       if(post) {
@@ -123,7 +141,8 @@ class MyPageProFile extends Component {
         </div>
         <div className="ProFileDetail">
           <span className="ID_user">{this.state.myProfile.userName} 님 환영합니다!</span>
-          <span className="Follower">팔로워 200</span>
+          <span className="Follower">팔로워 : {this.state.followed}</span>
+          <span className="Following">팔로잉 : {this.state.following}</span>
           <Icon
             name="cog"
             size="big"
