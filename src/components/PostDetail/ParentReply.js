@@ -34,10 +34,17 @@ export default class ParentReply extends Component {
     await this.props._getReply();
   }
 
+  _deleteReply = async () => {
+    const res_deleteReply = await axios.delete(`http://${server_url}:3000/api/reply/${this.props.reply.id}`, this.authHeader)
+    console.log('Reply.js 컴포 > _deleteReply 함수 > axios.post 요청 후 받는 res_deleteReply', res_deleteReply);
+    await this.props._getReply();
+  }
+
 
   render() {
     console.log('ParentReply.js의 render 함수에서 this.props.reply 찍는중....', this.props.reply)
-    const { userName, replyContents, profileImage, createdTime } = this.props.reply;
+    // console.log('ParentReply.js의 render 함수에서 this.props 찍는중....', this.props)
+    const { userName, replyContents, profileImage, createdTime, istheReplier } = this.props.reply;
     
     return (
       <div className='parent_reply'>
@@ -48,6 +55,10 @@ export default class ParentReply extends Component {
         </div>
         <div>
           <span className='reply_msg'>{replyContents} </span>
+          {(istheReplier)
+          ? <span className='make_rereply' onClick={this._deleteReply}>{`삭제 `}</span>
+          : null
+          }
           <span className='make_rereply' onClick={this._handleReReplyInput}>댓글달기</span>
         </div>
         
