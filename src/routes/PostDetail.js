@@ -36,7 +36,7 @@ class PostDetail extends Component {
 
   _getPostData = async() => {
     const res_getPost = await axios.get(`http://${server_url}:3000/api/post/${this.state.postId}`, this.authHeader)
-    // console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
+    console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
     this.setState({
       userId: res_getPost.data.userId,
       isMypost: res_getPost.data.isthePoster,
@@ -45,7 +45,7 @@ class PostDetail extends Component {
 
   _getReply = async() => {
     const res_getReply = await axios.get(`http://${server_url}:3000/api/reply/${this.state.postId}`, this.authHeader)
-    console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
+    // console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
     if (res_getReply.data === "There is no reply") {
       this.setState({
         replys: [],
@@ -69,7 +69,7 @@ class PostDetail extends Component {
     return count
   }
 
-  _newReply = (e) => {
+  _newReply = e => {
     this.comment = {replyContents: e.target.value}
   }
 
@@ -97,30 +97,28 @@ class PostDetail extends Component {
         <div className='post_detail'>
           <PostContent postId={postId} />
           <div className='post_detail_right'>
-              <PostWriter postId={postId} userId={userId} />
-              <PostInfo postId={postId} replyCount={replyCount} isMypost={isMypost} postId={this.state.postId} history={this.props.history}/>
-            
-            <div className='post_detail_right_3'>
+            <PostWriter postId={postId} userId={userId} isMypost={isMypost} />
+            <PostInfo postId={postId} replyCount={replyCount} history={this.props.history}/>
+            <div className='post_detail_3_reply'>
               {typeof(replys) === 'string'
-              ?
-              <div> '댓글이 없습니다.'</div>
+              ? <div> '댓글이 없습니다.'</div>
               :
-              <div>
-                {replys.map((reply, index) => {
-                  return <Reply reply={reply} postId={postId} key={index} _getReply={this._getReply}/>
-                })}
-              </div>
+                <div>
+                  {replys.map((reply, index) => {
+                    return <Reply reply={reply} postId={postId} key={index}
+                                  _getReply={this._getReply}/>
+                  })}
+                </div>
               }
             </div>
 
             <div className='post_detail_right_2'>
               <form>
-                <input
-                  className='post_detail_reply_input'
-                  type="text"
-                  placeholder="댓글을 입력해라"
-                  onChange={this._newReply}></input>
-                <span onClick={this._makeReply}><Icon name="pencil alternate" fitted size="large" /></span>
+                <input className='post_detail_reply_input' type="text"
+                      placeholder="댓글을 입력해라" onChange={this._newReply}/>
+                <span onClick={this._makeReply}>
+                  <Icon name="pencil alternate" fitted size="large" />
+                </span>
               </form>
             </div>
           </div>
