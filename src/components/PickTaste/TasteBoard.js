@@ -1,5 +1,5 @@
-import React, { Component, Fragment} from 'react'
-import {Button, ButtonGroup} from 'react-bootstrap'
+import React, { Component, Fragment } from 'react'
+/* import {Button, ButtonGroup} from 'react-bootstrap' */
 /* import {Link} from 'react-router-dom' */
 import { withRouter } from "react-router-dom";
 import axios from 'axios'
@@ -128,7 +128,7 @@ class TasteBoard extends Component {
 		// console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
 	}
     
-	_checkUserName = (e) => {
+    _checkUserName = (e) => {
 			e.preventDefault();
 			const username = this.state.userName;
 			const token = window.localStorage.getItem('token')
@@ -146,18 +146,18 @@ class TasteBoard extends Component {
 						this.setState({isOktoUse: true})
 						if (window.confirm(`${this.state.userName}을(를) 유저네임으로 사용하시겠습니까?`)) {
 							this.setState({confirmUN: true})
-						}
-						else {
-							return
-						}
-					}
-				})
-				.catch(err => {
-					alert('이미 사용중인 유저이름입니다.')
-					this.setState({isOktoUse: false})
-				})
-			}
-	}
+                        }
+                        else {
+                            return
+                        }
+                    }
+                })
+                .catch(err => {
+                    alert('이미 사용중인 유저이름입니다.')
+                    this.setState({isOktoUse: false})
+                })
+            }
+        }
 
 	_submitTasteNUserName = async() => {
 		let token = window.localStorage.getItem('token')
@@ -187,7 +187,7 @@ class TasteBoard extends Component {
 			alert('유저네임을 입력하셔야 합니다!')
 		} else if (this.state.isOktoUse === false) {
 			alert('중복된 유저네임 입니다!')
-		} else if (this.state.selected.length+ this.state.newTagSelected.length < 3) {
+		} else if (this.state.selected.length+this.state.newTagSelected < 3) {
 			alert('취향을 3개이상 고르셔야합니다!')
 		} else if (this.state.userName && this.state.isOktoUse && this.state.selected.length >= 3) {
 			const res_submitTaste = await this._submitTasteNUserName()
@@ -269,5 +269,4 @@ class TasteBoard extends Component {
     )
   }
 }
-
 export default withRouter(TasteBoard)

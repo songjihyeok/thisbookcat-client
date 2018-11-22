@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import { Link } from 'react-router-dom'
-import Image from 'react-image-resizer'
+import Images, {Image} from 'react-bootstrap'
 import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json'
 import axios from 'axios'
@@ -76,15 +76,20 @@ class BookBoard extends Component {
 				/* state : {
 						imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
 						username : this.props.author,
-				} */}}>
-					<Image className = 'likeThumbnail' alt='bookcover' width={240} height={240}
+				} */}}><div className='postImageContainer'>
+					<Image className = 'mainThumbNail' alt='bookcover' /* width={240} */ height={240}
 								src = {`http://${server_url}:3000/upload/${this.props.url}`}/>
+				</div>
+				<div className='likePart'>
+				<span className='likeIconPart'>{this.state.liked
+								? <div><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
+								: <div><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
+								}</span>
+								</div>
 				</Link>
-				{this.state.liked
-				? <span><Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
-				: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
-				}
-				<span>{this.props.title}</span>
+				<br/>
+				<span className='postTitle'>{this.props.title}</span>
+				<span className='userNamePart'>{this.props.username}</span>
 			</div>
 
 	// <Link to={`/postdetail/${this.props.url}`}>
