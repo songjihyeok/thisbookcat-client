@@ -71,6 +71,12 @@ class TasteBoard extends Component {
         show: false
     }
 
+
+
+
+
+
+
     _collectSellection = (e) => {
 
         console.log('이게 받아온 아이디 값이여', e)
@@ -174,23 +180,21 @@ class TasteBoard extends Component {
         const token = window.localStorage.getItem('token')
 
         console.log('TasteBoard.js > _setUserName 함수에서 inputData___', username)
-
+        console.log("시작해봅시다. ")
         if(username==='') {
             alert('유저네임을 입력하셔야 합니다!')
         } else {
             axios.post (`http://${server_url}:3000/api/user/checkuserName`, {userName: username}, {
             headers: {Authorization: `bearer ${token}`}
         })
-        .then(res => {
+        .then(async res => {
             if(res.status===200) {
-                alert('사용가능한 유저이름입니다!')
-                this.setState({
-                    isOktoUse: true
-                })
+               await alert('사용가능한 유저이름입니다!')
+               await this.setState({isOktoUse: true})
                 if(window.confirm(`${this.state.userName}을(를) 유저네임으로 사용하시겠습니까?`)) {
-                    this.setState({
+                   await this.setState(()=>({
                         confirmUN: true
-                    })
+                    }))
                 }
                 else {
                     return
@@ -219,9 +223,6 @@ class TasteBoard extends Component {
             newPreference: this.state.newTagSelected
         }
 
-        /* let defaultTaste = {
-            defaultTags: this.state.selected
-        } */
             if(newPreference.length>0){
             const addResult = await axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
             headers: {Authorization: `bearer ${token}`}
@@ -229,11 +230,10 @@ class TasteBoard extends Component {
             }
             console.log("보내는 TAGS!-----", customNUser)
             const result = await axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
-                headers: {Authorization: `bearer ${token}`}
+            headers: {Authorization: `bearer ${token}`}
             }) 
         return result
     }
-    //TODO: 이렇게 하면, await 함수 차례대로 실행되지 않나?
 
     _handleSubmit = async () => {
 
@@ -276,32 +276,31 @@ class TasteBoard extends Component {
     }
 
     _handleUserNamePart = () => {
-        if(this.state.confirmUN) {
-            return(
-                <div className = 'WelcomeUser'>
-                <div className='userNamePart'>
-                <span className='confirmedUser'>{this.state.userName}</span>
-                <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
-                </div>
-                <button className='pref'>관심</button>
-        <button className='jangre'>장르</button>
-            <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
-            </div>
-            )
-        } else {
+        // if(this.state.confirmUN) {
+        //     return(
+        //         <div className = 'WelcomeUser'>
+        //          <div className='userNamePart'>
+        //         <span className='confirmedUser'>{this.state.userName}</span>
+        //         <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
+        //         </div>
+        //         <button className='pref'>관심</button>
+        // <button className='jangre'>장르</button>
+        //     <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+        //     </div>
+        //     )
+        // } else {
             return <div className = 'WelcomeUser'>
             <div className='userNamePart'>
-            <form className = 'userNameWrapper'>
-            <input type='text' className="getUserName" onChange={this._setUserName}></input>
-             <button className = 'selectUserName' style={{backgroundColor:this.state.userName===''?'#c7c7c7':'#3376ff'}} onClick={this.state.confirmUN?null:this._checkUserName}>중복확인</button>
-            </form>
-            <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
+                 <form className = 'userNameWrapper'>
+                    <input type='text' className="getUserName" onChange={this._setUserName}></input>
+                    <button className = 'selectUserName' style={{backgroundColor:this.state.userName===''?'#c7c7c7':'#3376ff'}} onClick={this.state.confirmUN?null:this._checkUserName}>중복확인</button>
+                </form>
+                <span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
             </div>
-            <button className='pref'>관심</button>
-            <button className='jangre'>장르</button>
-            <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+                <button className='pref'>관심</button>
+                <button className='jangre'>장르</button>
+                <button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button><button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
             </div>
-        }
     }
 
 
