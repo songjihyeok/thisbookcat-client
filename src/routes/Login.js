@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 // import Nav1 from "../components/Nav1";
 import '../components/Login/Login.css';
-import { Icon } from "semantic-ui-react";
+// import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import server_url from '../url.json';
-import mainImg from '../img/main-logo.svg';
+// import mainImg from '../img/main-logo.svg';
 
 class Login extends Component {
   state = {
@@ -34,18 +34,26 @@ class Login extends Component {
       emailId: this.state.email,
       password: this.state.password
     }; 
-
-    const res_postLogin = await axios.post(`http://${server_url}:3000/api/user/login`, user, {
-      headers: {'Access-Control-Allow-Origin': '*'}})
-    window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
-    const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{ //preference가 있는지 확인한다.
-      headers: {Authorization: `bearer ${res_postLogin.data}`}})
-    // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
-    this.setState({
-      isLogin: true,
-      login_err: false,
-      preference: res_getPreference.data,
-    })
+    try {
+      const res_postLogin = await axios.post(`http://${server_url}:3000/api/user/login`, user, {
+        headers: {'Access-Control-Allow-Origin': '*'}})
+      window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
+      //preference가 있는지 확인한다.
+      const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{
+        headers: {Authorization: `bearer ${res_postLogin.data}`}})
+      // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
+      this.setState({
+        isLogin: true,
+        login_err: false,
+        preference: res_getPreference.data,
+      })
+    } catch(err) {
+        console.log('login.js > _handleSubmit함수에서 axios.post 요청보냈는데, err___', err)
+        this.setState({
+              isLogin : false,
+              login_err : true})
+    }
+    
       // .catch(err => {
       //   console.log('login.js > _handleSubmit함수에서 axios.post 요청보냈는데, err___', err)
       //   this.setState({
@@ -67,7 +75,7 @@ class Login extends Component {
   render() {
     if (window.localStorage.getItem('token') && this.state.preference.length) {
       return <Redirect to ='/' />;
-    } else if (window.localStorage.getItem('token') && this.state.preference.length===0) {
+    } else if (window.localStorage.getItem('token') && this.state.preference.length === 0) {
       return <Redirect to ='/picktaste' />;
     } else {
       return (
@@ -76,25 +84,21 @@ class Login extends Component {
             <div className='login_container_1'>
               <div className='login_container_2'>
               <div className='title1'>북컨텐츠를 모두와 함께 공유하는</div>
-              {/* <h1>이책반냥<Icon name="paw" size="small" /></h1> */}
-              {/* <img src={mainImg}/> */}
               <div className='title2'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="166" height="44">
-                  <text fill="#FEFEFE" font-family="BM DoHyeon OTF" font-size="47.061" transform="translate(.392 35.64) scale(.93495)">
+                  <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
                     이책반냥
                   </text>
                 </svg>
               </div>
               
 
-              <div className='title3'>이책반냥에 오신 것을 환영합니다</div>
+              {/* <div className='title3'>이책반냥에 오신 것을 환영합니다</div> */}
               {(this.state.login_err)
               ?
-                <div>
-                  <div>로그인할 수 없습니다.</div>
-                  <div>이메일 혹은 비밀번호가 올바르지 않습니다.</div>
-                </div>
-              : <div></div>
+                <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
+ 
+              : <div className='title3'>이책반냥에 오신 것을 환영합니다</div>
               }
               </div>
               <form onSubmit={this._handleSubmit}>
@@ -106,10 +110,7 @@ class Login extends Component {
                 </div>
                 <div><Button bsClass="custom_btn_continue" type='submit' className='login_btn'>계속하기</Button></div>
               </form>
-              <div style={{color: '#ffffff',
-                          fontSize: '13.8px',
-                          marginTop: '14px',
-                          marginBottom: '24px'}}>
+              <div style={{color: '#ffffff', fontSize: '13.8px', marginTop: '14px', marginBottom: '24px'}}>
                 또는
               </div>
               <div><Button bsClass="custom_btn_facebook" className='login_btn'>FACEBOOK으로 계속하기</Button></div>
