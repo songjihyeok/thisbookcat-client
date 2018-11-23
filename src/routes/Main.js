@@ -44,7 +44,6 @@ class Main extends Component {
                             title={url.title}
                             likecount={url.likeCount}
                             key={url.id}
-                            username={url.userName}
                             />;
         }
       });
