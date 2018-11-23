@@ -88,9 +88,6 @@ class Login extends Component {
                         </text>
                       </svg>
                     </div>
-                    
-
-                    {/* <div className='title3'>이책반냥에 오신 것을 환영합니다</div> */}
                     {(this.state.login_err)
                     ?
                       <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
