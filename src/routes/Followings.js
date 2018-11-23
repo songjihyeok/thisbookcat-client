@@ -49,7 +49,7 @@ class Followings extends Component {
   _getFollowPosts = async () => {
     const followPost = await this._callFollowAPI()
     this.setState({followPost: this.state.followPost.concat(followPost)})
-    // console.log(this.state.followPost)
+    console.log(this.state.followPost)
   };
 
   _callFollowAPI = () => {
@@ -71,12 +71,10 @@ class Followings extends Component {
       <Fragment>
          <Nav1/>
          <div className="Followings">
-          <div className = 'gridOne'></div>
-          <div className = 'gridTwo'>
-            {this.state.followPost[0] === undefined ? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}<br/>
-            {this.state.page === this.state.totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
-          </div>
-          <div className = 'gridThree'></div>
+         <div className='FollowingBoards'>
+         {this.state.followPost[0] === undefined ? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
+         {this.state.page === this.state.totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
+         </div>
          </div>
       </Fragment>
     );
