@@ -1,16 +1,69 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 .Main {
-    text-align: center;
+    text-align: left;
+    display: inline-block;
+    position: relative;
+    font-family: 'Noto Sans KR';
 }
 
 .BookBoard {
     display: inline-block;
+    position: relative;
+   /*  width: 300px;
+    height: 300px; */
     border:solid;
     border-width: 1px;
     border-color: white;
-    border-radius: 1%;
+    border-radius: 22px;
     margin: 1%;
     size:100%;
     padding: 3%;
+
+}
+
+.postTitle {
+    
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #151515;
+}
+
+.postImageContainer {
+
+    width: auto;
+    height: 240;
+    border-radius: 22px;
+    z-index: -1;
+}
+
+.likePart {
+    background-color: #000;
+    position: absolute;
+    height: 40px;
+    width: 300px;
+    opacity: 0.75;
+    bottom: 22%;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    color:#ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.likeIconPart {
+    position: absolute;
+    bottom: 25%;
+    right: 74%;
 }
 
 .BookBoard:hover {
@@ -18,8 +71,8 @@
     
 }
 
-.likeThumbnail {
+.mainThumbNail {
     position: relative;
-    border-radius: 25px;
-    right:5%;
+    border-radius: 22px;
+    /* right:5%; */
 }

@@ -7,8 +7,6 @@ import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import server_url from '../url.json';
 import book from "../img/book-img.png";
-// import book2 from "../img/book-img@2x.png";
-// import book3 from "../img/book-img@3x.png";
 
 class Login extends Component {
   state = {
@@ -44,6 +42,7 @@ class Login extends Component {
       const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{
         headers: {Authorization: `bearer ${res_postLogin.data}`}})
       // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
+
       this.setState({
         isLogin: true,
         login_err: false,
@@ -54,6 +53,9 @@ class Login extends Component {
         this.setState({
               isLogin : false,
               login_err : true})
+//     }
+//     catch (err){
+//         alert("아이디나 비번이 맞지 않습니다. 다시 확인해주세요.")
     }
   }
 
