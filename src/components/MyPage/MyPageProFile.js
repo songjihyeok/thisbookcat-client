@@ -121,17 +121,32 @@ class MyPageProFile extends Component {
     // console.log('this is profileImage', this.state.ProfileImage)
     return (
       <div className="MyPageProFile">
-        <div className="ProFilePhotoContainer">
-          <Image className="ProfilePhoto" src={this.state.ProfileImage} alt="" width={200} height={200} />
+      <div className='profileContainer'>
+      <div className='myName'>
+      <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
+      </div><br/>
+      <div className="ProFilePhotoContainer">
+          <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
+          <span className="ID_user">{this.state.myProfile.userName}</span>
+          <button className="custom-icon" onClick={this._handleShow}>관리</button>
         </div>
-        <div className="ProFileDetail">
-          <span className="ID_user">{this.state.myProfile.userName} 님 환영합니다!</span>
-          <span className="Follower">팔로워 : {this.state.followed}</span>
-          <span className="Following">팔로잉 : {this.state.following}</span>
-          <Icon name="cog" size="big" className="custom-icon" onClick={this._handleShow}/>
+        <div className="ProFileDetailContainer">
+        <div className='MyPostNumberContainer'>
+        <span className='PostNumberText'>게시물</span><br/>
+        <span className='PostNumber'>2</span>
         </div>
+        <div className='FollowingContainer'>
+        <span className='FollowingText'>팔로잉</span><br/>
+        <span className='FollowingNumber'>{this.state.following}</span>
+        </div>
+        <div className='FollowerContainer'>
+          <span className="FollowerText">팔로워</span><br/>
+          <span className='FollowerNumber'>{this.state.followed}</span>
+          </div>
+        </div>
+      </div>
         <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
-        <div style={{ margin: "20px" }}>
+        <div className='myBookBoardContainer'>
           {(this.state.myPosts[0] === undefined) ? <span>아직 올린 게시물이 없습니다!</span> : this._renderPost()}<br/>
           {(this.state.page === this.state.totalPage) ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
         </div>
