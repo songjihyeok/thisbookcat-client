@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 // import Nav1 from "../components/Nav1";
 import '../components/Login/Login.css';
-import { Icon } from "semantic-ui-react";
+// import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
+// import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import server_url from '../url.json';
+import book from "../img/book-img.png";
+
 
 class Login extends Component {
   state = {
@@ -33,19 +36,27 @@ class Login extends Component {
       password: this.state.password
     }; 
     try {
-    const res_postLogin = await axios.post(`http://${server_url}:3000/api/user/login`, user, {
-      headers: {'Access-Control-Allow-Origin': '*'}})
+      const res_postLogin = await axios.post(`http://${server_url}:3000/api/user/login`, user, {
+        headers: {'Access-Control-Allow-Origin': '*'}})
       window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
-      const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{ //preference가 있는지 확인한다.
+      //preference가 있는지 확인한다.
+      const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{
         headers: {Authorization: `bearer ${res_postLogin.data}`}})
+      // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
+
       this.setState({
         isLogin: true,
         login_err: false,
         preference: res_getPreference.data,
       })
-    }
-    catch (err){
-        alert("아이디나 비번이 맞지 않습니다. 다시 확인해주세요.")
+    } catch(err) {
+        console.log('login.js > _handleSubmit함수에서 axios.post 요청보냈는데, err___', err)
+        this.setState({
+              isLogin : false,
+              login_err : true})
+//     }
+//     catch (err){
+//         alert("아이디나 비번이 맞지 않습니다. 다시 확인해주세요.")
     }
   }
 
@@ -62,44 +73,63 @@ class Login extends Component {
   render() {
     if (window.localStorage.getItem('token') && this.state.preference.length) {
       return <Redirect to ='/' />;
-    } else if (window.localStorage.getItem('token') && this.state.preference.length===0) {
+    } else if (window.localStorage.getItem('token') && this.state.preference.length === 0) {
       return <Redirect to ='/picktaste' />;
     } else {
       return (
-        <div className='login_container' >
-          <div className='login_container_1'>
-            <div className='login_container_2'>
-            <h5>책, 콘텐츠를 모두와 공유하기</h5>
-            <h1>이책반냥<Icon name="paw" size="small" /></h1>
-            <h3>이책반냥에 오신 것을 환영합니다.</h3>
-            {this.state.login_err
-            ?
-              <div>
-                <div>로그인할 수 없습니다.</div>
-                <div>이메일 혹은 비밀번호가 올바르지 않습니다.</div>
+        <div className="backImg">
+          {/* <div className='login_container' >
+            <div className='login_container_1'> */}
+              {/* <div className='login_body'> */}
+                <div className='login_body'>
+                  <div className='login_container'>
+                    <div className='title1'>북컨텐츠를 모두와 함께 공유하는</div>
+                    <div className='title2'>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="166" height="44">
+                        <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
+                          이책반냥
+                        </text>
+                      </svg>
+                    </div>
+                    {(this.state.login_err)
+                    ?
+                      <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
+      
+                    : <div className='title3'>이책반냥에 오신 것을 환영합니다</div>
+                    }
+                    
+                    <form onSubmit={this._handleSubmit}>
+                      <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
+                                  onChange={this._setEmail}/>
+                      </div>
+                      <div><input className='login_input' type="password" placeholder="비밀번호를 입력해주세요"
+                                  onChange={this._setPassword}/>
+                      </div>
+                      <div><button id="custom_btn_continue" type='submit' className='login_btn'>계속하기</button></div>
+                    </form>
+                    <div style={{color: '#ffffff', fontSize: '13.8px', marginTop: '14px', marginBottom: '24px'}}>
+                      또는
+                    </div>
+                    <div><button id="custom_btn_facebook" className='login_btn'>FACEBOOK으로 계속하기</button></div>
+                    <div><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></div>
+                    {/* <div><button className='login_btn'>FACEBOOK으로 계속하기</button></div>
+                    <div><Button className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</Button></div> */}
+                    {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
+                    {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
+                    <div className='login_flex'>
+                      <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
+                      <Link to="/findpw"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>아이디/비밀번호 찾기</div></Link>
+                    </div>
+                  </div>
+                </div>
+              <div className="footer">
+                <div>
+                  <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
+                </div>
               </div>
-            : <div></div>
-            }
             </div>
-            <form onSubmit={this._handleSubmit}>
-              <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
-                          onChange={this._setEmail}/>
-              </div>
-              <div><input className='login_input' type="password" placeholder="비밀번호를 입력해주세요"
-                          onChange={this._setPassword}/>
-              </div>
-              <div><button type='submit' className='login_btn'>계속하기</button></div>
-            </form>
-            <h5>또는</h5>
-            {/* <div><button className='login_btn'>FACEBOOK으로 계속하기</button></div> */}
-            <div><button className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></div>
-            <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div>
-            <div className='login_flex'>
-              <Link to="/signup"><div>회원가입</div></Link>
-              <Link to="/findpw"><div>아이디/비밀번호 찾기</div></Link>
-            </div>
-          </div>
-        </div>
+          /* </div>
+        </div> */
     );
   }}
 }

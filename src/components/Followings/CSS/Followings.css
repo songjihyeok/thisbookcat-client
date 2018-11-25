@@ -1,78 +1,117 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 .Followings {
-    display: grid;
-    grid-template-columns: 25% 50% 25%;
+    background-color: #f6f6f6;
+    justify-content: center;
+    font-family: 'Noto Sans KR';
 }
 
-.gridOne {
-    justify-self: center
+.FollowingBoards {
+    position: relative;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
 }
-
-.gridTwo {
-    display: table-row;
-    justify-self: center
-
-}
-
-.gridThree {
-    justify-self: center
-}
-
 
 .FollowingBoard {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    border: solid;
+    position: relative;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    border-bottom: solid;
+    border-color: black;
     border-width: 1px;
-    border-color: white;
-    border-radius: 1%;
-    margin-bottom: 3%;
-    size: 100%;
-    padding: 3%;
-    width: 100%;
 }
 
-.FollowingBoard:hover {
+.UserInfoPart {
+    display: -webkit-box;
+    position: relative;
+    margin-top: 0%;
+    left: 5%;
+}
+
+.postUserName{
+    display: inline-block;
+    padding: 0 10px 0 10px;
+    font-size: 17px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #151515;
+  }
+  
+.postUserImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px;
+  }
+
+/* .FollowingBoard:hover {
     
     background-color: lightgray;
-}
+} */
 
-.imagepart {
-    
-    justify-self: center;
-    grid-column-start: 1;
-    grid-column-end: 2;
+.imagePart {
+    display: inline-block;
+    position: relative;
+    width: 440px;
+    right: 20%;
 }
-
-.textpart {
-    
-    justify-self: center;
-    grid-column-start: 2;
-    grid-column-end: 3;
+.textPart {
+    display: inline-block;
+    position: absolute;
+    width: 45%;
+    height: 80%;
+    left: 58%;
+    font-size: 17px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.53;
+    letter-spacing: normal;
+    text-align: left;
+    color: #353535;
 }
 
 .followFooter {
-
-    justify-self: center;
-    grid-row-start: 2;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-start: 1;
+    display: inline-block;
+    position: relative;
     width: 80%;
+    height: 39%;
+}
+
+.likeAndLikecount {
+    position: absolute;
+    top: 81%;
+    /* left: 10%; */
+    color: #3376ff;
 }
 
 .FollowThumbnail {
-    position: relative;
+    /* position: relative; */
     border-radius: 25px;
 }
 
 .heart {
-    position: relative;
+    /* position: relative; */
     bottom: 20%;
 }
 
-.FollowerID {
-    position: relative;
-    display: inline-flex;
-    left: 15%;
-    bottom: 14%;
+.followerTag {
+    position: absolute;
+    top: 91%;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #717171;
 }

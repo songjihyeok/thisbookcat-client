@@ -1,14 +1,26 @@
+
+
 .MyBookBoard {
   display: inline-block;
-    border:solid;
-    border-width: 1px;
-    margin: 2%;
-    size:100%;
-    padding: 3%;
+  position: relative;
+  border: solid;
+  border-width: 1px;
+  border-color: white;
+  border-radius: 22px;
+  margin: 1%;
+  size: 100%;
+  padding: 3%;
 }
 
 .MyBookBoard:hover {
   background-color: lightgray;
+}
+
+.myImageContainer {
+  width: auto;
+  height: 240;
+  border-radius: 22px;
+  z-index: -1;
 }
 
 .MyBookBoard span {
@@ -26,19 +38,27 @@
 }
 
 .MyBookBoard img {
-  border-radius: 5%;
+  position: relative;
+  border-radius: 22px;
+  /* right: 5%; */
 }
 
 .likeBar {
-  display: -webkit-box;
-    position: relative;
-    width: 240px;
-    height: 32.807px;
-    opacity: 0.51;
-    background-color: #000000;
-    border-bottom-left-radius: 5%;
-    border-bottom-right-radius: 5%;
-    bottom: 18%;
+  background-color: #000;
+  position: absolute;
+  height: 40px;
+  width: 300px;
+  opacity: 0.75;
+  bottom: 22%;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }
 
 .heart {

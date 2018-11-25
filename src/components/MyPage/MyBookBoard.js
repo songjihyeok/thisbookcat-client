@@ -64,13 +64,11 @@ class MyBookBoard extends Component {
 		return (
 			<div className='MyBookBoard'>
 				{/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}
+				<div className='myImageContainer'>
 				<Link to={{pathname : `/postdetail/${this.props.postid}`,}}>
-					{/*state : {
-							imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-							username : this.props.author, */}
-				
-					<Image src={`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover' width={240} height={240}/>
+					<Image src={`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover' /* width={300} */ height={240}/>
 				</Link>
+				</div>
 				<div className='likeBar'>
 					{(this.state.liked)
 					? <span><Icon name="heart" size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
