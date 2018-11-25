@@ -48,7 +48,6 @@ class SettingModal extends Component {
           <div className = 'PhotoUploadModal'>
             <Button bsStyle="primary">비밀번호변경</Button>
             <input type="file" name="choose image" onChange={this._getProfileImage}></input>
-            <Button bsStyle="primary">로그아웃하기</Button>
           </div>
         </Modal.Body>
         <Modal.Footer>

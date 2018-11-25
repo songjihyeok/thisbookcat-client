@@ -12,7 +12,6 @@ class PickTaste extends Component {
     } else {
       return (
         <Fragment>
-          <Nav1/>
           <div className = 'picktaste'>
             <TasteBoard/>
           </div>
