@@ -52,6 +52,7 @@ export default class PostWriter extends Component {
   _handleDelete = async () => {
     const res_deletePost = await axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
     console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
+    //사진도 삭제해야...
     this.props.history.goBack();
   }
 
