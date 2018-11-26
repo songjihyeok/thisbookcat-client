@@ -1,40 +1,65 @@
 @import url('https://fonts.googleapis.com/css?family=Do+Hyeon');
+
 .nav {
   height: 80px;
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* display: table-cell;
-  vertical-align: middle; */
+  text-align: left;
   padding: 15px 0px;
+  /* 위아래 가운데 정렬 일단, 패딩으로 처리.. */
   border-bottom: 2px solid #f4f4f4;
   /* 이거 그림자로 바꿔야함 */
 }
 
-/* .inner_nav {
-
-} */
-
-.nav_inline {
-  display: inline-block;
+.thisBook {
+  width: 107px;
+  height: auto;
   margin-left: 40px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28.4px;
+  /* font-weight: normal;
+  font-style: normal;
+  font-stretch: normal; */
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1f1f1f;
 }
 
-#search_div{
-  margin: 0;
+form{
+  display: inline;
+}
+
+.search_input {
   width: 800px;
- /* dㅕ기 고쳐야 함. 화면의 57% 정도로  */
-}
-
-#search_input {
-  width: 100%;
+  /* 화면의 57%정도가 되어야함. 일단 고정값으로 처리 */
   height: 50px;
   border-radius: 25px;
   border-width: 0;
   margin: 0;
-  margin-left: 20px;
+  margin-left: 40px;
   background-color: #f4f4f4; 
   padding-left: 20px;
 }
+
+.items {
+  margin-left: 40px;
+}
+
+.item {
+  display: inline-block;
+  margin-left: 20px;
+  width: 35px;
+  height: 35px;
+}
+
+
+/* #search_div {
+  display: inline-block;
+  margin: 0;
+  width: 800px;
+}
+dㅕ기 고쳐야 함. 화면의 57% 정도로  */
+
+
 
 /* .navbar-default {
   border-bottom-color: #ccccff;
@@ -44,25 +69,14 @@
   margin-bottom: 0%;
 } */
 
-.container {
+/* .container {
   width: 100%;
-}
+} */
 
 /* .navLeft {
   margin-left:2%
 } */
 
-#thisBook {
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 28.4px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #1f1f1f;
-}
 
 /* .navMiddle {
   width: 100%;
