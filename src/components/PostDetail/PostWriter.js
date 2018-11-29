@@ -8,7 +8,7 @@ export default class PostWriter extends Component {
   state = {
     userName: '',
     userImage: '',
-    isFollowing:'',
+    isFollowing:false,
   }
 
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
@@ -37,14 +37,14 @@ export default class PostWriter extends Component {
 
   _handleFollowing = async () => {
     if (this.state.isFollowing) {
-      // const res_deleteFollowing = 
-      await axios.delete(`http://${server_url}:3000/api/follow/delete/${this.props.userId}`, this.authHeader)
-      // console.log('postDetail.js의 _handleFollowing 함수에서 팔로우 off(삭제)요청 보낸 후 res_deleteFollowing', res_deleteFollowing)
+
+      const resultfollowDelete =await axios.delete(`http://${server_url}:3000/api/follow/delete/${this.props.userId}`, this.authHeader)
+      console.log ("resultfollowDelete",resultfollowDelete)
       this.setState({isFollowing: false})
     } else {
-      // const res_postFollowing = 
-      await axios.post(`http://${server_url}:3000/api/follow/${this.props.userId}`, {}, this.authHeader)
-      // console.log('postDetail.js의 _handleFollowing 함수에서 팔로우 on(포스트)요청 보낸 후 res_postFollowing', res_postFollowing)
+      
+      const followResult =await axios.post(`http://${server_url}:3000/api/follow/${this.props.userId}`, {}, this.authHeader)
+      console.log("followResult", followResult)
       this.setState({isFollowing: true})
     }
   }
@@ -75,8 +75,8 @@ export default class PostWriter extends Component {
         : 
           <div>
             {(isFollowing)
-            ? <button className="ui grey button" onClick={this._handleFollowing}>팔로우하기</button> 
-            : <button className="ui teal button" onClick={this._handleFollowing}>팔로우중입니다</button>
+            ? <button className="ui teal button" onClick={this._handleFollowing}>팔로우중입니다</button>
+            : <button className="ui grey button" onClick={this._handleFollowing}>팔로우하기</button> 
             }
           </div>
         }

@@ -92,11 +92,6 @@ class BookBoard extends Component {
 				<span className='userNamePart'>{this.props.username}</span>
 			</div>
 
-	// <Link to={`/postdetail/${this.props.url}`}>
-	//     <div className ='BookBoard'>
-	//         <img className = 'likeThumbnail' src = {`https://picsum.photos/300/300?image=${this.props.url}`} alt='bookcover' /> */}
-	//     </div>
-	// </Link>
 		)
 	}
 }

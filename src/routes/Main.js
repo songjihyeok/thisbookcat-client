@@ -9,7 +9,7 @@ import "../components/Main/CSS/Main.css";
 class Main extends Component {
   
   state = {
-    per: 10,//한페이지당 가지게될 포스트의 개수
+    per: 16,//한페이지당 가지게될 포스트의 개수
     page: 1,//정해진 per만큼의 포스트를 가지는 페이지
     totalPage: ''
   };

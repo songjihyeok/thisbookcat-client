@@ -11,6 +11,10 @@
     font-family: 'Noto Sans KR'
 }
 
+.title {
+    padding : 20px;
+}
+
 .TasteBoard {
 
     display: inline-flex;

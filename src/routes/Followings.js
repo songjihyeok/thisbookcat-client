@@ -10,7 +10,7 @@ class Followings extends Component {
 
   state = {
     page: 1,
-    per: 4,
+    per: 7,
     totalPage:'',
     followPost:[]
   };

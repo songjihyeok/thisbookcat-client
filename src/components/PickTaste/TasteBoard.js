@@ -105,8 +105,6 @@ class TasteBoard extends Component {
 	}
     
 	_gotoMain = (r) => {
-      //나는 여기에 parameter 받아서, 있으면, 으로 처리했는데, 지혁님 코드가 나은듯;
-			// console.log('there should be history in here', this.props)
 		if (r) {
 			this.props.history.push('/')
 		}
@@ -218,6 +216,10 @@ class TasteBoard extends Component {
 			return 'black'
 		}
 	}
+	alreadychecked = (e) =>{
+		e.preventDefault();
+		alert("이미 중복검사 완료한 상태입니다.")
+	}
 
 	_handleUserNamePart = () => {
 		if (this.state.confirmUN) {
@@ -241,7 +243,7 @@ class TasteBoard extends Component {
 							<input type='text' className="getUserName" onChange={this._setUserName}></input>
 							<button className = 'selectUserName'
 											style={{backgroundColor : this.state.userName === '' ? '#c7c7c7' : '#3376ff'}}
-											onClick={this.state.confirmUN ? null : this._checkUserName}>중복확인</button>
+											onClick={this.state.confirmUN ? this.alreadychecked : this._checkUserName}>중복확인</button>
 						</form>
 						<span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
 					</div>
