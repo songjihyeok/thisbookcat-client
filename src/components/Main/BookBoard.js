@@ -72,11 +72,8 @@ class BookBoard extends Component {
 		return(
 			<div className ='BookBoard'>
 				<Link to={{
-					pathname : `/postdetail/${this.props.postid}`,
-				/* state : {
-						imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-						username : this.props.author,
-				} */}}><div className='postImageContainer'>
+					pathname : `/postdetail/${this.props.postid}`
+				}}><div className='postImageContainer'>
 					<Image className = 'mainThumbNail' alt='bookcover' /* width={240} */ height={240}
 								src = {`http://${server_url}:3000/upload/${this.props.url}`}/>
 				</div>

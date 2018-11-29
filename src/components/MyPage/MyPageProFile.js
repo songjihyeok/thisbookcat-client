@@ -3,7 +3,6 @@ import { Icon } from "semantic-ui-react";
 import axios from "axios";
 import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
-import Image from 'react-image-resizer';
 import server_url from '../../url.json';
 import './CSS/MyPageProFile.css'
 
@@ -133,7 +132,7 @@ class MyPageProFile extends Component {
         <div className="ProFileDetailContainer">
         <div className='MyPostNumberContainer'>
         <span className='PostNumberText'>게시물</span><br/>
-        <span className='PostNumber'>2</span>
+        <span className='PostNumber'>10</span>
         </div>
         <div className='FollowingContainer'>
         <span className='FollowingText'>팔로잉</span><br/>
@@ -147,8 +146,14 @@ class MyPageProFile extends Component {
       </div>
         <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
         <div className='myBookBoardContainer'>
+        <div className='myBookShelf'>
+        <span className='myBookShelfText'>
+        <Icon name='book' size="big"/>
+        내 서재
+        </span>
+        </div>
           {(this.state.myPosts[0] === undefined) ? <span>아직 올린 게시물이 없습니다!</span> : this._renderPost()}<br/>
-          {(this.state.page === this.state.totalPage) ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
+          {(this.state.page === this.state.totalPage) ? <span /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</span> : ''}
         </div>
       </div>
     )
