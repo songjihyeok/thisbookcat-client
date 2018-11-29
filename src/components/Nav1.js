@@ -32,8 +32,8 @@ class Nav1 extends Component {
                       onChange={(event)=>{this._searchHandler(event)}}/>
               <Link to={`/tagSearchPage/${this.state.searchingValue}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="item">
-                  <path fill="none" fill-rule="evenodd" stroke="#A2A2A2" stroke-width="3" d="M13.5 1.5c6.627 0 12 5.373 12 12s-5.373 12-12 12-12-5.373-12-12 5.373-12 12-12z"/>
-                  <path fill="#A2A2A2" fill-rule="evenodd" d="M20.697 21.697a1.5 1.5 0 0 1 2.121 0l6.485 6.485a1.497 1.497 0 0 1 0 2.121 1.498 1.498 0 0 1-2.12 0l-6.486-6.485a1.5 1.5 0 0 1 0-2.121z"/>
+                  <path fill="none" fillRule="evenodd" stroke="#A2A2A2" strokeWidth="3" d="M13.5 1.5c6.627 0 12 5.373 12 12s-5.373 12-12 12-12-5.373-12-12 5.373-12 12-12z"/>
+                  <path fill="#A2A2A2" fillRule="evenodd" d="M20.697 21.697a1.5 1.5 0 0 1 2.121 0l6.485 6.485a1.497 1.497 0 0 1 0 2.121 1.498 1.498 0 0 1-2.12 0l-6.486-6.485a1.5 1.5 0 0 1 0-2.121z"/>
                 </svg>
               </Link>
               {/* TODO: 아무것도 입력 안하고 클릭햇을때,를 처리해줘야함.*/}
