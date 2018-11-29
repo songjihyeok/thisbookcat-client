@@ -10,6 +10,7 @@
 .BookBoard {
     display: inline-block;
     position: relative;
+    text-align: left;
    /*  width: 300px;
     height: 300px; */
     border:solid;
@@ -19,7 +20,6 @@
     margin: 1%;
     size:100%;
     padding: 3%;
-
 }
 
 .postTitle {
@@ -30,7 +30,6 @@
     font-stretch: normal;
     line-height: normal;
     letter-spacing: normal;
-    text-align: left;
     color: #151515;
 }
 
