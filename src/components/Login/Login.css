@@ -15,6 +15,7 @@
 }
 
 .login_body {
+  padding : 100px 0px 0px 0px;
   margin-top: 10vh;
   display: flex;
   justify-content: center;

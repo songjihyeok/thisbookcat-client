@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { Link, Redirect} from "react-router-dom";
-import { Icon, Input } from "semantic-ui-react";
+
 import "./Nav1.css";
 
 class Nav1 extends Component {
   state = {
-    isLogin: true,
-    searchingValue: ""
+    searchingValue: "",
+    isLogin: true
   }
 
-  _logout = e => {
-    e.preventDefault();
-    window.localStorage.removeItem('token');
-    this.setState({isLogin: false})
-  }
 
   _searchHandler = e => {
     const searchingValue = e.target.value;
@@ -61,10 +56,6 @@ class Nav1 extends Component {
                 <path fill="none" fillRule="evenodd" stroke="#343434" strokeLinejoin="round" d="M3 29s4.98 2 10 2c4.979 0 10-2 10-2M15.248 23.627l-4.717.843.843-4.717L26.603 4.528 30.476 8.4 15.248 23.627z"/>
               </svg>
             </Link>
-            <span className="item">
-              {/* TODO: 일단 로그인버트 여기에 둡니다. 나중에 마이페이지 안으로 넣기 */}
-              <Icon name="log out" size="big" onClick={this._logout} />
-            </span>
           </span>
         </div>
 

@@ -5,6 +5,7 @@ import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
 import './CSS/MyPageProFile.css'
+import defaultimage from '../../img/다운로드.png'
 
 class MyPageProFile extends Component {
   constructor(props, context) {
@@ -14,7 +15,7 @@ class MyPageProFile extends Component {
       show: false,
       author:'',
       counter: 0,
-      ProfileImage: "http://profilepicturesdp.com/wp-content/uploads/2018/06/default-profile-picture-png-12.png",
+      ProfileImage: defaultimage,
       myPosts: [],
       myProfile: [],
       per: 8,
@@ -49,11 +50,18 @@ class MyPageProFile extends Component {
   _getMyProfile = () => {
     axios.get(`http://${server_url}:3000/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
-      // console.log('this is myprofileresponse',response)
+      console.log( "이미지 있나?", response.data.profileImage)
+      if(response.data.profileImage){
       this.setState({
         myProfile: response.data,
-        ProfileImage: `http://${server_url}:3000/upload/${response.data.profileImage}`,
+        ProfileImage: `http://${server_url}:3000/upload/${response.data.profileImage}`
       })
+      } else {
+        this.setState({
+          myProfile: response.data,
+          ProfileImage: defaultimage
+        })
+      }
     })
   }
   

@@ -2,13 +2,12 @@
 
 .Main {
     text-align: center;
-    display: inline-block;
     position: relative;
     font-family: 'Noto Sans KR';
 }
 
 .BookBoard {
-    display: inline-block;
+    display: inline;
     position: relative;
     text-align: left;
    /*  width: 300px;

@@ -49,7 +49,7 @@ export default class ParentReply extends Component {
     return (
       <div className='parent_reply'>
         <div>
-          <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt={userName} />
+          <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt='' />
           <span className='reply_username'>{userName} </span>
           <span className='reply_time'>{createdTime.substring(4, 24)}</span>
         </div>

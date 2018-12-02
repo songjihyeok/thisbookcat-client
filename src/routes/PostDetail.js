@@ -46,6 +46,7 @@ class PostDetail extends Component {
   _getReply = async() => {
     const res_getReply = await axios.get(`http://${server_url}:3000/api/reply/${this.state.postId}`, this.authHeader)
     // console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
+    console.log("reply관련 data", res_getReply)
     if (res_getReply.data === "There is no reply") {
       this.setState({
         replys: [],

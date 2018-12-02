@@ -2,19 +2,18 @@
 
     text-align: center;
     justify-content: center;
-
+    position: relative;
+    left :50%;
 }
 
 .modal-footer {
     text-align: center;
 }
 
-input {
-    position: relative;
-    margin:2%
-}
 
-button {
-    margin:2%;
+.item{
+    text-align: center;
+    position: relative;
+    left :50%;
 }
 

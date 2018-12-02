@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Button, button } from "semantic-ui-react";
 import axios from 'axios';
+import path from 'path';
 import server_url from '../../url.json';
 import "./PostDetail.css";
+import { pathToFileURL } from 'url';
+import profileimage from "../../img/다운로드.png"
 
 export default class PostWriter extends Component {
   state = {
@@ -13,18 +16,19 @@ export default class PostWriter extends Component {
 
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
 
-  async componentWillMount(){
+  async componentDidMount(){
     await this._getUserData()
     await this._getFollowingData()
+    await this._userImagecontrollor();
   }
 
   _getUserData = async () => {
+    console.log("user 데이터를 가져와야하는데?")
     const res_getUser = await axios.get(`http://${server_url}:3000/api/post/postedUserName/${this.props.postId}`, this.authHeader)
-    // console.log('_getUserData에서 res_getUser =========',res_getUser)
+    console.log('_getUserData에서 res_getUser =========',res_getUser)
     this.setState({
       userName: res_getUser.data.userName,
-      userImage: `http://${server_url}:3000/upload/${res_getUser.data.profileImage}`,
-      //TODO: profileImage 를 등록하지 않았을때, 디폴트값을 넣어줘야 할듯?
+      userImage: res_getUser.data.profileImage,
       userId: res_getUser.data.id
     })
   }
@@ -51,20 +55,29 @@ export default class PostWriter extends Component {
 
   _handleDelete = async () => {
     const res_deletePost = await axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
+    console.log("props", this.props)
     console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
-    //사진도 삭제해야...
-    this.props.history.goBack();
+    window.location.href ="/mypage"
   }
 
   _handleEdit = () => {
     this.props.history.push(`/writepost/${this.props.postId}`);
   }
 
+  _userImagecontrollor =()=>{
+    console.log("userImage는?",this.state.userImage)
+      if(this.state.userImage!==null && this.state.userImage.length>0){
+      return  <img src={`http://${server_url}:3000/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} />
+      } else {
+      return  <img src= {profileimage} className='img-circle' alt={"userImages"} />
+      }  
+    }
+  
   render() {
     const {userImage, userName, isFollowing} = this.state
     return (
       <div className='post_detail_right_1_postWriter'>
-        <img src={userImage} className='img-circle' alt={"hello"} />
+        <div>{this._userImagecontrollor()}</div>
         <h3 className='post_detail_username'>{userName}</h3>
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 

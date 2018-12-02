@@ -1,14 +1,24 @@
 import React, {Component} from 'react'
 import {Modal, Button} from 'react-bootstrap'
-import './CSS/SettingModal.css'
+import style from './CSS/SettingModal.css'
 import server_url from '../../url.json'
 import axios from 'axios'
+import { Icon, Input } from "semantic-ui-react";
+import { Redirect} from "react-router-dom";
 
 class SettingModal extends Component {
 
   state = {
+    isLogin: true,
     files: ''
   }
+
+  _logout = e => {
+    e.preventDefault();
+    window.localStorage.removeItem('token');
+    this.setState({isLogin: false})
+  }
+
 
   _getProfileImage = () => {
     let file = document.querySelector('input[type=file]').files[0]
@@ -38,6 +48,9 @@ class SettingModal extends Component {
   }
 
   render() {
+    if (!this.state.isLogin) {
+      return <Redirect to ='/login' />;
+    } else {
     return (
       <Modal show={this.props.show} container={this}
             onHide={this.props.hide} aria-labelledby="contained-modal-title">
@@ -45,9 +58,11 @@ class SettingModal extends Component {
           <Modal.Title id="contained-modal-title">UploadModal</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className = 'PhotoUploadModal'>
-            <Button bsStyle="primary">비밀번호변경</Button>
+          <div className = {style.PhotoUploadModal}>
             <input type="file" name="choose image" onChange={this._getProfileImage}></input>
+          </div>
+          <div className={style.item}>
+              <Button onClick={this._logout}>로그아웃</Button>
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -57,5 +72,6 @@ class SettingModal extends Component {
     );
     }
   }
+}  
   
   export default SettingModal

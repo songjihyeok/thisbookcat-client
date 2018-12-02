@@ -22,7 +22,7 @@ export default class ChildReply extends Component {
     this.reComment = {
       replyContents: e.target.value,
       parentsReplyId: parentsReplyId,
-      targetUsername: userName //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
+      targetUsername: userName 
     }
   }
 
@@ -47,7 +47,7 @@ export default class ChildReply extends Component {
        <div className='child_reply'>
         {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지* */}
         <div>
-          <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt={userName} />
+          <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt=''/>
           <span className='reply_username'>{userName} </span>
           <span className='reply_time'>{createdTime.substring(4,24)}</span>
         </div>
