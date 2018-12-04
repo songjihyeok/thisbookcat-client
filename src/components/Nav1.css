@@ -29,7 +29,7 @@ form{
 }
 
 .search_input {
-  width: 800px;
+  width: 57%;
   /* 화면의 57%정도가 되어야함. 일단 고정값으로 처리 */
   height: 50px;
   border-radius: 25px;

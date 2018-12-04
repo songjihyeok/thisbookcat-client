@@ -1,6 +1,4 @@
 .PhotoUploadModal {
-
-    text-align: center;
     justify-content: center;
     position: relative;
     left :50%;
@@ -11,9 +9,16 @@
 }
 
 
-.item{
+.setting_item{
     text-align: center;
     position: relative;
-    left :50%;
 }
 
+.modal-body{
+    text-align :center;
+}
+
+input#setting_input{
+    display: inline-block;
+    text-align:center;
+}

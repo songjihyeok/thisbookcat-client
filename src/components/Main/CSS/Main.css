@@ -4,10 +4,11 @@
     text-align: center;
     position: relative;
     font-family: 'Noto Sans KR';
+    display :inline-block;
 }
 
 .BookBoard {
-    display: inline;
+    display: inline-block;
     position: relative;
     text-align: left;
    /*  width: 300px;

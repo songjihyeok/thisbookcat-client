@@ -55,15 +55,13 @@ class SettingModal extends Component {
       <Modal show={this.props.show} container={this}
             onHide={this.props.hide} aria-labelledby="contained-modal-title">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title">UploadModal</Modal.Title>
+          <Modal.Title id="contained-modal-title">내 정보 변경하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className = {style.PhotoUploadModal}>
-            <input type="file" name="choose image" onChange={this._getProfileImage}></input>
-          </div>
-          <div className={style.item}>
+         <div className = {style.modalColumn}>  
+            <Input type="file" id={style.setting_input} name="choose image" onChange={this._getProfileImage}></Input>
               <Button onClick={this._logout}>로그아웃</Button>
-          </div>
+         </div> 
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this._handleConfirm}>닫기</Button>
