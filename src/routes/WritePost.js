@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Nav2 from "../components/Nav2";
 import { Redirect } from "react-router-dom";
-import Thumbnail from "../components/WritePost/Thumbnail";
+import Thumbnail1 from "../components/WritePost/Thumbnail1";
 import { Grid, Row, Col } from "react-bootstrap";
 import Bookapi from "../components/WritePost/Bookapi";
 import MyEditor from "../components/WritePost/MyEditor";
@@ -18,8 +18,8 @@ class WritePost extends Component {
     };
   }
 
-  _handleMainImage = file => {
-    this.setState({mainimage: this.state.mainimage.concat(file)});
+  _handleMainImage = savedFilename => {
+    this.setState({mainimage: this.state.mainimage.concat(savedFilename)});
   }; // 대표이미지를 등록하고 변경할 때 사용하는 함수입니다.
 
   _handleTitle = e => {
@@ -54,9 +54,9 @@ class WritePost extends Component {
           <Grid>
             {/* react-bootstrap Grid를 사용해서 layout짠 부분입니다. */}
             <Row className="show-grid">
-              <Col xs={12} style={{display: "flex", justifyContent: "center", height: "400px"}}>
+              <Col xs={12} style={{display: "flex", justifyContent: "center", height: "270px"}}>
                 <div style={{display: "flex", flex: "0.5", justifyContent: "center", alignItems: "center"}}>
-                  <Thumbnail _handleMainImage={this._handleMainImage} />
+                  <Thumbnail1 _handleMainImage={this._handleMainImage} />
                   {/* 대표이미지를 업로드하는 부분입니다. */}
                 </div>
                 <div style={{display: "flex", flex: "0.5", justifyContent: "center", alignItems: "center"}}>

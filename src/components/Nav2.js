@@ -44,19 +44,15 @@ class Nav2 extends Component {
       )
       .then(response => {
         // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response___", response);
-        const formData = new FormData();
         const config = {
           headers: {
-            'content-type': 'multipart/form-data',
-            'Authorization': `bearer ${window.localStorage.getItem('token')}`
+            Authorization: `bearer ${window.localStorage.getItem('token')}`
           }};    
-
-         let uploadingImgs = this.props.posting.mainimage
-        //  console.log('this is original imagedata-------------------',uploadingImgs[uploadingImgs.length-1] )
-         formData.append('imgFile', uploadingImgs[uploadingImgs.length-1]);
+     
+         console.log('this is original imagedata-------------------',this.props.posting.mainimage[0]);
         //  console.log('this is form data------------------', formData)
         
-        axios.post(`http://${server_url}:3000/img/mainimage/${response.data.id}`, formData,config)
+        axios.post(`http://${server_url}:3000/img/mainimage/create/${response.data.id}`, {fileName: this.props.posting.mainimage[0]},config)
         .then(response => {
           // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청 후 받은 response.data___", response);
           this.props._postSuccess();

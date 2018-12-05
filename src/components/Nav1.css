@@ -30,18 +30,17 @@ form{
 
 .search_input {
   width: 57%;
-  /* 화면의 57%정도가 되어야함. 일단 고정값으로 처리 */
   height: 50px;
   border-radius: 25px;
   border-width: 0;
   margin: 0;
-  margin-left: 40px;
+  margin-left: 46px;
   background-color: #f4f4f4; 
   padding-left: 20px;
 }
 
 .items {
-  margin-left: 40px;
+  margin-left: 100px;
 }
 
 .item {

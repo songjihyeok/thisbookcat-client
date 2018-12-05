@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./Thumbnail.css";
+import './filepond.min.css'
+import server_url from '../../url.json';
 import {FilePond, File, registerPlugin} from 'react-filepond'
-import 'filepond/dist/filepond.min.css';
+import { Icon } from "semantic-ui-react";
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -17,40 +19,47 @@ class Thumbnail extends Component {
 
     this.state = {
       files: [],
-      savedFilename : ""
+      savedFilename : null
     }
   }
+
+  handleInit() {
+    console.log('FilePond instance has initialised', this.pond);
+}
+
 
   getfilename(res){
     console.log("res:", res)
     this.setState({savedFilename :res})
-    this.props._handleMainImage(savedFilename);
+    console.log("props",this.props)
+    this.props._handleMainImage(this.state.savedFilename)
   }
 
   render() {
-
+    let token = window.localStorage.getItem('token')
     return (
         
-        <div className="App">
-            <img src={`http://localhost:3000/upload/${this.state.savedFilename}`}></img>
+        <div className="thumbnail_app">
+             
             {/* Pass FilePond properties as attributes */}
             <FilePond ref={ref => this.pond = ref}
-                      allowMultiple={true} 
+                      allowMultiple={false} 
                       maxFiles={3}
                       name = "imgFile"
                       server={
                         {
-                          url : "http://localhost:3000/" ,
+                          url : `http://${server_url}:3000/` ,
                           process :{ 
                               url: './img/mainimage/',
                               method : 'POST',
                               headers : { 
-                                "authorization" : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiaGVsbGRvQGdtYWlsc2QuY29tIiwidXNlcklkIjoxLCJpYXQiOjE1NDI4NzcyNzEsImV4cCI6MTU0NDk1MDg3MX0.e8l4Mwbeh5Mf9Lx7MdWMF5ycz5tqJPaRrNh3PNMOgpY'
+                                "authorization" : `bearer ${token}`
                               },
                               onload : (res)=>this.getfilename(res)
                           }
 
                     }}
+                      accepted-file-types="image/jpeg, image/png"
                       oninit={() => this.handleInit() }
                       onupdatefiles={(fileItems) => {
                           // Set current file objects to this.state
@@ -62,10 +71,9 @@ class Thumbnail extends Component {
                       imageResizeTargetWidth ={480}
                       imageResizeTargetHeight= {480}
                       >
-                {/* Update current files  */}
-                {this.state.files.map(file => (
-                    <File key={file} src={file} origin="local" /> 
-                ))}
+                       {this.state.files.map(file => (
+                        <File key={file} src={file} origin="local" />
+                    ))}
             </FilePond>
         </div>
     );

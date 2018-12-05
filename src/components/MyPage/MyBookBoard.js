@@ -16,6 +16,7 @@ class MyBookBoard extends Component {
 	token = window.localStorage.getItem('token')
 
 	componentDidMount () {
+		console.log("props", this.props)
 		this._getLikeData()
 	}
 
@@ -65,7 +66,7 @@ class MyBookBoard extends Component {
 			<div className='MyBookBoard'>
 				{/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}
 				<div className='myImageContainer'>
-				<Link to={{pathname : `/postdetail/${this.props.postid}`,}}>
+				<Link to={{pathname : `/postdetail/${this.props.postid}`}}>
 					<Image src={`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover'/*  width={300} */ height={240}/>
 				</Link>
 				</div>

@@ -94,7 +94,7 @@ class Main extends Component {
       return <Redirect to="/login" />
     } else {
       return (
-        <div className="Main">
+        <div className="Main_ofmain">
           <Nav1/>
           {/* <div className='mostLikedPage'>
           {this._renderMostLikedPage()}

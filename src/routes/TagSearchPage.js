@@ -4,7 +4,7 @@ import axios from "axios";
 import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
-
+import "../components/Main/CSS/Main.css";
 
 class TagSearchPage extends Component {
   
@@ -60,8 +60,7 @@ class TagSearchPage extends Component {
         if(url) {
           return <BookBoard url={url.mainImage} postid={url.id} title={url.title}
                             likecount={url.likeCount} key={url.id}/>
-        }
-        // TODO: if문 안들어가면 return 값이 없는디융?
+        } 
       });
       return bookcover
     }
@@ -72,7 +71,7 @@ class TagSearchPage extends Component {
     // console.log("gettingUrls")
     const coverurl = await this._callTheTagBookCoverAPI();
     // console.log("get url 과정?",coverurl)
-    if (this.state.coverurl === null) {
+    if (this.state.coverurl === null || this.state.coverurl===undefined) {
       await this.setState({coverurl}) //TODO: coverurl이 키밸류 객체 인가보죠?
     } else {
       await this.setState({coverurl: this.state.coverurl.concat(coverurl)})
@@ -106,8 +105,9 @@ class TagSearchPage extends Component {
       return <Redirect to="/login" />
     } else {
       return (
-        <div className="Main">
+        <div className="Main_tagsearch">
           <Nav1/>
+          <h1>{this.state.tagName+"에 대한 검색 결과"}</h1>
           {this._renderBooKCoverImage()}<br/>
           {(this.state.page === this.state.totalPage)
           ? <span>'더이상 콘텐츠가 없습니다!'</span>
