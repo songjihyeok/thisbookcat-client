@@ -18,7 +18,7 @@ class MyPageProFile extends Component {
       ProfileImage: defaultimage,
       myPosts: [],
       myProfile: [],
-      per: 8,
+      per: 16,
       page: 1,
       totalPage:'',
       followed: 0,
@@ -28,11 +28,11 @@ class MyPageProFile extends Component {
 
   token = window.localStorage.getItem('token')
 
-   componentDidMount() {
-     this._getFollowingFollowed()
-     this._callmyPostAPI()
-     this._getMyProfile()
-     window.addEventListener('scroll', this._infiniteScroll, true)
+   async componentDidMount() {
+     await this._getFollowingFollowed()
+     await this._callmyPostAPI()
+     await this._getMyProfile()
+     await window.addEventListener('scroll', this._infiniteScroll, true)
   }
 
   _infiniteScroll = () => {
@@ -70,10 +70,19 @@ class MyPageProFile extends Component {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
-      // console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+      console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+      const allofarray = []
+      if(response.data.perArray){
+      response.data.perArray.forEach((element)=>{
+        if(element){
+          allofarray.push(element)
+        }
+      })
+     }
+      console.log(allofarray);
       this.setState({
         totalPage: response.data.totalpage,
-        myPosts: this.state.myPosts.concat(response.data.perArray),
+        myPosts: this.state.myPosts.concat(allofarray),
       });
     })
   }
@@ -140,7 +149,7 @@ class MyPageProFile extends Component {
         <div className="ProFileDetailContainer">
         <div className='MyPostNumberContainer'>
         <span className='PostNumberText'>게시물</span><br/>
-        <span className='PostNumber'>10</span>
+        <span className='PostNumber'>{this.state.myPosts.length}</span>
         </div>
         <div className='FollowingContainer'>
         <span className='FollowingText'>팔로잉</span><br/>

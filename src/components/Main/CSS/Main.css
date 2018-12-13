@@ -75,3 +75,12 @@
     border-radius: 22px;
     /* right:5%; */
 }
+
+.Main_tagsearch{
+    text-align : center;
+}
+
+.loading {
+    text-align:center;
+    vertical-align: middle;
+}

@@ -5,7 +5,7 @@ import "./Nav1.css";
 
 class Nav1 extends Component {
   state = {
-    searchingValue: "",
+    searchingValue: " ",
     isLogin: true
   }
 
@@ -29,8 +29,8 @@ class Nav1 extends Component {
       return <Redirect to='/login' />;
     } else {
       return (
-        <div className="nav">
-          <Link to="/main"><span className="thisBook">이 책 반 냥</span></Link>
+        <div className="nav1">
+          <Link to="/main"><span className="thisBook_Nav1">이 책 반 냥</span></Link>
           <span>
             <form>
               <input className="search_input" placeholder="(예: 힐링, 자기계발, 칼세이건...)" value={this.state.searchingValue}

@@ -59,7 +59,7 @@ export default class MyEditor extends Component {
   } // 글을 저장하는 함수입니다.
 
   render() {
-    // console.log(this.state,'=;=;=');
+    console.log(this.state,'=;=;=');
     return (
       <div className="Write-container">
         <div style={{ marginLeft: -20 }}>
@@ -78,7 +78,6 @@ export default class MyEditor extends Component {
                         formats={Editor.formats}
                         bounds={".app"}
                         placeholder="Tell your story!"/>
-            {/* 이 부분은 텍스트 에디터 부분입니다. */}
           </div>
 
           {/* <textarea

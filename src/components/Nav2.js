@@ -19,7 +19,6 @@ class Nav2 extends Component {
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
   _sendPost = () => {
     let sendurl = ''
-    // console.log(window.location.href,'==================');
     if (window.location.href !== `http://localhost:3000/writepost`) {
       // console.log('================================')
       let postid = window.location.href.slice(-2)
@@ -28,13 +27,16 @@ class Nav2 extends Component {
     } else {
       sendurl = `http://${server_url}:3000/api/post/`
     }
-    // console.log(sendurl,'sendurl')
-    // console.log("Nav2.js 의 _sendPost 함수에서 this.props___",this.props)
-    // console.log(window.localStorage.getItem('token'))
+
+    if(!this.props.posting.mainimage[0]){
+      alert("사진을 등록하지 않았습니다. 사진을 올려주세요")
+      return;
+    }
+
     axios.post(sendurl,
         {
           title: this.props.posting.title,
-          contents: this.props.posting.contents
+          contents: this.props.posting.contents,
         },
         {
           headers: {
@@ -47,23 +49,30 @@ class Nav2 extends Component {
         const config = {
           headers: {
             Authorization: `bearer ${window.localStorage.getItem('token')}`
-          }};    
-     
-         console.log('this is original imagedata-------------------',this.props.posting.mainimage[0]);
-        //  console.log('this is form data------------------', formData)
-        
-        axios.post(`http://${server_url}:3000/img/mainimage/create/${response.data.id}`, {fileName: this.props.posting.mainimage[0]},config)
+            }}
+       
+       axios.post(`http://${server_url}:3000/img/mainimage/create/${response.data.id}`, 
+       {
+         fileName: this.props.posting.mainimage[0]
+        },
+        config)
         .then(response => {
+          console.log("받아온 결과물은?",response)
           // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청 후 받은 response.data___", response);
           this.props._postSuccess();
         })
         .catch(error => {
-          // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청했는데 error__", error);
-        });
-      })
+          console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청했는데 error__", error.response.status);
+          if(error.response.status ===400){
+            alert("사진을 등록하지 않았습니다. 사진을 올려주세요")
+          }
+        })
+      } 
+      )      
       .catch(error => {
         console.log("Nav2.js 의 _sendPost 함수에서 axios.post 했는데 error__", error);
       });
+
   };
   // 서버에 axios요청을 보내는 부분입니다.
   // 이미지랑 글이랑 보내는 endpoint가 달라서 저렇게 짜 놓았습니다.
@@ -74,7 +83,7 @@ class Nav2 extends Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/main"><div className="thisBook">이 책 반 냥</div></Link>
+            <Link to="/main"><div className="thisBook_Nav2">이 책 반 냥</div></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

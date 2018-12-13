@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Nav1 from "../components/Nav1";
-
-
 import MyPageProFile from "../components/MyPage/MyPageProFile";
 import '../components/MyPage/CSS/MyPageProFile.css'
 

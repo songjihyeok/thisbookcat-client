@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Do+Hyeon');
 
-.nav {
-  height: 80px;
-  text-align: left;
-  padding: 15px 0px;
+.nav1 {
+  height: 65px;
+  text-align: center;
+  margin-left:auto;
+  margin-right:auto;
+  vertical-align: middle;
+  margin-top: 15px;
   /* 위아래 가운데 정렬 일단, 패딩으로 처리.. */
   border-bottom: 2px solid #f4f4f4;
   /* 이거 그림자로 바꿔야함 */
 }
 
-.thisBook {
+.thisBook_Nav1{
   width: 107px;
   height: auto;
   margin-left: 40px;
@@ -44,6 +47,8 @@ form{
 }
 
 .item {
+  text-align :center;
+  vertical-align: middle;
   display: inline-block;
   margin-left: 20px;
   width: 35px;

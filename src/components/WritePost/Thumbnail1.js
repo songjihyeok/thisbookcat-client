@@ -38,9 +38,7 @@ class Thumbnail extends Component {
   render() {
     let token = window.localStorage.getItem('token')
     return (
-        
         <div className="thumbnail_app">
-             
             {/* Pass FilePond properties as attributes */}
             <FilePond ref={ref => this.pond = ref}
                       allowMultiple={false} 
@@ -56,6 +54,13 @@ class Thumbnail extends Component {
                                 "authorization" : `bearer ${token}`
                               },
                               onload : (res)=>this.getfilename(res)
+                          } ,
+                          revert : {
+                              url : `./img/mainimage/${this.state.savedFilename}`,
+                              method : 'delete',
+                              headers : { 
+                                "authorization" : `bearer ${token}`
+                              }
                           }
 
                     }}

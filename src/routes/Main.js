@@ -49,7 +49,7 @@ class Main extends Component {
       });
       return bookcover;
     }
-    return "Loading"
+    return <div className="loading">"Loading"</div> 
   };
 
   /* _renderMostLikedPage = () => {

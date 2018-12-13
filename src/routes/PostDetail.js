@@ -116,7 +116,7 @@ class PostDetail extends Component {
             <div className='post_detail_right_2'>
               <form>
                 <input className='post_detail_reply_input' type="text"
-                      placeholder="댓글을 입력해라" onChange={this._newReply}/>
+                      placeholder="댓글을 입력하세요" onChange={this._newReply}/>
                 <span onClick={this._makeReply}>
                   <Icon name="pencil alternate" fitted size="large" />
                 </span>
