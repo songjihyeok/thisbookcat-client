@@ -4,7 +4,6 @@
     text-align: center;
     position: relative;
     font-family: 'Noto Sans KR';
-    display :inline;
 }
 
 .BookBoard {
@@ -39,6 +38,7 @@
     height: 240;
     border-radius: 22px;
     z-index: -1;
+    text-align : center;
 }
 
 .likePart {

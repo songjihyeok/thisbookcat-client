@@ -15,75 +15,48 @@ export default class MyEditor extends Component {
     this.state = {
       // editorState: EditorState.createEmpty(),
       files: [],
-      editorHtml: "",
+      editorHtml: null,
       theme: "snow",
       title: "",
-      scrollTop: 0
+      scrollTop: 0,
+      contents: "",
+      defaultvalue : ""
     };
     this.handleChange = this.handleChange.bind(this);
-    // this._handleScroll = this._handleScroll.bind(this);
-  }
-
-  // componentDidMount() {
-  //   window.addEventListener("scroll", this._handleScroll);
-  // }
-
-  // _handleScroll() {
-  //   var value = windowScrollPosition().top;
-  //   this.setState({
-  //     scrollTop: value
-  //   });
-  // }
-
-  componentDidMount() {
-    if (window.location.href !== `http://localhost:3000/writepost`) {
-      let postid = window.location.href.slice(-2)
-      // console.log(postid,'+++++++++++++')
-      axios.get(`http://${server_url}:3000/api/post/${postid}`,{
-        headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
-      })
-      .then((res) => {
-      // console.log('writepost 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res', res);
-        this.setState({
-          editorHtml: res.data.contents,
-          title: res.data.title,
-        })
-      })
-      .catch(err => console.log('_getPostData get 못받음. error', err))
-    }
   }
 
   handleChange(html) {
+    console.log("뭐가 들어있지?",html);
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
     this.setState({editorHtml: html});
   } // 글을 저장하는 함수입니다.
 
+
   render() {
-    console.log(this.state,'=;=;=');
+    let editorHtml = this.state.editorHtml;
+    let defaultTitle = this.props.title;
+    let defaultcontents = this.props.contents;
+    
     return (
+
       <div className="Write-container">
         <div style={{ marginLeft: -20 }}>
           <form>
             <input className="title" type="text" placeholder="Title"
-              onChange={this.props._handleTitle} defaultValue={this.state.title}/>
-            {/* 제목을 쓰는 form입니다.*/}
+              onChange={this.props._handleTitle} defaultValue={defaultTitle}/>
           </form>
         </div>
         <div>
           <div className="RichEditor-root">
             <ReactQuill theme={this.state.theme}
                         onChange={this.handleChange}
-                        value={this.state.editorHtml}
+                        defaultValue={defaultcontents}
                         modules={Editor.modules}
                         formats={Editor.formats}
                         bounds={".app"}
-                        placeholder="Tell your story!"/>
+                        placeholder={"tell your story"}>
+            </ReactQuill>        
           </div>
-
-          {/* <textarea
-            disabled
-            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-          /> */}
         </div>
       </div>
     );

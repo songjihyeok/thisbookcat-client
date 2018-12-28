@@ -39,7 +39,7 @@ class MyPageProFile extends Component {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight) {
       if (this.state.page !== this.state.totalPage) {
         this.setState({page: this.state.page + 1})
         this._callmyPostAPI()

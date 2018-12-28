@@ -6,14 +6,18 @@ import server_url from '../../url.json';
 import "./PostDetail.css";
 import { pathToFileURL } from 'url';
 import profileimage from "../../img/다운로드.png"
+import { PropTypes} from 'prop-types';
+
 
 export default class PostWriter extends Component {
+
   state = {
     userName: '',
     userImage: '',
     isFollowing:false,
+    router : PropTypes.object
   }
-
+ 
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
 
   async componentDidMount(){

@@ -5,7 +5,6 @@ import Nav1 from '../components/Nav1'
 import '../components/PickTaste/CSS/PickTaste.css'
 
 class PickTaste extends Component {
-  //TODO: 이것도 state 없으면 functional로 바꾸기.
   render() {
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />

@@ -10,7 +10,7 @@ import PostInfo from '../components/PostDetail/PostInfo';
 import "../components/PostDetail/PostDetail.css";
 // import BookInfoModal from '../components/PostDetail/BookInfoModal';
 
-class PostDetail extends Component {
+class PostDetail extends React.Component {
   state = {
     postId : this.props.location.pathname.slice(12), //TODO: 얘 이정도면 괜찮나...?
     // postId는 props로 받아야 함.
@@ -98,7 +98,7 @@ class PostDetail extends Component {
         <div className='post_detail'>
           <PostContent postId={postId} />
           <div className='post_detail_right'>
-            <PostWriter postId={postId} userId={userId} isMypost={isMypost} />
+            <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history}/>
             <PostInfo postId={postId} replyCount={replyCount} history={this.props.history}/>
             <div className='post_detail_3_reply'>
               {typeof(replys) === 'string'

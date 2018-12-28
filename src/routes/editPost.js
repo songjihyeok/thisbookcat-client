@@ -5,24 +5,44 @@ import Thumbnail1 from "../components/WritePost/Thumbnail1";
 import { Grid, Row, Col } from "react-bootstrap";
 import Bookapi from "../components/WritePost/Bookapi";
 import MyEditor from "../components/WritePost/MyEditor";
+import axios from "axios";
+import server_url from '../url.json';
 
-class WritePost extends Component {
+class editPost extends Component {
  
     state = {
       title: "",
-      hello: "",
       contents: "",
-      posted: false,
-      mainimage : []
+      mainimage: null,
+      posted : false
     }  
-
-    _handleMainImage = savedFilename => {
-      this.setState({mainimage: this.state.mainimage.concat(savedFilename)});
-    };  
-
     
-  _handleTitle = e => {
-    this.setState({title: e.target.value});
+    authHeader = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}   
+
+    async componentDidMount (){
+      await this._getpostedData();
+    }
+
+  _getpostedData = async()=>{
+    try{
+      const postId= window.location.href.split('/').pop();
+      console.log("가져온다 postId",postId);
+      const getpostedData = await axios.get(`http://${server_url}:3000/api/post/${postId}`, this.authHeader);
+      console.log("가져온다. 중간 데이터",getpostedData);
+      const {title, contents, mainImage} = getpostedData.data
+      console.log("내가 원하는 그것 내놔", title, contents, mainImage);
+      await this.setState({title:title, contents, mainimage: mainImage})
+    }
+    catch(error){
+      throw new Error(error);
+    }
+
+  }
+
+  _handleTitle = async e => {
+    let nowtitle = this.state.title + e.target.value; 
+    console.log("그래서 지금 이름은?", nowtitle);
+    await this.setState({title: nowtitle});
   }; // 제목을 등록할때 사용하는 함수 입니다.
 
   _handleContents = contents => {
@@ -31,20 +51,29 @@ class WritePost extends Component {
     });
   }; // 글 내용을 저장하는 함수입니다. setTimeout을 사용하여야 라이브러리에서 정해놓은 설정을 피할 수 있습니다.
 
-
-
-
   _postSuccess = () => {
     this.setState({posted: true});
   }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
+ 
+
   render() {
-    // console.log(this.state.mainimage, this.state.title, this.state.contents);
-    console.log(this.state.posted, "납니까? ");
+    console.log("editpost에 오신걸 환영합니다.")
+    let {mainimage, title, contents} = this.state
+    let mainimageURL = `http://${server_url}:3000/upload/${mainimage}`
+    let editor = null;
+    let image = null;
+    if(mainimage===null){
+      console.log("이미지 없음")
+    } else {
+      image = <img style= {{width:500, height:500}}  src={mainimageURL} alt={"이미지 없음"}/>
+      editor= <MyEditor contents={contents} title={title} _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
+    }
+
     return (
       (this.state.posted)
       ?
-        <Redirect to="/mypage" /> // 글이 저장되면 마이페이지로 리다이렉트하는 부분입니다.
+         <Redirect to="/mypage" /> 
       :
         <div>
           <Nav2 _postSuccess={this._postSuccess}
@@ -52,7 +81,7 @@ class WritePost extends Component {
                   mainimage: this.state.mainimage,
                   title: this.state.title,
                   contents: this.state.contents,
-                  isedit: false
+                  isedit: true
                   }}/>
           {/* 악시오스 요청을 네브바에서 보냅니다. 네브바에 버튼이 존재하므로 -> 그래서 네브바에 글 제목과 글 내용, 대표이미지를 props로 내려줍니다. */}
           <Grid>
@@ -60,8 +89,7 @@ class WritePost extends Component {
             <Row className="show-grid">
               <Col xs={12} style={{display: "flex", justifyContent: "center", height: "270px"}}>
                 <div style={{display: "flex", flex: "0.5", justifyContent: "center", alignItems: "center"}}>
-                  <Thumbnail1  _handleMainImage={this._handleMainImage}/>
-                  {/* 대표이미지를 업로드하는 부분입니다. */}
+                  {image}
                 </div>
                 <div style={{display: "flex", flex: "0.5", justifyContent: "center", alignItems: "center"}}>
                   <Bookapi />
@@ -72,8 +100,7 @@ class WritePost extends Component {
             <Row className="show-grid">
               <Col xs={12} style={{display: "flex"}}>
                 <div style={{display: "flex", flex: "1", marginTop: "30px"}}>
-                  <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
-                  {/* 글 쓰는 부분입니다. */}
+                  {editor}
                 </div>
               </Col>
             </Row>
@@ -83,4 +110,4 @@ class WritePost extends Component {
   }
 }
 
-export default WritePost;
+export default editPost;

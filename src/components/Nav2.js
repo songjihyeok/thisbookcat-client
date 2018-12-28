@@ -8,6 +8,8 @@ import "./Nav2.css";
 
 
 class Nav2 extends Component {
+
+
   shouldComponentUpdate(nextProps, nextState) {
     for (var key in this.props.posting) {
       if (this.props.posting[key] !== nextProps.posting[key]) {
@@ -17,65 +19,39 @@ class Nav2 extends Component {
     return false;
   }
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
-  _sendPost = () => {
-    let sendurl = ''
-    if (window.location.href !== `http://localhost:3000/writepost`) {
-      // console.log('================================')
-      let postid = window.location.href.slice(-2)
-      sendurl = `http://${server_url}:3000/api/post/edit/${postid}`
-    
-    } else {
-      sendurl = `http://${server_url}:3000/api/post/`
-    }
 
-    if(!this.props.posting.mainimage[0]){
+  _sendPost = async() => {
+
+    let sendurl = this._iseditorpost();
+
+    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
+    console.log("타이틀이랑 컨텐츠 수정 완료",titleandcontent)  
+    
+      if(!this.props.posting.isedit){
+        const config = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}
+        
+        const imageupdate =  await axios.post(`http://${server_url}:3000/img/mainimage/create/${titleandcontent.data.id}`, {fileName: this.props.posting.mainimage},config)
+        console.log("이미지 업로드 완료", imageupdate)
+      }
+        this.props._postSuccess();  
+  };
+
+  _iseditorpost =()=>{
+    if(!this.props.posting.mainimage){
       alert("사진을 등록하지 않았습니다. 사진을 올려주세요")
       return;
     }
+    if (window.location.href !== `http://localhost:3000/writepost`) {
+      let postid= window.location.href.split('/').pop();
 
-    axios.post(sendurl,
-        {
-          title: this.props.posting.title,
-          contents: this.props.posting.contents,
-        },
-        {
-          headers: {
-            Authorization: `bearer ${window.localStorage.getItem('token')}`
-          }
-        }
-      )
-      .then(response => {
-        // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response___", response);
-        const config = {
-          headers: {
-            Authorization: `bearer ${window.localStorage.getItem('token')}`
-            }}
-       
-       axios.post(`http://${server_url}:3000/img/mainimage/create/${response.data.id}`, 
-       {
-         fileName: this.props.posting.mainimage[0]
-        },
-        config)
-        .then(response => {
-          console.log("받아온 결과물은?",response)
-          // console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청 후 받은 response.data___", response);
-          this.props._postSuccess();
-        })
-        .catch(error => {
-          console.log("Nav2.js 의 _sendPost 함수에서 axios.post 후 받는 response로 다시 axios.post 요청했는데 error__", error.response.status);
-          if(error.response.status ===400){
-            alert("사진을 등록하지 않았습니다. 사진을 올려주세요")
-          }
-        })
-      } 
-      )      
-      .catch(error => {
-        console.log("Nav2.js 의 _sendPost 함수에서 axios.post 했는데 error__", error);
-      });
+      console.log("api/edit", postid)
+     return `http://${server_url}:3000/api/post/edit/${postid}`
+    } else {
+      console.log("api/post")
+     return `http://${server_url}:3000/api/post/`
+    }
+  }
 
-  };
-  // 서버에 axios요청을 보내는 부분입니다.
-  // 이미지랑 글이랑 보내는 endpoint가 달라서 저렇게 짜 놓았습니다.
 
   render() {
     // console.log("Nav2.js 의 render 안에서 this.props.posting.mainimage[0]___", this.props.posting.mainimage[0]);

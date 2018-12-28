@@ -27,7 +27,6 @@ class Thumbnail extends Component {
     console.log('FilePond instance has initialised', this.pond);
 }
 
-
   getfilename(res){
     console.log("res:", res)
     this.setState({savedFilename :res})

@@ -5,10 +5,9 @@ import "./Nav1.css";
 
 class Nav1 extends Component {
   state = {
-    searchingValue: " ",
+    searchingValue: "",
     isLogin: true
   }
-
 
   _searchHandler = e => {
     const searchingValue = e.target.value;
@@ -19,7 +18,9 @@ class Nav1 extends Component {
     
     if (event.keyCode == '13') {
       event.preventDefault();
+      if(this.state.searchingValue){
       window.location.href = `/tagSearchPage/${this.state.searchingValue}`
+      }  
     }
   }
 
@@ -35,13 +36,18 @@ class Nav1 extends Component {
             <form>
               <input className="search_input" placeholder="(예: 힐링, 자기계발, 칼세이건...)" value={this.state.searchingValue}
                       onChange={(event)=>{this._searchHandler(event)}} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
+              {this.state.searchingValue?             
               <Link to={`/tagSearchPage/${this.state.searchingValue}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="item">
                   <path fill="none" fillRule="evenodd" stroke="#A2A2A2" strokeWidth="3" d="M13.5 1.5c6.627 0 12 5.373 12 12s-5.373 12-12 12-12-5.373-12-12 5.373-12 12-12z"/>
                   <path fill="#A2A2A2" fillRule="evenodd" d="M20.697 21.697a1.5 1.5 0 0 1 2.121 0l6.485 6.485a1.497 1.497 0 0 1 0 2.121 1.498 1.498 0 0 1-2.12 0l-6.486-6.485a1.5 1.5 0 0 1 0-2.121z"/>
                 </svg>
               </Link>
-              {/* TODO: 아무것도 입력 안하고 클릭햇을때,를 처리해줘야함.*/}
+              : 
+              <svg xmlns="http://www.w3.org/2000/svg" className="item">
+              <path fill="none" fillRule="evenodd" stroke="#A2A2A2" strokeWidth="3" d="M13.5 1.5c6.627 0 12 5.373 12 12s-5.373 12-12 12-12-5.373-12-12 5.373-12 12-12z"/>
+              <path fill="#A2A2A2" fillRule="evenodd" d="M20.697 21.697a1.5 1.5 0 0 1 2.121 0l6.485 6.485a1.497 1.497 0 0 1 0 2.121 1.498 1.498 0 0 1-2.12 0l-6.486-6.485a1.5 1.5 0 0 1 0-2.121z"/>
+            </svg>}        
             </form>
           </span>
           <span className="items">

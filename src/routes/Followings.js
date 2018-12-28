@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from "react";
 import FollowingBoard from "../components/Followings/FollowingBoard";
 import Nav1 from "../components/Nav1";
-import axios from 'axios'
-import server_url from '../url.json'
+import axios from 'axios';
+import server_url from '../url.json';
+import _ from "lodash";
 
 import "../components/Followings/CSS/Followings.css"
 
@@ -64,16 +65,16 @@ class Followings extends Component {
   };
 
   render() {
-    // console.log(this.state.page)
-    // console.log(this.state.totalPage)
-    // console.log(this.state.followPost[0])
+    const { followPost, page, totalPage } = this.state;
+    const noFollowList = _.isEmpty(followPost);
+    console.log(noFollowList);
     return (
       <Fragment>
          <Nav1/>
          <div className="Followings">
          <div className='FollowingBoards'>
-         {this.state.followPost[0] === undefined ? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
-         {this.state.page === this.state.totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
+         {noFollowList? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
+         {page === totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
          </div>
          </div>
       </Fragment>

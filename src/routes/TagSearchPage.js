@@ -96,11 +96,6 @@ class TagSearchPage extends Component {
   };
 
   render() {
-    // console.log("params--------------",this.props.match.params.TagName)
-    // console.log(window.localStorage.getItem('token'))
-    // console.log('this is totalpage', this.state.totalPage)
-    // console.log("이미 커버유알엘?",this.state.coverurl)
-    //토큰이 없으면 로그인 페이지로 가라.
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
