@@ -61,8 +61,7 @@ class Login extends Component {
   }
 
   _googleAuth = (e) => {
-    axios.get(`http://${server_url}:3000/auth/google`,{
-      headers: {'Access-Control-Allow-Origin': '*'}})
+    axios.get(`http://${server_url}:3000/auth/google`)
     .then(res => {
       console.log('google Auth res입니다.', res)
     })
@@ -85,11 +84,11 @@ class Login extends Component {
               {/* <div className='login_body'> */}
                 <div className='login_body'>
                   <div className='login_container'>
-                    <div className='title1'>책과 함께 이야기를 나누는</div>
+                    <div className='title1'>책을 읽고, 이야기를 나누다</div>
                     <div className='title2'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="166" height="44">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="44">
                         <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
-                          booksteller
+                          Afteread
                         </text>
                       </svg>
                     </div>
@@ -97,7 +96,7 @@ class Login extends Component {
                     ?
                       <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
       
-                    : <div className='title3'>booksteller에 오신 것을 환영합니다</div>
+                    : <div className='title3'>Afteread에 오신 것을 환영합니다</div>
                     }
                     
                     <form onSubmit={this._handleSubmit}>
