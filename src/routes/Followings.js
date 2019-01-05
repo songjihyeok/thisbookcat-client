@@ -4,6 +4,7 @@ import Nav1 from "../components/Nav1";
 import axios from 'axios';
 import server_url from '../url.json';
 import _ from "lodash";
+import { Redirect } from "react-router-dom";
 
 import "../components/Followings/CSS/Followings.css"
 
@@ -68,17 +69,21 @@ class Followings extends Component {
     const { followPost, page, totalPage } = this.state;
     const noFollowList = _.isEmpty(followPost);
     console.log(noFollowList);
-    return (
-      <Fragment>
-         <Nav1/>
-         <div className="Followings">
-         <div className='FollowingBoards'>
-         {noFollowList? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
-         {page === totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
-         </div>
-         </div>
-      </Fragment>
-    );
+    if (!window.localStorage.getItem("token")) {
+      return <Redirect to="/login" />
+    } else {
+      return (
+        <Fragment>
+          <Nav1/>
+          <div className="Followings">
+          <div className='FollowingBoards'>
+          {noFollowList? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
+          {page === totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
+          </div>
+          </div>
+        </Fragment>
+      );
+    }
   }
 }
 

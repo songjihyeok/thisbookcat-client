@@ -60,15 +60,17 @@ class Login extends Component {
     }
   }
 
-  // _googleAuth = (e) => {
-  //   /*axios.get(`{http://${url}:3000/api/post/postId}`)*/
-  //   axios.get(`http://${server_url}:3000/auth/google`, {
-  //     header:{'Access-Control-Allow-Origin':'*'}
-  //   })
-  //   .then(res => {
-  //     console.log('google Auth res입니다.', res)
-  //   })
-  // }
+  _googleAuth = (e) => {
+    axios.get(`http://${server_url}:3000/auth/google`,{
+      headers: {'Access-Control-Allow-Origin': '*'}})
+    .then(res => {
+      console.log('google Auth res입니다.', res)
+    })
+    .catch(err =>{
+      console.log("무슨 에러니?",err);
+      throw new Error(err)
+    })
+  }
 
   render() {
     if (window.localStorage.getItem('token') && this.state.preference.length) {
@@ -83,11 +85,11 @@ class Login extends Component {
               {/* <div className='login_body'> */}
                 <div className='login_body'>
                   <div className='login_container'>
-                    <div className='title1'>북컨텐츠를 모두와 함께 공유하는</div>
+                    <div className='title1'>책과 함께 이야기를 나누는</div>
                     <div className='title2'>
                       <svg xmlns="http://www.w3.org/2000/svg" width="166" height="44">
                         <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
-                          이책반냥
+                          booksteller
                         </text>
                       </svg>
                     </div>
@@ -95,7 +97,7 @@ class Login extends Component {
                     ?
                       <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
       
-                    : <div className='title3'>이책반냥에 오신 것을 환영합니다</div>
+                    : <div className='title3'>booksteller에 오신 것을 환영합니다</div>
                     }
                     
                     <form onSubmit={this._handleSubmit}>
@@ -112,8 +114,6 @@ class Login extends Component {
                     </div>
                     <div><button id="custom_btn_facebook" className='login_btn'>FACEBOOK으로 계속하기</button></div>
                     <div><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></div>
-                    {/* <div><button className='login_btn'>FACEBOOK으로 계속하기</button></div>
-                    <div><Button className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</Button></div> */}
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     <div className='login_flex'>

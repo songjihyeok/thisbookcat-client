@@ -59,7 +59,7 @@ class Nav2 extends Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/main"><div className="thisBook_Nav2">이 책 반 냥</div></Link>
+            <Link to="/main"><div className="thisBook_Nav2">Afteread</div></Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

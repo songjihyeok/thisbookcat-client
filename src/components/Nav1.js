@@ -31,7 +31,7 @@ class Nav1 extends Component {
     } else {
       return (
         <div className="nav1">
-          <Link to="/main"><span className="thisBook_Nav1">이 책 반 냥</span></Link>
+          <Link to="/main"><span className="thisBook_Nav1">Afteread</span></Link>
           <span>
             <form>
               <input className="search_input" placeholder="(예: 힐링, 자기계발, 칼세이건...)" value={this.state.searchingValue}

@@ -8,6 +8,7 @@ import PostContent from '../components/PostDetail/PostContent';
 import PostWriter from '../components/PostDetail/PostWriter';
 import PostInfo from '../components/PostDetail/PostInfo';
 import "../components/PostDetail/PostDetail.css";
+import { Redirect } from "react-router-dom";
 // import BookInfoModal from '../components/PostDetail/BookInfoModal';
 
 class PostDetail extends React.Component {
@@ -92,40 +93,44 @@ class PostDetail extends React.Component {
 
   render() {
     const { postId, userId, replys, replyCount, isMypost } = this.state;
+    if (!window.localStorage.getItem("token")) {
+      return <Redirect to="/login" />
+    } else {
     return (
-      <Fragment>
-        <Nav1 />
-        <div className='post_detail'>
-          <PostContent postId={postId} />
-          <div className='post_detail_right'>
-            <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history}/>
-            <PostInfo postId={postId} replyCount={replyCount} history={this.props.history}/>
-            <div className='post_detail_3_reply'>
-              {typeof(replys) === 'string'
-              ? <div> '댓글이 없습니다.'</div>
-              :
-                <div>
-                  {replys.map((reply, index) => {
-                    return <Reply reply={reply} postId={postId} key={index}
-                                  _getReply={this._getReply}/>
-                  })}
-                </div>
-              }
-            </div>
+        <Fragment>
+          <Nav1 />
+          <div className='post_detail'>
+            <PostContent postId={postId} />
+            <div className='post_detail_right'>
+              <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history}/>
+              <PostInfo postId={postId} replyCount={replyCount} history={this.props.history}/>
+              <div className='post_detail_3_reply'>
+                {typeof(replys) === 'string'
+                ? <div> '댓글이 없습니다.'</div>
+                :
+                  <div>
+                    {replys.map((reply, index) => {
+                      return <Reply reply={reply} postId={postId} key={index}
+                                    _getReply={this._getReply}/>
+                    })}
+                  </div>
+                }
+              </div>
 
-            <div className='post_detail_right_2'>
-              <form>
-                <input className='post_detail_reply_input' type="text"
-                      placeholder="댓글을 입력하세요" onChange={this._newReply}/>
-                <span onClick={this._makeReply}>
-                  <Icon name="pencil alternate" fitted size="large" />
-                </span>
-              </form>
+              <div className='post_detail_right_2'>
+                <form>
+                  <input className='post_detail_reply_input' type="text"
+                        placeholder="댓글을 입력하세요" onChange={this._newReply}/>
+                  <span onClick={this._makeReply}>
+                    <Icon name="pencil alternate" fitted size="large" />
+                  </span>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      </Fragment>
-    );
+        </Fragment>
+      );
+    }
   }
 }
 
