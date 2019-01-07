@@ -40,7 +40,7 @@ class editPost extends Component {
   }
 
   _handleTitle = async e => {
-    let nowtitle = this.state.title + e.target.value; 
+    let nowtitle = e.target.value; 
     console.log("그래서 지금 이름은?", nowtitle);
     await this.setState({title: nowtitle});
   }; // 제목을 등록할때 사용하는 함수 입니다.
