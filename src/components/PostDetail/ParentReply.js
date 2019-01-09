@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { Icon } from "semantic-ui-react"
 import axios from 'axios'
 import server_url from '../../url.json'
+import profileimage from "../../img/다운로드.png"
 
 export default class ParentReply extends Component {
   state = {
     show_reReplyInput: false,
+    userImage : null
   }
 
   reComment = {};
@@ -49,7 +51,10 @@ export default class ParentReply extends Component {
     return (
       <div className='parent_reply'>
         <div>
-          <img src={`http://${server_url}:3000/upload/${profileImage}`} className='img-circle' alt='' />
+          {(this.state.userImage)
+           ? <img src={`http://${server_url}:3000/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} /> 
+           : <img src= {profileimage} className='img-circle' alt={"userImages"} />
+          }
           <span className='reply_username'>{userName} </span>
           <span className='reply_time'>{createdTime.substring(4, 24)}</span>
         </div>
