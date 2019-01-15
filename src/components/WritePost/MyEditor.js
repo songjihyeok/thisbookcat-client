@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "./MyEditor.css";
 import axios from "axios";
-import ReactQuill from "react-quill";
-import windowScrollPosition from "window-scroll-position";
+import ReactQuill, {Quill} from "react-quill";
+// import windowScrollPosition from "window-scroll-position";
+import server_url from '../../url.json';
+
+// import ImageResize from 'quill-image-resize-module';
+// Quill.register('modules/imageResize', ImageResize);
 
 export default class MyEditor extends Component {
   constructor(props) {
@@ -11,63 +15,48 @@ export default class MyEditor extends Component {
     this.state = {
       // editorState: EditorState.createEmpty(),
       files: [],
-      editorHtml: "",
+      editorHtml: null,
       theme: "snow",
       title: "",
-      scrollTop: 0
+      scrollTop: 0,
+      contents: "",
+      defaultvalue : ""
     };
     this.handleChange = this.handleChange.bind(this);
-    // this._handleScroll = this._handleScroll.bind(this);
   }
 
-  // componentDidMount() {
-  //   window.addEventListener("scroll", this._handleScroll);
-  // }
-
-  // _handleScroll() {
-  //   var value = windowScrollPosition().top;
-  //   this.setState({
-  //     scrollTop: value
-  //   });
-  // }
-
   handleChange(html) {
+    console.log("뭐가 들어있지?",html);
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
-    this.setState({ editorHtml: html });
+    this.setState({editorHtml: html});
   } // 글을 저장하는 함수입니다.
 
+
   render() {
+    let editorHtml = this.state.editorHtml;
+    let defaultTitle = this.props.title;
+    let defaultcontents = this.props.contents;
+    
     return (
+
       <div className="Write-container">
         <div style={{ marginLeft: -20 }}>
           <form>
-            <input
-              className="title"
-              type="text"
-              placeholder="Title"
-              onChange={this.props._handleTitle}
-            />
-            {/* 제목을 쓰는 form입니다.*/}
+            <input className="title" type="text" placeholder="Title"
+              onChange={this.props._handleTitle} defaultValue={defaultTitle}/>
           </form>
         </div>
         <div>
           <div className="RichEditor-root">
-            <ReactQuill
-              theme={this.state.theme}
-              onChange={this.handleChange}
-              value={this.state.editorHtml}
-              modules={Editor.modules}
-              formats={Editor.formats}
-              bounds={".app"}
-              placeholder="Tell your story!"
-            />
-            {/* 이 부분은 텍스트 에디터 부분입니다. */}
+            <ReactQuill theme={this.state.theme}
+                        onChange={this.handleChange}
+                        defaultValue={defaultcontents}
+                        modules={Editor.modules}
+                        formats={Editor.formats}
+                        bounds={".app"}
+                        placeholder={"tell your story"}>
+            </ReactQuill>        
           </div>
-
-          {/* <textarea
-            disabled
-            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-          /> */}
         </div>
       </div>
     );
@@ -91,7 +80,10 @@ Editor.modules = {
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false
-  }
+  },
+  // ImageResize: {
+  //   parchment: Quill.import('parchment')
+  // }
 };
 // 텍스트 에디터에서 사용하는 항목들 입니다.
 

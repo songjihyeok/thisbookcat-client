@@ -1,0 +1,117 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.Followings {
+    background-color: #f6f6f6;
+    justify-content: center;
+    font-family: 'Noto Sans KR';
+}
+
+.FollowingBoards {
+    position: relative;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.FollowingBoard {
+    position: relative;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    border-bottom: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.UserInfoPart {
+    display: -webkit-box;
+    position: relative;
+    margin-top: 0%;
+    left: 5%;
+}
+
+.postUserName{
+    display: inline-block;
+    padding: 0 10px 0 10px;
+    font-size: 17px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #151515;
+  }
+  
+.postUserImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 10px;
+  }
+
+/* .FollowingBoard:hover {
+    
+    background-color: lightgray;
+} */
+
+.imagePart {
+    display: inline-block;
+    position: relative;
+    width: 440px;
+    right: 20%;
+}
+.textPart {
+    display: inline-block;
+    position: absolute;
+    width: 45%;
+    height: 80%;
+    left: 58%;
+    font-size: 17px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.53;
+    letter-spacing: normal;
+    text-align: left;
+    color: #353535;
+}
+
+.followFooter {
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    height: 39%;
+}
+
+.likeAndLikecount {
+    position: absolute;
+    top: 81%;
+    /* left: 10%; */
+    color: #3376ff;
+}
+
+.FollowThumbnail {
+    /* position: relative; */
+    border-radius: 25px;
+}
+
+.heart {
+    /* position: relative; */
+    bottom: 20%;
+}
+
+.followerTag {
+    position: absolute;
+    top: 91%;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.43;
+    letter-spacing: normal;
+    text-align: left;
+    color: #717171;
+}

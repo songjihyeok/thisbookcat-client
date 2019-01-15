@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import Nav1 from "../components/Nav1";
-import MyBooks from "../components/MyPage/MyBooks";
-
 import MyPageProFile from "../components/MyPage/MyPageProFile";
-
-import "../components/MyPage/CSS/MyPage.css";
+import { Redirect } from "react-router-dom";
+import '../components/MyPage/CSS/MyPageProFile.css'
 
 class MyPage extends Component {
+  //TODO: 얘도 state 없으면 functional로 바꾸기.
   render() {
-    return (
-      <div className="MyPage">
-        <Nav1 />
-        <div>
-          <MyPageProFile />
+    if (!window.localStorage.getItem("token")) {
+      return <Redirect to="/login" />
+    } else {
+      return (
+        <div className="MyPage">
+          <Nav1 />
+          <div>
+            <MyPageProFile/>
+          </div>
         </div>
-        <div style={{ margin: "20px" }}>
-          <MyBooks />
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

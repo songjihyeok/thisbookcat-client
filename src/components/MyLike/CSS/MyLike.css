@@ -3,13 +3,13 @@
 }
 
 .LikeBookBoard {
-    display: inline-block;
-    border:solid;
+      display: inline-block;
+    border: solid;
     border-width: 1px;
     border-color: white;
-    border-radius: 25px;
-    margin: 2%;
-    size:100%;
+    border-radius: 1%;
+    margin: 1%;
+    size: 100%;
     padding: 3%;
 }
 
@@ -21,4 +21,8 @@
     position: relative;
     border-radius: 25px;
     right:5%;
+}
+
+img{
+    width: 300px;
 }

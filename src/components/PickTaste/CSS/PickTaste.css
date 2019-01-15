@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 .picktaste {
     position: absolute;
     width:100%;
@@ -6,51 +8,92 @@
     overflow: scroll;
     align-content: center;
     text-align: center;
+    font-family: 'Noto Sans KR'
+}
+
+.title {
+    padding : 20px;
 }
 
 .TasteBoard {
 
     display: inline-flex;
-    width: 90%;
+    width: 60%;
     height: 80%;
-    background-color: white;
-    border: solid;
+   /*  border: solid;
     border-width: 1px;
-    border-color: black;
+    border-color: black; */
     text-align: center;
-    margin-top: 5%;
     white-space: pre;
     flex-wrap: wrap;
+    overflow: scroll;
+    margin-top: 1%;
+}
+
+.userNameWrapper {
+    flex-direction: row;
+    /* padding: 2px; */
+    position: relative;
+    display: inline-flex;
+    width: 30%;
+    border-radius: 22px;
+    background-color: #f4f4f4;
+}
+
+.getUserName {
+    flex-grow:2;
+    border:none;
+    background-color: #f4f4f4;
+}
+
+.getUserName:focus {
+    outline: none !important;
+}
+
+.selectUserName {
+    font-size: 14.9px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    border-radius: 16px;
+    background-color: #3376ff;
+    color:#fffefe;
+    border: none;
+    padding: 7px;
 }
 
 .WelcomeUser {
-    
     position: relative;
     color: black;
     width: 90%;
     font-size: 150%;
     margin-left: 5%;
     margin-top: 2%;
+    right: 2%;
 }
 
-.tabContainer {
+/* .tabContainer {
     position: relative;
     display: inline-flex;
     width:90%;
     height: 20%;;
-}
+} */
 
-.blockContainer {
+/* .blockContainer {
     position: relative;
     display: inline-flex;
     flex-wrap: wrap;
     width:89%;
     height: 71%;
     left: 11%;
+    
 
-}
+} */
 
-.Taste {
+/* .Taste {
 
     text-align: center;
     position: relative;  
@@ -65,9 +108,9 @@
     margin-left: 3%;
     margin-top: 1%;
 
-}
+} */
 
-.Jangre {
+/* .Jangre {
 
     text-align: center;
     position: relative;
@@ -81,26 +124,132 @@
     padding: 2%;
     margin-top: 1%;
 
-}
+} */
 
 .Block {
     position: relative;
-    width: 20%;
-    height: 20%;
-    color: black;
-    background-color: white;
-    border: solid;
+    width: 240px;
+    height: 240px;
+    color: #fffefe;
+    /* border: solid;
     border-width: 1px;
-    border-color: black;
+    border-color: white; */
     margin:1%;
     padding: 2%;
-    
+    border-radius: 20px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.BlockImage {
+    position: relative;
+    right:20%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.tagName {
+    pointer-events:none;
+    position: relative;
+    font-size: 20px;
+    font-weight: 500;
+    top: 50%;
+    z-index: 2;
+}
+
+.customTag {
+    position: relative;
+}
+
+.selectCompleted {
+
+    all: unset;
+}
+
+.createNewTag {
+    position: relative;
+    /* display: -webkit-box; */
+    border-radius: 22px;
+    background-color: #353535 !important;
+    color: #fffefe;
+    padding: 15px;
+    padding-inline-start: 35px;
+    padding-inline-end: 35px;
+    font-size: 14.9px;
+    box-shadow: none;
+    border: none;
+    margin: 2px;
+    left: 20%
 }
 
 .selectComplete {
     position: relative;
-    width: 10%;
-    height: 5%;
-    bottom: 10%;
-    left: 87%;
+    /* display: -webkit-box; */
+    border-radius: 22px;
+    background-color: #3376ff !important;
+    color: #fffefe;
+    padding: 15px;
+    padding-inline-start: 35px;
+    padding-inline-end: 35px;
+    font-size: 14.9px;
+    box-shadow: none;
+    border: none;
+    margin:2px;
+    left: 20%
 }
+
+.confirmedUser {
+    color: #3376ff;
+}
+
+.tasteNJangre {
+    position: relative;
+    display: block;
+    width: 7%;
+    left: 19%;
+    bottom: 3%;
+}
+
+.pref {
+    position: relative;
+    /* display: -webkit-box; */
+    border-radius: 6px;
+    background-color: #353535 !important;
+    color: #fffefe;
+    padding: 5px;
+    padding-inline-start: 35px;
+    padding-inline-end: 35px;
+    font-size: 14.9px;
+    box-shadow: none;
+    border: none;
+    margin: 2px;
+    right: 16%;
+}
+
+.genre {
+
+    position: relative;
+    /* display: -webkit-box; */
+    border-radius: 6px;
+    background-color: #dddddd  !important;
+    color: #858585;
+    padding: 5px;
+    padding-inline-start: 35px;
+    padding-inline-end: 35px;
+    font-size: 14.9px;
+    box-shadow: none;
+    border: none;
+    margin: 2px;
+    right: 16%;
+}
+
+
+
+
+/* .createNewTag:focus {
+    border-radius: 22px;
+    background-color: #353535 !important;
+    color: #fffefe;
+} */
+

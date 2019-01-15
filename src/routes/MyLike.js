@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-/* import { Redirect } from "react-router-dom"; */
+import { Redirect } from "react-router-dom";
 import axios from "axios";
+import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import LikeBookBoard from "../components/MyLike/LikeBookBoard";
 
@@ -9,54 +10,91 @@ import "../components/MyLike/CSS/MyLike.css";
 class MyLike extends Component {
 
   state = {
-    author: 'Jeff Sheldon'
+    per: 10,
+    page: 1,
+    totalPage: ''
   };
 
   componentDidMount() {
-    this._getUrls();
+    this._setMyLikePost()
+    window.addEventListener('scroll', this._infiniteScroll, true)
   }
 
-  /* componentWillMount() {
-    //렌더전에 토큰있는지 확인하는 함수입니다.
-    if (!window.localStorage.getItem("token")) {
-      //토큰이 없으면
-      return <Redirect to="/login" />; //로그인페이지로 리다이렉 합니다.
-    }
-    console.log("컴포넌트 윌 마운트");
-    // this.getDBdata(); 같은 함수.해주기. 밑에 렌더해주려면 필요한 데이터받아오기.
-  } */
-
-  _renderBooKCoverImage = () => {
-    console.log(this.state.imageUrl)
-    const bookcover = this.state.imageUrl.map((url) => {
-      if(url.author===this.state.author) {
-        return <LikeBookBoard url={url.id} author={url.author} key={url.id}/>;
+  _infiniteScroll = () => {
+    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+    let clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight === scrollHeight) {
+      if (this.state.page !== this.state.totalPage) {
+        this.setState({page: this.state.page+1})
+        this._setMyLikePost()
       }
-    });
-    return bookcover;
-  };
+    }
+  }
 
-  _getUrls = async () => {
-    const imageUrl = await this._callBookCoverAPI();
-    console.log(imageUrl);
-    this.setState({
-      imageUrl
-    });
-  };
+  _getMyLikePost = () => {
+    return axios.get(`https://${server_url}/api/like/user/${this.state.per}/${this.state.page}`,{
+        headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
+      })
+       .then(res => {
+         this.setState({totalPage: res.data.totalpage})
+         return res.data.perArray
+       })
+       .catch(err => console.log('_getPostData get 못받음. error', err))
+  }
 
-  _callBookCoverAPI = () => {
-    const booklistAPI = "https://picsum.photos/list";
-    return axios.get(booklistAPI).then(response => response.data);
+  _setMyLikePost = async () => {
+    const likePosts = await this._getMyLikePost()
+    // console.log(likePosts)
+    if (this.state.likePosts === undefined) {
+      this.setState({likePosts})
+    } else {
+      this.setState({likePosts: this.state.likePosts.concat(likePosts)})
+    }
+  }
+
+  _renderMyLikePost = () => {
+      if(this.state.likePosts){
+        const result = this.state.likePosts.map((likePost) => {
+        if (likePost) {
+          return <LikeBookBoard likePost={likePost} key={likePost.id} postid={likePost.id}/>
+        }
+      })
+      return result;
+      }
+      return "Loading"
   };
 
   render() {
-    return (
-      <div className="MyLike">
-        <Nav1 />
-        {this.state.imageUrl ? this._renderBooKCoverImage() : "Loading"}
-      </div>
-    );
-  }
+    // console.log(this.state.page)
+    // console.log(this.state.totalPage)
+    if (!window.localStorage.getItem("token")) {
+      return <Redirect to="/login" />
+    } else {
+      return (
+        <div className="MyLike">
+          <Nav1 />
+          {this.state.likePosts === undefined ? '아직 좋아요하신 포스트가 없습니다' : this._renderMyLikePost()}<br/>
+          {this.state.page === this.state.totalPage ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
+        </div>
+      );
+  }}
 }
 
 export default MyLike;
+
+
+
+
+  // _getUrls = async () => {
+  //   const imageUrl = await this._callBookCoverAPI();
+  //   console.log(imageUrl);
+  //   this.setState({
+  //     imageUrl
+  //   });
+  // };
+
+  // _callBookCoverAPI = () => {
+  //   const booklistAPI = "https://picsum.photos/list";
+  //   return axios.get(booklistAPI).then(response => response.data);
+  // };

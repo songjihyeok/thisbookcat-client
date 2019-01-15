@@ -1,13 +1,22 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import TasteBoard from '../components/PickTaste/TasteBoard'
-
+import {Redirect} from 'react-router-dom'
+import Nav1 from '../components/Nav1'
 import '../components/PickTaste/CSS/PickTaste.css'
 
 class PickTaste extends Component {
   render() {
-    return <div className = 'picktaste'>
-    <TasteBoard/>
-    </div>;
+    if (!window.localStorage.getItem("token")) {
+      return <Redirect to="/login" />
+    } else {
+      return (
+        <Fragment>
+          <div className = 'picktaste'>
+            <TasteBoard/>
+          </div>
+        </Fragment>
+      )
+    }
   }
 }
 

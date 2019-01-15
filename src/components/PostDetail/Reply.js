@@ -1,64 +1,28 @@
-import React, { Component } from "react";
-import { Icon } from "semantic-ui-react";
-import './Reply.css'
+import React, { Component, Fragment } from "react";
+import "./PostDetail.css";
+import './Reply.css';
+import ReReply from './ReReply';
+import ParentReply from "./ParentReply";
 
 export default class Reply extends Component {
-
-  //일단 이 댓글 id가 몇인지 알아야 함(props로 받아야 할듯.)
-  //이 댓글이 대댓글을 가지는지 알아야 함. (get 해와서 state에 설정해야 할듯.)
-  state = {
-    re_reply: [
-      {
-        id:'parenid + 123',
-        username: '? userid? ',
-        comment: '',
-      },
-    ],
-    reply : '',
-    re_reply_input: false,
-  }
-
-  _showRereplyInput = () => {
-    const input = this.state.re_reply_input
-    this.setState({re_reply_input : !input})
-  }
-
-  _makeRereply = () => {
-    // axios.put(댓글, {reply:id, })
-    // .then
-  }
-
-  componentWillMount(){
-    // 댓글에 대댓글 있으면 가져와서 state에 넣기.
-  }
+  //TODO: state 필요없으면 functional 로 쓰든가염
 
   render() {
+    const parentReply = this.props.reply[0];//얘가 가장 부모 댓글
+    const { reply, postId, _getReply } = this.props;
+   
     return (
-      <div className='reply'>
-        {console.log(this.props.key, this.props.reply.reply_id)}
-
-        {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지*/}
-        {/* <img src={this.props.reply.userimg} className='img-circle' alt={this.props.reply.username} /> */}
-        <span className='reply_username'>{this.props.reply.username} </span>
-        <span className='reply_msg'>{this.props.reply.msg} </span>
-        <span onClick={this._showRereplyInput}>
-          <Icon name="pencil alternate" color='grey' fitted size="small" />
-        </span>
-        {this.state.re_reply_input
-          ?
-          <div id="rereply">
-            <input
-              id="rereply_input"
-              type="text"
-              name="reply"
-              placeholder={`@${this.props.reply.username}`}
-              />
-            <div id="rereply_btn" onClick={'TODO:대댓글서버에보내는함수'}>
-              <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
-            </div>
+      <Fragment>
+        {(reply.length===1) //자식댓글이 없으면, 맵돌리지 말고, 바로 뿌리고,
+        ?
+          <ParentReply reply={parentReply} postId={postId} _getReply={_getReply} />
+        :
+          <div>
+            {reply.map((element, index) => {
+              return <ReReply reply={element} postId={postId} key={index} _getReply={_getReply}/>
+            })}
           </div>
-          : null}
-      </div>
+        }
+      </Fragment>
     );
-  }
-}
+  }}

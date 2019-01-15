@@ -15,46 +15,25 @@ class Bookapi extends Component {
   }
 
   _handleHide() {
-    this.setState({
-      showmodal: false
-    });
+    this.setState({showmodal: false});
   }
 
   _handleBook(data) {
-    this.setState({
-      booktitle: data
-    });
+    this.setState({booktitle: data});
   }
 
   render() {
     return (
       <div className="bookApi">
-        {this.state.showmodal ? (
-          <BookapiModal
-            showmodal={this.state.showmodal}
-            handleHide={this._handleHide}
-            handleBook={this._handleBook}
-          />
-        ) : null}
-        <div
-          className="searchBook"
-          onClick={() => {
-            this.setState({ showmodal: true });
-          }}
-        >
+        {this.state.showmodal
+        ? <BookapiModal showmodal={this.state.showmodal} handleHide={this._handleHide} handleBook={this._handleBook}/>
+        : null}
+        <div className="searchBook" onClick={() => {this.setState({showmodal: true})}}>
           <Icon name="book" size="huge" />
-          <div
-            style={{
-              display: "flex"
-            }}
-          >
-            <h1>책 검색하기</h1>
-          </div>
+          <div style={{display: "flex"}}><h1>책 검색하기</h1></div>
         </div>
-        <div style={{ flex: "0.2" }}>
-          {this.state.booktitle ? (
-            <h1>책 제목 : {this.state.booktitle}</h1>
-          ) : null}
+        <div style={{flex: "0.2"}}>
+          {this.state.booktitle ? <h1>책 제목 : {this.state.booktitle}</h1> : null}
         </div>
       </div>
     );

@@ -1,19 +1,102 @@
-.navbar-default {
-  border-bottom-color: #ccccff;
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon');
+
+.nav1 {
+  height: 65px;
+  text-align: center;
+  margin-left:auto;
+  margin-right:auto;
+  vertical-align: middle;
+  margin-top: 15px;
+  /* 위아래 가운데 정렬 일단, 패딩으로 처리.. */
+  border-bottom: 2px solid #f4f4f4;
+  /* 이거 그림자로 바꿔야함 */
 }
 
-.thisBook {
-  font-weight: bold;
-  color: #9999ff;
+.thisBook_Nav1{
+  width: 107px;
+  height: auto;
+  margin-left: 40px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28.4px;
+  /* font-weight: normal;
+  font-style: normal;
+  font-stretch: normal; */
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1f1f1f;
 }
 
 form{
-  height: 100px;
-  width: 500px;
   display: inline;
 }
 
-input {
-  width : 50%;
+.search_input {
+  width: 57%;
   height: 50px;
+  border-radius: 25px;
+  border-width: 0;
+  margin: 0;
+  margin-left: 46px;
+  background-color: #f4f4f4; 
+  padding-left: 20px;
 }
+
+.items {
+  margin-left: 100px;
+}
+
+.item {
+  text-align :center;
+  vertical-align: middle;
+  display: inline-block;
+  margin-left: 20px;
+  width: 35px;
+  height: 35px;
+}
+
+
+/* #search_div {
+  display: inline-block;
+  margin: 0;
+  width: 800px;
+}
+dㅕ기 고쳐야 함. 화면의 57% 정도로  */
+
+
+
+/* .navbar-default {
+  border-bottom-color: #ccccff;
+}
+
+.navbar {
+  margin-bottom: 0%;
+} */
+
+/* .container {
+  width: 100%;
+} */
+
+/* .navLeft {
+  margin-left:2%
+} */
+
+
+/* .navMiddle {
+  width: 100%;
+}
+
+.navSearch {
+  position: relative;
+  bottom: 10%;
+  width: 70%;
+}
+
+.searchBar {
+  width: 100%
+}
+
+.navRight {
+  float: right!important;
+  /* margin-right: 2%; */
+

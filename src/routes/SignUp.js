@@ -3,140 +3,143 @@ import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import server_url from '../url.json';
+import book from "../img/book-img.png";
 
 class SignUp extends Component {
   state = {
-    email : '',
-    password : '',
+    // email : '',
+    // password : '',
     confirmPassword : true,
     signUp_Done : false,
     signUp_Err: false,
+    postedEmail:'',
+  }
+
+  user = {
+    emailId: '',
+    password: ''
   }
 
   _setEmail = (e) => {
-    console.log('Login.js의 setEmail함수입니다. e.target.value 찍는중', e.target.value)
-    this.setState({email : e.target.value});
+    // console.log('Login.js의 setEmail함수입니다. e.target.value 찍는중', e.target.value)
+    // this.setState({email : e.target.value});
+    this.user.emailId = e.target.value
+    //TODO: 이거 굳이 state 안에 둘 필요없을듯
   }
 
   _setPassword = (e) => {
-    console.log('Login.js의 setPw함수입니다. e.target.value 찍는중', e.target.value)
-    this.setState({password : e.target.value});
+    // console.log('Login.js의 setPw함수입니다. e.target.value 찍는중', e.target.value)
+    // this.setState({password : e.target.value});
+    this.user.password = e.target.value
+    //TODO: 이거 굳이 state 안에 둘 필요없을듯
+
   }
 
   _checkPassword = (e) => {
-    console.log('Login.js의 checkPw함수입니다. e.target.value 찍는중', e.target.value)
-    if(this.state.password === e.target.value) {
+    // console.log('Login.js의 checkPw함수입니다. e.target.value 찍는중', e.target.value)
+    if(this.user.password === e.target.value) {
       this.setState({confirmPassword : true})
     }else{
       this.setState({confirmPassword : false})
     } //TODO:이거 이렇게 하면 되나염....'ㅁ'
   }
 
-  _handleSubmit = (e) => {
+  _handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
-
-    if(this.state.email && this.state.password && this.state.confirmPassword){
-      const user = {
-        emailId : this.state.email,
-        password : this.state.password
-      };  
-    
-      // TODO: {"emailId":"sueminee@gmail.com", "password": "123"} 이렇게 보내라길래.
-      // 아래처럼 제이슨스트링거파이 했더니 400에러뜸.
-      // const user = JSON.stringify({
-      //   emailId : this.state.email,
-      //   password : this.state.password
-      // }); 
-      
-      console.log('signUp is ready_', user)
-
-      axios.post(`http://ec2-13-125-246-249.ap-northeast-2.compute.amazonaws.com:3000/api/user`, user)
-      .then(res => {
-        console.log('res', res);
-        console.log('res.data', res.data);
-        if(res.status === 200){
+    // console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
+    if(this.user.emailId && this.user.password && this.state.confirmPassword) {
+      try {
+        await axios.post(`https://${server_url}/api/user`, this.user, {headers:{'Access-Control-Allow-Origin':'*'}})
+        this.setState({
+          signUp_Done: true,
+          signUp_Err: false,
+          postedEmail: this.user.emailId, 
+        })
+      } catch(err) {
+        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 실패후 받는 err__', err)
+        console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 실패후 받는 err.response.status__', err.response.status)
+        // if (err.response.status === 400) { //400err 면 이미 가입 되어있는 아이디입니다.
           this.setState({
-            signUp_Done : true,
-            signUp_Err : false,
+            signUp_Done: false,
+            signUp_Err: true,
+            postedEmail: this.user.emailId,
           })
+        // }
+      }
 
-        }else{
-          this.setState({
-            signUp_Done : false,
-            signUp_Err : true})
-            // TODO:sign up 실패했다는 신호가 나오면, 이메일 비밀번호가 일치하지 않습니다.
-            // alert창? 띄우기? 아니면 그 메세지div만 추가?
-        }
-      })
+      
+      // .then(res => {
+      //   // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
+      //   // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);
+      //     this.setState({
+      //       signUp_Done: true,
+      //       signUp_Err: false,
+      //       // postedEmail: user.emailId, 
+      //     })
+      // })
+      // .catch(err => {
+
+      // })
     }
   }
 
   render() {
-    // TODO: 서버랑 통신되면 여기 주석 풀기
-    if(this.state.signUp_Done){
+    if (this.state.signUp_Done) {
       return(
         <div>
-          <div>{this.state.email}님! 이책반냥에 가입해주셔서 감사합니다.</div>
+          <div>{this.state.postedEmail}님! 이책반냥에 가입해주셔서 감사합니다.</div>
             <Link to="/"><div>로그인하러 가기</div></Link>
         </div>
       )
-    }else if(this.state.signUp_Err){
-      return(
-        <div>
-          <div>회원가입에 실패했습니다.</div>
-            <Link to="/signup"><div>다시 회원가입하러 가기</div></Link>
-        </div>
-      )
-    }else{
+    } else {
       return (
-        <div className='login_container' >
-          <div className='signup_container_1'>
-            <div className='login_container_2'>
-            <h5>책, 콘텐츠를 모두와 공유하기</h5>
-            <h1>이책반냥<Icon name="paw" size="small" /></h1>
-            <h3>회원가입하기</h3>
-            </div>
-            <form onSubmit={this._handleSubmit}>
-              <div className='signup_email'>
-                  <input className='login_input'
-                    type="email"
-                    placeholder="이메일을 입력해주세요"
-                    onChange={this._setEmail}></input>
+        <div className="backImg">
+          <div className='login_body' >
+            <div className='login_container'>
+              <div className='title2'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="166" height="44">
+                  <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061"
+                        transform="translate(.392 35.64) scale(.93495)">
+                    회원가입
+                  </text>
+                </svg>
               </div>
-              
-              <div className='signup_email'>
-                <div><input className='login_input'
-                      type="password"
-                      placeholder="비밀번호를 입력해주세요"
-                      onChange={this._setPassword}></input>
+              {
+              (this.state.signUp_Err)
+              ? 
+                <div className='title4'>
+                  <div>{this.state.postedEmail}은</div>
+                  <div>이미 가입되어 있는 아이디입니다</div>
                 </div>
-                  
-                {this.state.confirmPassword ?
-                
-                  <div>
-                    <input className='login_input'
-                      type="password"
-                      placeholder="비밀번호를 다시 한번 입력해주세요"
-                      onChange={this._checkPassword}>
-                    </input>
-                  </div>
-                  :
-                  <div>
-                    <input className='login_input'
-                      type="password"
-                      placeholder="비밀번호를 다시 한번 입력해주세요"
-                      onChange={this._checkPassword}>
-                    </input>
-                    <div style={{color:'red'}}>비밀번호가 일치하지 않습니다.</div>
-                  </div>
+              : <div className='title3'>이책반냥에 오신 것을 환영합니다</div>
+              }
+              <form onSubmit={this._handleSubmit}>
+                <div><input className='login_input' type="email"
+                            placeholder="이메일을 입력해주세요"
+                            onChange={this._setEmail}/></div>
+                <div><input className='login_input' type="password"
+                            placeholder="비밀번호를 입력해주세요"
+                            onChange={this._setPassword}/></div>
+                <div><input className='login_input' type="password"
+                            placeholder="비밀번호를 다시 한번 입력해주세요"
+                            onChange={this._checkPassword}/></div>
+                {
+                  this.state.confirmPassword
+                ? <div style={{height: '40px'}}></div>
+                : <div style={{color:'red', height: '40px'}}>비밀번호가 일치하지 않습니다.</div>
                 }
-                </div>
-              <div><button className='login_btn' type='submit'>회원가입하기</button></div>
-            </form>
-            <div className='login_flex'>
-              <Link to="/"><div>로그인하러 가기</div></Link>
-              <Link to="/findpw"><div>아이디/비밀번호 찾기</div></Link>
+                <div style={{marginTop: '30px'}}><button id="custom_btn_continue" className='login_btn' type='submit'>회원가입하기</button></div>
+              </form>
+              <div className='login_flex'>
+                <Link to="/"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>로그인</div></Link>
+                <Link to="/findpw"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>아이디/비밀번호 찾기</div></Link>
+              </div>
+            </div>
+          </div>
+          <div className="footer">
+            <div>
+              <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
             </div>
           </div>
         </div>

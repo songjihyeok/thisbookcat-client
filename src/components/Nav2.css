@@ -2,7 +2,18 @@
   border-bottom-color: #ffe5e5;
 }
 
-.thisBook {
-  font-weight: bold;
-  color: #ff8080;
+.thisBook_Nav2{
+  width: 120px;
+  height: auto;
+  margin-left: 40px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28.4px;
+  /* font-weight: normal;
+  font-style: normal;
+  font-stretch: normal; */
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #1f1f1f;
 }
+
