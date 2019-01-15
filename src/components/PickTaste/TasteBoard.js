@@ -29,7 +29,7 @@ class TasteBoard extends Component {
 				'심리':'https://www.dynamicbusiness.com.au/wp-content/uploads/2015/06/psychology.jpg',
 				'우울':'https://lh3.googleusercontent.com/ostgNb0oXveZvjpeikfjjvpQAmezaDrCfXtC_4zBCNlTA_156nGVHoTrpI2yIEi8YV4dDPYbCGoVNyhI6Y77tw=s750',
 				'스타트업':'https://www.businessmentors.org.nz/BMNZWeb/media/websiteimages/refresh%20images/startup-hero_1.png',
-				'힐링':'http://mutualflourishing.org/wp-content/uploads/2015/10/Dollarphotoclub_55022145.jpg',
+				'힐링':'https://mutualflourishing.org/wp-content/uploads/2015/10/Dollarphotoclub_55022145.jpg',
 				'여행':'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/01/11/13/travel-hiking-app.jpg?w968h681',
 				'블록체인':'https://cdn-images-1.medium.com/max/1600/1*3hyWN8UhcrL7P0Opbu7IQg.jpeg',
 				'스트레스':'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5NC84MzMvb3JpZ2luYWwvc3RyZXNzLXNjcmVhbS5qcGc=',
@@ -42,7 +42,7 @@ class TasteBoard extends Component {
 				'https://www.dynamicbusiness.com.au/wp-content/uploads/2015/06/psychology.jpg',
 				'https://lh3.googleusercontent.com/ostgNb0oXveZvjpeikfjjvpQAmezaDrCfXtC_4zBCNlTA_156nGVHoTrpI2yIEi8YV4dDPYbCGoVNyhI6Y77tw=s750',
 				'https://www.businessmentors.org.nz/BMNZWeb/media/websiteimages/refresh%20images/startup-hero_1.png',
-				'http://mutualflourishing.org/wp-content/uploads/2015/10/Dollarphotoclub_55022145.jpg',
+				'https://mutualflourishing.org/wp-content/uploads/2015/10/Dollarphotoclub_55022145.jpg',
 				'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/01/11/13/travel-hiking-app.jpg?w968h681',
 				'https://cdn-images-1.medium.com/max/1600/1*3hyWN8UhcrL7P0Opbu7IQg.jpeg',
 				'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5NC84MzMvb3JpZ2luYWwvc3RyZXNzLXNjcmVhbS5qcGc=',
@@ -134,7 +134,7 @@ class TasteBoard extends Component {
 			if (username === '') {
 				alert('유저네임을 입력하셔야 합니다!')
 			} else {
-				axios.post (`http://${server_url}:3000/api/user/checkuserName`, {
+				axios.post (`https://${server_url}/api/user/checkuserName`, {
 					userName: username}, {
 					headers: {Authorization: `bearer ${token}`}
 				})
@@ -166,13 +166,13 @@ class TasteBoard extends Component {
 		let newPreference = {newPreference: this.state.newTagSelected}
 		/* let defaultTaste = {defaultTags: this.state.selected} */
 		if (this.state.newTagSelected.length > 0) {
-			const res_postNewPref = await axios.post (`http://${server_url}:3000/api/user/preferenceAdd`, newPreference, {
+			const res_postNewPref = await axios.post (`https://${server_url}/api/user/preferenceAdd`, newPreference, {
 					headers: {Authorization: `bearer ${token}`}
 			})
 			console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 res_postNewPref ____', res_postNewPref)
 		}
     console.log("보내는 TAGS!-----", customNUser)
-		const res_postPref = await axios.post (`http://${server_url}:3000/api/user/preference`, customNUser, {
+		const res_postPref = await axios.post (`https://${server_url}/api/user/preference`, customNUser, {
 			headers: {Authorization: `bearer ${token}`}
 		})
 		console.log('_submitTasteNUserName 함수에서  axios.post(preference) 후 res_postPref ___', res_postPref)
@@ -204,12 +204,6 @@ class TasteBoard extends Component {
 	_handleShow = () => {
 			this.setState({show: true})
 	}
-
-    /* _hadelUserName = async () => {
-
-        await this._setUserName()
-        await alert('유저네임이 설정 됐습니다.')
-    } */
 
 	_handleButtonFontColor = () => {
 		if (this.state.confirmUN) {

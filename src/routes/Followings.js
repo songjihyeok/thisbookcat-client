@@ -56,7 +56,7 @@ class Followings extends Component {
 
   _callFollowAPI = () => {
     let token = window.localStorage.getItem('token')
-    return axios.get(`http://${server_url}:3000/api/follow/posts/${this.state.per}/${this.state.page}`, {
+    return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
       this.setState({totalPage: response.data.totalpage})

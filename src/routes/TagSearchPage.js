@@ -81,7 +81,7 @@ class TagSearchPage extends Component {
   _callTheTagBookCoverAPI = async() => {
     // console.log("uri 가져옵시다")
     let token = window.localStorage.getItem('token')
-    return  axios.post(`http://${server_url}:3000/api/post/tag/${this.state.per}/${this.state.page}`,{
+    return  axios.post(`https://${server_url}/api/post/tag/${this.state.per}/${this.state.page}`,{
       tagName : this.state.tagName}, {
       headers: {Authorization: `bearer ${token}`}
     })

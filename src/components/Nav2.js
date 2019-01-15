@@ -30,7 +30,7 @@ class Nav2 extends Component {
       if(!this.props.posting.isedit){
         const config = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}
         
-        const imageupdate =  await axios.post(`http://${server_url}:3000/img/mainimage/create/${titleandcontent.data.id}`, {fileName: this.props.posting.mainimage},config)
+        const imageupdate =  await axios.post(`https://${server_url}/img/mainimage/create/${titleandcontent.data.id}`, {fileName: this.props.posting.mainimage},config)
         console.log("이미지 업로드 완료", imageupdate)
       }
         this.props._postSuccess();  
@@ -41,15 +41,17 @@ class Nav2 extends Component {
       alert("사진을 등록하지 않았습니다. 사진을 올려주세요")
       return;
     }
-    if (window.location.href !== `http://localhost:3000/writepost`) {
-      let postid= window.location.href.split('/').pop();
-
-      console.log("api/edit", postid)
-     return `http://${server_url}:3000/api/post/edit/${postid}`
-    } else {
+    let postid= window.location.href.split('/').pop();
+    console.log("주소?",postid);
+    
+    if(postid==='writepost'){
       console.log("api/post")
-     return `http://${server_url}:3000/api/post/`
+      return `https://${server_url}/api/post/`  
+    } else {
+      console.log("api/edit")
+      return `https://${server_url}/api/post/edit/${postid}`  
     }
+        
   }
 
 

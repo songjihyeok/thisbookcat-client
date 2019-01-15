@@ -15,7 +15,7 @@ class LikeBookBoard extends Component {
 	_handleLike = () => {
 		let token = window.localStorage.getItem('token')
 		if (this.state.liked) {
-			axios.delete(`http://${server_url}:3000/api/like/${this.props.likePost.id}`, {
+			axios.delete(`https://${server_url}/api/like/${this.props.likePost.id}`, {
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
 					// console.log(response)
@@ -27,7 +27,7 @@ class LikeBookBoard extends Component {
 			})
 			.catch(error => console.log(error))
 		} else {
-			axios.post(`http://${server_url}:3000/api/like/${this.props.likePost.id}`, {},{
+			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
 					// console.log(response)
@@ -51,7 +51,7 @@ class LikeBookBoard extends Component {
 				     username : this.props.author
 				 }  */}
 					<Image className = 'likeThumbnail' alt='bookcover' width={240} height={240}
-								src = {`http://${server_url}:3000/upload/${this.props.likePost.mainImage}`}/>
+								src = {`https://${server_url}/upload/${this.props.likePost.mainImage}`}/>
 				</Link>
 				{(this.state.liked)
 				? <span><Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>

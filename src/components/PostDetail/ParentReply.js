@@ -6,8 +6,7 @@ import profileimage from "../../img/다운로드.png"
 
 export default class ParentReply extends Component {
   state = {
-    show_reReplyInput: false,
-    userImage : null
+    show_reReplyInput: false
   }
 
   reComment = {};
@@ -31,13 +30,13 @@ export default class ParentReply extends Component {
   _makeReReply = async () => { //input창에 쓴거 submit 하면 post 날리는 함수.
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
     // const res_postReReply = 
-    await axios.post(`http://${server_url}:3000/api/reply2/${this.props.postId}`, this.reComment, this.authHeader)
+    await axios.post(`https://${server_url}/api/reply2/${this.props.postId}`, this.reComment, this.authHeader)
     // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();
   }
 
   _deleteReply = async () => {
-    const res_deleteReply = await axios.delete(`http://${server_url}:3000/api/reply/${this.props.reply.id}`, this.authHeader)
+    const res_deleteReply = await axios.delete(`https://${server_url}/api/reply/${this.props.reply.id}`, this.authHeader)
     console.log('Reply.js 컴포 > _deleteReply 함수 > axios.post 요청 후 받는 res_deleteReply', res_deleteReply);
     await this.props._getReply();
   }
@@ -51,8 +50,8 @@ export default class ParentReply extends Component {
     return (
       <div className='parent_reply'>
         <div>
-          {(this.state.userImage)
-           ? <img src={`http://${server_url}:3000/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} /> 
+          {(profileImage)
+           ? <img src={`https://${server_url}/upload/${profileImage}`} className='img-circle' alt={"user?"} /> 
            : <img src= {profileimage} className='img-circle' alt={"userImages"} />
           }
           <span className='reply_username'>{userName} </span>

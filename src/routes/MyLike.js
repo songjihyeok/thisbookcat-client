@@ -33,7 +33,7 @@ class MyLike extends Component {
   }
 
   _getMyLikePost = () => {
-    return axios.get(`http://${server_url}:3000/api/like/user/${this.state.per}/${this.state.page}`,{
+    return axios.get(`https://${server_url}/api/like/user/${this.state.per}/${this.state.page}`,{
         headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
       })
        .then(res => {

@@ -35,7 +35,7 @@ class SettingModal extends Component {
     const token = window.localStorage.getItem('token');
     let formData = new FormData()
     formData.append('imgFile', this.state.files)
-    axios.post(`http://${server_url}:3000/api/user/update`, formData, {
+    axios.post(`https://${server_url}/api/user/update`, formData, {
       headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}
     })
     .then(response => this.props.callback(response))

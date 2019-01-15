@@ -23,7 +23,7 @@ class FollowingBoard extends Component {
 	_getLikeData = () => {
 			// console.log(this.props.postid)
 		// let token = window.localStorage.getItem('token')
-		axios.get(`http://${server_url}:3000/api/like/${this.props.postid}`, {
+		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
 			headers:{Authorization: `bearer ${this.token}`}})
 		.then(response => {
 			// console.log(response.data[0][0][1])
@@ -36,7 +36,7 @@ class FollowingBoard extends Component {
 	_handleLike = () => {
 		// let token = window.localStorage.getItem('token')
 		if (this.state.liked) {
-			axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {
+			axios.delete(`https://${server_url}/api/like/${this.props.postid}`, {
 				headers:{Authorization: `bearer ${this.token}`}})
 			.then(response => {
 				// console.log(response)
@@ -48,7 +48,7 @@ class FollowingBoard extends Component {
 			})
 			.catch(error => console.log(error))
 		} else {
-			axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {
+			axios.post(`https://${server_url}/api/like/${this.props.postid}`, {}, {
 				headers: {Authorization: `bearer ${this.token}`}})
 			.then(response => {
 				// console.log(response)
@@ -64,7 +64,7 @@ class FollowingBoard extends Component {
 
 	_callPostUserAPI = () => {
     let token = window.localStorage.getItem('token')
-    return axios.get(`http://${server_url}:3000/api/post/postedUserName/${this.props.postid}`, {
+    return axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postid}`, {
 			headers:{Authorization: `bearer ${token}`}})
 			.then(response=> response.data)
 			.then(response => this.setState({postUserInfo:response}))
@@ -77,7 +77,7 @@ class FollowingBoard extends Component {
     return  (
 			<div className='FollowingBoard'>
 			<div className='UserInfoPart'>
-			<img src={`http://${server_url}:3000/upload/${this.state.postUserInfo.profileImage}`} className='postUserImage' alt={"postUserImage"} />
+			<img src={`https://${server_url}/upload/${this.state.postUserInfo.profileImage}`} className='postUserImage' alt={"postUserImage"} />
         <span className='postUsername'>{this.state.postUserInfo.userName}</span>
 			</div>
 				<div className='imagePart'>
@@ -88,7 +88,7 @@ class FollowingBoard extends Component {
 											username : this.props.author,
 									} */
 					}}>
-						<Image className='FollowThumbnail' src={`http://${server_url}:3000/upload/${this.props.image}`}
+						<Image className='FollowThumbnail' src={`https://${server_url}/upload/${this.props.image}`}
 									alt='bookcover' /* width={330} */ height={330} />
 					</Link>
 				</div>

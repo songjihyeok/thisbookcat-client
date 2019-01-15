@@ -21,7 +21,7 @@ class MyBookBoard extends Component {
 	}
 
 	_getLikeData = () => {
-		axios.get(`http://${server_url}:3000/api/like/${this.props.postid}`, {
+		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
 			headers: {Authorization: `bearer ${this.token}`}
 		})
 		.then(response => {
@@ -33,7 +33,7 @@ class MyBookBoard extends Component {
     
 	_handleLike = () => {
 		if(this.state.liked) {
-			axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {
+			axios.delete(`https://${server_url}/api/like/${this.props.postid}`, {
 				headers: {Authorization: `bearer ${this.token}`}})
 			.then(response => {
 				// console.log(response)
@@ -45,7 +45,7 @@ class MyBookBoard extends Component {
 			})
 			.catch(error => console.log(error))
 		} else {
-				axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {
+				axios.post(`https://${server_url}/api/like/${this.props.postid}`, {}, {
 					headers: {Authorization: `bearer ${this.token}`}
 				})
 				.then(response => {
@@ -67,7 +67,7 @@ class MyBookBoard extends Component {
 				{/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}
 				<div className='myImageContainer'>
 				<Link to={{pathname : `/postdetail/${this.props.postid}`}}>
-					<Image src={`http://${server_url}:3000/upload/${this.props.image}`} alt='bookcover'/*  width={300} */ height={240}/>
+					<Image src={`https://${server_url}/upload/${this.props.image}`} alt='bookcover'/*  width={300} */ height={240}/>
 				</Link>
 				</div>
 				<div className='likeBar'>

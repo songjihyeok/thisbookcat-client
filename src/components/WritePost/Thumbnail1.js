@@ -45,7 +45,7 @@ class Thumbnail extends Component {
                       name = "imgFile"
                       server={
                         {
-                          url : `http://${server_url}:3000/` ,
+                          url : `https://${server_url}` ,
                           process :{ 
                               url: './img/mainimage/',
                               method : 'POST',

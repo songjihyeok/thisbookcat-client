@@ -20,7 +20,7 @@ export default class PostInfo extends Component {
   }
 
   _getLikeData = async () => {
-    const res_getLike = await axios.get(`http://${server_url}:3000/api/like/${this.props.postId}`, this.authHeader)
+    const res_getLike = await axios.get(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
     console.log("_getLikeData에서 get 해오는 res_getLike.data ===", res_getLike.data)
     this.setState({
       isLike: res_getLike.data[0][0][1], 
@@ -32,11 +32,11 @@ export default class PostInfo extends Component {
     if (this.state.isLike) { //라이크 되어있는데, 라이크 누르는거면 delete 요청 보내야함.
       //count-- 시키는 요청 & //postid와 userid의 like join을 삭제하는 요청
       // const res_deleteLike = 
-      await axios.delete(`http://${server_url}:3000/api/like/${this.props.postId}`, this.authHeader)
+      await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
     //console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res_deleteLike", res_deleteLike)
     } else { //count++ 시키는 요청 & //postid와 userid를 like join 하는 요청
       // const res_postLike = 
-      await axios.post(`http://${server_url}:3000/api/like/${this.props.postId}`, {}, this.authHeader)
+      await axios.post(`https://${server_url}/api/like/${this.props.postId}`, {}, this.authHeader)
       //console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res_postLike", res_postLike)
     }
     await this._getLikeData();

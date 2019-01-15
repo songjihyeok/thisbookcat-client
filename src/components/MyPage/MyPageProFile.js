@@ -48,13 +48,13 @@ class MyPageProFile extends Component {
   }
 
   _getMyProfile = () => {
-    axios.get(`http://${server_url}:3000/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
+    axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
       console.log( "이미지 있나?", response.data.profileImage)
       if(response.data.profileImage){
       this.setState({
         myProfile: response.data,
-        ProfileImage: `http://${server_url}:3000/upload/${response.data.profileImage}`
+        ProfileImage: `https://${server_url}/upload/${response.data.profileImage}`
       })
       } else {
         this.setState({
@@ -66,7 +66,7 @@ class MyPageProFile extends Component {
   }
   
   _callmyPostAPI = () => {
-    axios.get(`http://${server_url}:3000/api/post/mypage/${this.state.per}/${this.state.page}`, {
+    axios.get(`https://${server_url}/api/post/mypage/${this.state.per}/${this.state.page}`, {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
@@ -88,7 +88,7 @@ class MyPageProFile extends Component {
   }
 
   _getFollowingFollowed = () => {
-    axios.get(`http://${server_url}:3000/api/follow/followingFollowedIds`, {
+    axios.get(`https://${server_url}/api/follow/followingFollowedIds`, {
       headers: {Authorization : `bearer ${this.token}`}
     })
     .then(response => {

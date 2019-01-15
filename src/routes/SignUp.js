@@ -50,7 +50,7 @@ class SignUp extends Component {
     // console.log('Login.js의 handleSubmit함수입니다. this.state 찍는중', this.state)
     if(this.user.emailId && this.user.password && this.state.confirmPassword) {
       try {
-        await axios.post(`http://${server_url}:3000/api/user`, this.user, {headers:{'Access-Control-Allow-Origin':'*'}})
+        await axios.post(`https://${server_url}/api/user`, this.user, {headers:{'Access-Control-Allow-Origin':'*'}})
         this.setState({
           signUp_Done: true,
           signUp_Err: false,

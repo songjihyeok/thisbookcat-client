@@ -19,7 +19,7 @@ class BookBoard extends Component {
 	}
 
 	_getLikeData = () => {
-		axios.get(`http://${server_url}:3000/api/like/${this.props.postid}`, {
+		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
 			headers: {Authorization: `bearer ${this.token}`}
 		})
 		.then(response => {
@@ -32,7 +32,7 @@ class BookBoard extends Component {
 
 	_handleLike = () => {
 		if (this.state.liked) {
-			axios.delete(`http://${server_url}:3000/api/like/${this.props.postid}`, {
+			axios.delete(`https://${server_url}/api/like/${this.props.postid}`, {
 				headers: {Authorization: `bearer ${this.token}`}
 			})
 			.then(response => {
@@ -45,7 +45,7 @@ class BookBoard extends Component {
 			})
 			.catch(error => console.log(error))
 		} else {
-			axios.post(`http://${server_url}:3000/api/like/${this.props.postid}`, {}, {
+			axios.post(`https://${server_url}/api/like/${this.props.postid}`, {}, {
 					headers: {Authorization: `bearer ${this.token}`}
 				})
 			.then(response => {
@@ -75,7 +75,7 @@ class BookBoard extends Component {
 					pathname : `/postdetail/${this.props.postid}`
 				}}><div className='postImageContainer'>
 					<Image className = 'mainThumbNail' alt='bookcover' /* width={240} */ height={240}
-								src = {`http://${server_url}:3000/upload/${this.props.url}`}/>
+								src = {`https://${server_url}/upload/${this.props.url}`}/>
 				</div>
 				<div className='likePart'>
 				<span className='likeIconPart'>{this.state.liked

@@ -36,11 +36,11 @@ class Login extends Component {
       password: this.state.password
     }; 
     try {
-      const res_postLogin = await axios.post(`http://${server_url}:3000/api/user/login`, user, {
+      const res_postLogin = await axios.post(`https://${server_url}/api/user/login`, user, {
         headers: {'Access-Control-Allow-Origin': '*'}})
       window.localStorage.setItem('token', res_postLogin.data) //받은 토큰을 localStorage에 심고,
       //preference가 있는지 확인한다.
-      const res_getPreference = await axios.get(`http://${server_url}:3000/api/user/pickedOrnot`,{
+      const res_getPreference = await axios.get(`https://${server_url}/api/user/pickedOrnot`,{
         headers: {Authorization: `bearer ${res_postLogin.data}`}})
       // console.log('pickedOrnot에 get요청 후 받는 res_getPreference ___', res_getPreference)
 
@@ -61,7 +61,7 @@ class Login extends Component {
   }
 
   _googleAuth = (e) => {
-    axios.get(`http://${server_url}:3000/auth/google`)
+    axios.get(`https://${server_url}/auth/google`)
     .then(res => {
       console.log('google Auth res입니다.', res)
     })
@@ -86,7 +86,7 @@ class Login extends Component {
                   <div className='login_container'>
                     <div className='title1'>책을 읽고, 이야기를 나누다</div>
                     <div className='title2'>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="44">
+                      <svg xmlns="https://www.w3.org/2000/svg" width="200" height="44">
                         <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
                           Afteread
                         </text>

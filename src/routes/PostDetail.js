@@ -28,15 +28,14 @@ class PostDetail extends React.Component {
   //   console.log('PostDatail.js의 ComponentDidMount 함수에서 this.state를 찍어보겠습니다___', this.state)
   // }
 
-  async componentWillMount(){ //TODO:이렇게 await 안 await 섞어 써도 되나....여..
+  async componentWillMount(){ 
     this._getPostData();
     await this._getReply();
-    // const replyCount = 
     await this._countReply();
   }
 
   _getPostData = async() => {
-    const res_getPost = await axios.get(`http://${server_url}:3000/api/post/${this.state.postId}`, this.authHeader)
+    const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader)
     console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
     this.setState({
       userId: res_getPost.data.userId,
@@ -45,7 +44,7 @@ class PostDetail extends React.Component {
   }
 
   _getReply = async() => {
-    const res_getReply = await axios.get(`http://${server_url}:3000/api/reply/${this.state.postId}`, this.authHeader)
+    const res_getReply = await axios.get(`https://${server_url}/api/reply/${this.state.postId}`, this.authHeader)
     // console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
     console.log("reply관련 data", res_getReply)
     if (res_getReply.data === "There is no reply") {
@@ -80,7 +79,7 @@ class PostDetail extends React.Component {
     //그 this.comment가 이 axios 요청의 바디형태와 같습니다.
     //그걸로 포스트 요청 보내고, 다시 그 글의 전체 reply정보 받아오는 _getReply 함수를 실행합니다.
     // const res_postReply = 
-    await axios.post(`http://${server_url}:3000/api/reply/${this.state.postId}`
+    await axios.post(`https://${server_url}/api/reply/${this.state.postId}`
       , this.comment 
       , this.authHeader)
     // console.log('postdetail 컴포 > _makeReply 함수 > axios.get 요청 후 받는 res_postReply', res_postReply);

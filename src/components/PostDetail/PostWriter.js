@@ -28,7 +28,7 @@ export default class PostWriter extends Component {
 
   _getUserData = async () => {
     console.log("user 데이터를 가져와야하는데?")
-    const res_getUser = await axios.get(`http://${server_url}:3000/api/post/postedUserName/${this.props.postId}`, this.authHeader)
+    const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader)
     console.log('_getUserData에서 res_getUser =========',res_getUser)
     this.setState({
       userName: res_getUser.data.userName,
@@ -38,7 +38,7 @@ export default class PostWriter extends Component {
   }
 
   _getFollowingData = async () => {
-    const res_getFollowing = await axios.get(`http://${server_url}:3000/api/follow/check/${this.props.userId}`, this.authHeader)
+    const res_getFollowing = await axios.get(`https://${server_url}/api/follow/check/${this.props.userId}`, this.authHeader)
     // console.log('_getFollowingData 함수에서 axios.get 받아온 res_getFollowing.data 찍는중... this should be ture or false', res_getFollowing.data)
     this.setState({isFollowing: res_getFollowing.data})
   }
@@ -46,19 +46,19 @@ export default class PostWriter extends Component {
   _handleFollowing = async () => {
     if (this.state.isFollowing) {
 
-      const resultfollowDelete =await axios.delete(`http://${server_url}:3000/api/follow/delete/${this.props.userId}`, this.authHeader)
+      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader)
       console.log ("resultfollowDelete",resultfollowDelete)
       this.setState({isFollowing: false})
     } else {
       
-      const followResult =await axios.post(`http://${server_url}:3000/api/follow/${this.props.userId}`, {}, this.authHeader)
+      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader)
       console.log("followResult", followResult)
       this.setState({isFollowing: true})
     }
   }
 
   _handleDelete = async () => {
-    const res_deletePost = await axios.delete(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
+    const res_deletePost = await axios.delete(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader)
     console.log("props", this.props)
     console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
     window.location.href ="/mypage"
@@ -71,7 +71,7 @@ export default class PostWriter extends Component {
   _userImagecontrollor =()=>{
     console.log("userImage는?",this.state.userImage)
       if(this.state.userImage!==null && this.state.userImage.length>0){
-      return  <img src={`http://${server_url}:3000/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} />
+      return  <img src={`https://${server_url}/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} />
       } else {
       return  <img src= {profileimage} className='img-circle' alt={"userImages"} />
       }  

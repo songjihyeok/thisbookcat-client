@@ -27,7 +27,7 @@ class editPost extends Component {
     try{
       const postId= window.location.href.split('/').pop();
       console.log("가져온다 postId",postId);
-      const getpostedData = await axios.get(`http://${server_url}:3000/api/post/${postId}`, this.authHeader);
+      const getpostedData = await axios.get(`https://${server_url}/api/post/${postId}`, this.authHeader);
       console.log("가져온다. 중간 데이터",getpostedData);
       const {title, contents, mainImage} = getpostedData.data
       console.log("내가 원하는 그것 내놔", title, contents, mainImage);
@@ -60,7 +60,7 @@ class editPost extends Component {
   render() {
     console.log("editpost에 오신걸 환영합니다.")
     let {mainimage, title, contents} = this.state
-    let mainimageURL = `http://${server_url}:3000/upload/${mainimage}`
+    let mainimageURL = `https://${server_url}/upload/${mainimage}`
     let editor = null;
     let image = null;
     if(mainimage===null){

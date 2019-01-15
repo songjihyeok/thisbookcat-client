@@ -80,7 +80,7 @@ class Main extends Component {
 
   _callBookCoverAPI = () => {
     let token = window.localStorage.getItem('token')
-    return axios.get(`http://${server_url}:3000/api/userTagpost/${this.state.per}/${this.state.page}`,{
+    return axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
       // console.log('there should be data here',response.data)

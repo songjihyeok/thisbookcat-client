@@ -20,11 +20,11 @@ export default class PostContent extends Component {
   }
 
   _getPostData = async () => {
-    const res_getPost = await axios.get(`http://${server_url}:3000/api/post/${this.props.postId}`, this.authHeader)
+    const res_getPost = await axios.get(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader)
     console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
     const { contents, createdTime, likeCount, title, userId, mainImage } = res_getPost.data
     this.setState({
-      mainImage: `http://${server_url}:3000/upload/${mainImage}`,
+      mainImage: `https://${server_url}/upload/${mainImage}`,
       contents: contents,
       createdTime: createdTime,
       likeCount: likeCount,
