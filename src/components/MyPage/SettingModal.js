@@ -11,7 +11,7 @@ class SettingModal extends Component {
 
   state = {
     isLogin: true,
-    files: ''
+    files: null
   }
 
   _logout = e => {
@@ -35,12 +35,15 @@ class SettingModal extends Component {
     // console.log('there should be something here', this.state.files)
     const token = window.localStorage.getItem('token');
     let formData = new FormData()
+
+    if(this.state.files){
     formData.append('imgFile', this.state.files)
     axios.post(`https://${server_url}/api/user/update`, formData, {
       headers: { 'content-type': 'multipart/form-data','Authorization': `bearer ${token}`}
     })
     .then(response => this.props.callback(response))
     .catch(error => console.log(error))
+    }
   }
 
   _handleConfirm = async () => {
