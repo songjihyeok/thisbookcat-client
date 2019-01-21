@@ -13,6 +13,7 @@ import PostDetail from "./routes/PostDetail";
 import MyPage from "./routes/MyPage";
 import TagSearchPage from "./routes/TagSearchPage"
 import editPost from "./routes/editPost"
+import redirect from "./routes/redirect"
 import "./App.css";
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Main} />
+            <Route path="/redirect/:token" component={redirect}/>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
             <Route path="/findpw" component={FindPw} />

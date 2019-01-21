@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import FacebookLogin from 'react-facebook-login';
 // import Nav1 from "../components/Nav1";
 import '../components/Login/Login.css';
 // import { Icon } from "semantic-ui-react";
@@ -7,15 +8,18 @@ import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import server_url from '../url.json';
 import book from "../img/book-img.png";
+import FACEBOOK from '../components/Facebook/facebook';
 
 
 class Login extends Component {
   state = {
     email : '',
+    userID: '',
+    picture:'',
     password : '',
     isLogin : false,
     login_err: false,
-    preference: [],
+    preference: this.props.preference || [],
   }
 
   _setEmail = e => {
@@ -54,25 +58,13 @@ class Login extends Component {
         this.setState({
               isLogin : false,
               login_err : true})
-//     }
-//     catch (err){
-//         alert("아이디나 비번이 맞지 않습니다. 다시 확인해주세요.")
     }
   }
 
-  _googleAuth = (e) => {
-    axios.get(`https://${server_url}/auth/google`)
-    .then(res => {
-      console.log('google Auth res입니다.', res)
-    })
-    .catch(err =>{
-      console.log("무슨 에러니?",err);
-      throw new Error(err)
-    })
-  }
-
   render() {
-    if (window.localStorage.getItem('token') && this.state.preference.length) {
+    console.log("취향 목록", this.state.preference);
+
+    if (window.localStorage.getItem('token') && this.state.preference.length!==0) {
       return <Redirect to ='/' />;
     } else if (window.localStorage.getItem('token') && this.state.preference.length === 0) {
       return <Redirect to ='/picktaste' />;
@@ -92,13 +84,7 @@ class Login extends Component {
                         </text>
                       </svg>
                     </div>
-                    {(this.state.login_err)
-                    ?
-                      <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
-      
-                    : <div className='title3'>Afteread에 오신 것을 환영합니다</div>
-                    }
-                    
+                    {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>Afteread에 오신 것을 환영합니다</div>}
                     <form onSubmit={this._handleSubmit}>
                       <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
                                   onChange={this._setEmail}/>
@@ -111,8 +97,10 @@ class Login extends Component {
                     <div style={{color: '#ffffff', fontSize: '13.8px', marginTop: '14px', marginBottom: '24px'}}>
                       또는
                     </div>
-                    <div><button id="custom_btn_facebook" className='login_btn'>FACEBOOK으로 계속하기</button></div>
-                    <div><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></div>
+
+                    <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div>
+                   {/* <FACEBOOK></FACEBOOK>  */}
+                    <div><a href="https://server.afteread.net/auth/google"><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></a></div>
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     <div className='login_flex'>
