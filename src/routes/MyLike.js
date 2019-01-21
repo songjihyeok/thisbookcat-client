@@ -5,7 +5,7 @@ import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import LikeBookBoard from "../components/MyLike/LikeBookBoard";
 
-import "../components/MyLike/CSS/MyLike.css";
+//import "../components/MyLike/CSS/MyLike.css";
 
 class MyLike extends Component {
 
@@ -74,8 +74,10 @@ class MyLike extends Component {
       return (
         <div className="MyLike">
           <Nav1 />
-          {this.state.likePosts === undefined ? '아직 좋아요하신 포스트가 없습니다' : this._renderMyLikePost()}<br/>
-          {this.state.page === this.state.totalPage ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
+          <div className="MyLikeWrap">
+            {this.state.likePosts === undefined ? <div className="dataNone">'아직 좋아요하신 포스트가 없습니다'</div> : this._renderMyLikePost()}
+            {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
+          </div>
         </div>
       );
   }}

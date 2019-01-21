@@ -7,7 +7,8 @@ import Reply from '../components/PostDetail/Reply';
 import PostContent from '../components/PostDetail/PostContent';
 import PostWriter from '../components/PostDetail/PostWriter';
 import PostInfo from '../components/PostDetail/PostInfo';
-import "../components/PostDetail/PostDetail.css";
+//import "../components/PostDetail/PostDetail.css";
+//import "../default.css";
 import { Redirect } from "react-router-dom";
 // import BookInfoModal from '../components/PostDetail/BookInfoModal';
 

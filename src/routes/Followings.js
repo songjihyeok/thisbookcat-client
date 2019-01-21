@@ -6,7 +6,7 @@ import server_url from '../url.json';
 import _ from "lodash";
 import { Redirect } from "react-router-dom";
 
-import "../components/Followings/CSS/Followings.css"
+//import "../components/Followings/CSS/Followings.css"
 
 class Followings extends Component {
 
@@ -78,7 +78,7 @@ class Followings extends Component {
           <div className="Followings">
           <div className='FollowingBoards'>
           {noFollowList? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
-          {page === totalPage ? <span>더이상 콘텐츠가 없습니다!</span> : ''}
+          {page === totalPage ? <div className="dataNone">더이상 콘텐츠가 없습니다!</div> : ''}
           </div>
           </div>
         </Fragment>

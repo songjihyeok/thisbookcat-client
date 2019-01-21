@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
 import axios from "axios";
 import server_url from '../url.json';
-import "./Nav2.css";
+//import "./Nav2.css";
 
 
 class Nav2 extends Component {

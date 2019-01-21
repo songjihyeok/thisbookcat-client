@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Modal, Button} from 'react-bootstrap'
-import style from './CSS/SettingModal.css'
+// import style from './CSS/SettingModal.css'
+import style from './SettingModal.css'
 import server_url from '../../url.json'
 import axios from 'axios'
 import { Icon, Input } from "semantic-ui-react";

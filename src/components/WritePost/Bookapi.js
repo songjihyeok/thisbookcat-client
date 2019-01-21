@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
 import BookapiModal from "./BookapiModal";
-import "./Bookapi.css";
+//import "./Bookapi.css";
 
 class Bookapi extends Component {
   constructor(props) {

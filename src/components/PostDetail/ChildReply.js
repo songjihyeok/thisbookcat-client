@@ -45,25 +45,30 @@ export default class ChildReply extends Component {
     console.log('ChildReply.js의 render함수에서 this.props.reply를 찍고 있다 ===', this.props.reply)
     const { userName, profileImage, replyContents, targetUsername, createdTime, istheReplier } = this.props.reply;
     return (
-       <div className='child_reply'>
+       <ul className='child_reply'>
         {/* 댓글쓴사람 사진도 떠야함. TODO:postdetail에서 reply array에  댓글단 사람 img src도 가지고 props로 넘겨줄건지* */}
-        <div>
-        {(profileImage)
-           ? <img src={`http://${server_url}/upload/${profileImage}`} className='img-circle' alt={"user?"} /> 
-           : <img src= {profileimage} className='img-circle' alt={"userImages"} />
-          }
-          <span className='reply_username'>{userName} </span>
-          <span className='reply_time'>{createdTime.substring(4,24)}</span>
-        </div>
-        <div>
-          <span className='reply_targetName'>{`@${targetUsername}`}</span>
-          <span className='reply_msg'>{replyContents} </span>
-          {(istheReplier)
-          ? <span className='make_rereply' onClick={this._deleteReply}>{`삭제 `}</span>
-          : null
-          }
-          <span className='make_rereply' onClick={this._handleReReplyInput}>댓글달기</span>
-        </div>
+        <li className="reply_userinfo">
+          <div className="user_thumbs">
+            {(profileImage)
+            ? <img src={`http://${server_url}/upload/${profileImage}`} className='img-circle' alt={"user?"} /> 
+            : <img src= {profileimage} className='img-circle' alt={"userImages"} />
+            }
+          </div>
+          <div className="txt_userinfo">
+            <p className='reply_username'>{userName} </p>
+            <p className='reply_time'>{createdTime.substring(4,24)}</p>
+          </div>
+        </li>
+        <li className="reply_content">
+          <div className='reply_msg'><span className='reply_targetName'>{`@${targetUsername}`}</span> {replyContents} </div>
+          <div className="reply_msg_button">
+            {(istheReplier)
+            ? <span className='make_rereply btn_del' onClick={this._deleteReply}>{`삭제 `}</span>
+            : null
+            }
+            <span className='make_rereply btn_wr_reply' onClick={this._handleReReplyInput}>댓글달기</span>
+          </div>
+        </li>
         
         
         {/* 이 아래는 대댓글을 쓰고싶다고 하면! 인풋창을 보여주고, 아니면 나타나지 않는 부분입니다. */}
@@ -71,19 +76,20 @@ export default class ChildReply extends Component {
         <div>
           {(this.state.show_reReplyInput) 
           ?
-            <div id="rereply">
+            <li id="rereply">
               <form>
-                <input id="rereply_input" type="text" name="reply"
-                      placeholder={`@${userName}`} onChange={this._newReReply}/>
-                <span id="rereply_btn" onClick={this._makeReReply}>
+                <textarea className="rereply_input" type="text" name="reply" placeholder={`@${userName}`} onChange={this._newReReply}></textarea>
+                <span className="rereply_btn" onClick={this._makeReReply}>등록
+                {/*
                   <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
+                */}
                 </span>
               </form>
-            </div>
-          : <div></div>
+            </li>
+          : null
           }
         </div>
-      </div>
+      </ul>
     )
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../components/Login/Login.css';
+//import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 
 class ResetPw extends Component {

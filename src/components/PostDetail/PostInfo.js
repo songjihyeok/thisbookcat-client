@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Icon } from "semantic-ui-react";
 import axios from 'axios';
 import server_url from '../../url.json';
-import "./PostDetail.css";
+//import "./PostDetail.css";
 import BookInfoModal from './BookInfoModal';
 
 export default class PostInfo extends Component {
@@ -56,21 +56,21 @@ export default class PostInfo extends Component {
     const { isLike, likeCount, modal } = this.state
     const { replyCount } = this.props
     return (
-      <div className='post_detail_right_2_postInfo'>
-        <div className='post_detail_icon'><Icon name="pencil alternate" size="large" fitted/>
+      <ul className='post_detail_right_2_postInfo'>
+        <li className='post_detail_icon'><Icon name="pencil alternate" size="large" fitted/>
           <span>{(replyCount) ? `X ${replyCount}` : `X 0`}</span>
-        </div>
-        <div className='post_detail_icon'>
+        </li>
+        <li className='post_detail_icon'>
           {(isLike)
           ? <span><Icon name="lemon" size="large" fitted color="yellow"onClick={this._handleLike} />X {likeCount}</span>
           : <span><Icon name="lemon" size="large" fitted  color="grey" onClick={this._handleLike} />X {likeCount}</span>
           }
-        </div>
-        <div className='post_detail_icon' onClick={this._showModal}>
+        </li>
+        <li className='post_detail_icon' onClick={this._showModal}>
           <Icon name="book" size="large" fitted/> info
-        </div>
+        </li>
         <BookInfoModal show={modal} hide={this._closeModal}/>
-    </div>
+    </ul>
     )
   }
 }

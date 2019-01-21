@@ -50,7 +50,7 @@ class LikeBookBoard extends Component {
 				     imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
 				     username : this.props.author
 				 }  */}
-					<Image className = 'likeThumbnail' alt='bookcover' width={240} height={240}
+					<Image className = 'likeThumbnail' alt='bookcover' width={240} height={null}
 								src = {`https://${server_url}/upload/${this.props.likePost.mainImage}`}/>
 				</Link>
 				{(this.state.liked)

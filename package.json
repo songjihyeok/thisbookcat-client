@@ -47,7 +47,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync ./build s3://www.afteread.net --profile=songjihyeok",
-    "invalidate" : "aws cloudfront create-invalidation --profile=songjihyeok --distribution-id E1P5SA1ED7XVDO --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
+    "invalidate": "aws cloudfront create-invalidation --profile=songjihyeok --distribution-id E1P5SA1ED7XVDO --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
   },
   "eslintConfig": {
     "extends": "react-app"

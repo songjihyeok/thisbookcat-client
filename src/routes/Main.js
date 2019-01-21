@@ -4,7 +4,8 @@ import axios from "axios";
 import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
-import "../components/Main/CSS/Main.css";
+//import "../components/Main/CSS/Main.css";
+import "../default.css";
 
 class Main extends Component {
   
@@ -103,9 +104,11 @@ class Main extends Component {
           {/* <div className='mostLikedPage'>
           {this._renderMostLikedPage()}
           </div> */}
-          {this._renderBooKCoverImage()}<br/>
+          <div className="BookBoardWrap">
+            {this._renderBooKCoverImage()}
+          </div>
           <div className='mainPost'>
-          {this.state.page === this.state.totalPage ? <span>'더이상 콘텐츠가 없습니다!'</span> : ''}
+          {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
           </div>
         </div>
       )

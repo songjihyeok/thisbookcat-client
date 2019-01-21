@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import server_url from '../../url.json';
-import "./PostDetail.css";
+import "../../heightMax.css";
+//import "./PostDetail.css";
 
 export default class PostContent extends Component {
 
@@ -37,7 +38,7 @@ export default class PostContent extends Component {
     const { title, mainImage, contents } = this.state
     return (
       <div className='post_detail_left'>
-        <div><img style= {{width:500, height:500}}  src={mainImage} alt={title}/></div>
+        <div className="post-thumbs"><img /* style= {{width:500, height:500}} */  src={mainImage} alt={title}/></div>
         <div className='post_detail_title'>{title}</div> 
         <div className='post_detail_content' dangerouslySetInnerHTML={{__html: contents}}></div>
       </div>

@@ -66,17 +66,17 @@ class MyBookBoard extends Component {
 			<div className='MyBookBoard'>
 				{/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}
 				<div className='myImageContainer'>
-				<Link to={{pathname : `/postdetail/${this.props.postid}`}}>
-					<Image src={`https://${server_url}/upload/${this.props.image}`} alt='bookcover'/*  width={300} */ height={240}/>
-				</Link>
+					<Link to={{pathname : `/postdetail/${this.props.postid}`}}>
+						<Image src={`https://${server_url}/upload/${this.props.image}`} alt='bookcover'/*  width={300} */ height={240}/>
+					</Link>
+					<div className='likeBar'>
+						{(this.state.liked)
+						? <span className='myPostLikePart'><Icon name="heart" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						: <span className='myPostLikePart'><Icon name="heart outline" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						}
+					</div>
 				</div>
-				<div className='likeBar'>
-					{(this.state.liked)
-					? <span className='myPostLikePart'><Icon name="heart" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
-					: <span className='myPostLikePart'><Icon name="heart outline" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
-					}
-				</div><br/>
-				<span className='myPostTitle'>{this.props.title}</span>
+				<p className='myPostTitle'>{this.props.title}</p>
 			</div>
 		)
   }

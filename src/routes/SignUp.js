@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../components/Login/Login.css';
+//import '../components/Login/Login.css';
 import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -137,11 +137,13 @@ class SignUp extends Component {
               </div>
             </div>
           </div>
+          {/*
           <div className="footer">
             <div>
               <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
             </div>
           </div>
+        */}
         </div>
       )
     }

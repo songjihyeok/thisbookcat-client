@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import Nav1 from "../components/Nav1";
-import '../components/Login/Login.css';
+// import '../components/Login/Login.css';
 // import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 // import { Button } from 'react-bootstrap'
@@ -121,11 +121,13 @@ class Login extends Component {
                     </div>
                   </div>
                 </div>
+              {/* 20190116 삭제
               <div className="footer">
                 <div>
                   <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
                 </div>
               </div>
+              */}
             </div>
           /* </div>
         </div> */

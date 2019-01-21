@@ -4,7 +4,7 @@ import axios from "axios";
 import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
-import "../components/Main/CSS/Main.css";
+//import "../components/Main/CSS/Main.css";
 
 class TagSearchPage extends Component {
   
@@ -105,7 +105,7 @@ class TagSearchPage extends Component {
           <h1>{this.state.tagName+"에 대한 검색 결과"}</h1>
           {this._renderBooKCoverImage()}<br/>
           {(this.state.page === this.state.totalPage)
-          ? <span>'더이상 콘텐츠가 없습니다!'</span>
+          ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div>
           : ''
           }
         </div>

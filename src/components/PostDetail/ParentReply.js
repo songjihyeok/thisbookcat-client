@@ -48,41 +48,46 @@ export default class ParentReply extends Component {
     const { userName, replyContents, profileImage, createdTime, istheReplier } = this.props.reply;
     
     return (
-      <div className='parent_reply'>
-        <div>
+      <ul className='parent_reply'>
+        <li className="reply_userinfo">
+          <div className="user_thumbs">
           {(profileImage)
            ? <img src={`https://${server_url}/upload/${profileImage}`} className='img-circle' alt={"user?"} /> 
            : <img src= {profileimage} className='img-circle' alt={"userImages"} />
           }
-          <span className='reply_username'>{userName} </span>
-          <span className='reply_time'>{createdTime.substring(4, 24)}</span>
-        </div>
-        <div>
-          <span className='reply_msg'>{replyContents} </span>
-          {(istheReplier)
-          ? <span className='make_rereply' onClick={this._deleteReply}>{`삭제 `}</span>
-          : null
-          }
-          <span className='make_rereply' onClick={this._handleReReplyInput}>댓글달기</span>
-        </div>
+          </div>
+          <div className="txt_userinfo">
+            <p className='reply_username'>{userName} </p>
+            <p className='reply_time'>{createdTime.substring(4, 24)}</p>
+          </div>
+        </li>
+        <li className="reply_content">
+          <div className='reply_msg'>{replyContents} </div>
+          <div className="reply_msg_button">
+            {(istheReplier)
+            ? <button className='make_rereply btn_del' onClick={this._deleteReply}>{`삭제 `}</button>
+            : null
+            }
+            <button className='make_rereply btn_wr_reply' onClick={this._handleReReplyInput}>댓글달기</button>
+          </div>
+        </li>
         
         {/* 이 아래는 대댓글을 쓰고싶다고 하면! 아래와 같은 인풋창을 보여주고, 아니면 나타나지 않는 부분입니다. */}
-        <div>
-             {(this.state.show_reReplyInput) 
-             ?
-               <div id="rereply">
-                 <form>
-                  <input id="rereply_input" type="text" name="reply"
-                        placeholder={`@${userName}`} onChange={this._newReReply}/>
-                  <span id="rereply_btn" onClick={this._makeReReply}>
-                    <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
-                  </span>
-                 </form>
-               </div>
-             : <div></div>
-             }
-           </div>
-      </div>
+        {(this.state.show_reReplyInput) 
+        ?
+        <li id="rereply">
+          <form>
+          <textarea className="rereply_input" type="text" name="reply" placeholder={`@${userName}`} onChange={this._newReReply}></textarea>
+          <span className="rereply_btn" onClick={this._makeReReply}>등록
+          {/*
+            <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
+          */}
+          </span>
+          </form>
+        </li>
+        : null
+        }
+      </ul>
     )
   }
 }

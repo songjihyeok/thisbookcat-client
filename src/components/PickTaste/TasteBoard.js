@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react'
 import { withRouter } from "react-router-dom";
 import axios from 'axios'
 import server_url from '../../url.json'
-import './CSS/PickTaste.css'
+//import './CSS/PickTaste.css'
 import TasteBlock from './TasteBlock'
 import NewTagModal from './NewTagModal.js';
 
@@ -220,31 +220,41 @@ class TasteBoard extends Component {
 			return (
 				<div className = 'WelcomeUser'>
 					<div className='userNamePart'>
-						<span className='confirmedUser'>{this.state.userName}</span>
-						<span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
+						<span className='confirmedUser'>{this.state.userName} 님,</span>
+						<span className = 'welcomeMesssage'>마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
 					</div>
-					<button className='pref'>관심</button>
-					<button className='genre'>장르</button>
-					<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
-					<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+					<div className="btnTagAlign">
+						<button className='pref'>관심</button>
+						<button className='genre'>장르</button>
+					</div>
+					<div className="btnTagCommand">
+						<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
+						<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button>
+					</div>
 				</div>
 			)
 		} else {
 			return (
 				<div className = 'WelcomeUser'>
 					<div className='userNamePart'>
+						<span className='confirmedUser'>
 						<form className = 'userNameWrapper'>
 							<input type='text' className="getUserName" onChange={this._setUserName}></input>
 							<button className = 'selectUserName'
 											style={{backgroundColor : this.state.userName === '' ? '#c7c7c7' : '#3376ff'}}
 											onClick={this.state.confirmUN ? this.alreadychecked : this._checkUserName}>중복확인</button>
-						</form>
-						<span className = 'welcomeMesssage'>, 님 마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
+						</form> 님,
+						</span>
+						<span className = 'welcomeMesssage'>마음에 드는 책 종류를 선택해 주세요. (3개이상)</span>
 					</div>
-					<button className = 'pref'>관심</button>
-					<button className = 'genre'>장르</button>
-					<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
-					<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button><br/>
+					<div className="btnTagAlign">
+						<button className = 'pref'>관심</button>
+						<button className = 'genre'>장르</button>
+					</div>
+					<div className="btnTagCommand">
+						<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
+						<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button>
+					</div>
 				</div>
 			)
 		}
