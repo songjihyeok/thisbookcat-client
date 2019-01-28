@@ -71,12 +71,12 @@ class MyBookBoard extends Component {
 					</Link>
 					<div className='likeBar'>
 						{(this.state.liked)
-						? <span className='myPostLikePart'><Icon name="heart" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
-						: <span className='myPostLikePart'><Icon name="heart outline" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						? <span className='likeIconBar'><Icon name="heart" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						: <span className='likeIconBar'><Icon name="heart outline" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						}
 					</div>
 				</div>
-				<p className='myPostTitle'>{this.props.title}</p>
+				<p className='postTitle'>{this.props.title}</p>
 			</div>
 		)
   }

@@ -13,9 +13,7 @@ class MyPage extends Component {
       return (
         <div className="MyPage">
           <Nav1 />
-          <div>
-            <MyPageProFile/>
-          </div>
+          <MyPageProFile/>
         </div>
       );
     }

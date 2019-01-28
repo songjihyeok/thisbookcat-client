@@ -77,7 +77,7 @@ class Followings extends Component {
           <Nav1/>
           <div className="Followings">
           <div className='FollowingBoards'>
-          {noFollowList? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
+          {noFollowList? <div className="dataNone">팔로우하신 유저가 없습니다!</div> : this._renderFollowingPost()}
           {page === totalPage ? <div className="dataNone">더이상 콘텐츠가 없습니다!</div> : ''}
           </div>
           </div>

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
-import Image from 'react-image-resizer'
-import server_url from '../../url.json'
-import axios from 'axios'
+import Image from 'react-image-resizer';
+import server_url from '../../url.json';
+import axios from 'axios';
+//import Dotdotdot from 'react-dotdotdot';
+import Truncate from 'react-truncate-html';
+
 
 
 class FollowingBoard extends Component {
@@ -93,14 +96,19 @@ class FollowingBoard extends Component {
 					</Link>
 				</div>
 				<ul className='textPart'>
-					<li className='contentsPart'>{this.props.title}</li>
+					<li className='contentsPart'>
+						<h3 className="followingTitle">{this.props.title}</h3>
+						<div className="followingContent">
+							<Truncate lines={7} dangerouslySetInnerHTML={{__html:this.props.contents}} />
+						</div>
+					</li>
 					<li className='likeAndLikecount'>
 						{(this.state.liked)
 						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						}
 					</li>
-					<li className='followerTag' dangerouslySetInnerHTML={{__html:this.props.contents}}></li>
+					<li className='followerTag'></li>
 				</ul>
 			</div>
     )

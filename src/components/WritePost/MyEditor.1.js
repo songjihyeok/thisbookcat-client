@@ -81,17 +81,15 @@ export default class MyEditor extends Component {
     // console.log(this.state,'=;=;=');
     return (
       <div className="Write-container">
-        <div style={{ marginLeft: -20 }}>
+        <div className="Write_title">
           <form>
             <input className="title" type="text" placeholder="Title"
               onChange={this.props._handleTitle} defaultValue={this.state.title}/>
             {/* 제목을 쓰는 form입니다.*/}
           </form>
         </div>
-        <div>
-          <div className="form-group">
-            <textarea id="medium-editable" className="medium-editable" ></textarea>
-          </div>
+        <div className="form-group">
+          <textarea id="medium-editable" className="medium-editable" ></textarea>
         </div>
       </div>
     );

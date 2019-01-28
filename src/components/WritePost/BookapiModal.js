@@ -44,7 +44,7 @@ class BookapiModal extends Component {
                   <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange}/>
                 </FormGroup>
               </form>
-              <Button bsStyle="info" style={{marginTop: "20px"}}
+              <Button bsStyle="info"
                       onClick={() => {this.setState({finishsearch: true})}}>
                 <Icon name="search plus" size="big" />
                 알라딘 검색

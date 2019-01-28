@@ -149,16 +149,16 @@ class MyPageProFile extends Component {
           </div>
           <ul className="ProFileDetailContainer">
             <li className='MyPostNumberContainer'>
-              <span className='PostNumberText'>게시물</span>
-              <span className='PostNumber'>{this.state.myPosts.length}</span>
+              <span className='InfoName'>게시물</span>
+              <b>{this.state.myPosts.length}</b>
             </li>
             <li className='FollowingContainer'>
-              <span className='FollowingText'>팔로잉</span>
-              <span className='FollowingNumber'>{this.state.following}</span>
+              <span className='InfoName'>팔로잉</span>
+              <b>{this.state.following}</b>
             </li>
             <li className='FollowerContainer'>
-              <span className="FollowerText">팔로워</span>
-              <span className='FollowerNumber'>{this.state.followed}</span>
+              <span className="InfoName">팔로워</span>
+              <b>{this.state.followed}</b>
             </li>
           </ul>
         </div>

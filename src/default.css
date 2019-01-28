@@ -7,26 +7,15 @@ a, img {border:0;}
 form {width: 100%;}
 body {font-family:'Noto Sans KR';}
 
+.App {max-width:1920px; margin:0 auto;}
+
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: center;}
 .BookBoardWrap {position:relative; padding-top:25px;}
-.BookBoard {position: relative; margin:25px; text-align: left; border-radius: 22px; display: inline-block;}
+.BookBoard {position: relative; margin:25px; text-align: left; vertical-align:top; border-radius: 22px; display: inline-block;}
 .BookBoard a {width:240px; height:240px; display:block;}
-.postTitle {font-size: 18px; color: #151515; font-weight: 500;}
+.postTitle {padding:10px; font-size: 18px; color: #151515; font-weight: 500;}
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
-.likePart {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  height: 40px;
-  width: 100%;
-  bottom: 0;
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
-  color:#ffffff;
-  font-size: 14px;
-  font-weight: 500;
-}
-.likeIconPart {position: absolute; left:6%; bottom: 25%;}
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
 .Main_tagsearch {text-align : center;}
 .loading {text-align:center; vertical-align: middle;}
@@ -56,18 +45,20 @@ body {font-family:'Noto Sans KR';}
 
 
 /* Nav1 */
-.nav1 {position:relative; height:65px; margin-top:15px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1); z-index:10;}
-.thisBook_Nav1 {
-  float:left;
-  margin: 5px 28px 0 40px !important;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 28.4px;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-}
+.nav1,
+.nav2 {position:relative; z-index:10; padding:15px 0; background-color:#fff;}
+.nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);}
+.nav2 {height:70px; border-bottom:1px solid #eaeaea;}
 .thisBook_Nav1,
-.thisBook_Nav1 a {color: #1f1f1f; display:inline-block;}
+.thisBook_Nav2 {float:left; margin:5px 28px 0 40px !important; font-size: 28.4px; text-align: left;}
+.thisBook_Nav1,
+.thisBook_Nav1 a,
+.thisBook_Nav2,
+.thisBook_Nav2 a {color: #1f1f1f; display:inline-block;}
+.func_Write {float:right; margin-right:30px;}
+.func_Write button {margin-left:12px; padding:11px 20px; font-size:17px; font-weight:700; letter-spacing:-1px; line-height:17px; background:#fff;}
+.btn_BackPage { border:0;}
+.btn_WriterSave {color:#3376ff; border:1px solid #3376ff; border-radius:20px; box-shadow: 0 0 1px 0 gray inset, 0 0 1px 0 gray;}
 .searchForm {position:relative; float:left; width:calc(65% - 207px);}
 .searchForm .item {position:absolute; top:10px; left:22px; z-index:1;}
 .search_input {
@@ -87,19 +78,6 @@ body {font-family:'Noto Sans KR';}
 .items a:first-child {margin-left:0;}
 .items .nav_text {display:none;}
 .item {width:35px; height:35px;}
-
-
-/* Nav2 */
-.navbar-default {border-bottom-color: #ffe5e5;}
-.thisBook_Nav2{
-  width: 120px;
-  height: auto;
-  margin-left: 40px;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 28.4px;
-  text-align: left;
-  color: #1f1f1f;
-}
 
 
 /* Login */
@@ -122,7 +100,7 @@ body {font-family:'Noto Sans KR';}
 }
 .login_container {width: 297px;}
 .title1 {margin: 0; margin-bottom: 15px; padding:0; font-size: 21.8px; color: #ffffff;}
-.title2 {margin: 0; margin-bottom: 15px; padding:0;}
+.title2 {margin: 0; margin-bottom: 15px; padding:0; font-size:47px; color:#fefefe;}
 .title3 {margin: 0; margin-bottom: 20px; padding:0; height: 40px; font-size: 18.4px; color: rgba(255, 255, 255, 0.5);}
 .title4 {margin: 0; margin-bottom: 20px; padding:0; height: 40px; font-size: 16.4px; color: red;}
 .login_input {
@@ -264,12 +242,7 @@ body {font-family:'Noto Sans KR';}
 }
 .post_detail_right_3_reply::-webkit-scrollbar {display: none;}
 .post_detail_reply_input {width:calc(100% - 30px); border:0;}
-.post_detail_title{
-  font-size: 30px;
-  font-weight: bold;
-  padding-top : 45px;
-  padding-bottom: 30px;
-}
+.post_detail_title{padding:45px 0 30px 0; font-size: 30px; font-weight: bold; line-height:38px;}
 textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px solid #d0d0d0; resize:none;}
 
 
@@ -341,19 +314,11 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .textPart {width:calc(100% - 380px); color: #353535; word-break:break-all; display: inline-block;}
 .textPart li {font-size:16px; display:block;}
 .textPart li.contentsPart {
-  height:225px; 
+  min-height:225px; 
   margin-bottom:49px;
   font-size:17px;
   line-height:25px;
   vertical-align:top; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  display: -webkit-box; 
-  display: -ms-flexbox; 
-  display: box; 
-  -webkit-line-clamp: 9;
-  -webkit-box-orient: vertical; 
-  word-wrap: break-word;
 }
 .followFooter {position: relative; width: 80%; height: 39%; display: inline-block;}
 .likeAndLikecount {position: absolute; color: #3376ff;}
@@ -367,45 +332,32 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   text-align: left;
   color: #717171;
 }
-.dataNone {font-size:20px; line-height:300px; color:#151515; text-align:center;}
+.followingTitle {font-size:25px;}
+.followingContent,
+.ql-editor {font-size:17px !important;}
+.followingContent h1,
+.ql-snow .ql-editor h1 {font-size:20px; line-height:28px;}
+.followingContent h2,
+.ql-snow .ql-editor h2 {font-size:17px; line-height:24px;}
+.dataNone {font-size:20px; padding:80px 0; color:#151515; text-align:center;}
 
 /* MyLike */
+.MyLikeWrap {padding:30px 0;}
 .MyLike {text-align: center;}
 .LikeBookBoard {
+  width:240px;
   display: inline-block;
   border:1px solid #fff;
   border-radius: 1%;
-  margin: 1%;
-  size: 100%;
-  padding: 3%;
 }
-.LikeBookBoard:hover {background-color: lightgray;}
 .likeThumbnail {position: relative; right:5%; border-radius: 25px;}
 
 
 /* MyPageProFile */
-.MyPageProFile {
-  text-align: left;
-  display: block;
-  position: relative;
-  font-family: 'Noto Sans KR';
-}
-.profileContainer {
-  position: relative;
-  width:1280px;
-  margin:0 auto;
-  padding:46px 0;
-  background-color: #ffffff;
-}
-.myName {position: relative; display:block;}
-.ProfilePhoto {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin-left: auto; 
-  margin-right: auto;   
-  display:inline-block;
-}
+.MyPageProFile {position: relative; text-align: left; display: block; }
+.profileContainer {position: relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
+.myName {position: relative; padding-left:25px; display:block;}
+.ProfilePhoto {width: 90px; height: 90px; margin:0 auto; border-radius: 50%; display:inline-block;}
 .ProFilePhotoContainer {position: relative; width:45%; vertical-align:middle; display: inline-block;}
 .ID_user {
   position: relative;
@@ -424,16 +376,11 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .custom-icon {position: relative; padding:10px 23px; background-color: #ffffff; font-size:15px; color: #6b6b6b; font-weight:700; text-align:center; border:1px solid #6b6b6b; border-radius: 18px; box-shadow: 0 0 1px 0 gray inset, 0 0 1px 0 gray;}
 .myProFileWrap {padding:62px 0 0 0; text-align:center; display:block;}
 .ProFileDetailContainer {font-size: 18px; color: #151515; text-align: center; vertical-align:middle; border-left:1px solid #ddd; display: inline-flex; justify-content: center;}
-.ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd;}
-.ProFileDetailContainer li > span {padding:4px; display:block;}
-.MyPostNumberContainer {flex: 3;}
-.PostNumber {font-size: 24px; font-weight: bold; color: #3376ff;}
-.FollowingContainer {flex: 3;}
-.FollowingNumber {font-size: 24px; font-weight: bold; color: #3376ff;}
-.FollowerContainer {flex: 3;}
-.FollowerNumber {font-size: 24px; font-weight: bold; color: #3376ff;}
-.myBookBoardContainer {position: relative; width: 100%; text-align: center; background-color: #f6f6f6; display: inline-block;}
-.myBookShelf {width:1280px; text-align: left; margin:56px auto 25px auto; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
+.ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
+.ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
+.ProFileDetailContainer li > span.InfoName + b {padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
+.myBookBoardContainer {position: relative; width:100%; text-align: center; background-color: #f6f6f6; display: inline-block;}
+.myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
 .myBookShelfText > i:before {content:'' !important;}
 .MyBookBoard {
@@ -451,36 +398,24 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   height:100%;
   border-radius: 22px;
   background-color:#aaa;
+  overflow:hidden;
 }
 .myImageContainer a {width:100%; height:240px; display:block;}
 .MyBookBoard img {position: relative; border-radius: 22px;}
 .likeBar {
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
-  height: 53px;
-  width: 100%;
   bottom: 0;
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
-  color: #ffffff;
+  width: 100%;
+  padding:15px;
   font-size: 14px;
   font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  color: #ffffff;
+  text-align:left;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
 }
-.myPostTitle {
-  font-size: 18px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #151515;
-}
-.myPostLikePart {position: absolute; bottom: 25%; right: 74%;}
+.myPostTitle {font-size: 18px; font-weight: 500; text-align: left; color: #151515;}
 .heart {width: 21px; height: 20px; margin-right:8px !important; display:inline-block;}
 
 
@@ -489,7 +424,7 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .title {padding:20px;}
 .TasteBoard {width:100%; height:762px; margin-top:34px; text-align:center; white-space:pre; flex-wrap:wrap; overflow:scroll; overflow-x:hidden; display:inline-flex;}
 .userNameWrapper {position:relative; width:360px; height:44px; padding:6px; vertical-align:middle; background-color:#f4f4f4; border-radius:22px; display:inline-block;}
-.getUserName {float:left; height:32px; padding-left:11px; vertical-align:middle; background-color: #f4f4f4; border:none;}
+.getUserName {float:left; width:calc(100% - 86px); height:32px; padding-left:11px; vertical-align:middle; background-color: #f4f4f4; border:none;}
 .getUserName:focus {outline: none !important;}
 .selectUserName {float:right; padding:7px; font-size:15px; text-align:left; color:#fffefe; background-color:#3376ff; border: none; border-radius:16px;}
 .welcomeMesssage {padding:5px 0 0 10px; font-size:19px; color:#1e1e1e; display:inline-block;}
@@ -526,29 +461,29 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .btnTagCommand .selectComplete {background-color:#3376ff;}
 .getNewTag {width:100%; height:40px; border:1px solid #ddd;}
 
+/* WritePost */
+.writePost {min-height:100%; padding-bottom:55px; background-color:#f6f6f6;}
+.writePost:ater {clear:both; display:block; content:'';}
+.editWrap {width:1280px; margin:38px auto 0 auto; letter-spacing:-1px; background-color:#fff;}
+.write_container {padding:50px; text-align:center;}
+.writeInfo_load {padding-bottom:30px; font-size:0; line-height:0; text-align:center;}
+.writeInfo_load li {vertical-align:middle; display:inline-block;}
+.writeInfo_load li.bookSearch {max-width:calc(100% - 200px); margin-left:30px; text-align:left; word-break:break-all;}
+
 /* Bookapi */
-.bookApi {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-.searchBook {
-  display: flex;
-  flex: 0.8;
-  align-items: center;
-  justify-content: center;
-  width: "100%";
-}
+.bookApi {position:relative; width:100%;}
+.searchBook {width:64px; height:64px; vertical-align:middle; border:1px solid #ddd; background:url('./img/aladin-icon.gif') 10px center no-repeat; background-size:45px auto; border-radius:30px; text-indent:-1000em; display:inline-block; cursor:pointer;}
+.searchBook_title {max-width:calc(100% - 100px); padding-left:15px; vertical-align:middle; font-size:17px; line-height:22px; display:inline-block;}
 
 .mo_button {display:none;}
 
 @media all and (max-width: 768px) {
   html, body {height:auto;}
-  .nav1 {height:53px; margin-top:0; padding:7px 0; box-sizing:border-box;}
+  .nav1 {height:53px; margin-top:0; padding:7px 0; box-sizing:border-box; z-index:11;}
+  .nav2 {height:auto; padding:10px 0;}
+  .nav2:after {clear:both; content:''; display:block;}
   img {max-width:100%;}
+  #root, .App {width:100%;}
 
   .mo_button {position:absolute; top:0; right:0; margin:0; z-index:12; display:block;}
   .mo_button a {width:52px; height:52px; display:block;}
@@ -576,8 +511,10 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .mo_button.open + .items:after {opacity:1; display:block;}
   .mo_button.open + .items .items_list {right:0;}
 
-  .thisBook_Nav1 {margin:6px 15px !important; font-size: 19px;}
-  .thisBook_Nav1 a {width:auto;}
+  .thisBook_Nav1,
+  .thisBook_Nav2 {margin:6px 15px !important; font-size: 19px;}
+  .thisBook_Nav1 a,
+  .thisBook_Nav2 a {width:auto;}
 
   .backImg {position:absolute; overflow-y:auto; background-attachment:local;}
   .searchForm {width:calc(70% - 60px);}
@@ -585,44 +522,47 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .searchForm form:after {position:absolute; top:11px; left:10px; width:19px; height:20px; z-index:1; content:''; background-image: url("./img/main-search-icon.png"); background-size:19px 20px;}
   .search_input {width:100%; height:40px; padding-left:34px; font-size:14px;}
 
-  .BookBoard {width:calc(50% - 30px); margin:24px 10px;}
+  .BookBoard {width:calc(50% - 30px); margin:0 10px;}
   .BookBoard a {width:100%; height:auto;}
   .postImageContainer {height:auto;}
 
-  .mainPost {padding:50px; font-size:18px; vertical-align:middle;}
-  .postTitle {padding:10px; font-size:15px; color:#151515;}
+  .mainPost {padding:50px 0; font-size:18px; vertical-align:middle;}
+  .postTitle {font-size:15px; color:#151515;}
 
   .post_detail {width:100%;}
   .post_detail_left,
   .post_detail_right {float:none; width:100%;}
   .post_detail:before,
   .post_detail:after {display:none;}
+  .post_detail_left {margin-top:48px; padding-top:20px;}
   
   .Followings {padding:0 9px; background-color:#fff;}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
   .FollowingBoard {width:100%; padding:26px 0;}
-  .UserInfoPart {padding:0 11px;}
-  .imagePart {width:100%; height:auto; min-height:240px; margin-right:0; padding:20px 0;}
-  .imagePart a {width:330px; height:330px; margin:0 auto; background-color:#595959;}
+  .UserInfoPart {height:50px; padding:0 11px;}
+  .imagePart {width:100%; height:auto; min-height:240px; margin-right:0; padding:20px 0; overflow:hidden;}
+  .imagePart a {width:100%; height:auto; margin:0 auto; background-color:#595959;}
   .imagePart img {width:auto;}
   .textPart {width:100%; padding:0 9px; display:block; box-sizing:border-box;}
-  .textPart li.contentsPart {height:auto;}
+  .textPart li.contentsPart {min-height:auto; height:auto;}
 
   .post_detail {padding-top:136px;}
   .post_detail_right_1_postWriter,
   .post_detail_right_2_postInfo {position:absolute; width:100%; box-sizing:border-box; border:0;}
   .post_detail_right_1_postWriter {top:9px; height:88px; padding:19px;}
   .post_detail_right_2_postInfo {top:89px; padding-bottom:12px; border-bottom:1px solid #eaeaea;}
-  .user_buttons {position:absolute; top:23px; right:11px; z-index:1;}
+  .user_buttons {position:absolute; top:135px; left:0; width:100%; text-align:center; z-index:1;}
   .post_detail_title {font-size:22px; line-height:34px;}
+  .post_detail_3_reply {border-top:1px solid #eaeaea;}
 
   .LikeBookBoard {width:calc(50% - 30px); margin:10px; padding:0;}
   .LikeBookBoard a {width:100%; height:100%; background-color:#595959; display:block;}
+  .MyLikeWrap {padding:19px 0 19px 19px;}
 
   .picktaste {width:100%; padding:23px 0; text-align:center;}
   .confirmedUser {display:block;}
   .userNameWrapper {width:80%; margin-bottom:13px; background-color:#fff; border:1px solid #ddd;}
-  .getUserName {min-width:calc(100% - 80px); height:30px; padding-left:8px; background-color:#fff;}
+  .getUserName {min-width:calc(100% - 75px); height:30px; padding-left:8px; background-color:#fff;}
   .welcomeMesssage {font-size:15px;}
   .userNamePart {padding-bottom:30px; font-size:15px;}
   .btnTagAlign, .btnTagCommand {float:none !important;}
@@ -634,8 +574,46 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .tagName {font-size:15px;}
   .Block .BlockImage {min-width:50vw; min-height:auto;}
   .BlockSelect .BlockImage {width:calc(100% + 10px)}
+
+  .MyPageProFile {width:100%;}
+  .profileContainer {width:100%; padding:39px 0;}
+  .myProFileWrap {width:100%; padding:29px 0 0 0;}
+  .myBookShelf {width:100%; margin:30px 0 25px 0;}
+  .ProFilePhotoContainer {width:100%; padding-bottom:30px;}
+  .ProFileDetailContainer {width:100%;}
+  .ProFileDetailContainer li {width:33%; min-width:auto;}
+  .InfoName {font-size:14px;}
+  .infoName + b {font-size:18px;}
+
+  .ProfilePhoto {margin-bottom:15px; display:block;}
+  .myName, 
+  .myBookShelf {padding:0 22px;}
+  .myNameText,
+  .myBookShelfText {font-size:20px;}
+
+  .MyLikeWrap {padding:19px 19px 0 19px;}
+  .MyBookBoard {width:calc((100vw - 57px)/2); margin:0 0 19px 0;}
+  .MyBookBoard:nth-child(2n+0) {margin-left:19px;}
+  .myImageContainer a {height:calc((100vw - 57px)/2);}
+
+  .likeBar {padding:7px 12px;}
+
+  .writePost {width:100%; padding-bottom:0;}
+  .write_container {padding:25px 0 0 0;}
+  .editWrap {width:100%; margin:0;}
+  .func_Write {float:none; margin-right:0;}
+  .func_Write button {margin-left:12px; padding:10px 20px; font-size:14px; line-height:14px;}
+  .btn_BackPage {float:left;}
+  .btn_WriterSave {float:right; margin-right:15px;}
+  .writeInfo_load {padding:0 10px 15px 15px; text-align:left;}
+  .writeInfo_load li.bookSearch {max-width:calc(100% - 144px); margin-left:20px;}
+  .writeInfo_load li.bookSearch h3 {font-size:4vw;}
+  .searchBook_title {max-width:calc(100% - 65px); font-size:14px;}
 }
 
 @media all and (max-width: 321px) {
   .userNameWrapper {width:90%;}
+  .mo_button a:before, 
+  .mo_button a:after, 
+  .mo_button a > span {left:15px;}
 }

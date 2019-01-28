@@ -39,24 +39,22 @@ export default class MyEditor extends Component {
     
     return (
 
-      <div className="Write-container">
-        <div style={{ marginLeft: -20 }}>
+      <div className="editor_container">
+        <div className="Write_title">
           <form>
             <input className="title" type="text" placeholder="Title"
               onChange={this.props._handleTitle} defaultValue={defaultTitle}/>
           </form>
         </div>
-        <div>
-          <div className="RichEditor-root">
-            <ReactQuill theme={this.state.theme}
-                        onChange={this.handleChange}
-                        defaultValue={defaultcontents}
-                        modules={Editor.modules}
-                        formats={Editor.formats}
-                        bounds={".app"}
-                        placeholder={"tell your story"}>
-            </ReactQuill>        
-          </div>
+        <div className="RichEditor-root">
+          <ReactQuill theme={this.state.theme}
+                      onChange={this.handleChange}
+                      defaultValue={defaultcontents}
+                      modules={Editor.modules}
+                      formats={Editor.formats}
+                      bounds={".app"}
+                      placeholder={"tell your story"}>
+          </ReactQuill>        
         </div>
       </div>
     );

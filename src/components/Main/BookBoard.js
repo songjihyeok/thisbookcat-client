@@ -78,8 +78,8 @@ class BookBoard extends Component {
 						<Image className = 'mainThumbNail' alt='bookcover' /* width={240} height={240} */
 									src = {`https://${server_url}/upload/${this.props.url}`}/>
 									
-						<div className='likePart'>
-							<span className='likeIconPart'>{this.state.liked
+						<div className='likeBar'>
+							<span className='likeIconBar'>{this.state.liked
 							? <div><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
 							: <div><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
 							}</span>
