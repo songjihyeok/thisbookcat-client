@@ -3,6 +3,7 @@
 * {margin:0; padding:0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 li {list-style:none;}
 a, img {border:0;}
+a {text-decoration:none !important;}
 *:focus {outline:none;}
 form {width: 100%;}
 body {font-family:'Noto Sans KR';}
@@ -11,9 +12,7 @@ body {font-family:'Noto Sans KR';}
 
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: center;}
-.BookBoardWrap {position:relative; padding-top:25px;}
-.BookBoard {position: relative; margin:25px; text-align: left; vertical-align:top; border-radius: 22px; display: inline-block;}
-.BookBoard a {width:240px; height:240px; display:block;}
+.bookBoardWrap {position:relative; padding-top:25px;}
 .postTitle {padding:10px; font-size: 18px; color: #151515; font-weight: 500;}
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
@@ -141,25 +140,11 @@ body {font-family:'Noto Sans KR';}
 
 
 /* PostDetail */
-.img-circle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 0 10px;
-  box-shadow : none;
-  background-color:#f2f2f2;
-}
-.post_detail {position:relative; width: 1280px; min-height: calc(100% - 70px); margin: 0 auto;}
+.img-circle {width:70px; height:70px; margin:0 10px; background-color:#f2f2f2; border-radius:50%; box-shadow:none;}
+.post_detail {position:relative; min-height: calc(100% - 70px); margin: 0 auto;}
 .post_detail:before,
 .post_detail:after {clear: both; display:block; content:'';}
-.post_detail:before {
-  position: absolute;
-  top: 0;
-  left: 60%;
-  width: 1px;
-  height: 100%;
-  border-left:1px solid #d0d0d0;
-}
+.post_detail:before {position:absolute; top:0; left:60%; width:1px; height: 100%; border-left:1px solid #d0d0d0;}
 .post_detail_left {float: left; width: calc(60% - 46px); padding: 48px 23px;}
 .post-thumbs {max-width:100%; max-height:auto; text-align:center;}
 .post-thumbs img {box-shadow:none; border-radius:0;}
@@ -168,15 +153,47 @@ body {font-family:'Noto Sans KR';}
 .post_detail_left .post_detail_content img {width:auto; max-width:100%;}
 .post_detail_3_reply {overflow : scroll; overflow-x: hidden;}
 .post_detail_3_reply::-webkit-scrollbar {display: none;}
-.post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 38px;}
+.post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 38px; background-color:#fff;}
 .user_thumbs {vertical-align:middle; display: inline-block;}
-.post_detail_username {margin:0; padding: 0 15px; display: inline-block;}
+.post_detail_username {margin:0; padding: 0 15px 0 5px; word-break:break-all; display:inline-block;}
 .user_thumbs .img-circle {margin:0 10px 0 0;}
-.user_buttons {display:inline-block;}
+.user_buttons,
+.user_follow {display:inline-block;}
+.post_detail_3_reply .user_thumbs .img-circle {width:55px; height:55px;}
+
+.ui.grey.button, 
+.ui.grey.buttons .button,
+.ui.grey.button:hover, 
+.ui.grey.buttons .button:hover,
+.ui.grey.button:focus, 
+.ui.grey.buttons .button:focus,
+.ui.teal.button, 
+.ui.teal.buttons .button,
+.ui.teal.button:hover, 
+.ui.teal.buttons .button:hover,
+.ui.teal.button:focus, 
+.ui.teal.buttons .button:focus {border-radius:18px;}
+
+.ui.grey.button, 
+.ui.grey.buttons .button,
+.ui.grey.button:hover, 
+.ui.grey.buttons .button:hover,
+.ui.grey.button:focus, 
+.ui.grey.buttons .button:focus {color:#fff; background-color:#ccc; border:1px solid #ccc;}
+
+.ui.teal.button, 
+.ui.teal.buttons .button,
+.ui.teal.button:hover, 
+.ui.teal.buttons .button:hover,
+.ui.teal.button:focus, 
+.ui.teal.buttons .button:focus {color:#3376ff; background-color:#fff; border:1px solid #3376ff;}
+
 .ui.inverted.black.button,
-.ui.inverted.grey.button {padding:.8em 1.5em; border-radius:1.5em; box-shadow:none !important;}
-.ui.inverted.black.button {color:#fff; background-color:#464646; box-shadow:0;}
-.ui.inverted.grey.button {color:#939393; border:1px solid #939393;}
+.ui.inverted.grey.button {padding:.6em 1.5em; font-size:14px; font-weight:normal; border-radius:1.5em; box-shadow:none !important;}
+.ui.inverted.black.button,
+.ui.inverted.black.button:hover {color:#fff; background-color:#464646; box-shadow:0;}
+.ui.inverted.grey.button,
+.ui.inverted.grey.button:hover {color:#939393; background-color:#fff; border:1px solid #939393;}
 .reply_username {font-size: 16px; font-weight: bold;}
 .reply_time {font-size: 12px; color: lightslategray;}
 .reply_targetName {font-size: 15px; font-weight: bold; color: mediumslateblue;}
@@ -205,12 +222,12 @@ body {font-family:'Noto Sans KR';}
 .reply_msg_button {font-size:14px; text-align:right;}
 .reply_msg_button .btn_del,
 .reply_msg_button .btn_wr_reply,
-.rereply_btn  {margin:0; margin:-8px 0 0 8px; padding:8px; font-weight:800; letter-spacing:-1px; vertical-align:middle; border:0; background:none; display:inline-block;}
+.rereply_btn {margin:0; margin:-8px 0 0 8px; padding:8px; font-weight:800; letter-spacing:-1px; vertical-align:middle; border:0; background:none; display:inline-block;}
 .reply_msg_button .btn_del {color:#8f8f8f;}
 .reply_msg_button .btn_wr_reply,
 .rereply_btn {color:#3376ff;}
 .make_rereply {font-size: 13px; color: grey;}
-.post_detail_right_1_postWriter {padding-bottom: 20px; padding-left: 10px; border-bottom: 1px solid #d0d0d0;}
+.post_detail_right_1_postWriter {padding:20px;}
 .post_detail_following{
   display: inline-block;
   padding: 2px 4px 2px 4px;
@@ -225,8 +242,12 @@ body {font-family:'Noto Sans KR';}
   border-radius: 0.1em;
   color: white;
 }
-.post_detail_right_2 {padding:10px 0 10px 20px;}
-.post_detail_right_2_postInfo{
+.post_detail_right_2 {padding:0 0 10px 20px;}
+.postInfo {padding:10px 20px 23px 35px; border-bottom: 1px solid #d0d0d0; display: flex; flex-direction: row;}
+.postInfo li {padding-left:35px;}
+.postInfo li:first-child {padding-left:0;}
+/*
+.postInfo{
   border-bottom: 1px solid #d0d0d0;
   padding:10px 20px;
   display: flex;
@@ -234,6 +255,7 @@ body {font-family:'Noto Sans KR';}
 }
 .post_detail_icon {flex: 1;}
 .post_detail_icon i.large.icon {margin-right:5px !important; display:inline-block;}
+*/
 .post_detail_right_3_reply{
   height: 450px;
   overflow: auto;
@@ -241,10 +263,18 @@ body {font-family:'Noto Sans KR';}
   padding-left: 10px;
 }
 .post_detail_right_3_reply::-webkit-scrollbar {display: none;}
-.post_detail_reply_input {width:calc(100% - 30px); border:0;}
+.post_detail_reply_input {width:calc(100% - 70px); height:54px; vertical-align:middle; border:0;}
 .post_detail_title{padding:45px 0 30px 0; font-size: 30px; font-weight: bold; line-height:38px;}
 textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px solid #d0d0d0; resize:none;}
 
+span.icon,
+.btn_reWrite {width:28px; height:28px; margin-right:7px; vertical-align:middle; text-indent:-1000em; display:inline-block; overflow:hidden;}
+span.icon.like {background:url('./img/heart_click_on.png') no-repeat; cursor:pointer;}
+span.icon.unlike {background:url('./img/heart_click_off.png') no-repeat; cursor:pointer;}
+span.icon.reCount {background:url('./img/reply_icon.png') no-repeat;}
+span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat;}
+.btn_reWrite {float:right; width:54px; height:54px; margin-right:0; background:url('./img/send_btn_grey.png') center center no-repeat; cursor:pointer;}
+.btn_reWrite:hover {background:url('./img/send_btn_blue.png') center center no-repeat;}
 
 /* BookInfoModal */
 .PhotoUploadModal {text-align: center; justify-content: center;}
@@ -292,7 +322,6 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 }
 .UserInfoPart {
   position: relative;
-  height:65px;
   line-height:50px;
   display: -webkit-box;
 }
@@ -302,15 +331,6 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   height: 50px;
 }
 .postUserName {display: inline-block;}
-.imagePart {
-  position: relative;
-  width: 330px;
-  margin-right:39px;
-  vertical-align:top;
-  display: inline-block;
-}
-.imagePart a {position:relative; display:block;}
-.imagePart img {border-radius:0; box-shadow:none;}
 .textPart {width:calc(100% - 380px); color: #353535; word-break:break-all; display: inline-block;}
 .textPart li {font-size:16px; display:block;}
 .textPart li.contentsPart {
@@ -321,12 +341,11 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   vertical-align:top; 
 }
 .followFooter {position: relative; width: 80%; height: 39%; display: inline-block;}
-.likeAndLikecount {position: absolute; color: #3376ff;}
+.likeAndLikecount {margin-bottom:10px; color: #3376ff;}
 .likeAndLikecount span {display:inline-block;}
 .likeAndLikecount i.icon.heart.outline:before {width:27px; height:25px; margin-right:5px;}
 .heart {bottom: 20%;}
 .followerTag {
-  padding-top:40px;
   font-size: 14px;
   line-height: 20px;
   text-align: left;
@@ -341,31 +360,31 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .ql-snow .ql-editor h2 {font-size:17px; line-height:24px;}
 .dataNone {font-size:20px; padding:80px 0; color:#151515; text-align:center;}
 
+
 /* MyLike */
 .MyLikeWrap {padding:30px 0;}
 .MyLike {text-align: center;}
-.LikeBookBoard {
-  width:240px;
-  display: inline-block;
-  border:1px solid #fff;
-  border-radius: 1%;
-}
-.likeThumbnail {position: relative; right:5%; border-radius: 25px;}
+.likeThumbnail {position: relative;}
 
 
 /* MyPageProFile */
 .MyPageProFile {position: relative; text-align: left; display: block; }
-.profileContainer {position: relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
+.profileContainer {position:relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
 .myName {position: relative; padding-left:25px; display:block;}
 .ProfilePhoto {width: 90px; height: 90px; margin:0 auto; border-radius: 50%; display:inline-block;}
-.ProFilePhotoContainer {position: relative; width:45%; vertical-align:middle; display: inline-block;}
+.ProFilePhotoContainer {position: relative; width:45%; padding:25px 0; vertical-align:middle; display: inline-block;}
+.ProFilePhotoContainer dt,
+.ProFilePhotoContainer dd {vertical-align:middle; display:inline-block;}
+.ProFilePhotoContainer dd {max-width:calc(100% - 120px); padding:10px 0; text-align:left;}
+.button_area {padding:20px 10px 0 10px;}
+.button_area .custom-icon {margin-left:12px;}
+.button_area .custom-icon:first-child {margin-left:0;}
 .ID_user {
   position: relative;
   font-size: 20px;
   font-weight: 500;
   text-align: left;
   color: #151515;
-  left: 1%;
   margin-left: 15px;
   margin-right: 10px;
 }
@@ -374,36 +393,20 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .myNameText i:before {content:'' !important;}
 .ProFileDetail {position: relative;}
 .custom-icon {position: relative; padding:10px 23px; background-color: #ffffff; font-size:15px; color: #6b6b6b; font-weight:700; text-align:center; border:1px solid #6b6b6b; border-radius: 18px; box-shadow: 0 0 1px 0 gray inset, 0 0 1px 0 gray;}
-.myProFileWrap {padding:62px 0 0 0; text-align:center; display:block;}
+.myProFileWrap {padding:37px 0 0 0; text-align:center; display:block;}
 .ProFileDetailContainer {font-size: 18px; color: #151515; text-align: center; vertical-align:middle; border-left:1px solid #ddd; display: inline-flex; justify-content: center;}
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
 .ProFileDetailContainer li > span.InfoName + b {padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
 .myBookBoardContainer {position: relative; width:100%; text-align: center; background-color: #f6f6f6; display: inline-block;}
+.myBookBoardContainer .bookBoardWrap {padding-top:0;}
 .myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
 .myBookShelfText > i:before {content:'' !important;}
-.MyBookBoard {
-  position: relative;
-  width: 240px;
-  margin:18px;
-  text-align: left;
-  vertical-align:top;
-  border-radius: 22px;
-  display: inline-block;
-}
-.myImageContainer {
-  position:relative;
-  width:100%;
-  height:100%;
-  border-radius: 22px;
-  background-color:#aaa;
-  overflow:hidden;
-}
-.myImageContainer a {width:100%; height:240px; display:block;}
-.MyBookBoard img {position: relative; border-radius: 22px;}
+
+.bookBoard {position:relative; width:240px; margin:18px; text-align:left; vertical-align:top; border-radius: 22px; display: inline-block;}
+.bookBoard img {position:relative;}
 .likeBar {
-  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -412,12 +415,24 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   font-weight: 500;
   color: #ffffff;
   text-align:left;
+  background-color: rgba(0, 0, 0, 0.5);
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
 }
 .myPostTitle {font-size: 18px; font-weight: 500; text-align: left; color: #151515;}
-.heart {width: 21px; height: 20px; margin-right:8px !important; display:inline-block;}
+.heart {width: 21px; height: 20px; margin-right:8px !important; display:inline-block; cursor:pointer;}
 
+
+/* thumbnail */
+.imageContainer,
+.imagePart  {position:relative; overflow:hidden;}
+.imageContainer a,
+.imagePart a {position:absolute; top:0; left:0; right:0; bottom:0; -webkit-transform:translate(50%,50%); -ms-transform:translate(50%,50%); transform:translate(50%,50%); display:block;}
+.imageContainer a > img,
+.imagePart a > img {position:absolute; top:0; left:0; max-width:100%; height:auto; -webkit-transform:translate(-50%,-50%); -ms-transform:translate(-50%,-50%); transform:translate(-50%,-50%);}
+
+.imageContainer {width:240px; height:240px; border-radius:22px; background-color:#aaa;}
+.imagePart {width:330px; height:330px; margin:10px 0; margin-right:39px; vertical-align:top; display:inline-block;}
 
 /* PickTaste */
 .picktaste {position:relative; width:1080px; margin:0 auto; padding:48px 0;}
@@ -464,7 +479,7 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 /* WritePost */
 .writePost {min-height:100%; padding-bottom:55px; background-color:#f6f6f6;}
 .writePost:ater {clear:both; display:block; content:'';}
-.editWrap {width:1280px; margin:38px auto 0 auto; letter-spacing:-1px; background-color:#fff;}
+.editWrap {max-width:1280px; margin:38px auto 0 auto; letter-spacing:-1px; background-color:#fff;}
 .write_container {padding:50px; text-align:center;}
 .writeInfo_load {padding-bottom:30px; font-size:0; line-height:0; text-align:center;}
 .writeInfo_load li {vertical-align:middle; display:inline-block;}
@@ -476,6 +491,10 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
 .searchBook_title {max-width:calc(100% - 100px); padding-left:15px; vertical-align:middle; font-size:17px; line-height:22px; display:inline-block;}
 
 .mo_button {display:none;}
+
+@media all and (max-width: 891px) {
+  .textPart {min-width:100%;}
+}
 
 @media all and (max-width: 768px) {
   html, body {height:auto;}
@@ -522,9 +541,12 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .searchForm form:after {position:absolute; top:11px; left:10px; width:19px; height:20px; z-index:1; content:''; background-image: url("./img/main-search-icon.png"); background-size:19px 20px;}
   .search_input {width:100%; height:40px; padding-left:34px; font-size:14px;}
 
-  .BookBoard {width:calc(50% - 30px); margin:0 10px;}
-  .BookBoard a {width:100%; height:auto;}
-  .postImageContainer {height:auto;}
+  .bookBoardWrap {padding:19px 0 19px 19px; text-align:left;}
+  .bookBoard {width:calc((100vw - 57px)/2); margin:0 0 19px 0;}
+  .bookBoard a {width:100%; height:100%; background-color:#595959; display:block;}
+  .bookBoard:nth-child(2n+0) {margin-left:19px;}
+  .imageContainer {width:calc((100vw - 57px)/2); height:calc((100vw - 57px)/2);}
+  .likeBar {padding:7px 12px;}
 
   .mainPost {padding:50px 0; font-size:18px; vertical-align:middle;}
   .postTitle {font-size:15px; color:#151515;}  
@@ -535,29 +557,37 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .post_detail:before,
   .post_detail:after {display:none;}
   .post_detail_left {margin-top:48px; padding-top:20px;}
+  .post_detail_right_2 {padding:0 0 0 20px;}
+  .post_detail_reply_input {width:calc(100% - 55px); height:34px; vertical-align:middle; border:0;}
+  .btn_reWrite {width:45px; height:34px;}
   
   .Followings {padding:0 9px; background-color:#fff;}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
   .FollowingBoard {width:100%; padding:26px 0;}
   .UserInfoPart {height:50px; padding:0 11px;}
+  .imagePart {width:240px; height:240px; margin:20px auto; display:block;}
+  /*
   .imagePart {width:100%; height:auto; min-height:240px; margin-right:0; padding:20px 0; overflow:hidden;}
-  .imagePart a {width:100%; height:auto; margin:0 auto; background-color:#595959;}
+  .imagePart a {width:330px; height:auto; margin:0 auto; background-color:#595959;}
   .imagePart img {width:auto;}
+  */
   .textPart {width:100%; padding:0 9px; display:block; box-sizing:border-box;}
   .textPart li.contentsPart {min-height:auto; height:auto;}
 
   .post_detail {padding-top:136px;}
   .post_detail_right_1_postWriter,
-  .post_detail_right_2_postInfo {position:absolute; width:100%; box-sizing:border-box; border:0;}
+  .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0;}
   .post_detail_right_1_postWriter {top:9px; height:88px; padding:19px;}
-  .post_detail_right_2_postInfo {top:89px; padding-bottom:12px; border-bottom:1px solid #eaeaea;}
-  .user_buttons {position:absolute; top:135px; left:0; width:100%; text-align:center; z-index:1;}
+  .postInfo {top:89px; padding-bottom:12px; border-bottom:1px solid #eaeaea;}
+  .user_buttons {position:absolute; top:145px; left:0; width:100%; text-align:center; z-index:1;}
   .post_detail_title {font-size:22px; line-height:34px;}
   .post_detail_3_reply {border-top:1px solid #eaeaea;}
-
-  .LikeBookBoard {width:calc(50% - 30px); margin:10px; padding:0;}
-  .LikeBookBoard a {width:100%; height:100%; background-color:#595959; display:block;}
-  .MyLikeWrap {padding:19px 0 19px 19px;}
+  .post_detail_username {max-width:calc(100% - 130px); max-height:50px; line-height:25px; vertical-align:middle; overflow:hidden;}
+  .img-circle {width:50px; height:50px;}
+  .post_detail_3_reply .user_thumbs .img-circle {width:41px; height:41px;}
+  .user_follow {float:right; margin-top:10px;}
+  .ui.teal.button,
+  .ui.grey.button {padding:.5em .8em; font-size:13px;}
 
   .picktaste {width:100%; padding:23px 0; text-align:center;}
   .confirmedUser {display:block;}
@@ -579,7 +609,7 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .profileContainer {width:100%; padding:39px 0;}
   .myProFileWrap {width:100%; padding:29px 0 0 0;}
   .myBookShelf {width:100%; margin:30px 0 25px 0;}
-  .ProFilePhotoContainer {width:100%; padding-bottom:30px;}
+  .ProFilePhotoContainer {width:100%; padding:0 0 30px 0;}
   .ProFileDetailContainer {width:100%;}
   .ProFileDetailContainer li {width:33%; min-width:auto;}
   .InfoName {font-size:14px;}
@@ -592,11 +622,6 @@ textarea.rereply_input {width:100%; height:60px; margin-bottom:20px; border:1px 
   .myBookShelfText {font-size:20px;}
 
   .MyLikeWrap {padding:19px 19px 0 19px;}
-  .MyBookBoard {width:calc((100vw - 57px)/2); margin:0 0 19px 0;}
-  .MyBookBoard:nth-child(2n+0) {margin-left:19px;}
-  .myImageContainer a {height:calc((100vw - 57px)/2);}
-
-  .likeBar {padding:7px 12px;}
 
   .writePost {width:100%; padding-bottom:0;}
   .write_container {padding:25px 0 0 0;}

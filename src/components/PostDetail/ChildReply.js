@@ -79,7 +79,7 @@ export default class ChildReply extends Component {
             <li id="rereply">
               <form>
                 <textarea className="rereply_input" type="text" name="reply" placeholder={`@${userName}`} onChange={this._newReReply}></textarea>
-                <span className="rereply_btn" onClick={this._makeReReply}>등록
+                <span className="btn_reWrite" onClick={this._makeReReply}>등록
                 {/*
                   <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
                 */}

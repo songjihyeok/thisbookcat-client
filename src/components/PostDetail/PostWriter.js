@@ -83,22 +83,21 @@ export default class PostWriter extends Component {
       <div className='post_detail_right_1_postWriter'>
         <div className="user_thumbs">{this._userImagecontrollor()}</div>
         <h3 className='post_detail_username'>{userName}</h3>
-        <div className="user_buttons">
+        
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
-          <div>
+          <div className="user_buttons">
             <Button inverted color='black' onClick={this._handleEdit}>수정</Button>
             <Button inverted color='grey' onClick={this._handleDelete}>삭제</Button>
           </div>
         : 
-          <div>
+          <div className="user_follow">
             {(isFollowing)
-            ? <button className="ui teal button" onClick={this._handleFollowing}>팔로우중입니다</button>
-            : <button className="ui grey button" onClick={this._handleFollowing}>팔로우하기</button> 
+            ? <button className="ui teal button" onClick={this._handleFollowing}>팔로우</button>
+            : <button className="ui grey button" onClick={this._handleFollowing}>팔로우</button> 
             }
           </div>
         }
-        </div>
       </div>
     )
   }

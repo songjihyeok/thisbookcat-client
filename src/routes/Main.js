@@ -101,7 +101,7 @@ class Main extends Component {
           {/* <div className='mostLikedPage'>
           {this._renderMostLikedPage()}
           </div> */}
-          <div className="BookBoardWrap">
+          <div className="bookBoardWrap">
             {this._renderBooKCoverImage()}
           </div>
           <div className='mainPost'>
