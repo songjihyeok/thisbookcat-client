@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import $ from 'jquery'
 import {
   Modal,
   Button,
@@ -7,12 +9,13 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
+axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 
 class BookapiModal extends Component {
   constructor(props, context) {
     super(props, context)
 
-    this._handleChange = this._handleChange.bind(this)
+    this._handleChange = this._handleChange.bind(this);
     this.state = {
       show: this.props.showmodal,
       booktitle: "",
@@ -22,6 +25,28 @@ class BookapiModal extends Component {
   _handleChange(e) {
     this.setState({ booktitle: e.target.value });
   }
+  
+  setbookinfo = async()=>{
+
+    // const postapi = await axios.get(`https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?TTBKey=ttbporr34441025002&Query=${this.state.booktitle}`,
+    // {headers:{'Access-Control-Allow-Origin': '*', 채ㅜ}})
+    const bookDisplay = (success, data)=>{
+      console.log(data);
+    }
+    const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?TTBKey=ttbporr34441025002&Query=${this.state.booktitle}"&output=js&callback=${bookDisplay})`
+    
+    $.ajax({
+      url : url,
+      dataType : 'jsonp'
+    })
+  }  
+
+  // componentDidMount(){
+  //   $.get(`https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?TTBKey=ttbporr34441025002&Query=${this.state.booktitle}`).done((data)=>{
+  //     console.log(data);
+  //   })
+  // }
+
 
   render() {
     return (
@@ -45,11 +70,12 @@ class BookapiModal extends Component {
                 </FormGroup>
               </form>
               <Button bsStyle="info"
-                      onClick={() => {this.setState({finishsearch: true})}}>
+                      onClick={this.setbookinfo}> 
                 <Icon name="search plus" size="big" />
                 알라딘 검색
               </Button>
             </div>
+            <div id="aladin-bookinfo"></div>
             {this.state.finishsearch ? <div>검색된 책 : {this.state.booktitle}</div> : null}
           </Modal.Body>
           <Modal.Footer>

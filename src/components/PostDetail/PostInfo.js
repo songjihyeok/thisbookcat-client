@@ -70,17 +70,6 @@ export default class PostInfo extends Component {
           <Icon name="book" size="large" fitted/> info
         </li>
         <BookInfoModal show={modal} hide={this._closeModal}/>
-      {/*
-      <li>
-        {(isLike)
-        ? <div><span className="icon_like" onClick={this._handleLike}></span>{likeCount}</div>
-        : <div><span className="icon_unlike" onClick={this._handleLike}></span> {likeCount}</div>
-        }
-      </li>
-      <li><span className="icon_reCount">{(replyCount) ? `${replyCount}` : `0`}</span></li>
-      <li><span className="icon_bookInfo" onClick={this._showModal}>책정보</span></li>
-      <BookInfoModal show={modal} hide={this._closeModal}/>
-      */}
     </ul>
     )
   }
