@@ -15,6 +15,7 @@
     "filepond-plugin-image-preview": "^3.1.4",
     "filepond-plugin-image-resize": "^2.0.1",
     "filepond-plugin-image-transform": "^3.0.4",
+    "jquery": "^3.3.1",
     "latest-version": "^4.0.0",
     "lodash": "^4.17.11",
     "medium-editor": "^5.23.3",

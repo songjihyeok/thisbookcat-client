@@ -3,7 +3,12 @@ import {Modal, Button} from 'react-bootstrap'
 //import './BookInfoModal.css'
 export default class BookInfoModal extends Component {
     render() {
-      // TODO: 이거 state 없으면 functional 로 바꾸기
+
+      
+
+
+
+
       console.log(this.props)
       return (
         <Fragment>
