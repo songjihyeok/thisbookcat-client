@@ -25,6 +25,7 @@
     "react": "^16.5.2",
     "react-app-rewired": "^1.6.2",
     "react-bootstrap": "^0.32.4",
+    "react-cookie": "^3.0.8",
     "react-cursor-position": "^3.0.3",
     "react-dom": "^16.5.2",
     "react-draft-wysiwyg": "^1.12.13",

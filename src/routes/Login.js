@@ -19,7 +19,7 @@ class Login extends Component {
     password : '',
     isLogin : false,
     login_err: false,
-    preference: this.props.preference || [],
+    preference: this.props.pickedOrNot || [],
   }
 
   _setEmail = e => {
@@ -62,7 +62,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log("취향 목록", this.state.preference);
 
     if (window.localStorage.getItem('token') && this.state.preference.length!==0) {
       return <Redirect to ='/' />;
