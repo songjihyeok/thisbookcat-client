@@ -56,7 +56,8 @@ export default class PostInfo extends Component {
     const { isLike, likeCount, modal } = this.state
     const { replyCount } = this.props
     return (
-      <ul className='post_detail_right_2_postInfo'>
+      <ul className='postInfo'>
+      {/*
         <li className='post_detail_icon'><Icon name="pencil alternate" size="large" fitted/>
           <span>{(replyCount) ? `X ${replyCount}` : `X 0`}</span>
         </li>
@@ -70,7 +71,19 @@ export default class PostInfo extends Component {
           <Icon name="book" size="large" fitted/> info
         </li>
         <BookInfoModal show={modal} hide={this._closeModal}/>
-    </ul>
+      */}
+        <li>
+          {(isLike)
+          ? <div><span className="icon like" onClick={this._handleLike}>좋아요</span>{likeCount}</div>
+          : <div><span className="icon unlike" onClick={this._handleLike}>좋아요 해제</span>{likeCount}</div>
+          }
+        </li>
+        <li><span className="icon reCount">댓글</span>{(replyCount) ? `${replyCount}` : `0`}</li>
+        <li>
+          <span className="icon bookInfo" onClick={this._showModal}>책정보</span>
+          <BookInfoModal show={modal} hide={this._closeModal}/>
+        </li>
+      </ul>
     )
   }
 }

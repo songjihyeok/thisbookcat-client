@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
-import Image from 'react-image-resizer';
 import server_url from '../../url.json';
 import axios from 'axios';
 //import Dotdotdot from 'react-dotdotdot';
@@ -91,8 +90,8 @@ class FollowingBoard extends Component {
 											username : this.props.author,
 									} */
 					}}>
-						<Image className='FollowThumbnail' src={`https://${server_url}/upload/${this.props.image}`}
-									alt='bookcover' width={330} height={330} />
+						<img className='FollowThumbnail' src={`https://${server_url}/upload/${this.props.image}`}
+									alt='bookcover' />
 					</Link>
 				</div>
 				<ul className='textPart'>

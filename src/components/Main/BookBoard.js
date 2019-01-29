@@ -70,24 +70,21 @@ class BookBoard extends Component {
 
 	render(){
 		return(
-				<div className ='BookBoard'>
-					<Link to={{
-						pathname : `/postdetail/${this.props.postid}`
-					}}>
-					<div className='postImageContainer'>
-						<Image className = 'mainThumbNail' alt='bookcover' /* width={240} height={240} */
-									src = {`https://${server_url}/upload/${this.props.url}`}/>
-									
+				<div className ='bookBoard'>
+					<div className='imageContainer'>
+						<Link to={{ pathname : `/postdetail/${this.props.postid}` }}>
+							<Image className = 'mainThumbNail' alt='bookcover' /* width={240} height={240} */
+										src = {`https://${server_url}/upload/${this.props.url}`}/>
+						</Link>
 						<div className='likeBar'>
-							<span className='likeIconBar'>{this.state.liked
+							{this.state.liked
 							? <div><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
 							: <div><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
-							}</span>
+							}
 						</div>
 					</div>
-					</Link>
-					<p className='postTitle'>{this.props.title}</p>
 					<span className='userNamePart'>{this.props.username}</span>
+					<p className='postTitle'>{this.props.title}</p>
 				</div>
 		)
 	}

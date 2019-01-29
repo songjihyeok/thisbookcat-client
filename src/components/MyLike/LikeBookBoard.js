@@ -59,20 +59,20 @@ class LikeBookBoard extends Component {
 	render() {
 		// console.log("LikeBookBoard.js 컴포 > render 함수 안 콘솔 찍는 중 this.props.likePost___", this.props.likePost)
 		return (
-			<div className ='MyBookBoard'>
-				<div className='myImageContainer'>
+			<div className ='bookBoard'>
+				<div className='imageContainer'>
 					<Link to={{pathname : `/postdetail/${this.props.postid}`,}}>
 					{/*state : {
 							imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
 							username : this.props.author
 					}  */}
-						<Image className = 'likeThumbnail' alt='bookcover' width={240} height={240}
+						<img className = 'likeThumbnail' alt='bookcover'
 									src = {`https://${server_url}/upload/${this.props.likePost.mainImage}`}/>
 					</Link>
 					<div className='likeBar'>
 						{(this.state.liked)
-						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
-						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
+						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						}
 					</div>
 				</div>

@@ -22,3 +22,11 @@ input#setting_input{
     display: inline-block;
     text-align:center;
 }
+
+.modal-header {border-bottom:0;}
+.modal-title {font-size:24px;}
+.modal-body {padding-bottom:40px;}
+.modal-footer {border-top:1px solid #ddd;}
+.btn-default,
+.btn-default:hover {min-width:120px; padding:.8em 1.2em; font-size:15px; color:#fff; text-shadow:none; background:#3376ff; border:0; border-radius:1.4em;}
+.PhotoUploadModal {left:0;}

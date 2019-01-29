@@ -63,9 +63,9 @@ class MyBookBoard extends Component {
 	render() {
 			/* console.log(this.props) */
 		return (
-			<div className='MyBookBoard'>
+			<div className='bookBoard'>
 				{/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}
-				<div className='myImageContainer'>
+				<div className='imageContainer'>
 					<Link to={{pathname : `/postdetail/${this.props.postid}`}}>
 						<Image src={`https://${server_url}/upload/${this.props.image}`} alt='bookcover'/*  width={300} */ height={240}/>
 					</Link>

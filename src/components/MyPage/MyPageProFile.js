@@ -5,9 +5,11 @@ import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
 //import './CSS/MyPageProFile.css'
-import defaultimage from '../../img/다운로드.png'
+import defaultimage from '../../img/다운로드.png';
+import { Redirect} from "react-router-dom";
 
 class MyPageProFile extends Component {
+
   constructor(props, context) {
     super(props, context);
 
@@ -126,6 +128,11 @@ class MyPageProFile extends Component {
   _handleShow = () => {
     this.setState({show: true})
   }
+  _logout = e => {
+    e.preventDefault();
+    window.localStorage.removeItem('token');
+    this.setState({isLogin: false})
+  }
 
   render() {
     // console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
@@ -135,47 +142,59 @@ class MyPageProFile extends Component {
     // console.log(this.state.page)
     // console.log(this.state.totalPage)
     // console.log('this is profileImage', this.state.ProfileImage)
-    return (
-      <div className="MyPageProFile">
-      <div className='profileContainer'>
-        <div className='myName'>
-          <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
-        </div>
-        <div className="myProFileWrap">
-          <div className="ProFilePhotoContainer">
-            <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
-            <span className="ID_user">{this.state.myProfile.userName}</span>
-            <button className="custom-icon" onClick={this._handleShow}>관리</button>
+    if (!window.localStorage.getItem("token")) {
+      return <Redirect to="/login" />
+    } else {
+      return (
+        <div className="MyPageProFile">
+        <div className='profileContainer'>
+          <div className='myName'>
+            <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
           </div>
-          <ul className="ProFileDetailContainer">
-            <li className='MyPostNumberContainer'>
-              <span className='InfoName'>게시물</span>
-              <b>{this.state.myPosts.length}</b>
-            </li>
-            <li className='FollowingContainer'>
-              <span className='InfoName'>팔로잉</span>
-              <b>{this.state.following}</b>
-            </li>
-            <li className='FollowerContainer'>
-              <span className="InfoName">팔로워</span>
-              <b>{this.state.followed}</b>
-            </li>
-          </ul>
+          <div className="myProFileWrap">
+            <dl className="ProFilePhotoContainer">
+              <dt>
+                <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
+              </dt>
+              <dd>
+                <span className="ID_user">{this.state.myProfile.userName}</span>
+                <div className="button_area">
+                  <button className="custom-icon" onClick={this._handleShow}>관리</button>
+                  <button className="custom-icon" onClick={this._logout}>로그아웃</button>
+                </div>
+              </dd>
+            </dl>
+            <ul className="ProFileDetailContainer">
+              <li className='MyPostNumberContainer'>
+                <span className='InfoName'>게시물</span>
+                <b>{this.state.myPosts.length}</b>
+              </li>
+              <li className='FollowingContainer'>
+                <span className='InfoName'>팔로잉</span>
+                <b>{this.state.following}</b>
+              </li>
+              <li className='FollowerContainer'>
+                <span className="InfoName">팔로워</span>
+                <b>{this.state.followed}</b>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-        <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
-        <div className='myBookBoardContainer'>
-        <div className='myBookShelf'>
-        <span className='myBookShelfText'>
-        <Icon name='book' size="big"/>
-        내 서재
-        </span>
+          <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
+          <div className='myBookBoardContainer'>
+            <div className='myBookShelf'>
+              <span className='myBookShelfText'>
+                <Icon name='book' size="big"/>내 서재
+              </span>
+            </div>
+            <div className="bookBoardWrap">
+            {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
+            {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
+            </div>
+          </div>
         </div>
-          {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
-          {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
-        </div>
-      </div>
-    )
+      )
+    }
   }
 }
 

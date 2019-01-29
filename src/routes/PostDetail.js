@@ -121,8 +121,10 @@ class PostDetail extends React.Component {
                 <form>
                   <input className='post_detail_reply_input' type="text"
                         placeholder="댓글을 입력하세요" onChange={this._newReply}/>
-                  <span onClick={this._makeReply}>
+                  <span className="btn_reWrite" onClick={this._makeReply}>등록
+                  {/*
                     <Icon name="pencil alternate" fitted size="large" />
+                  */}
                   </span>
                 </form>
               </div>
