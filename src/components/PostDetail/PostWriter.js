@@ -3,7 +3,7 @@ import { Button, button } from "semantic-ui-react";
 import axios from 'axios';
 import path from 'path';
 import server_url from '../../url.json';
-import "./PostDetail.css";
+//import "./PostDetail.css";
 import { pathToFileURL } from 'url';
 import profileimage from "../../img/다운로드.png"
 import { PropTypes} from 'prop-types';
@@ -81,13 +81,14 @@ export default class PostWriter extends Component {
     const {userImage, userName, isFollowing} = this.state
     return (
       <div className='post_detail_right_1_postWriter'>
-        <div>{this._userImagecontrollor()}</div>
+        <div className="user_thumbs">{this._userImagecontrollor()}</div>
         <h3 className='post_detail_username'>{userName}</h3>
+        <div className="user_buttons">
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
           <div>
-            <Button inverted color='blue' onClick={this._handleEdit}>이 POST 수정</Button>
-            <Button inverted color='red' onClick={this._handleDelete}>이 POST 삭제</Button>
+            <Button inverted color='black' onClick={this._handleEdit}>수정</Button>
+            <Button inverted color='grey' onClick={this._handleDelete}>삭제</Button>
           </div>
         : 
           <div>
@@ -97,6 +98,7 @@ export default class PostWriter extends Component {
             }
           </div>
         }
+        </div>
       </div>
     )
   }

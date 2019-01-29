@@ -4,7 +4,7 @@ import axios from "axios";
 import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
-import './CSS/MyPageProFile.css'
+//import './CSS/MyPageProFile.css'
 import defaultimage from '../../img/다운로드.png'
 
 class MyPageProFile extends Component {
@@ -138,27 +138,29 @@ class MyPageProFile extends Component {
     return (
       <div className="MyPageProFile">
       <div className='profileContainer'>
-      <div className='myName'>
-      <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
-      </div><br/>
-      <div className="ProFilePhotoContainer">
-          <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
-          <span className="ID_user">{this.state.myProfile.userName}</span>
-          <button className="custom-icon" onClick={this._handleShow}>관리</button>
+        <div className='myName'>
+          <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
         </div>
-        <div className="ProFileDetailContainer">
-        <div className='MyPostNumberContainer'>
-        <span className='PostNumberText'>게시물</span><br/>
-        <span className='PostNumber'>{this.state.myPosts.length}</span>
-        </div>
-        <div className='FollowingContainer'>
-        <span className='FollowingText'>팔로잉</span><br/>
-        <span className='FollowingNumber'>{this.state.following}</span>
-        </div>
-        <div className='FollowerContainer'>
-          <span className="FollowerText">팔로워</span><br/>
-          <span className='FollowerNumber'>{this.state.followed}</span>
+        <div className="myProFileWrap">
+          <div className="ProFilePhotoContainer">
+            <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
+            <span className="ID_user">{this.state.myProfile.userName}</span>
+            <button className="custom-icon" onClick={this._handleShow}>관리</button>
           </div>
+          <ul className="ProFileDetailContainer">
+            <li className='MyPostNumberContainer'>
+              <span className='InfoName'>게시물</span>
+              <b>{this.state.myPosts.length}</b>
+            </li>
+            <li className='FollowingContainer'>
+              <span className='InfoName'>팔로잉</span>
+              <b>{this.state.following}</b>
+            </li>
+            <li className='FollowerContainer'>
+              <span className="InfoName">팔로워</span>
+              <b>{this.state.followed}</b>
+            </li>
+          </ul>
         </div>
       </div>
         <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
@@ -169,8 +171,8 @@ class MyPageProFile extends Component {
         내 서재
         </span>
         </div>
-          {(this.state.myPosts[0] === undefined) ? <span>아직 올린 게시물이 없습니다!</span> : this._renderPost()}<br/>
-          {(this.state.page === this.state.totalPage) ? <span /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</span> : ''}
+          {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
+          {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
         </div>
       </div>
     )

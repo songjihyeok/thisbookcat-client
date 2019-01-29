@@ -13,8 +13,8 @@ import PostDetail from "./routes/PostDetail";
 import MyPage from "./routes/MyPage";
 import TagSearchPage from "./routes/TagSearchPage"
 import editPost from "./routes/editPost"
+import "./default.css";
 import redirect from "./routes/redirect"
-import "./App.css";
 
 class App extends Component {
   render() {
@@ -43,5 +43,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

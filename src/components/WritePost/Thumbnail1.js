@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Thumbnail.css";
-import './filepond.min.css'
+import './filepond.min.css';
 import server_url from '../../url.json';
 import {FilePond, File, registerPlugin} from 'react-filepond'
 import { Icon } from "semantic-ui-react";
@@ -33,33 +33,46 @@ class Thumbnail extends Component {
     console.log("props",this.props)
     this.props._handleMainImage(this.state.savedFilename)
   }
+  /*
+  root.ref.label = root.appendChildView(
+    root.createChildView(
+      dropLabel,
+      Object.assign({}, props, {
+        translateY: null,
+        caption: root.query('GET_LABEL_IDLE')
+      })
+    )
+  );
+  */
 
   render() {
     let token = window.localStorage.getItem('token')
+    
     return (
         <div className="thumbnail_app">
             {/* Pass FilePond properties as attributes */}
             <FilePond ref={ref => this.pond = ref}
-                      allowMultiple={false} 
+                      allowMultiple={false}
+                      allowReplace={false}
                       maxFiles={3}
                       name = "imgFile"
                       server={
                         {
                           url : `https://${server_url}` ,
                           process :{ 
-                              url: './img/mainimage/',
-                              method : 'POST',
-                              headers : { 
-                                "authorization" : `bearer ${token}`
-                              },
-                              onload : (res)=>this.getfilename(res)
+                            url: './img/mainimage/',
+                            method : 'POST',
+                            headers : { 
+                              "authorization" : `bearer ${token}`
+                            },
+                            onload : (res)=>this.getfilename(res)
                           } ,
                           revert : {
-                              url : `./img/mainimage/${this.state.savedFilename}`,
-                              method : 'delete',
-                              headers : { 
-                                "authorization" : `bearer ${token}`
-                              }
+                            url : `./img/mainimage/${this.state.savedFilename}`,
+                            method : 'delete',
+                            headers : { 
+                              "authorization" : `bearer ${token}`
+                            }
                           }
 
                     }}
@@ -74,6 +87,8 @@ class Thumbnail extends Component {
                       imageCropAspectRatio = '1:1'
                       imageResizeTargetWidth ={480}
                       imageResizeTargetHeight= {480}
+                      imagePreviewHeight = {240}
+                      labelIdle = '사진 불러오기'
                       >
                        {this.state.files.map(file => (
                         <File key={file} src={file} origin="local" />

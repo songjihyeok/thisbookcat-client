@@ -15,9 +15,9 @@ _handleClick = (e) => {
 
 _changeCssonClick = () => {
     if (this.state.isClicked === true) {
-      return {'border': 'solid', 'borderWidth': '3px', 'borderColor': 'blue'}
+      return 'Block BlockSelect'
     } else if (this.state.isClicked === false) {
-      return {'border': 'solid', 'borderWidth': '3px', 'borderColor': 'white'}
+      return 'Block'
     }
 }
 
@@ -39,7 +39,7 @@ _toggleBlockStatus = () => {
 
   render() {
     return (
-      <div className='Block' style ={this._changeCssonClick()} id = {this.props.select}
+      <div className={this._changeCssonClick()} id = {this.props.select}
           onClick={this._handleClick} key={this.props.key}>
         <span className='tagName'>{this.props.select}</span>
         <Image className='BlockImage' rounded

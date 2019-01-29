@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
-import "./PostDetail.css";
-import './Reply.css';
+//import "./PostDetail.css";
+//import './Reply.css';
 import ReReply from './ReReply';
 import ParentReply from "./ParentReply";
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FacebookLogin from 'react-facebook-login';
 // import Nav1 from "../components/Nav1";
-import '../components/Login/Login.css';
+// import '../components/Login/Login.css';
 // import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
 // import { Button } from 'react-bootstrap'
@@ -76,13 +76,16 @@ class Login extends Component {
                 <div className='login_body'>
                   <div className='login_container'>
                     <div className='title1'>책을 읽고, 이야기를 나누다</div>
-                    <div className='title2'>
+                    <h1 className='title2'>
+                      {/*
                       <svg xmlns="https://www.w3.org/2000/svg" width="200" height="44">
                         <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
                           Afteread
                         </text>
                       </svg>
-                    </div>
+                      */}
+                      Afteread
+                    </h1>
                     {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>Afteread에 오신 것을 환영합니다</div>}
                     <form onSubmit={this._handleSubmit}>
                       <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
@@ -108,11 +111,13 @@ class Login extends Component {
                     </div>
                   </div>
                 </div>
+              {/* 20190116 삭제
               <div className="footer">
                 <div>
                   <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
                 </div>
               </div>
+              */}
             </div>
           /* </div>
         </div> */

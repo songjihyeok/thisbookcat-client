@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+//import { Navbar, Nav, NavItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Icon } from "semantic-ui-react";
+//import { Icon } from "semantic-ui-react";
 import axios from "axios";
 import server_url from '../url.json';
-import "./Nav2.css";
+import PropTypes from 'prop-types';
+//import "./Nav2.css";
 
 
 class Nav2 extends Component {
-
 
   shouldComponentUpdate(nextProps, nextState) {
     for (var key in this.props.posting) {
@@ -54,33 +54,21 @@ class Nav2 extends Component {
     } else {
       console.log("api/post")
       return `https://${server_url}/api/post/`  
-    }
-        
+    }    
   }
-
-
+  static contextTypes = {
+    router: PropTypes.object, // replace with PropTypes.object if you use them
+  }
+  
   render() {
     // console.log("Nav2.js 의 render 안에서 this.props.posting.mainimage[0]___", this.props.posting.mainimage[0]);
     return (
-      <Navbar collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/main"><div className="thisBook_Nav2">Afteread</div></Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullLeft>
-            <NavItem eventKey={1} href="#">Draft</NavItem>
-          </Nav>
-          <Nav pullRight>
-            <NavItem eventKey={2} href="#" onClick={this._sendPost}>
-              POST
-              <Icon name="paper plane outline" size="big" />
-            </NavItem>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+      <div className="nav2">
+        <div className="func_Write">
+          <button className="btn_BackPage" onClick={this.context.router.history.goBack}>되돌아가기</button>
+          <button className="btn_WriterSave" href="#" onClick={this._sendPost}>저장하기</button>
+        </div>
+      </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
 import BookapiModal from "./BookapiModal";
-import "./Bookapi.css";
+//import "./Bookapi.css";
 
 class Bookapi extends Component {
   constructor(props) {
@@ -28,13 +28,8 @@ class Bookapi extends Component {
         {this.state.showmodal
         ? <BookapiModal showmodal={this.state.showmodal} handleHide={this._handleHide} handleBook={this._handleBook}/>
         : null}
-        <div className="searchBook" onClick={() => {this.setState({showmodal: true})}}>
-          <Icon name="book" size="huge" />
-          <div style={{display: "flex"}}><h1>책 검색하기</h1></div>
-        </div>
-        <div style={{flex: "0.2"}}>
-          {this.state.booktitle ? <h1>책 제목 : {this.state.booktitle}</h1> : null}
-        </div>
+        <div className="searchBook" onClick={() => {this.setState({showmodal: true})}}>책 검색하기</div>
+        {this.state.booktitle ? <div className="searchBook_title">책 제목 : {this.state.booktitle}</div> : null}
       </div>
     );
   }

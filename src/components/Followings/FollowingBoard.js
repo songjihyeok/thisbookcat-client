@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
-import Image from 'react-image-resizer'
-import server_url from '../../url.json'
-import axios from 'axios'
+import Image from 'react-image-resizer';
+import server_url from '../../url.json';
+import axios from 'axios';
+//import Dotdotdot from 'react-dotdotdot';
+import Truncate from 'react-truncate-html';
+
 
 
 class FollowingBoard extends Component {
@@ -76,10 +79,10 @@ class FollowingBoard extends Component {
 		console.log(this.state.postUserInfo)
     return  (
 			<div className='FollowingBoard'>
-			<div className='UserInfoPart'>
-			<img src={`https://${server_url}/upload/${this.state.postUserInfo.profileImage}`} className='postUserImage' alt={"postUserImage"} />
-        <span className='postUsername'>{this.state.postUserInfo.userName}</span>
-			</div>
+				<div className='UserInfoPart'>
+					<span className="postUserThumb"><img src={`https://${server_url}/upload/${this.state.postUserInfo.profileImage}`} className='postUserImage' alt={"postUserImage"} /></span>
+					<span className='postUsername'>{this.state.postUserInfo.userName}</span>
+				</div>
 				<div className='imagePart'>
 					<Link to={{
 							pathname: `/postdetail/${this.props.postid}`,
@@ -89,21 +92,24 @@ class FollowingBoard extends Component {
 									} */
 					}}>
 						<Image className='FollowThumbnail' src={`https://${server_url}/upload/${this.props.image}`}
-									alt='bookcover' /* width={330} */ height={330} />
+									alt='bookcover' width={330} height={330} />
 					</Link>
 				</div>
-				<div className='textPart'>
-				<span className='contentsPart'>{this.props.title}</span><br/>
-				<span className='likeAndLikecount'>
+				<ul className='textPart'>
+					<li className='contentsPart'>
+						<h3 className="followingTitle">{this.props.title}</h3>
+						<div className="followingContent">
+							<Truncate lines={7} dangerouslySetInnerHTML={{__html:this.props.contents}} />
+						</div>
+					</li>
+					<li className='likeAndLikecount'>
 						{(this.state.liked)
-						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
-						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
+						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						}
-					</span><br/>
-					<span className='followerTag' dangerouslySetInnerHTML={{__html:this.props.contents}}></span>
-				</div>
-				<div className='followFooter'>
-				</div>
+					</li>
+					<li className='followerTag'></li>
+				</ul>
 			</div>
     )
 	}
