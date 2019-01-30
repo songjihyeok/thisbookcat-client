@@ -26,8 +26,9 @@ class SettingModal extends Component {
     // console.log('this is the first file', file)
     this.setState({
       files: file,
-      fileName: file.name
-    })
+      fileName: file.name,
+    });
+    document.getElementById('fileName').value = file.name;
     // console.log('this is imageData', this.state.files)
   }
   
@@ -82,9 +83,15 @@ class SettingModal extends Component {
           <Modal.Title id="contained-modal-title">내 정보 변경하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className = {style.modalColumn}>  
-            <Input type="file" id={style.setting_input} name="choose image" onChange={this._getProfileImage}></Input>
-        </div> 
+        <div className="fileUploadContent">
+          <div className="fileUpload">
+            <input type="text" id="fileName" class="file_input_textbox" readonly="readonly" />  
+              <div class="file_input_div">
+                <input type="button" value="검색" class="file_input_button" />
+                <input type="file" class="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
+              </div>
+          </div>
+        </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this._handleConfirm}>닫기</Button>

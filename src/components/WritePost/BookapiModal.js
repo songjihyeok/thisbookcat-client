@@ -60,10 +60,10 @@ class BookapiModal extends Component {
             <Modal.Title id="contained-modal-title">책 검색하기</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div style={{display: "flex", alignItems: "center"}}>
-              <form style={{flex: "0.8", marginRight: "10px"}}>
+            <div className="bookSearch_Api">
+              <form>
                 <FormGroup controlId="formBasicText">
-                  <ControlLabel style={{marginBottom: "10px"}}>
+                  <ControlLabel>
                     원하는 책을 검색해주세요
                   </ControlLabel>
                   <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange}/>
