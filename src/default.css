@@ -359,6 +359,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ql-snow .ql-editor h1 {font-size:20px; line-height:28px;}
 .followingContent h2,
 .ql-snow .ql-editor h2 {font-size:17px; line-height:24px;}
+.followingContent {word-break:break-all;}
 .dataNone {font-size:20px; padding:80px 0; color:#151515; text-align:center;}
 
 

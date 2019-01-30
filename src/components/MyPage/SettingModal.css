@@ -23,6 +23,7 @@ input#setting_input{
     text-align:center;
 }
 
+.modal-dialog:after {clear:both; display:block; content:'';}
 .modal-header {border-bottom:0;}
 .modal-title {font-size:24px;}
 .modal-body {padding-bottom:40px;}
@@ -74,6 +75,7 @@ input#setting_input{
     -khtml-opacity: 0;
     -moz-opacity: 0;
 }
+.bookSearch_Wrap {min-width:300px;}
 .bookSearch_Api {position:relative; width:280px; height:48px; margin:0 auto;}
 .bookSearch_Api:after {clear:both; display:block; content:'';}
 .bookSearch_Api > form {position:relative;}

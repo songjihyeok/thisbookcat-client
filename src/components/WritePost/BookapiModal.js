@@ -50,16 +50,15 @@ class BookapiModal extends Component {
 
   render() {
     return (
-      <div className="modal-container">
-        <Modal show={this.state.show}
-              onHide={() => {this.props.handleHide()}}
-              container={this}
-              aria-labelledby="contained-modal-title"
-              style={{display: "flex", alignItems: "center"}}>
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title">책 검색하기</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
+      <Modal show={this.state.show}
+            onHide={() => {this.props.handleHide()}}
+            container={this}
+            aria-labelledby="contained-modal-title">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title">책 검색하기</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="bookSearch_Wrap">
             <div className="bookSearch_Api">
               <form>
                 <FormGroup controlId="formBasicText">
@@ -77,19 +76,19 @@ class BookapiModal extends Component {
             </div>
             <div id="aladin-bookinfo"></div>
             {this.state.finishsearch ? <div>검색된 책 : {this.state.booktitle}</div> : null}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button bsStyle="success" disabled={!this.state.finishsearch}
-                    onClick={() => {
-                      console.log(this.state.booktitle + "책이 등록되었습니다.")
-                      this.props.handleHide();
-                      this.props.handleBook(this.state.booktitle)
-                    }}>
-              해당 도서 등록하기
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button bsStyle="success" disabled={!this.state.finishsearch}
+                  onClick={() => {
+                    console.log(this.state.booktitle + "책이 등록되었습니다.")
+                    this.props.handleHide();
+                    this.props.handleBook(this.state.booktitle)
+                  }}>
+            해당 도서 등록하기
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
