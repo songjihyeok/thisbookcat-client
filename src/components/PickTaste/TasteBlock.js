@@ -41,7 +41,7 @@ _toggleBlockStatus = () => {
     return (
       <div className={this._changeCssonClick()} id = {this.props.select}
           onClick={this._handleClick} key={this.props.key}>
-        <span className='tagName'>{this.props.select}</span>
+        <div className='tagName'><span>{this.props.select}</span></div>
         <Image className='BlockImage' rounded
               src={this.props.imgUrl === 1 ? null : this.props.imgUrl}
               alt={this.props.imgUrl === 1 ? null : 'blockimage'}/>
