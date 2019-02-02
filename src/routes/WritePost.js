@@ -12,7 +12,6 @@ class WritePost extends Component {
  
     state = {
       title: "",
-      hello: "",
       contents: "",
       posted: false,
       mainimage : []

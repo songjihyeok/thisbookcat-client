@@ -14,7 +14,7 @@ import { Redirect } from "react-router-dom";
 
 class PostDetail extends React.Component {
   state = {
-    postId : this.props.location.pathname.slice(12), //TODO: 얘 이정도면 괜찮나...?
+    postId : this.props.location.pathname.slice(12),
     // postId는 props로 받아야 함.
     userId: '',
     replys:[],

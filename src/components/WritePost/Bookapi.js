@@ -8,7 +8,7 @@ class Bookapi extends Component {
     super(props);
     this.state = {
       showmodal: false,
-      booktitle: ""
+      data: null
     };
     this._handleHide = this._handleHide.bind(this);
     this._handleBook = this._handleBook.bind(this);
@@ -19,8 +19,30 @@ class Bookapi extends Component {
   }
 
   _handleBook(data) {
-    this.setState({booktitle: data});
+    console.log("데이터는 들어갔구",data);
+    this.setState({data: data});
   }
+
+
+
+  _handlebookData(){
+    const styleofBook ={ 
+       fontSize : "5px" 
+    }
+
+
+    if(this.state.data){
+      return <div style={styleofBook}>
+                <img src={this.state.data.cover}></img>
+                <div>책 제목 : {this.state.data.title}</div>
+                <div>{this.state.data.author}</div>
+                <div>{this.state.data.publisher}</div> 
+                <div>{this.state.data.description}</div> 
+             </div>
+    }
+  }
+
+
 
   render() {
     return (
@@ -29,7 +51,7 @@ class Bookapi extends Component {
         ? <BookapiModal showmodal={this.state.showmodal} handleHide={this._handleHide} handleBook={this._handleBook}/>
         : null}
         <div className="searchBook" onClick={() => {this.setState({showmodal: true})}}>책 검색하기</div>
-        {this.state.booktitle ? <div className="searchBook_title">책 제목 : {this.state.booktitle}</div> : null}
+        {this._handlebookData()}
       </div>
     );
   }

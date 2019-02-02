@@ -634,7 +634,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .func_Write button {margin-left:12px; padding:10px 20px; font-size:14px; line-height:14px;}
   .btn_BackPage {float:left;}
   .btn_WriterSave {float:right; margin-right:15px;}
-  .writeInfo_load {padding:0 10px 15px 15px; text-align:left;}
+  .writeInfo_load {padding:0 10px 15px 15px; text-align:left; font-size:5px;}
   .writeInfo_load li.bookSearch {max-width:calc(100% - 144px); margin-left:20px;}
   .writeInfo_load li.bookSearch h3 {font-size:4vw;}
   .searchBook_title {max-width:calc(100% - 65px); font-size:14px;}
