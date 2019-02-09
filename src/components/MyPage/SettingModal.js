@@ -4,14 +4,15 @@ import {Modal, Button} from 'react-bootstrap'
 import style from './SettingModal.css'
 import server_url from '../../url.json'
 import axios from 'axios'
-import { Icon, Input } from "semantic-ui-react";
-import { Redirect} from "react-router-dom";
+import CheckUserName from './checkuserName'
+
 
 class SettingModal extends Component {
 
   state = {
     isLogin: true,
-    files: null
+    files: null,
+    userName : ''
   }
 
   _logout = e => {
@@ -48,34 +49,32 @@ class SettingModal extends Component {
   }
 
   _handleConfirm = async () => {
+    await this.sendUserName();
     await this._postProfileImagetoServer()
     await this.props.hide()
   }
 
-  render() {
-    {/*}
-    if (!this.state.isLogin) {
-      return <Redirect to ='/login' />;
-    } else {
-      return (
-        <Modal show={this.props.show} container={this}
-              onHide={this.props.hide} aria-labelledby="contained-modal-title">
-          <Modal.Header closeButton>
-            <Modal.Title id="contained-modal-title">내 정보 변경하기</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <div className = {style.modalColumn}>  
-              <Input type="file" id={style.setting_input} name="choose image" onChange={this._getProfileImage}></Input>
-                <Button onClick={this._logout}>로그아웃</Button>
-          </div> 
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this._handleConfirm}>닫기</Button>
-          </Modal.Footer>
-        </Modal>
-      );
+  setUserName = async(userName) =>{
+    this.setState({userName})
+  }
+
+  sendUserName =async()=>{
+    try{
+    if(this.state.userName !== ''){
+      const token = window.localStorage.getItem('token');
+      const userNameResult =await axios.post(`https://${server_url}/api/user/updateUserName`,{
+        userName: this.state.userName},{headers: {'Authorization': `bearer ${token}`}});
+      console.log("userName 변경 결과",userNameResult);
+      }
     }
-    */}
+    catch(err) { 
+      throw new(err)
+    }
+  }
+
+
+  render() {
+
     return (
       <Modal show={this.props.show} container={this}
             onHide={this.props.hide} aria-labelledby="contained-modal-title">
@@ -85,11 +84,12 @@ class SettingModal extends Component {
         <Modal.Body>
         <div className="fileUploadContent">
           <div className="fileUpload">
-            <input type="text" id="fileName" class="file_input_textbox" readonly="readonly" />  
-              <div class="file_input_div">
-                <input type="button" value="사진 찾기" class="file_input_button" />
-                <input type="file" class="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
+            <input type="text" id="fileName" className="file_input_textbox" readOnly="readonly" />  
+              <div className="file_input_div">
+                <input type="button" value="프로필 사진 변경" className="file_input_button" />
+                <input type="file" className="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
               </div>
+              <CheckUserName checked={(e)=>{this.setUserName(e)}}/>
           </div>
         </div>
         </Modal.Body>

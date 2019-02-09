@@ -23,7 +23,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route path="/redirect/:token/:pickedOrNot" component={redirect}/>
+            <Route path="/redirect/:token" component={redirect}/>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
             <Route path="/findpw" component={FindPw} />

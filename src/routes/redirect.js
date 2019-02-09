@@ -1,19 +1,13 @@
 import React, { Component } from "react";
-import Login from './Login';
-
+import { Redirect } from "react-router-dom";
 
 class redirect extends Component {
   
   render() {
     const token = this.props.match.params.token
-    const pickedOrNot =[this.props.match.params.pickedOrNot];
-    console.log("token과 취향 선택여부", token, pickedOrNot);
+    console.log("token과 취향 선택여부", token)
     window.localStorage.setItem('token', token);
-    return (
-     <div>
-       <Login pickedOrNot={pickedOrNot}></Login>
-     </div> 
-    )
+    return <Redirect to="/" />
   }
 }
 
