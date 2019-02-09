@@ -11,10 +11,11 @@ import "../heightMax.css";
 class WritePost extends Component {
  
     state = {
-      title: "",
-      contents: "",
+      title: null,
+      contents: null,
       posted: false,
-      mainimage : []
+      mainimage : [],
+      bookData: null
     }  
 
     _handleMainImage = savedFilename => {
@@ -33,6 +34,10 @@ class WritePost extends Component {
   }; // 글 내용을 저장하는 함수입니다. setTimeout을 사용하여야 라이브러리에서 정해놓은 설정을 피할 수 있습니다.
 
 
+  _getBookData= (data)=>{
+    console.log("일단 writepost에는 데이터?",data);
+    this.setState({bookData:data});
+  }
 
 
   _postSuccess = () => {
@@ -59,7 +64,8 @@ class WritePost extends Component {
                     mainimage: this.state.mainimage,
                     title: this.state.title,
                     contents: this.state.contents,
-                    isedit: false
+                    isedit: false,
+                    bookData: this.state.bookData
                   }}/>
             {/* 악시오스 요청을 네브바에서 보냅니다. 네브바에 버튼이 존재하므로 -> 그래서 네브바에 글 제목과 글 내용, 대표이미지를 props로 내려줍니다. */}
             
@@ -71,7 +77,7 @@ class WritePost extends Component {
                 </li>
                 <li className="bookSearch">
                   <h3>사진을 저장하거나 책 검색을 하세요.</h3>
-                  <Bookapi />
+                  <Bookapi bookData={this._getBookData}/>
                   {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}
                 </li>
               </ul>

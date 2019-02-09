@@ -4,6 +4,7 @@ import axios from "axios";
 import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
+import {Button} from "react-bootstrap";
 //import "../components/Main/CSS/Main.css";
 import "../default.css";
 
@@ -53,6 +54,11 @@ class Main extends Component {
     }
     return <div className="loading">"Loading"</div> 
   };
+
+  changeTaste =()=>{
+    console.log("바뀌고 싶은데?")
+    return this.props.history.push('/picktaste')
+  }
 
   /* _renderMostLikedPage = () => {
     if(this.state.coverurl) {
@@ -107,6 +113,7 @@ class Main extends Component {
           <div className='mainPost'>
           {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
           </div>
+         <Button onClick={()=>this.changeTaste()}>취향 변경</Button>  
         </div>
       )
     }

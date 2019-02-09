@@ -81,7 +81,7 @@ export default class PostInfo extends Component {
         <li><span className="icon reCount">댓글</span>{(replyCount) ? `${replyCount}` : `0`}</li>
         <li>
           <span className="icon bookInfo" onClick={this._showModal}>책정보</span>
-          <BookInfoModal show={modal} hide={this._closeModal}/>
+          <BookInfoModal bookData={this.props.bookData} show={modal} hide={this._closeModal}/>
         </li>
       </ul>
     )

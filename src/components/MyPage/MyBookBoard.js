@@ -83,3 +83,18 @@ class MyBookBoard extends Component {
 }
 
 export default MyBookBoard;
+
+
+
+			/* <span className='confirmedUser'> */
+						/* <form className = 'userNameWrapper'>
+							<input type='text' className="getUserName" onChange={this._setUserName}></input>
+							<button className = 'selectUserName'
+											style={{backgroundColor : this.state.userName === '' ? '#c7c7c7' : '#3376ff'}}
+											onClick={this.state.confirmUN ? this.alreadychecked : this._checkUserName}>중복확인</button>
+						</form> 님,
+						</span> */
+
+				
+
+						

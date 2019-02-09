@@ -21,6 +21,8 @@ class Bookapi extends Component {
   _handleBook(data) {
     console.log("데이터는 들어갔구",data);
     this.setState({data: data});
+    
+    this.props.bookData(data);
   }
 
 
@@ -29,7 +31,6 @@ class Bookapi extends Component {
     const styleofBook ={ 
        fontSize : "5px" 
     }
-
 
     if(this.state.data){
       return <div style={styleofBook}>

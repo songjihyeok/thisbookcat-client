@@ -63,10 +63,8 @@ class Login extends Component {
 
   render() {
 
-    if (window.localStorage.getItem('token') && this.state.preference.length!==0) {
-      return <Redirect to ='/' />;
-    } else if (window.localStorage.getItem('token') && this.state.preference.length === 0) {
-      return <Redirect to ='/picktaste' />;
+    if (window.localStorage.getItem('token')) {
+      return <Redirect to ='/' /> 
     } else {
       return (
         <div className="backImg">

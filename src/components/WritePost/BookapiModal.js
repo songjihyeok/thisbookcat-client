@@ -28,9 +28,14 @@ class BookapiModal extends Component {
   _handleChange(e) {
     this.setState({ booktitle: e.target.value });
   }
-  
-  bookListHandler(){
 
+  _handleKeyPress(e) {
+    if (e.keyCode == '13') {
+      this.setbookinfo(); 
+    }
+  }  
+
+  bookListHandler(){
     if(this.state.data){
       console.log("array",this.state.data.item)
       const result = this.state.data.item.map((book)=>{
@@ -110,7 +115,7 @@ class BookapiModal extends Component {
                   <ControlLabel>
                     원하는 책을 검색해주세요
                   </ControlLabel>
-                  <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange}/>
+                  <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
                 </FormGroup>
               </form>
               <Button bsStyle="info"

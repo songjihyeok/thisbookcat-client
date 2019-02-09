@@ -16,15 +16,17 @@ class PostDetail extends React.Component {
   state = {
     postId : this.props.location.pathname.slice(12),
     // postId는 props로 받아야 함.
-    userId: '',
+    userId: null,
     replys:[],
     replyCount : 0, //댓글 갯수
-    isMypost: '',
+    isMypost: null,
+    bookData: null,
+    replyContents: ''
   }
 
-  comment = {}; //보낼 comment
-  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
+  //보낼 comment
 
+  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
   // componentDidMount(){
   //   console.log('PostDatail.js의 ComponentDidMount 함수에서 this.state를 찍어보겠습니다___', this.state)
   // }
@@ -39,6 +41,7 @@ class PostDetail extends React.Component {
     const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader)
     console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
     this.setState({
+      bookData: res_getPost.data.bookData,
       userId: res_getPost.data.userId,
       isMypost: res_getPost.data.isthePoster,
     })
@@ -71,31 +74,36 @@ class PostDetail extends React.Component {
     return count
   }
 
-  _newReply = e => {
-    this.comment = {replyContents: e.target.value}
+
+
+  _handleKeyPress=(e) =>{
+    if (e.keyCode == '13') {
+    this._makeReply(e);
+    }   
   }
 
-  _makeReply = async() => {
-    //input 창에서 onChange로 작동된 _newReply 함수가 comment 라는 애를 새로 만듭니다.
-    //그 this.comment가 이 axios 요청의 바디형태와 같습니다.
-    //그걸로 포스트 요청 보내고, 다시 그 글의 전체 reply정보 받아오는 _getReply 함수를 실행합니다.
-    // const res_postReply = 
-    await axios.post(`https://${server_url}/api/reply/${this.state.postId}`
-      , this.comment 
+  _newReply =  (e)=> {
+    this.setState({replyContents:e.target.value});
+  }
+
+  _makeReply = async(e) => {
+    e.preventDefault();
+    console.log("잘들어가냐?",this.state.replyContents);
+    const respond =await axios.post(`https://${server_url}/api/reply/${this.state.postId}`
+      , {replyContents :this.state.replyContents}
       , this.authHeader)
-    // console.log('postdetail 컴포 > _makeReply 함수 > axios.get 요청 후 받는 res_postReply', res_postReply);
+
+    console.log("respond",respond);
     await this._getReply();
+    this.setState({replyContents:''})
   }
-
-  _getBookInfo = () => {
-    //알라딘에서 책 정보 가져오기
-  }
-
+  
   render() {
     const { postId, userId, replys, replyCount, isMypost } = this.state;
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
+      console.log("replycontent", this.state.replycontents);
     return (
         <Fragment>
           <Nav1 />
@@ -103,7 +111,7 @@ class PostDetail extends React.Component {
             <PostContent postId={postId} />
             <div className='post_detail_right'>
               <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history}/>
-              <PostInfo postId={postId} replyCount={replyCount} history={this.props.history}/>
+              <PostInfo bookData={this.state.bookData} postId={postId} replyCount={replyCount} history={this.props.history}/>
               <div className='post_detail_3_reply'>
                 {typeof(replys) === 'string'
                 ? <div> '댓글이 없습니다.'</div>
@@ -115,19 +123,14 @@ class PostDetail extends React.Component {
                     })}
                   </div>
                 }
-              </div>
-
-              <div className='post_detail_right_2'>
-                <form>
-                  <input className='post_detail_reply_input' type="text"
-                        placeholder="댓글을 입력하세요" onChange={this._newReply}/>
-                  <span className="btn_reWrite" onClick={this._makeReply}>등록
-                  {/*
-                    <Icon name="pencil alternate" fitted size="large" />
-                  */}
-                  </span>
-                </form>
-              </div>
+              </div>   
+               <div className='post_detail_right_2'>
+                  <form onSubmit={this._makeReply}>
+                    <input className='post_detail_reply_input'
+                        placeholder="댓글을 입력하세요"  value= {this.state.replyContents} onChange={this._newReply} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
+                    <button type="submit" className="btn_reWrite" >등록</button>
+                  </form>  
+                </div>  
             </div>
           </div>
         </Fragment>
@@ -137,3 +140,11 @@ class PostDetail extends React.Component {
 }
 
 export default PostDetail;
+
+
+
+
+
+
+
+

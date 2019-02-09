@@ -66,8 +66,6 @@ class MyLike extends Component {
   };
 
   render() {
-    // console.log(this.state.page)
-    // console.log(this.state.totalPage)
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {

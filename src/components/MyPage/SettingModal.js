@@ -87,7 +87,7 @@ class SettingModal extends Component {
           <div className="fileUpload">
             <input type="text" id="fileName" class="file_input_textbox" readonly="readonly" />  
               <div class="file_input_div">
-                <input type="button" value="검색" class="file_input_button" />
+                <input type="button" value="사진 찾기" class="file_input_button" />
                 <input type="file" class="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
               </div>
           </div>

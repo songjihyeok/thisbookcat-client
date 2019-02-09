@@ -27,7 +27,9 @@ class Nav2 extends Component {
       return;
     }
     console.log("이게 수정이니 아니니?",this.props.posting.isedit)
-    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
+    console.log("bookData", JSON.stringify(this.props.posting.bookData));
+    const bookData = JSON.stringify(this.props.posting.bookData)
+    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents, bookData : bookData}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
     console.log("타이틀이랑 컨텐츠 수정 완료",titleandcontent)  
     
       if(!this.props.posting.isedit){
@@ -36,7 +38,7 @@ class Nav2 extends Component {
         const imageupdate =  await axios.post(`https://${server_url}/img/mainimage/create/${titleandcontent.data.id}`, {fileName: this.props.posting.mainimage},config)
         console.log("이미지 업로드 완료", imageupdate)
       }
-        this.props._postSuccess();  
+      this.props._postSuccess();  
   };
 
   _iseditorpost =()=>{
