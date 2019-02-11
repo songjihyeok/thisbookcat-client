@@ -131,23 +131,17 @@ class TasteBoard extends Component {
 			alert("이미 있는 취향입니다.");
 		}
 
-		const addCustomTaste = (customTaste) => {
-			let result = this.state.newTagUnUsing
-			result.push(customTaste)
-			return result
-		}
-		await this.setState({
-			newTagUnUsing: addCustomTaste(newTaste)
-		})
-		console.log('TasteBoard.js > _addTaste 함수에서 this.state.newTaste___', this.state.newTagUnUsing)
 		let token = window.localStorage.getItem('token');
-		let newPreference = {newPreference: this.state.newTagUnUsing}
+		let newPreference = {newPreference: newTaste}
 		/* let defaultTaste = {defaultTags: this.state.selected} */
-		console.log("taste보내보자", this.state.newTagUnUsing)
 			const res_postNewPref = await axios.post (`https://${server_url}/api/user/preferenceAdd`, newPreference, {
 					headers: {Authorization: `bearer ${token}`}
 			})
 			console.log('_submitTasteNUserName 함수에서 axios.post(newPreference) 후 res_postNewPref ____', res_postNewPref)
+		
+		await this.setState({
+			newTagUnUsing: [...this.state.newTagUnUsing, newTaste]
+		})
 	}
     
 

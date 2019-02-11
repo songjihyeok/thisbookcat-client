@@ -10,8 +10,22 @@ class Nav1 extends Component {
   }
 
   _searchHandler = e => {
-    const searchingValue = e.target.value;
+    let searchingValue = e.target.value;
+    searchingValue =this._popoutSpace(searchingValue);
     this.setState({searchingValue: searchingValue})
+  }
+
+  _popoutSpace = (value)=>{
+    let valueArray=value.split('')
+    console.log(valueArray)
+    let resultValue =''
+    for(let element of valueArray){
+      if(element===" "){
+        continue
+      }
+      resultValue += element
+    }
+    return resultValue;
   }
 
   _handleKeyPress(event) {
