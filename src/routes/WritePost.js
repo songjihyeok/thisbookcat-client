@@ -22,6 +22,10 @@ class WritePost extends Component {
       this.setState({mainimage: this.state.mainimage.concat(savedFilename)});
     };  
 
+    _removeMainImage = ()=>{
+      this.setState({mainimage: []})
+    }
+
     
   _handleTitle = e => {
     this.setState({title: e.target.value});
@@ -36,6 +40,7 @@ class WritePost extends Component {
 
   _getBookData= (data)=>{
     console.log("일단 writepost에는 데이터?",data);
+    console.log(data.cover)
     this.setState({bookData:data});
   }
 
@@ -72,7 +77,7 @@ class WritePost extends Component {
             <div className="write_container">
               <ul className="writeInfo_load">
                 <li className="thumbLoad">
-                  <Thumbnail1  _handleMainImage={this._handleMainImage}/>
+                  <Thumbnail1  _handleMainImage={this._handleMainImage} _removeMainImage={this._removeMainImage}/>
                   {/* 대표이미지를 업로드하는 부분입니다. */}
                 </li>
                 <li className="bookSearch">

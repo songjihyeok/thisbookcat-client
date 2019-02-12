@@ -43,8 +43,8 @@ class Nav2 extends Component {
 
   _iseditorpost =()=>{
 
-    if(this.props.posting.mainimage.length===0){
-      alert("사진을 등록하지 않았습니다. 사진을 올려주세요")
+    if(this.props.posting.mainimage.length===0 && this.props.bookData===null){
+      alert("사진을 등록하지 않았습니다. 책을 검색하거나 사진을 올려주세요")
       return false;
     }
     let postid= window.location.href.split('/').pop();

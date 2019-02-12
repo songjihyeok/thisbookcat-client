@@ -1,26 +1,26 @@
 .PhotoUploadModal {
-    justify-content: center;
-    position: relative;
-    left :50%;
+  justify-content: center;
+  position: relative;
+  left :50%;
 }
 
 .modal-footer {
-    text-align: center;
+  text-align: center;
 }
 
 
 .setting_item{
-    text-align: center;
-    position: relative;
+  text-align: center;
+  position: relative;
 }
 
 .modal-body{
-    text-align :center;
+  text-align :center;
 }
 
 input#setting_input{
-    display: inline-block;
-    text-align:center;
+  display: inline-block;
+  text-align:center;
 }
 
 .modal-dialog:after {clear:both; display:block; content:'';}
@@ -39,41 +39,41 @@ input#setting_input{
 .fileUpload {position:relative; width:80%; margin:0 auto;}
 .file_input_textbox {float:left; width:70%; height:38px; border:1px solid #ccc;}
 .file_input_div {
-    position: absolute;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 38px;
-    overflow: hidden;
-    display:inline-block;
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 38px;
+  overflow: hidden;
+  display:inline-block;
 }
- 
+
 .file_input_button {
-    width: 28%;
-    height:38px;
-    position: absolute;
-    top:0;
-    right:0;
-    font-size:14px;
-    color: #FFFFFF;
-    background-color:#464646;
-    border:0;
+  width: 28%;
+  height:38px;
+  position: absolute;
+  top:0;
+  right:0;
+  font-size:14px;
+  color: #FFFFFF;
+  background-color:#464646;
+  border:0;
 }
- 
+
 .file_input_hidden {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    width:100%;
-    height:100%;
-    opacity: 0;
-    z-index:1;
-    cursor:pointer;
-    
-    filter: alpha(opacity=0);
-    -ms-filter: "alpha(opacity=0)";
-    -khtml-opacity: 0;
-    -moz-opacity: 0;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width:100%;
+  height:100%;
+  opacity: 0;
+  z-index:1;
+  cursor:pointer;
+  
+  filter: alpha(opacity=0);
+  -ms-filter: "alpha(opacity=0)";
+  -khtml-opacity: 0;
+  -moz-opacity: 0;
 }
 .bookSearch_Wrap {min-width:300px;}
 .bookSearch_Api {position:relative; width:280px; height:48px; margin:0 auto;}
@@ -105,10 +105,8 @@ input#setting_input{
 .bookSearch_Api input[type='text']:active,
 .bookSearch_Api.focus input[type='text'] {color:#151515; border-color:#3376ff;}
 .bookSearch_Api > button {position:absolute; top:0; right:5px; width:48px; height:48px; background:url('../../img/main-search-icon.png') center center no-repeat; border:0; opacity:.7; z-index:1;}
-
 .btn_bookAdd {width:280px; height:48px; font-size:15px; color:#fff; background-color:#3376ff; border:0; border-radius:24px; box-shadow:none;}
-
 */
 @media all and (max-width: 768px) {
-    .fileUpload {width:100%;}
+  .fileUpload {width:100%;}
 }

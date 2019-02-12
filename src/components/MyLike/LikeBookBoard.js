@@ -40,21 +40,17 @@ class LikeBookBoard extends Component {
 			.catch(error => console.log(error))
 		}
 	}
-	/*
-  imageSize(){
-		var filter = "win16|win32|win64|mac";
-		if(navigator.platform){
-			var size;
-			if(0 > filter.indexOf(navigator.platform.toLowerCase())){
-				//mobile
-				this.state.width = 240;
-			} else{
-				//pc
-				this.state.width = 240;
-			}
-		}
-	}
-	*/
+	handleImage=()=>{
+		if(this.props.likePost.mainImage===''){
+			let parsedBookData = JSON.parse(this.props.bookData);
+			let postImage = parsedBookData.cover;
+			console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.props.likePost.mainImage}`
+	}	
+
+
 
 	render() {
 		// console.log("LikeBookBoard.js 컴포 > render 함수 안 콘솔 찍는 중 this.props.likePost___", this.props.likePost)
@@ -62,12 +58,8 @@ class LikeBookBoard extends Component {
 			<div className ='bookBoard'>
 				<div className='imageContainer'>
 					<Link to={{pathname : `/postdetail/${this.props.postid}`,}}>
-					{/*state : {
-							imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-							username : this.props.author
-					}  */}
 						<img className = 'likeThumbnail' alt='bookcover'
-									src = {`https://${server_url}/upload/${this.props.likePost.mainImage}`}/>
+									src = {this.handleImage()}/>
 					</Link>
 					<div className='likeBar'>
 						{(this.state.liked)

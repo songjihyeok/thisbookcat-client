@@ -72,7 +72,6 @@ class SettingModal extends Component {
     }
   }
 
-
   render() {
 
     return (

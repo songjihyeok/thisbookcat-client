@@ -33,17 +33,14 @@ class Thumbnail extends Component {
     console.log("props",this.props)
     this.props._handleMainImage(this.state.savedFilename)
   }
-  /*
-  root.ref.label = root.appendChildView(
-    root.createChildView(
-      dropLabel,
-      Object.assign({}, props, {
-        translateY: null,
-        caption: root.query('GET_LABEL_IDLE')
-      })
-    )
-  );
-  */
+
+  removefileName(){
+    this.setState({ savedFilename :null })
+    console.log("removed?", this.state.files, this.state.savedFilename)
+    this.props._removeMainImage()
+  }
+
+
 
   render() {
     let token = window.localStorage.getItem('token')
@@ -72,7 +69,8 @@ class Thumbnail extends Component {
                             method : 'delete',
                             headers : { 
                               "authorization" : `bearer ${token}`
-                            }
+                            },
+                            onload : ()=> this.removefileName()
                           }
 
                     }}

@@ -68,13 +68,23 @@ class BookBoard extends Component {
 			this._handleLike()
 	} */
 
+	handleImage =()=>{
+		if(this.props.url===''){
+			let parsedBookData = JSON.parse(this.props.bookData);
+			let postImage = parsedBookData.cover;
+			console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.props.url}`	
+	}	
+
 	render(){
 		return(
 				<div className ='bookBoard'>
 					<div className='imageContainer'>
 						<Link to={{ pathname : `/postdetail/${this.props.postid}` }}>
 							<Image className = 'mainThumbNail' alt='bookcover' /* width={240} height={240} */
-										src = {`https://${server_url}/upload/${this.props.url}`}/>
+										src = {this.handleImage()}/>
 						</Link>
 						<div className='likeBar'>
 							{this.state.liked

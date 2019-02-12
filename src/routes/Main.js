@@ -42,11 +42,13 @@ class Main extends Component {
     if (this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
         if (url) {
+          console.log("그래서 가져오고 싶어")
           return <BookBoard url={url.mainImage}
                             postid={url.id}
                             title={url.title}
                             likecount={url.likeCount}
                             key={url.id}
+                            bookData= {url.bookData}
                             />;
         }
       });
@@ -57,7 +59,7 @@ class Main extends Component {
 
   changeTaste =()=>{
     console.log("바뀌고 싶은데?")
-    return this.props.history.push('/picktaste')
+   window.location.href='/picktaste';
   }
 
   /* _renderMostLikedPage = () => {
@@ -74,7 +76,6 @@ class Main extends Component {
 
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
-    console.log(coverurl)
     if (this.state.coverurl === undefined) {
       this.setState({coverurl})
     } else {
@@ -97,7 +98,7 @@ class Main extends Component {
   };
 
   render() {
-    // console.log('this is totalpage---------', this.state.totalPage)
+
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {

@@ -39,7 +39,7 @@ class Followings extends Component {
     if (this.state.followPost) {
       const follow = this.state.followPost.map((url, index) => {
         if (url) {
-          return <FollowingBoard image={url.mainImage} key={index} title={url.title}
+          return <FollowingBoard image={url.mainImage} key={index} title={url.title} bookData={url.bookData}
                                 likecount={url.likeCount} contents={url.contents} postid={url.id} />
         }
       })

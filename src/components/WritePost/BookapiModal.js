@@ -54,7 +54,7 @@ class BookapiModal extends Component {
     console.log("max",Math.floor(resultOfBookdata.totalResults/5)+1)
     this.setState({maxpage: Math.floor(resultOfBookdata.totalResults/5)+1 })
   }
-    const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbKey=ttbporr34441025002&Query=${this.state.booktitle}&output=js&callback=bookdisplay&MaxResults=5&SearchTarget=Book&Sort=SalesPoint&Start=${this.state.page}`
+    const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbKey=ttbporr34441025002&Query=${this.state.booktitle}&output=js&callback=bookdisplay&MaxResults=5&SearchTarget=Book&Sort=SalesPoint&Start=${this.state.page}&Cover=Big`
 
       $.ajax({
         url : url,

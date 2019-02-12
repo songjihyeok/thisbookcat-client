@@ -72,6 +72,16 @@ class FollowingBoard extends Component {
 			.then(response => this.setState({postUserInfo:response}))
 		}
 
+	handleImage=()=>{
+		if(this.props.image===''){
+			let parsedBookData = JSON.parse(this.props.bookData);
+			let postImage = parsedBookData.cover;
+			console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.props.image}`	
+	}	
+
   render() {
 		//   console.log(this.props.contents)
 		//   console.log(this.props.likecount)
@@ -90,7 +100,7 @@ class FollowingBoard extends Component {
 											username : this.props.author,
 									} */
 					}}>
-						<img className='FollowThumbnail' src={`https://${server_url}/upload/${this.props.image}`}
+						<img className='FollowThumbnail' src={this.handleImage()}
 									alt='bookcover' />
 					</Link>
 				</div>

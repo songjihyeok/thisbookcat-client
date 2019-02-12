@@ -207,7 +207,7 @@ class TasteBoard extends Component {
 
 	_gotoMain = (r) => {
 		if (r) {
-			this.props.history.push('/')
+			window.location.href="/main";
 		}
 	}
     
