@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import Thumbnail1 from "../components/WritePost/Thumbnail1";
 //import { Grid, Row, Col } from "react-bootstrap";
 import Bookapi from "../components/WritePost/Bookapi";
-import MyEditor from "../components/WritePost/MyEditor";
+import MyEditor from "../components/WritePost/MyEditor.2.js";
 import "../heightMax.css";
 
 class WritePost extends Component {
@@ -86,9 +86,9 @@ class WritePost extends Component {
                   {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}
                 </li>
               </ul>
-
+                {/* <MyEditors></MyEditors> */}
               <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
-              {/* 글 쓰는 부분입니다. */}
+
             </div>
                     
           </div>

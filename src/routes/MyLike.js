@@ -10,7 +10,7 @@ import LikeBookBoard from "../components/MyLike/LikeBookBoard";
 class MyLike extends Component {
 
   state = {
-    per: 10,
+    per: 16,
     page: 1,
     totalPage: ''
   };
@@ -57,9 +57,9 @@ class MyLike extends Component {
       if(this.state.likePosts){
         const result = this.state.likePosts.map((likePost) => {
         if (likePost) {
-          return <LikeBookBoard likePost={likePost} key={likePost.id} postid={likePost.id} bookData={likePost.bookData}/>
-        }
-      })
+         return <LikeBookBoard likePost={likePost} key={likePost.id} postid={likePost.id} bookData={likePost.bookData}/>
+          }
+        })
       return result;
       }
       return "Loading"

@@ -13,7 +13,7 @@ class editPost extends Component {
     state = {
       title: "",
       contents: "",
-      mainimage: null,
+      mainImage: null,
       posted : false,
       bookData: null
     }  
@@ -30,9 +30,10 @@ class editPost extends Component {
       console.log("가져온다 postId",postId);
       const getpostedData = await axios.get(`https://${server_url}/api/post/${postId}`, this.authHeader);
       console.log("가져온다. 중간 데이터",getpostedData);
-      const {title, contents, mainImage} = getpostedData.data
-      console.log("내가 원하는 그것 내놔", title, contents, mainImage);
-      await this.setState({title:title, contents, mainimage: mainImage})
+      
+      const {title, contents, mainImage, bookData} = getpostedData.data
+      console.log("내가 원하는 그것 내놔",title,contents,bookData, mainImage);
+      await this.setState({title:title, contents, mainImage, bookData})
     }
     catch(error){
       throw new Error(error);
@@ -61,20 +62,29 @@ class editPost extends Component {
     this.setState({posted: true});
   }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
- 
+  handleImage =()=>{
+		if(this.state.mainImage===""){
+      let parsedBookData = this.state.bookData
+      if(typeof(this.state.bookData)==="string"){
+        parsedBookData = JSON.parse(this.state.bookData);
+      }
+			let postImage = parsedBookData.cover;
+			console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.state.mainImage}`	
+	}	
+
+
 
   render() {
     console.log("editpost에 오신걸 환영합니다.")
-    let {mainimage, title, contents} = this.state
-    let mainimageURL = `https://${server_url}/upload/${mainimage}`
+    let {title, contents} = this.state
     let editor = null;
     let image = null;
-    if(mainimage===null){
-      console.log("이미지 없음")
-    } else {
-      image = <img /* style= {{width:500, height:500}} */ src={mainimageURL} alt={"이미지 없음"}/>
+
+      image = <img src={this.handleImage()} alt={"이미지 없음"}/>
       editor= <MyEditor contents={contents} title={title} _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
-    }
 
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
@@ -87,7 +97,7 @@ class editPost extends Component {
           <div className="editWrap">
             <Nav2 _postSuccess={this._postSuccess}
                   posting={{
-                    mainimage: this.state.mainimage,
+                    mainimage: this.state.mainImage,
                     title: this.state.title,
                     contents: this.state.contents,
                     isedit: true,
@@ -105,8 +115,7 @@ class editPost extends Component {
                     <Bookapi bookData={this._getBookData}/>
                     {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}
                   </li>
-                </ul>
-                
+                </ul>            
                 {editor}
               </div>
           </div>

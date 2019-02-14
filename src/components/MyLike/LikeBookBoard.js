@@ -18,24 +18,20 @@ class LikeBookBoard extends Component {
 			axios.delete(`https://${server_url}/api/like/${this.props.likePost.id}`, {
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
-					// console.log(response)
 				this.setState({
 						liked: false,
 						likeCount: this.state.likeCount-1
 				})
-					// console.log('liked should change', this.state.liked)
 			})
 			.catch(error => console.log(error))
 		} else {
 			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
-					// console.log(response)
 				this.setState({
 						liked: true,
 						likeCount: this.state.likeCount+1
 				})
-					// console.log('liked should change', this.state.liked)
 			})
 			.catch(error => console.log(error))
 		}
@@ -53,7 +49,6 @@ class LikeBookBoard extends Component {
 
 
 	render() {
-		// console.log("LikeBookBoard.js 컴포 > render 함수 안 콘솔 찍는 중 this.props.likePost___", this.props.likePost)
 		return (
 			<div className ='bookBoard'>
 				<div className='imageContainer'>

@@ -82,9 +82,9 @@ class Login extends Component {
                         </text>
                       </svg>
                       */}
-                      Afteread
+                      Binchbooks
                     </h1>
-                    {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>Afteread에 오신 것을 환영합니다</div>}
+                    {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>애프터리즈에 오신 것을 환영합니다</div>}
                     <form onSubmit={this._handleSubmit}>
                       <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
                                   onChange={this._setEmail}/>

@@ -31,7 +31,7 @@
     "react-cursor-position": "^3.0.3",
     "react-dom": "^16.5.2",
     "react-dotdotdot": "^1.2.3",
-    "react-draft-wysiwyg": "^1.12.13",
+    "react-draft-wysiwyg": "^1.13.1",
     "react-dropzone": "^6.0.2",
     "react-facebook-login": "^4.1.1",
     "react-file-loader": "^1.2.3",
