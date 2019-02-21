@@ -12,9 +12,10 @@ class Followings extends Component {
 
   state = {
     page: 1,
-    per: 10,
+    per: 16,
     totalPage:'',
-    followPost:[]
+    followPost:[],
+    getData: false
   };
 
   componentDidMount() {
@@ -50,8 +51,10 @@ class Followings extends Component {
 
   _getFollowPosts = async () => {
     const followPost = await this._callFollowAPI()
-    this.setState({followPost: this.state.followPost.concat(followPost)})
-    console.log(this.state.followPost)
+    if(followPost){
+      this.setState({followPost: this.state.followPost.concat(followPost)})
+      console.log(this.state.followPost)
+    }
   };
 
   _callFollowAPI = () => {
@@ -59,32 +62,33 @@ class Followings extends Component {
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      this.setState({totalPage: response.data.totalpage})
+      this.setState({totalPage: response.data.totalpage, getData: true})
       // console.log(response.data)
       return response.data.perArray
     })
   };
 
   render() {
-    const { followPost, page, totalPage } = this.state;
-    const noFollowList = _.isEmpty(followPost);
-    console.log(noFollowList);
+    let { followPost, page, totalPage, getData } = this.state;
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
+    } else if(!getData){
+      return <div>loading</div>
     } else {
+      console.log("followPost", followPost);
       return (
         <Fragment>
           <Nav1/>
           <div className="Followings">
-          <div className='FollowingBoards'>
-          {noFollowList? <div className="dataNone">팔로우하신 유저가 없습니다!</div> : this._renderFollowingPost()}
-          {page === totalPage ? <div className="dataNone">더이상 콘텐츠가 없습니다!</div> : ''}
-          </div>
+            <div className='FollowingBoards'>
+            {followPost.length===0? <div className="dataNone">팔로우하신 유저가 없습니다!</div> : this._renderFollowingPost()}
+            {page === totalPage ? <div className="dataNone">더이상 콘텐츠가 없습니다!</div> : ''}
+            </div>
           </div>
         </Fragment>
       );
     }
-  }
+  }  
 }
 
 export default Followings;

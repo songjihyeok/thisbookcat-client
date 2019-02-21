@@ -8,7 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
 import server_url from '../url.json';
 import book from "../img/book-img.png";
-import FACEBOOK from '../components/Facebook/facebook';
+import KakaoLogin from '../components/Kakao/Kakao.js';
 
 
 class Login extends Component {
@@ -82,9 +82,9 @@ class Login extends Component {
                         </text>
                       </svg>
                       */}
-                      Binchbooks
+                      Afteread
                     </h1>
-                    {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>애프터리즈에 오신 것을 환영합니다</div>}
+                    {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>애프터리드에 오신 것을 환영합니다</div>}
                     <form onSubmit={this._handleSubmit}>
                       <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
                                   onChange={this._setEmail}/>
@@ -97,7 +97,8 @@ class Login extends Component {
                     <div style={{color: '#ffffff', fontSize: '13.8px', marginTop: '14px', marginBottom: '24px'}}>
                       또는
                     </div>
-
+                    <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_facebook" className='login_btn' >NAVER로 계속하기</button></a></div>
+                    <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_facebook" className='login_btn' >KAKAO로 계속하기</button></a></div>  
                     <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div>
                    {/* <FACEBOOK></FACEBOOK>  */}
                     <div><a href="https://server.afteread.net/auth/google"><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></a></div>
@@ -105,7 +106,6 @@ class Login extends Component {
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     <div className='login_flex'>
                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                      <Link to="/findpw"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>아이디/비밀번호 찾기</div></Link>
                     </div>
                   </div>
                 </div>

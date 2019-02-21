@@ -48,6 +48,7 @@ body {font-family:'Noto Sans KR';}
 .nav2 {position:relative; z-index:10; padding:15px 0; background-color:#fff;}
 .nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);}
 .nav2 {height:70px; border-bottom:1px solid #eaeaea;}
+.logoStyle {height:50px; width:150px;}
 .thisBook_Nav1,
 .thisBook_Nav2 {float:left; margin:5px 28px 0 40px !important; font-size: 28.4px; text-align: left;}
 .thisBook_Nav1,
@@ -352,13 +353,17 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   text-align: left;
   color: #717171;
 }
-.followingTitle {font-size:25px;}
+.followingTitle {font-size:30px;}
 .followingContent,
-.ql-editor {font-size:17px !important;}
+.ql-editor {font-size:25px !important;}
 .followingContent h1,
-.ql-snow .ql-editor h1 {font-size:20px; line-height:28px;}
+.ql-snow .ql-editor h1 {font-size:30px; line-height:28px;}
 .followingContent h2,
-.ql-snow .ql-editor h2 {font-size:17px; line-height:24px;}
+.ql-snow .ql-editor h2 {font-size:25px; line-height:24px;}
+.ql-align-center {text-align: center;}
+.ql-align-right {text-align: right;}
+.ql-video {width:800px; height:500px; text-align: center;}
+
 .followingContent {word-break:break-all;}
 .dataNone {font-size:20px; padding:80px 0; color:#151515; text-align:center;}
 
@@ -538,6 +543,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .thisBook_Nav2 {margin:6px 15px !important; font-size: 19px;}
   .thisBook_Nav1 a,
   .thisBook_Nav2 a {width:auto;}
+  .logoStyle {height:30px; width:80px;}
 
   .backImg {position:absolute; overflow-y:auto; background-attachment:local;}
   .searchForm {width:calc(70% - 60px);}
@@ -626,6 +632,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .myBookShelfText {font-size:20px;}
 
   .MyLikeWrap {padding:19px 19px 0 19px;}
+  .likeBoard {position: relative; display: block; width: 80%; margin: 0 auto; box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1); background-color: #ffffff;}
 
   .writePost {width:100%; padding-bottom:0;}
   .write_container {padding:25px 0 0 0;}

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect} from "react-router-dom";
+import logoImage from "../img/로고.png";
 
 //import "./Nav1.css";
 
@@ -60,7 +61,7 @@ class Nav1 extends Component {
     } else {
       return (
         <div className="nav1">
-          <h1 className="thisBook_Nav1"><Link to="/main">Aftereads</Link></h1>
+          <h1 className="thisBook_Nav1"><Link to="/main"><img className="logoStyle" src={logoImage}/></Link></h1> 
           <div className="searchForm">
             <form>
               <input className="search_input" placeholder="(예: 힐링, 자기계발, 칼세이건...)" value={this.state.searchingValue}

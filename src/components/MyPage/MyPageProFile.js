@@ -24,7 +24,8 @@ class MyPageProFile extends Component {
       page: 1,
       totalPage:'',
       followed: 0,
-      following: 0
+      following: 0,
+      gotData:false
     };
   }
 
@@ -52,6 +53,10 @@ class MyPageProFile extends Component {
   _getMyProfile = () => {
     axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
+      if(response.status===400){
+        alert("잘못된 접근입니다.")
+        return;
+      }
       console.log( "이미지 있나?", response.data.profileImage)
       if(response.data.profileImage){
       this.setState({
@@ -61,7 +66,8 @@ class MyPageProFile extends Component {
       } else {
         this.setState({
           myProfile: response.data,
-          ProfileImage: defaultimage
+          ProfileImage: defaultimage,
+          gotData: true
         })
       }
     })
@@ -73,8 +79,11 @@ class MyPageProFile extends Component {
     })
     .then(response => {
       console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
-      const allofarray = []
-      if(response.data.perArray){
+      let allofarray = []
+      if(response.data.perArray===undefined){
+        return;
+      }
+      if(response.data.perArray.length>0){
       response.data.perArray.forEach((element)=>{
         if(element){
           allofarray.push(element)
@@ -104,17 +113,19 @@ class MyPageProFile extends Component {
   }
 
   _renderPost = () => {
+    if(this.state.myPosts.length>0){
     const posts = this.state.myPosts.map(post => {
+      console.log("post는",post)
+
       if (post) {
-        console.log("post는",post)
-       
         return <MyBookBoard image={post.mainImage} title={post.title} key={post.id}
                             postid={post.id} likecount={post.likeCount} bookData={post.bookData}/>
       }
     });
     // console.log(this.state.myPosts)
     return posts
-  };
+    }
+  }
 
   _getImageFromModal = image => {
     // console.log('_getImageFromModal 이 작동하고 있어요!!')
@@ -137,16 +148,12 @@ class MyPageProFile extends Component {
   }
 
   render() {
-    // console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
-    // console.log('myprofile', this.state.myProfile)
-    // console.log('totalpage', this.state.totalPage)
-    // console.log('myprofile', this.state.myPosts)
-    // console.log(this.state.page)
-    // console.log(this.state.totalPage)
-    // console.log('this is profileImage', this.state.ProfileImage)
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
-    } else {
+    } else if (!this.state.gotData){
+      return <div>loading</div>
+    }
+    else {
       return (
         <div className="MyPageProFile">
         <div className='profileContainer'>

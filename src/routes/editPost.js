@@ -15,7 +15,9 @@ class editPost extends Component {
       contents: "",
       mainImage: null,
       posted : false,
-      bookData: null
+      bookData: null,
+      getData:false,
+      posted:false
     }  
     
     authHeader = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}   
@@ -33,7 +35,7 @@ class editPost extends Component {
       
       const {title, contents, mainImage, bookData} = getpostedData.data
       console.log("내가 원하는 그것 내놔",title,contents,bookData, mainImage);
-      await this.setState({title:title, contents, mainImage, bookData})
+      await this.setState({title:title, contents, mainImage, bookData, getData: true})
     }
     catch(error){
       throw new Error(error);
@@ -59,7 +61,7 @@ class editPost extends Component {
   }; // 글 내용을 저장하는 함수입니다. setTimeout을 사용하여야 라이브러리에서 정해놓은 설정을 피할 수 있습니다.
 
   _postSuccess = () => {
-    this.setState({posted: true});
+    this.setState({posted: true})
   }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
   handleImage =()=>{
@@ -67,6 +69,7 @@ class editPost extends Component {
       let parsedBookData = this.state.bookData
       if(typeof(this.state.bookData)==="string"){
         parsedBookData = JSON.parse(this.state.bookData);
+        console.log("bookdata",parsedBookData)
       }
 			let postImage = parsedBookData.cover;
 			console.log( "url 바뀌었나",postImage);
@@ -79,6 +82,7 @@ class editPost extends Component {
 
   render() {
     console.log("editpost에 오신걸 환영합니다.")
+    console.log("bookdata", this.state.bookData)
     let {title, contents} = this.state
     let editor = null;
     let image = null;
@@ -88,18 +92,21 @@ class editPost extends Component {
 
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
-    } else {
+    }
+    if (this.state.posted){
+      return <Redirect to="/mypage" />
+    }
     return (
-        (this.state.posted)
+        (!this.state.getData)
         ?
-          <Redirect to="/mypage" /> 
+        <div className="loading">"Loading"</div> 
         :
           <div className="editWrap">
             <Nav2 _postSuccess={this._postSuccess}
                   posting={{
                     mainimage: this.state.mainImage,
                     title: this.state.title,
-                    contents: this.state.contents,
+                    contents: contents,
                     isedit: true,
                     bookData: this.state.bookData
                     }}/>
@@ -121,7 +128,6 @@ class editPost extends Component {
           </div>
       )
     }
-  }
 }
 
 export default editPost;

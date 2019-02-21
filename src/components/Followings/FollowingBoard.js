@@ -73,7 +73,7 @@ class FollowingBoard extends Component {
 		}
 
 	handleImage=()=>{
-		if(this.props.image===''){
+		if(this.props.image===''&&this.props.bookData!=='null'){
 			let parsedBookData = JSON.parse(this.props.bookData);
 			let postImage = parsedBookData.cover;
 			console.log( "url 바뀌었나",postImage);

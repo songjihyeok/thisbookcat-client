@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import Thumbnail1 from "../components/WritePost/Thumbnail1";
 //import { Grid, Row, Col } from "react-bootstrap";
 import Bookapi from "../components/WritePost/Bookapi";
-import MyEditor from "../components/WritePost/MyEditor.2.js";
+import MyEditor from "../components/WritePost/MyEditor.js";
 import "../heightMax.css";
 
 class WritePost extends Component {
@@ -15,7 +15,8 @@ class WritePost extends Component {
       contents: null,
       posted: false,
       mainimage : [],
-      bookData: null
+      bookData: null,
+      usingImgFiles: []
     }  
 
     _handleMainImage = savedFilename => {
@@ -37,6 +38,9 @@ class WritePost extends Component {
     });
   }; // 글 내용을 저장하는 함수입니다. setTimeout을 사용하여야 라이브러리에서 정해놓은 설정을 피할 수 있습니다.
 
+  _handleImages = (imageArray)=>{
+    this.setState({usingImageFiles:imageArray})
+  } 
 
   _getBookData= (data)=>{
     console.log("일단 writepost에는 데이터?",data);
@@ -87,7 +91,7 @@ class WritePost extends Component {
                 </li>
               </ul>
                 {/* <MyEditors></MyEditors> */}
-              <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
+              <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents} _handleImages={this._handleImages}/>
 
             </div>
                     

@@ -16,7 +16,6 @@ class MyBookBoard extends Component {
 	token = window.localStorage.getItem('token')
 
 	componentDidMount () {
-		console.log("props", this.props)
 		this._getLikeData()
 	}
 
@@ -61,12 +60,13 @@ class MyBookBoard extends Component {
 	}
 
 	handleImage =()=>{
-		if(this.props.image===''){
+
+		if(this.props.image==='' &&this.props.bookData!=='null'){
 			let parsedBookData = JSON.parse(this.props.bookData);
 			let postImage = parsedBookData.cover;
 			console.log( "url 바뀌었나",postImage);
 			return postImage 
-		} 
+		}  
 		return `https://${server_url}/upload/${this.props.image}`	
 	}	
 

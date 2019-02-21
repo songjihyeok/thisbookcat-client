@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import axios from 'axios'
 import server_url from '../../url.json'
-
+import "./MyEditor.css";
 class Editors extends Component {
  
 

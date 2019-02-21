@@ -27,8 +27,12 @@ class Nav2 extends Component {
       return;
     }
     console.log("이게 수정이니 아니니?",this.props.posting.isedit)
-    console.log("bookData", JSON.stringify(this.props.posting.bookData));
-    const bookData = JSON.stringify(this.props.posting.bookData)
+    let bookData = this.props.posting.bookData
+    console.log("bookData", typeof(bookData));
+    if(typeof(bookData)!=="string"){
+        bookData = JSON.stringify(this.props.posting.bookData)
+        //스트링이 아닐 경우에만 적용
+    }
     const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents, bookData : bookData}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
     console.log("타이틀이랑 컨텐츠 수정 완료",titleandcontent)  
     

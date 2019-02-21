@@ -11,7 +11,7 @@ class TagSearchPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      per: 8, //한페이지당 가지게될 포스트의 개수
+      per: 18, //한페이지당 가지게될 포스트의 개수
       page: 1, //정해진 per만큼의 포스트를 가지는 페이지
       totalPage:'',
       coverurl: null,
@@ -45,7 +45,7 @@ class TagSearchPage extends Component {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight === scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight) {
       if (this.state.page !== this.state.totalPage) {
         this.setState((state) => ({page: state.page+1}))
         this._getUrls()

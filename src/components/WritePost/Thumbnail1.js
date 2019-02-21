@@ -29,6 +29,9 @@ class Thumbnail extends Component {
 
   getfilename(res){
     console.log("res:", res)
+    if(res.status===400){
+      alert("사진의 크기가 크거나 형식이 맞지 않습니다.")
+    }
     this.setState({savedFilename :res})
     console.log("props",this.props)
     this.props._handleMainImage(this.state.savedFilename)

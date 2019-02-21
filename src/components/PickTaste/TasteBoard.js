@@ -8,33 +8,34 @@ import server_url from '../../url.json'
 import TasteBlock from './TasteBlock'
 import NewTagModal from './NewTagModal.js';
 
+
 class TasteBoard extends Component {
 	state = {
 		taste: [
-				'만화',
-				'취업',
-				'심리',
-				'우울',
-				'스타트업',
+				'북스타그램',
+				'에세이',
+				'베스트셀러',
 				'힐링',
-				'여행',
-				'블록체인',
-				'스트레스',
-				'pc게임',
-				'영화'
+				'인문학',
+				'자기계발',
+				'로맨스',
+				'독립출판',
+				'일상',
+				'신간',
+				'감성'
 		],
 		tasteImgUrl: {
-				'만화':'https://i-h1.pinimg.com/564x/7a/29/a8/7a29a8f6592b0436c1cb278c07d615c6.jpg',
-				'취업':'https://techcrunch.com/wp-content/uploads/2015/06/interviews-e1433244493315.jpg?w=1390&crop=1',
-				'심리':'https://www.dynamicbusiness.com.au/wp-content/uploads/2015/06/psychology.jpg',
-				'우울':'https://lh3.googleusercontent.com/ostgNb0oXveZvjpeikfjjvpQAmezaDrCfXtC_4zBCNlTA_156nGVHoTrpI2yIEi8YV4dDPYbCGoVNyhI6Y77tw=s750',
-				'스타트업':'https://www.businessmentors.org.nz/BMNZWeb/media/websiteimages/refresh%20images/startup-hero_1.png',
-				'힐링':'https://server.afteread.net/serverimage/nature-2513138_1280.jpg',
-				'여행':'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/01/11/13/travel-hiking-app.jpg?w968h681',
-				'블록체인':'https://cdn-images-1.medium.com/max/1600/1*3hyWN8UhcrL7P0Opbu7IQg.jpeg',
-				'스트레스':'https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzA5NC84MzMvb3JpZ2luYWwvc3RyZXNzLXNjcmVhbS5qcGc=',
-				'pc게임':'https://cdn.mos.cms.futurecdn.net/p5xpJzmH4NSNFvSbxbFLEP.jpg',
-				'영화': 'https://cdn20.patchcdn.com/users/22924509/20180619/041753/styles/T800x600/public/processed_images/jag_cz_movie_theater_retro_shutterstock_594132752-1529438777-6045.jpg'
+				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1550578896651.jpg',
+				'에세이':'https://server.afteread.net/serverimage/에세이-1550578874533.jpg',
+				'베스트셀러':'https://server.afteread.net/serverimage/다운로드-1550579180697.jpg',
+				'인문학':'https://server.afteread.net/serverimage/인문학-1550578725790.jpg',
+				'자기계발':'https://server.afteread.net/serverimage/자기계발-1550578956947.jpg',
+				'힐링':'https://server.afteread.net/serverimage/힐링-1550578980583.jpg',
+				'로맨스':'https://server.afteread.net/serverimage/로맨스-1550578994018.jpg',
+				'독립출판':'https://server.afteread.net/serverimage/독립출판-1550579028654.jpg',
+				'일상':'https://server.afteread.net/serverimage/일상-1550579070148.jpg',
+				'신간':'https://server.afteread.net/serverimage/신간-1550579098093.jpg',
+				'감성': 'https://server.afteread.net/serverimage/감성-1550578631526.jpg'
 		},
 		newTagUnUsing: [],
 		defaultTagUsing: [],
@@ -129,6 +130,7 @@ class TasteBoard extends Component {
 		const wholeTastes = this.state.taste.concat(this.state.newTagUnUsing).concat(this.state.newTagUsing);
 		if(wholeTastes.includes(newTaste)){
 			alert("이미 있는 취향입니다.");
+			return;
 		}
 
 		let token = window.localStorage.getItem('token');
