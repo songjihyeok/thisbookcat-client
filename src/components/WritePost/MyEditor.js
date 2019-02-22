@@ -30,30 +30,60 @@ export default class MyEditor extends Component {
       title: "",
       scrollTop: 0,
       contents: "",
-      usingImgFiles : [] 
+      usingImgFiles :[]
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(html) {
+  async handleChange(html) {
     console.log("뭐가 들어있지?",html);
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
     this.setState({editorHtml: html});
-    // console.log("imageUsing",imageUsing)
-    // if(imageUsing){
-    //   this.setState({usingImgFiles: [...this.state.usingImgFiles,imageUsing]})
-    //   this.props._handleImages()
-    //   imageUsing=null;
-    // }
+
+    await this.keepingUsingImgFiles();
+    await this.deleteUnusingImage(html);
   } // 글을 저장하는 함수입니다.
+
+  async keepingUsingImgFiles(){
+    if(imageUsing){
+      await this.setState({usingImgFiles: [...this.state.usingImgFiles,imageUsing]})
+      imageUsing=null;
+    }
+  }
+
+
+  async deleteUnusingImage(contents){
+    let usingImgFiles = this.state.usingImgFiles;
+    const token = window.localStorage.getItem('token')
+    const strReg = new RegExp("https://*[^>]*\\.(jpg|gif|png|jpeg)","gim");
+    let xArr =  contents.match(strReg);
+
+    if(!xArr){
+      xArr=[]; 
+    }
+
+    const imageNames= xArr.map((element)=>{
+      let splitedImageName=element.split('/')
+      return splitedImageName[splitedImageName.length-1]
+    })
+
+    for(let element of usingImgFiles){
+      if(!imageNames.includes(element)){
+      const deleteResult = await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      }
+    }
+    this.setState({usingImgFiles: imageNames});
+  }
+
+
 
 
   render() {
     let editorHtml =this.state.editorHtml;
     let defaultTitle = this.props.title;
     let defaultcontents = this.props.contents 
-    console.log("editorHtml", editorHtml)
-    console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
+    // console.log("editorHtml", editorHtml)
+    // console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
     return (
       <div className="editor_container">
         <div className="Write_title">

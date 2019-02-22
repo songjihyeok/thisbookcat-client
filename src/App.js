@@ -15,6 +15,7 @@ import TagSearchPage from "./routes/TagSearchPage"
 import editPost from "./routes/editPost"
 import "./default.css";
 import redirect from "./routes/redirect"
+import robot from './robots.txt'
 
 class App extends Component {
   render() {
@@ -22,6 +23,7 @@ class App extends Component {
       <div className = 'App'>
         <Router>
           <Switch>
+            <Route path="/robots.txt" component={robot}/>
             <Route exact path="/" component={Main} />
             <Route path="/redirect/:token" component={redirect}/>
             <Route path="/login" component={Login} />

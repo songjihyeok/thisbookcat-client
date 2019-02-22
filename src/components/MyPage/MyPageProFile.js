@@ -149,7 +149,7 @@ class MyPageProFile extends Component {
 
   render() {
     if (!window.localStorage.getItem("token")) {
-      return <Redirect to="/login" />
+      window.location.href= '/login'
     } else if (!this.state.gotData){
       return <div>loading</div>
     }
