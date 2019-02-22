@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Dotdotdot from 'react-dotdotdot';
 
 class BookList extends Component {
 
@@ -9,16 +10,21 @@ class BookList extends Component {
 
 
   render(){
-    const divStyle ={ height:'20px', width: "500px",fontSize : "5px"}
 
     return (
-      <div className="bookdetail" onClick={this.bookclickHandler}>
-        <img src={this.props.book.cover}></img>
-        <div style={divStyle}>{this.props.book.title}</div>
-        <div style={divStyle}>{this.props.book.author}</div>   
-        <div style={divStyle}>{this.props.book.publisher}</div>
-        <div style={divStyle}>{this.props.book.description}</div>
-      </div>
+      <ul className="bookdetail">
+        <li onClick={this.bookclickHandler}>
+        <p className="thumbs"><img src={this.props.book.cover} /></p>
+        <dl>
+          <dt>{this.props.book.title}</dt>
+          <dd>
+            <div className="author">{this.props.book.author}</div>   
+            <div className="publisher">{this.props.book.publisher}</div>
+            <Dotdotdot clamp={2} className="descript">{this.props.book.description}</Dotdotdot>
+          </dd>
+        </dl>
+        </li>
+      </ul>
     )
   }
 }

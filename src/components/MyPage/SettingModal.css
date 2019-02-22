@@ -24,10 +24,12 @@ input#setting_input{
 }
 
 .modal-dialog:after {clear:both; display:block; content:'';}
-.modal-header {border-bottom:0;}
-.modal-title {font-size:24px;}
-.modal-body {padding-bottom:40px;}
-.modal-footer {border-top:1px solid #ddd;}
+.modal-footer {text-align: center; border-top:1px solid #ddd;}
+.modal-header {padding:34px 39px 0 39px; border-bottom:0;}
+.modal-header .close {margin:-25px -25px 0 0; font-size:34px;}
+.modal-title {margin-bottom:15px; font-family: 'Noto Sans KR'; font-size:24px;}
+.bookSearch_text {font-size:15px; color:#747474;}
+.modal-body {padding:40px 0;}
 .btn-default,
 .btn-default:hover {min-width:120px; padding:.8em 1.2em; font-size:15px; color:#fff; text-shadow:none; background:#3376ff; border:0; border-radius:1.4em;}
 .PhotoUploadModal {left:0;}
@@ -76,26 +78,36 @@ input#setting_input{
   -moz-opacity: 0;
 }
 .bookSearch_Wrap {min-width:300px;}
-.bookSearch_Api {position:relative; width:280px; height:48px; margin:0 auto;}
+.bookSearch_Api {position:relative; padding:0 40px; text-align:left;}
 .bookSearch_Api:after {clear:both; display:block; content:'';}
-.bookSearch_Api > form {position:relative;}
-.bookSearch_Api .form-group {margin-bottom:0;}
+.bookSearch_Api h3 {width:56px; height:45px; margin:0; margin-right:19px; vertical-align:top; background:url('../../img/aladin.png') center center no-repeat; text-indent:-1000em; display:inline-block; overflow:hidden;}
+.bookSearch_Api > form {position:relative; width:280px; display:inline-block;}
+.bookSearch_Api .form-group {height:48px; margin-bottom:0;}
 .bookSearch_Api .form-group > label {display:none;}
 .bookSearch_Api .form-control {width:280px; height:48px; padding:0 55px 0 15px; border:1px solid #ddd; border-radius:24px; box-shadow:none;}
-.bookSearch_Api .form-control:focus::-webkit-input-placeholder {color:transparent;}
 .bookSearch_Api .form-control:focus {color:#151515; border-color:#3376ff; box-shadow:none;}
+.bookSearch_Api .form-control:focus::-webkit-input-placeholder {color:transparent;}
 .bookSearch_Api .btn-info,
 .bookSearch_Api .btn-info:focus,
-.bookSearch_Api .btn-info:active {position:absolute; top:7px; right:5px; width:48px; height:34px; text-indent:1000em; overflow:hidden; background:url('../../img/main-search-icon.png') center center no-repeat; border:0; opacity:.7; z-index:1; box-shadow:none; outline:none;}
+.bookSearch_Api .btn-info:active {position:absolute; top:7px; right:5px; width:48px; height:34px; text-indent:1000em; overflow:hidden; background:transparent; border:0; opacity:.7; z-index:1; box-shadow:none; outline:none;}
+.bookSearch_Api .btn-info {background:url('../../img/main-search-icon.png') center center no-repeat;}
+.bookSearch_Api .resultNum {padding:14px 0 20px 0; font-size:14px; color:#3376ff; line-height:18px; text-align:center;}
+.resultControl {padding-bottom:20px;}
+.resultControl > button {width:41px; height:41px; border:0; background:transparent;}
+.resultControl > button.prev {background:url('../../img/pre_btn_grey.png') no-repeat; margin-right:24px;}
+.resultControl > button.next {background:url('../../img/next_btn_grey.png') no-repeat;}
+.resultControl button.prev.active {background:url('../../img/pre_btn_blue.png') no-repeat !important;}
+.resultControl button.next.active {background:url('../../img/next_btn_blue.png') no-repeat;}
+/*
+.bookSearch_Api .btn-info {background:url('../../img/main-search-icon.png') center center no-repeat;}
+.bookSearch_Api form:focus + .btn-info,
+.bookSearch_Api form:hover + .btn-info {background:url('../../img/search_icon_blue.png') center center no-repeat;}
+*/
 .bookSearch_Api .btn-info i {display:none;}
 .modal-footer .btn-success,
 .modal-footer .btn-success[disabled] {width:280px; height:48px; font-size:15px; color:#fff; text-shadow:none; border:0; border-radius:24px; box-shadow:none; opacity:1;}
-.modal-footer .btn-success {background-color:#3376ff;}
 .modal-footer .btn-success[disabled] {background-color:#dadada;}
-
-.bookSearch_Api .form-control[value=''],
-.bookSearch_Api .form-control:-internal-autofill-selected {color:#151515; background-color:#fff; border:1px solid #3376ff;}
-
+.modal-footer .btn-success {background:#3376ff;}
 /*
 .bookSearch_Api {padding-top:20px;}
 .bookSearch_Api {position:relative; width:280px; height:48px; margin:0 auto;}
@@ -107,6 +119,14 @@ input#setting_input{
 .bookSearch_Api > button {position:absolute; top:0; right:5px; width:48px; height:48px; background:url('../../img/main-search-icon.png') center center no-repeat; border:0; opacity:.7; z-index:1;}
 .btn_bookAdd {width:280px; height:48px; font-size:15px; color:#fff; background-color:#3376ff; border:0; border-radius:24px; box-shadow:none;}
 */
+
+.bookdetail li {width:100%; padding:20px 40px; font-size:14px; color:#747474; line-height:19px; border-top:1px solid #ddd;}
+.bookdetail li .thumbs {width:90px; max-height:130px; margin:0; margin-right:25px; vertical-align:middle; display:inline-block; overflow:hidden;}
+.bookdetail li .thumbs > img {width:90px;}
+.bookdetail li > dl {width:calc(100% - 115px); margin:0; text-align:left; vertical-align:middle; display:inline-block;}
+.bookdetail li > dl > dt {font-size:16px; color:#151515;}
+.bookdetail li > dl > dd .descript {margin-top:26px;}
+
 @media all and (max-width: 768px) {
   .fileUpload {width:100%;}
 }

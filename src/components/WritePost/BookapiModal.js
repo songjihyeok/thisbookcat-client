@@ -33,7 +33,7 @@ class BookapiModal extends Component {
     if (e.keyCode == '13') {
       this.setbookinfo(); 
     }
-  }  
+  }
 
   bookListHandler(){
     if(this.state.data){
@@ -71,66 +71,94 @@ class BookapiModal extends Component {
       console.log("나오는지 함 볼까?",data);
       resultOfBookdata = data;
       callbacks();
+      this.pageControl();
     };
     this.setState({isclicked : true})
   }  
 
   beforePage =async()=>{
-
     if(this.state.page>1){
-      await this.setState({page: this.state.page-1})
+      await this.setState({page: this.state.page-1});
     } else {
-      alert("맨 앞 페이지입니다.")
-      await this.setState({page:1})
+      alert("맨 앞 페이지입니다.");
+      await this.setState({page:1});
     }
-    await this.setbookinfo()
+    await this.setbookinfo();
+    this.pageControl();
   }
   afterPage =async()=>{
   if(this.state.page===this.state.maxpage){
+
     alert("마지막 페이지입니다.")
   } else {
     await this.setState({page: this.state.page+1})
   }
-    await this.setbookinfo()
+    await this.setbookinfo();
+    
+    this.pageControl();
+  }
+
+  pageControl() {
+    let buttonPrev = document.querySelector('.prev');
+    let buttonNext = document.querySelector('.next');
+
+    if ( this.state.page !== 0 ){
+      buttonPrev.classList.add("active");
+    } if ( this.state.page === this.state.maxpage ){
+      buttonNext.classList.remove("active");
+    } else {
+      buttonPrev.classList.remove("active");
+      buttonNext.classList.add("active");
+    }
   }
 
   render() {
-
     return (
       <div>
-        
+      
       <Modal show={this.state.show}
             onHide={() => {this.props.handleHide()}}
             container={this}
             aria-labelledby="contained-modal-title">
         
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title">책 검색하기</Modal.Title>
+          <Modal.Title id="contained-modal-title">도서 검색</Modal.Title>
+          <p className="bookSearch_text">원하는 도서를 검색해 주세요.</p>
         </Modal.Header>
         <Modal.Body>
           <div className="bookSearch_Wrap">
             <div className="bookSearch_Api">
+              <h3>알라딘</h3>
               <form>
                 <FormGroup controlId="formBasicText">
                   <ControlLabel>
                     원하는 책을 검색해주세요
                   </ControlLabel>
                   <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
+                  
+                  <Button bsStyle="info"
+                          onClick={this.setbookinfo}> 
+                    <Icon name="search plus" size="big" />
+                    알라딘 검색
+                  </Button>
                 </FormGroup>
+                {this.state.data ? <div className="resultNum">{this.state.data.totalResults} 개의 도서가 검색되었습니다.</div> : null}
               </form>
-              <Button bsStyle="info"
-                      onClick={this.setbookinfo}> 
-                <Icon name="search plus" size="big" />
-                알라딘 검색
-              </Button>
             </div>
+            
             {this.bookListHandler()}
-            <Button onClick={this.beforePage}>이전</Button>
-            <Button onClick={this.afterPage}>다음</Button>
+
             {this.state.finishsearch ? <div>검색된 책 : {this.state.data.title}</div> : null}
           </div>
         </Modal.Body>
         <Modal.Footer>
+
+          {this.state.data ? 
+            <div className="resultControl">
+              <button className="prev" onClick={this.beforePage}>이전</button>
+              <button className="next" onClick={this.afterPage}>다음</button>
+            </div>
+          : null}
           <Button bsStyle="success" disabled={!this.state.finishsearch}
                   onClick={() => {
                     console.log(this.state.clickedData.title + "책이 등록되었습니다.")

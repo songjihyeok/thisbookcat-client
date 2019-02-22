@@ -280,7 +280,6 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 /* BookInfoModal */
 .PhotoUploadModal {text-align: center; justify-content: center;}
-.modal-footer {text-align: center;}
 
 
 /* Reply */
@@ -500,6 +499,12 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .searchBook_title {max-width:calc(100% - 100px); padding-left:15px; vertical-align:middle; font-size:17px; line-height:22px; display:inline-block;}
 
 .mo_button {background:transparent; display:none;}
+
+.bookdetail {}
+.bookdetail  {}
+.bookdetail {}
+.bookdetail {}
+
 
 @media all and (max-width: 891px) {
   .textPart {min-width:100%;}

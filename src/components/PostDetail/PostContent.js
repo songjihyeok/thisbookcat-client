@@ -50,7 +50,7 @@ export default class PostContent extends Component {
         <div className="post-thumbs"><img /* style= {{width:500, height:500}} */  src={mainImage} alt={title}/></div>
         <div className="postContent">
           <div className='post_detail_title'>{title}</div> 
-          <div className='followingContent' dangerouslySetInnerHTML={{__html: contents}}></div>
+          <div className='post_detail_content' dangerouslySetInnerHTML={{__html: contents}}></div>
         </div>
       </div>
     )
