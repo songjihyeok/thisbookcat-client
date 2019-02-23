@@ -10,7 +10,6 @@ class BookList extends Component {
 
 
   render(){
-
     return (
       <ul className="bookdetail">
         <li onClick={this.bookclickHandler}>

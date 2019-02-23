@@ -1,6 +1,6 @@
 .thumbnail_app {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   display:table;
   background-color:#f5f5f5;
   border:1px solid #ddd;
@@ -12,9 +12,9 @@
   vertical-align:middle; 
   display:table-cell;
 }
-.filepond--root {width:200px; height:100% !important; overflow:hidden;}
+.filepond--root {width:300px; height:100% !important; overflow:hidden;}
 .filepond--root .filepond--drop-label {width:100%; min-height:100% !important; font-size:17px; font-weight:700;}
-.filepond--drop-label.filepond--drop-label label {width:200px; height:200px; padding-bottom:0 !important; vertical-align:middle; display:table-cell !important; cursor:pointer !important;}
+.filepond--drop-label.filepond--drop-label label {width:300px; height:300px; padding-bottom:0 !important; vertical-align:middle; display:table-cell !important; cursor:pointer !important;}
 /*
 .filepond--image-preview-overlay {display:none !important;}
 */

@@ -88,7 +88,7 @@ class Thumbnail extends Component {
                       imageCropAspectRatio = '1:1'
                       imageResizeTargetWidth ={480}
                       imageResizeTargetHeight= {480}
-                      imagePreviewHeight = {240}
+                      imagePreviewHeight = {300}
                       labelIdle = '사진 불러오기'
                       >
                        {this.state.files.map(file => (
