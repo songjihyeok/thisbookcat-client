@@ -7,6 +7,12 @@ a {text-decoration:none !important;}
 *:focus {outline:none;}
 form {width: 100%;}
 body {font-family:'Noto Sans KR';}
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #fff inset !important; -webkit-text-fill-color: #000 !important; } 
+input:-webkit-autofill, 
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s !important; }
+
 
 .App {max-width:1920px; margin:0 auto;}
 
@@ -513,7 +519,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .bookdetail dl > dt {margin-bottom:5px; font-size:16px; color:#151515;}
 .bookdetail dl > dd .descript {margin-top:26px;}
 
-.searchBook + .bookdetail {width:300px; margin-top:20px; display:block;}
+.searchBook + .bookdetail {width:300px; margin-top:30px; display:block;}
 .searchBook + .bookdetail dt {white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
 
 .mo_button {background:transparent; display:none;}
@@ -590,7 +596,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail_reply_input {width:calc(100% - 55px); height:34px; vertical-align:middle; border:0;}
   .btn_reWrite {width:45px; height:34px;}
   
-  .Followings {padding:0 9px; background-color:#fff;}
+  .Followings {height:calc(100% - 80px); padding:0 9px; background-color:#fff;}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
   .FollowingBoard {width:100%; padding:26px 0;}
   .UserInfoPart {height:50px; padding:0 11px;}

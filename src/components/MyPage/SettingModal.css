@@ -141,7 +141,9 @@ h3.logo_aladin {width:56px; height:45px; margin:0; margin-right:19px; vertical-a
 .modal-footer .btn-success,
 .modal-footer .btn-success[disabled] {width:280px; height:48px; font-size:15px; color:#fff; text-shadow:none; border:0; border-radius:24px; box-shadow:none; opacity:1;}
 .modal-footer .btn-success[disabled] {background-color:#dadada;}
-.modal-footer .btn-success {background:#3376ff;}
+.modal-footer .btn-success,
+.modal-footer .btn-success:active,
+.modal-footer .btn-success:visited {background:#3376ff;}
 /*
 .bookSearch_Api {padding-top:20px;}
 .bookSearch_Api {position:relative; width:280px; height:48px; margin:0 auto;}

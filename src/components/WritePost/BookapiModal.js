@@ -103,7 +103,7 @@ class BookapiModal extends Component {
     let buttonNext = document.querySelector('.next');
 
     if ( this.state.page !== 0 ){
-      buttonPrev.classList.add("active");
+      (this.state.page - 1) === 0 ?  buttonPrev.classList.remove("active") : buttonPrev.classList.add("active");
     } if ( this.state.page === this.state.maxpage ){
       buttonNext.classList.remove("active");
     } else {
