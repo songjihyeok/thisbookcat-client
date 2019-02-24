@@ -58,19 +58,15 @@ class MyPageProFile extends Component {
         return;
       }
       console.log( "이미지 있나?", response.data.profileImage)
-      if(response.data.profileImage){
+      let profileImage = `https://${server_url}/upload/${response.data.profileImage}`
+      if(!response.data.profileImage){
+        profileImage= defaultimage
+      } 
       this.setState({
         myProfile: response.data,
-        ProfileImage: `https://${server_url}/upload/${response.data.profileImage}`,
+        ProfileImage: profileImage, 
         gotData: true
       })
-      } else {
-        this.setState({
-          myProfile: response.data,
-          ProfileImage: defaultimage,
-          gotData: true
-        })
-      }
     })
   }
   
