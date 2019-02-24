@@ -61,7 +61,8 @@ class MyPageProFile extends Component {
       if(response.data.profileImage){
       this.setState({
         myProfile: response.data,
-        ProfileImage: `https://${server_url}/upload/${response.data.profileImage}`
+        ProfileImage: `https://${server_url}/upload/${response.data.profileImage}`,
+        gotData: true
       })
       } else {
         this.setState({
@@ -147,6 +148,13 @@ class MyPageProFile extends Component {
     this.setState({isLogin: false})
   }
 
+  _handlingUserName = ()=>{
+    if(!this.state.myProfile.userName){
+      return null;
+    }
+    return <span className="ID_user">{this.state.myProfile.userName}</span>
+  }
+
   render() {
     if (!window.localStorage.getItem("token")) {
       window.location.href= '/login'
@@ -166,7 +174,7 @@ class MyPageProFile extends Component {
                 <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
               </dt>
               <dd>
-                <span className="ID_user">{this.state.myProfile.userName}</span>
+               {this._handlingUserName()}
                 <div className="button_area">
                   <button className="custom-icon" onClick={this._handleShow}>관리</button>
                   <button className="custom-icon" onClick={this._logout}>로그아웃</button>

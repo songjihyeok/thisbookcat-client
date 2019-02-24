@@ -63,14 +63,13 @@ class Login extends Component {
     } else {
       return (
         <div className="backImg">
-          {/* <div className='login_container' >
-            <div className='login_container_1'> */}
-              {/* <div className='login_body'> */}
+
                 <div className='login_body'>
                   <div className='login_container'>
                     <h1 id="logo">
-                      <div className="textLogo">북컨텐츠를 모두와 함께 공유하는</div>
+                      <div className="textLogo">책을 읽고, 이야기를 나누다</div>
                       <div className="imageLogo">애프터리드</div>
+                      <div className="textLogo">로그인 해주세요</div>
                     </h1>
 
                     {/*}
