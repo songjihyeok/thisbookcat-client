@@ -104,7 +104,7 @@ class BookapiModal extends Component {
     let buttonNext = document.querySelector('.next');
 
     if ( this.state.page !== 0 ){
-      buttonPrev.classList.add("active");
+      (this.state.page - 1) === 0 ?  buttonPrev.classList.remove("active") : buttonPrev.classList.add("active");
     } if ( this.state.page === this.state.maxpage ){
       buttonNext.classList.remove("active");
     } else {
@@ -129,7 +129,7 @@ class BookapiModal extends Component {
         <Modal.Body>
           <div className="bookSearch_Wrap">
             <div className="bookSearch_Api">
-              <h3>알라딘</h3>
+              <h3 className="logo_aladin">알라딘</h3>
               <form>
                 <FormGroup controlId="formBasicText">
                   <ControlLabel>
@@ -137,8 +137,7 @@ class BookapiModal extends Component {
                   </ControlLabel>
                   <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
                   
-                  <Button bsStyle="info"
-                          onClick={this.setbookinfo}> 
+                  <Button bsStyle="info" onClick={this.setbookinfo}> 
                     <Icon name="search plus" size="big" />
                     알라딘 검색
                   </Button>
