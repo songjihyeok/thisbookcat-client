@@ -18,7 +18,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: center;}
-.bookBoardWrap {position:relative; max-width:1380px; padding-top:25px;}
+.bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px;}
 .postTitle {padding:10px; font-size: 18px; color: #151515; font-weight: 500;}
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
@@ -313,6 +313,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 /* Followings */
 .Followings {
+  height:calc(100% - 80px);
   padding:38px 0;
   background-color: #f6f6f6;
   justify-content: center;
@@ -391,21 +392,22 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .profileContainer {position:relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
 .myName {position: relative; padding-left:25px; display:block;}
 .ProfilePhoto {width: 90px; height: 90px; margin:0 auto; border-radius: 50%; display:inline-block;}
-.ProFilePhotoContainer {position: relative; width:45%; padding:25px 0; vertical-align:middle; display: inline-block;}
+.ProFilePhotoContainer {position: relative; width:35%; min-width:400px; padding:25px 0; vertical-align:middle; display: inline-block;}
 .ProFilePhotoContainer dt,
 .ProFilePhotoContainer dd {vertical-align:middle; display:inline-block;}
 .ProFilePhotoContainer dd {max-width:calc(100% - 120px); padding:10px 0; text-align:left;}
-.button_area {padding:20px 10px 0 10px;}
+.change_taste {min-width:56px; height:28px; margin:-4px 0 0 5px; padding:4px 8px; font-size:14px; color:rgba(59,50,50,.7); vertical-align:middle; background-color:#f8f8f8; border:1px solid #e5e5e5; border-radius:14px;}
+.button_area {padding:0 10px;}
 .button_area .custom-icon {margin-left:12px;}
 .button_area .custom-icon:first-child {margin-left:0;}
 .ID_user {
   position: relative;
+  margin:0 10px 20px 15px; 
   font-size: 20px;
   font-weight: 500;
   text-align: left;
   color: #151515;
-  margin-left: 15px;
-  margin-right: 10px;
+  display:block;
 }
 .myNameText {font-size: 24px; font-weight: bold; line-height:30px; text-align: left; color: #151515; display:inline-block;}
 .myNameText i {width:24px; height:25px; vertical-align:middle; background-image:url('./img/my-body-m.svg'); overflow:hidden;}
@@ -416,7 +418,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ProFileDetailContainer {font-size: 18px; color: #151515; text-align: center; vertical-align:middle; border-left:1px solid #ddd; display: inline-flex; justify-content: center;}
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
-.ProFileDetailContainer li > span.InfoName + b {padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
+.ProFileDetailContainer li > span.InfoName + b {margin-top:5px; padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
 .myBookBoardContainer {position: relative; width:100%; text-align: center; background-color: #f6f6f6; display: inline-block;}
 .myBookBoardContainer .bookBoardWrap {padding-top:0;}
 .myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
@@ -646,9 +648,11 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .myBookShelf {width:100%; margin:30px 0 25px 0;}
   .ProFilePhotoContainer {width:100%; padding:0 0 30px 0;}
   .ProFileDetailContainer {width:100%;}
-  .ProFileDetailContainer li {width:33%; min-width:auto;}
-  .InfoName {font-size:14px;}
-  .infoName + b {font-size:18px;}
+  .ProFileDetailContainer li {min-width:auto;}
+  .ProFileDetailContainer li:first-child {padding:0 10px;}
+  .ProFileDetailContainer li > span.InfoName {font-size:14px;}
+  .ProFileDetailContainer li > span.infoName + b {font-size:18px;}
+  .change_taste {min-width:39px; height:20px; margin:-4px 0 0 5px; padding:2px 4px; font-size:12px;}
 
   .ProfilePhoto {margin-bottom:15px; display:block;}
   .myName, 

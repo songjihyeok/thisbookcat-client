@@ -146,6 +146,15 @@ class MyPageProFile extends Component {
     window.localStorage.removeItem('token');
     this.setState({isLogin: false})
   }
+  _handlingUserName = () =>{
+    if(!this.state.myProfile.userName){
+      return null;
+    }
+    return <span className="ID_user">{this.state.myProfile.userName}</span>
+  }
+  changeTaste =()=>{
+   window.location.href='/picktaste';
+  }
 
   render() {
     if (!window.localStorage.getItem("token")) {
@@ -166,7 +175,7 @@ class MyPageProFile extends Component {
                 <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
               </dt>
               <dd>
-                <span className="ID_user">{this.state.myProfile.userName}</span>
+                {this._handlingUserName()}
                 <div className="button_area">
                   <button className="custom-icon" onClick={this._handleShow}>관리</button>
                   <button className="custom-icon" onClick={this._logout}>로그아웃</button>
@@ -174,15 +183,19 @@ class MyPageProFile extends Component {
               </dd>
             </dl>
             <ul className="ProFileDetailContainer">
-              <li className='MyPostNumberContainer'>
+              <li>
+                <span className='InfoName'>선택한 취향</span>
+                <b>{this.state.myPosts.length}<button className="change_taste" onClick={()=>this.changeTaste()}>변경</button></b>
+              </li>
+              <li>
                 <span className='InfoName'>게시물</span>
                 <b>{this.state.myPosts.length}</b>
               </li>
-              <li className='FollowingContainer'>
+              <li>
                 <span className='InfoName'>팔로잉</span>
                 <b>{this.state.following}</b>
               </li>
-              <li className='FollowerContainer'>
+              <li>
                 <span className="InfoName">팔로워</span>
                 <b>{this.state.followed}</b>
               </li>
@@ -196,7 +209,7 @@ class MyPageProFile extends Component {
                 <Icon name='book' size="big"/>내 서재
               </span>
             </div>
-            <div className="bookBoardWrap">
+            <div className="bookBoardWrap" style={{'text-align': this.state.myPosts.length>=4 ? 'left' : 'center'}}>
             {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
             {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
             </div>
