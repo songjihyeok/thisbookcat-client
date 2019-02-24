@@ -19,7 +19,7 @@ export default class BookInfoModal extends Component {
               <Modal.Title id="contained-modal-title">Book info</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <div className = 'PhotoUploadModal'>안녕하세요. 책정보 띄울 모달입니다.</div>
+              <div className = 'PhotoUploadModal'></div>
               <div>
                 <a href={bookData.link}>
                   <img src={bookData.cover}></img>

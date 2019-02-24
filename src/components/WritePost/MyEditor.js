@@ -73,6 +73,7 @@ export default class MyEditor extends Component {
       }
     }
     this.setState({usingImgFiles: imageNames});
+    this.props._handleImages(imageNames)
   }
 
 
@@ -82,8 +83,8 @@ export default class MyEditor extends Component {
     let editorHtml =this.state.editorHtml;
     let defaultTitle = this.props.title;
     let defaultcontents = this.props.contents 
-    // console.log("editorHtml", editorHtml)
-    // console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
+    console.log("editorHtml", editorHtml)
+    console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
     return (
       <div className="editor_container">
         <div className="Write_title">

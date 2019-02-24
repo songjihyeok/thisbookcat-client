@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import FacebookLogin from 'react-facebook-login';
-// import Nav1 from "../components/Nav1";
-// import '../components/Login/Login.css';
-// import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
-// import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import server_url from '../url.json';
 import book from "../img/book-img.png";
-import KakaoLogin from '../components/Kakao/Kakao.js';
+
 
 
 class Login extends Component {
@@ -94,12 +89,11 @@ class Login extends Component {
                       </div>
                       <div><button id="custom_btn_continue" type='submit' className='login_btn'>계속하기</button></div>
                     </form>
-                    {/*
+                    
                     <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_facebook" className='login_btn' >NAVER로 계속하기</button></a></div>
                     <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_facebook" className='login_btn' >KAKAO로 계속하기</button></a></div>  
                     <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div>
-                    */}
-                   {/* <FACEBOOK></FACEBOOK>  */}
+                   
                     <div><a href="https://server.afteread.net/auth/google"><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></a></div>
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}

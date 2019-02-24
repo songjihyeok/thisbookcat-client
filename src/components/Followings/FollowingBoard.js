@@ -5,7 +5,7 @@ import server_url from '../../url.json';
 import axios from 'axios';
 //import Dotdotdot from 'react-dotdotdot';
 import Truncate from 'react-truncate-html';
-
+import defaultImage from '../../img/다운로드.png'
 
 
 class FollowingBoard extends Component {
@@ -72,6 +72,14 @@ class FollowingBoard extends Component {
 			.then(response => this.setState({postUserInfo:response}))
 		}
 
+	_handleProfileImage = ()=>{
+		if(!this.state.postUserInfo.profileImage){
+			return defaultImage;
+		}
+		return `https://${server_url}/upload/${this.state.postUserInfo.profileImage}`
+	}	
+
+
 	handleImage=()=>{
 		if(this.props.image===''&&this.props.bookData!=='null'){
 			let parsedBookData = JSON.parse(this.props.bookData);
@@ -89,7 +97,7 @@ class FollowingBoard extends Component {
     return  (
 			<div className='FollowingBoard'>
 				<div className='UserInfoPart'>
-					<span className="postUserThumb"><img src={`https://${server_url}/upload/${this.state.postUserInfo.profileImage}`} className='postUserImage' alt={"postUserImage"} /></span>
+					<span className="postUserThumb"><img src={this._handleProfileImage()} className='postUserImage' alt={"postUserImage"} /></span>
 					<span className='postUsername'>{this.state.postUserInfo.userName}</span>
 				</div>
 				<div className='imagePart'>
