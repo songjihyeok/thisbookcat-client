@@ -31,7 +31,8 @@ input#setting_input{
 .bookSearch_text {font-size:15px; color:#747474;}
 .modal-body {padding:40px 0;}
 .btn-default,
-.btn-default:hover {min-width:120px; padding:.8em 1.2em; font-size:15px; color:#fff; text-shadow:none; background:#3376ff; border:0; border-radius:1.4em;}
+.btn-default:hover,
+.btn-default:active {min-width:120px; padding:.8em 1.2em; font-size:15px; color:#fff; text-shadow:none; background:#3376ff; border:0; border-radius:1.4em; box-shadow:none;}
 .PhotoUploadModal {left:0;}
 
 .ui.input>input {border:0; opacity:0; cursor:pointer;}

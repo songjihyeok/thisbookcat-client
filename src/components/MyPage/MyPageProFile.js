@@ -179,11 +179,7 @@ class MyPageProFile extends Component {
                 <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
               </dt>
               <dd>
-<<<<<<< HEAD
                 {this._handlingUserName()}
-=======
-               {this._handlingUserName()}
->>>>>>> 5304b3380f8275183cd042c6d784d275b676e917
                 <div className="button_area">
                   <button className="custom-icon" onClick={this._handleShow}>관리</button>
                   <button className="custom-icon" onClick={this._logout}>로그아웃</button>
