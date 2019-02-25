@@ -25,6 +25,7 @@ class MyPageProFile extends Component {
       totalPage:'',
       followed: 0,
       following: 0,
+      userName : '',
       gotData:false
     };
   }
@@ -131,6 +132,13 @@ class MyPageProFile extends Component {
     }
   }
 
+
+  setUserName = (userName)=>{
+    console.log( "userName", userName);
+    this.setState({userName : userName})
+  }
+
+
   _handleHide = () => {
     this.setState({show: false});
   };
@@ -157,7 +165,7 @@ class MyPageProFile extends Component {
     if(!this.state.myProfile.userName){
       return null;
     }
-    return <span className="ID_user">{this.state.myProfile.userName}</span>
+    return <span className="ID_user">{this.state.userName}</span>
   }
 
   render() {
@@ -206,7 +214,7 @@ class MyPageProFile extends Component {
             </ul>
           </div>
         </div>
-          <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
+          <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>
               <span className='myBookShelfText'>
