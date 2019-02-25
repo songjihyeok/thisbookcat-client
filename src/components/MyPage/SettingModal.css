@@ -46,10 +46,10 @@ input#setting_input{
 .getUserName:focus,
 .file_input_textbox:focus {outline: none !important;}
 .selectUserName,
-.file_input_button {float:right; padding:7px; font-size:15px; text-align:left; color:#fffefe; background-color:#3376ff; border: none; border-radius:16px;}
+.file_input_button {float:right; min-width:100px; padding:7px; font-size:15px; text-align:center; color:#fffefe; background-color:#3376ff; border: none; border-radius:16px;}
 
 .userNameWrapper {margin-top:20px;}
-.getUserName {width:calc(100% - 86px);}
+.getUserName,
 .file_input_textbox {width:calc(100% - 165px);}
 .file_input_button {padding:7px 10px;}
 
