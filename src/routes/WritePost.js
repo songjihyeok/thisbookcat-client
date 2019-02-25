@@ -16,6 +16,7 @@ class WritePost extends Component {
       posted: false,
       mainimage : [],
       bookData: null,
+      usingImage: []
     }  
 
     _handleMainImage = savedFilename => {
@@ -27,27 +28,32 @@ class WritePost extends Component {
     }
 
     
-  _handleTitle = e => {
-    this.setState({title: e.target.value});
-  }; // 제목을 등록할때 사용하는 함수 입니다.
+    _handleTitle = e => {
+      this.setState({title: e.target.value});
+    }; // 제목을 등록할때 사용하는 함수 입니다.
 
-  _handleContents = contents => {
-    setTimeout(() => {
-      this.setState({contents: contents});
-    });
-  }; // 글 내용을 저장하는 함수입니다. setTimeout을 사용하여야 라이브러리에서 정해놓은 설정을 피할 수 있습니다.
-
-
-  _getBookData= (data)=>{
-    console.log("일단 writepost에는 데이터?",data);
-    console.log(data.cover)
-    this.setState({bookData:data});
-  }
+    _handleContents = contents => {
+      setTimeout(() => {
+        this.setState({contents: contents});
+      });
+    }; // 글 내용을 저장하는 함수입니다. setTimeout을 사용하여야 라이브러리에서 정해놓은 설정을 피할 수 있습니다.
 
 
-  _postSuccess = () => {
-    this.setState({posted: true});
-  }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
+    _getBookData= (data)=>{
+      console.log("일단 writepost에는 데이터?",data);
+      console.log(data.cover)
+      this.setState({bookData:data});
+    }
+
+    _handleImages= (images)=>{
+      this.setState({usingImage: images});
+    }
+
+
+
+    _postSuccess = () => {
+      this.setState({posted: true});
+    }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
   render() {
     // console.log(this.state.mainimage, this.state.title, this.state.contents);
@@ -70,7 +76,8 @@ class WritePost extends Component {
                     title: this.state.title,
                     contents: this.state.contents,
                     isedit: false,
-                    bookData: this.state.bookData
+                    bookData: this.state.bookData,
+                    usingImage: this.state.usingImage
                   }}/>
             {/* 악시오스 요청을 네브바에서 보냅니다. 네브바에 버튼이 존재하므로 -> 그래서 네브바에 글 제목과 글 내용, 대표이미지를 props로 내려줍니다. */}
             

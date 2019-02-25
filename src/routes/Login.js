@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import FacebookLogin from 'react-facebook-login';
-// import Nav1 from "../components/Nav1";
-// import '../components/Login/Login.css';
-// import { Icon } from "semantic-ui-react";
 import { Link, Redirect } from "react-router-dom";
-// import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import server_url from '../url.json';
 import book from "../img/book-img.png";
-import KakaoLogin from '../components/Kakao/Kakao.js';
+
 
 
 class Login extends Component {
@@ -68,14 +63,13 @@ class Login extends Component {
     } else {
       return (
         <div className="backImg">
-          {/* <div className='login_container' >
-            <div className='login_container_1'> */}
-              {/* <div className='login_body'> */}
+
                 <div className='login_body'>
                   <div className='login_container'>
                     <h1 id="logo">
-                      <div className="textLogo">북컨텐츠를 모두와 함께 공유하는</div>
-                      <div className="imageLogo">AfterRead</div>
+                      <div className="textLogo">책을 읽고, 이야기를 나누다</div>
+                      <div className="imageLogo">애프터리드</div>
+                      <div className="textLogo">로그인 해주세요</div>
                     </h1>
 
                     {/*}
@@ -90,6 +84,7 @@ class Login extends Component {
                       </div>
                       <div><button id="custom_btn_continue" type='submit' className='login_btn'>계속하기</button></div>
                     </form>
+
 
                     <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_kakao" className='login_btn' >KAKAO로 계속하기</button></a></div> 
                     <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_naver" className='login_btn' >NAVER로 계속하기</button></a></div> 
@@ -111,16 +106,7 @@ class Login extends Component {
                      
                   </div>
                 </div>
-              {/* 20190116 삭제
-              <div className="footer">
-                <div>
-                  <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
-                </div>
-              </div>
-              */}
             </div>
-          /* </div>
-        </div> */
     );
   }}
 }

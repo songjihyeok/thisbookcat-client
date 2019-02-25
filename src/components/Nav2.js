@@ -30,24 +30,27 @@ class Nav2 extends Component {
     let bookData = this.props.posting.bookData
     console.log("bookData", typeof(bookData));
     if(typeof(bookData)!=="string"){
-        bookData = JSON.stringify(this.props.posting.bookData)
-        //스트링이 아닐 경우에만 적용
+      bookData = JSON.stringify(this.props.posting.bookData)
+       //스트링이 아닐 경우에만 적용
     }
-    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents, bookData : bookData}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
+    console.log("image", this.props.posting.usingImage);
+
+    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents, bookData : bookData, usingImage: this.props.posting.usingImage}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
     console.log("타이틀이랑 컨텐츠 수정 완료",titleandcontent)  
     
       if(!this.props.posting.isedit){
         const config = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}
-        
-        const imageupdate =  await axios.post(`https://${server_url}/img/mainimage/create/${titleandcontent.data.id}`, {fileName: this.props.posting.mainimage},config)
+        console.log("원하는 id", titleandcontent.data[0].id)
+        const imageupdate =  await axios.post(`https://${server_url}/img/mainimage/create/${titleandcontent.data[0].id}`, {fileName: this.props.posting.mainimage},config)
         console.log("이미지 업로드 완료", imageupdate)
       }
       this.props._postSuccess();  
   };
 
   _iseditorpost =()=>{
-
-    if(this.props.posting.mainimage.length===0 && this.props.bookData===null){
+    console.log("mainimage", this.props.posting.mainimage)
+    console.log("bookData", this.props.posting.bookData)
+    if(this.props.posting.mainimage.length===0 && this.props.posting.bookData===null){
       alert("사진을 등록하지 않았습니다. 책을 검색하거나 사진을 올려주세요")
       return false;
     }

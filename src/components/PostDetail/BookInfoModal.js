@@ -19,6 +19,7 @@ export default class BookInfoModal extends Component {
               <Modal.Title id="contained-modal-title">도서 정보</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+
             <div className="bookInfo_view">
               <h3 className="logo_aladin">알라딘</h3>
               <div className="book_thumbs"><img src={bookData.cover} /></div>
@@ -31,6 +32,7 @@ export default class BookInfoModal extends Component {
                 <span className="book_descript">{bookData.description}</span>
               </a>
             </div>
+
             </Modal.Body>
 
             <Modal.Footer>

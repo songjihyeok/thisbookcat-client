@@ -30,6 +30,7 @@ class BookapiModal extends Component {
   }
 
   _handleKeyPress(e) {
+    e.preventDefault();
     if (e.keyCode == '13') {
       this.setbookinfo(); 
     }
@@ -51,10 +52,10 @@ class BookapiModal extends Component {
   var callbacks = ()=>{
     console.log("결과물",resultOfBookdata);
     this.setState({data:resultOfBookdata});
-    console.log("max",Math.floor(resultOfBookdata.totalResults/5)+1)
-    this.setState({maxpage: Math.floor(resultOfBookdata.totalResults/5)+1 })
+    console.log("max",Math.floor(resultOfBookdata.totalResults/4)+1)
+    this.setState({maxpage: Math.floor(resultOfBookdata.totalResults/4)+1 })
   }
-    const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbKey=ttbporr34441025002&Query=${this.state.booktitle}&output=js&callback=bookdisplay&MaxResults=5&SearchTarget=Book&Sort=SalesPoint&Start=${this.state.page}&Cover=Big`
+    const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbKey=ttbporr34441025002&Query=${this.state.booktitle}&output=js&callback=bookdisplay&MaxResults=4&SearchTarget=Book&Sort=SalesPoint&Start=${this.state.page}&Cover=Big`
 
       $.ajax({
         url : url,

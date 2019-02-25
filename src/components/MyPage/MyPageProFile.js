@@ -58,18 +58,15 @@ class MyPageProFile extends Component {
         return;
       }
       console.log( "이미지 있나?", response.data.profileImage)
-      if(response.data.profileImage){
+      let profileImage = `https://${server_url}/upload/${response.data.profileImage}`
+      if(!response.data.profileImage){
+        profileImage= defaultimage
+      } 
       this.setState({
         myProfile: response.data,
-        ProfileImage: `https://${server_url}/upload/${response.data.profileImage}`
+        ProfileImage: profileImage, 
+        gotData: true
       })
-      } else {
-        this.setState({
-          myProfile: response.data,
-          ProfileImage: defaultimage,
-          gotData: true
-        })
-      }
     })
   }
   
@@ -156,6 +153,13 @@ class MyPageProFile extends Component {
    window.location.href='/picktaste';
   }
 
+  _handlingUserName = ()=>{
+    if(!this.state.myProfile.userName){
+      return null;
+    }
+    return <span className="ID_user">{this.state.myProfile.userName}</span>
+  }
+
   render() {
     if (!window.localStorage.getItem("token")) {
       window.location.href= '/login'
@@ -175,7 +179,11 @@ class MyPageProFile extends Component {
                 <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
               </dt>
               <dd>
+<<<<<<< HEAD
                 {this._handlingUserName()}
+=======
+               {this._handlingUserName()}
+>>>>>>> 5304b3380f8275183cd042c6d784d275b676e917
                 <div className="button_area">
                   <button className="custom-icon" onClick={this._handleShow}>관리</button>
                   <button className="custom-icon" onClick={this._logout}>로그아웃</button>
