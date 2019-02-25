@@ -49,9 +49,9 @@ class SettingModal extends Component {
   }
 
   _handleConfirm = async () => {
-    await this.sendUserName();
-    await this._postProfileImagetoServer()
-    await this.props.hide()
+    this.sendUserName();
+    this._postProfileImagetoServer()
+    this.props.hide()
   }
 
   setUserName = async(userName) =>{
@@ -65,6 +65,8 @@ class SettingModal extends Component {
       const userNameResult =await axios.post(`https://${server_url}/api/user/updateUserName`,{
         userName: this.state.userName},{headers: {'Authorization': `bearer ${token}`}});
       console.log("userName 변경 결과",userNameResult);
+      
+      this.props.setUserName(this.state.userName);
       }
     }
     catch(err) { 
