@@ -100,9 +100,9 @@ class Login extends Component {
                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
                     </div>
                      */}
-                    <div className='login_flex'>
+                    {/* <div className='login_flex'>
                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                    </div>
+                    </div> */}
                      
                   </div>
                 </div>

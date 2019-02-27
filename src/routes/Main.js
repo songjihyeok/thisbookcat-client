@@ -62,18 +62,6 @@ class Main extends Component {
    window.location.href='/picktaste';
   }
 
-  /* _renderMostLikedPage = () => {
-    if(this.state.coverurl) {
-      const result = this.state.coverurl
-      result.sort(function(a,b){
-        if(a&&b) {
-          return b.likeCount-a.likeCount
-        }
-      })
-      return console.log('this is mostlikedsortedArray', result)
-    }
-  }; */
-
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
     if (this.state.coverurl === undefined) {
@@ -114,7 +102,6 @@ class Main extends Component {
           <div className='mainPost'>
           {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
           </div>
-         <Button onClick={()=>this.changeTaste()}>취향 변경</Button>  
         </div>
       )
     }

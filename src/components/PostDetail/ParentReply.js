@@ -19,13 +19,24 @@ export default class ParentReply extends Component {
 
   _newReReply = e => { //input 창에 걸어주는 onChange 함수
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
-    const { userName, id, } = this.props.reply
+    let { userName, id, } = this.props.reply
+    if(!userName){
+      userName = '지나가는 행인'
+    }
     this.reComment = {
       replyContents: e.target.value,
       parentsReplyId: id,
       targetUsername: userName  //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
     }
   }
+
+  _userNamecontroller = (userName)=>{
+    if(!userName){
+      return '@지나가는 행인'
+    }
+    return `@${userName}`
+  }
+
 
   _makeReReply = async () => { //input창에 쓴거 submit 하면 post 날리는 함수.
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
@@ -45,8 +56,7 @@ export default class ParentReply extends Component {
   render() {
     console.log('ParentReply.js의 render 함수에서 this.props.reply 찍는중....', this.props.reply)
     // console.log('ParentReply.js의 render 함수에서 this.props 찍는중....', this.props)
-    const { userName, replyContents, profileImage, createdTime, istheReplier } = this.props.reply;
-    
+    let { userName, replyContents, profileImage, createdTime, istheReplier } = this.props.reply;
     return (
       <ul className='parent_reply'>
         <li className="reply_userinfo">
@@ -77,8 +87,8 @@ export default class ParentReply extends Component {
         ?
         <li id="rereply">
           <form>
-          <textarea className="rereply_input" type="text" name="reply" placeholder={`@${userName}`} onChange={this._newReReply}></textarea>
-          <span className="btn_reWrite" onClick={this._makeReReply}>등록
+          <textarea className="rereply_input" type="text" name="reply" placeholder={this._userNamecontroller()} onChange={this._newReReply}></textarea>
+          <span className="btn_reWrite" onClick={this._makeReReply}>
           {/*
             <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
           */}

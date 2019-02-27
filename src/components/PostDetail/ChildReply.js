@@ -18,6 +18,7 @@ export default class ChildReply extends Component {
   }
 
   _newReReply = e => {
+    e.preventDefault();
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
     const { userName, parentsReplyId, } = this.props.reply
     this.reComment = {
@@ -26,6 +27,14 @@ export default class ChildReply extends Component {
       targetUsername: userName 
     }
   }
+
+  _handleKeyPress=(e) =>{
+    console.log("13131313",e.keyCode)
+    if (e.keyCode == '13') {
+    this._makeReReply(e);
+    }   
+  }
+
 
   _makeReReply = async () => {
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
@@ -79,11 +88,7 @@ export default class ChildReply extends Component {
             <li id="rereply">
               <form>
                 <textarea className="rereply_input" type="text" name="reply" placeholder={`@${userName}`} onChange={this._newReReply}></textarea>
-                <span className="btn_reWrite" onClick={this._makeReReply}>등록
-                {/*
-                  <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
-                */}
-                </span>
+                <button className="btn_reWrite" onClick={this._makeReReply} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
               </form>
             </li>
           : null

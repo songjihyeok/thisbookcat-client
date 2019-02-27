@@ -197,19 +197,19 @@ class TasteBoard extends Component {
   
 	_handleSubmit = async () => {
 		console.log("newTagSelected",this.state.newTagUsing)
-
-		if (this.state.defaultTagUsing.length+this.state.newTagUsing.length < 3) {
+		const howManyLikes = this.state.defaultTagUsing.length+this.state.newTagUsing.length 
+		if (howManyLikes.length< 3) {
 			alert('취향을 3개이상 고르셔야합니다!')
 		} else {
       const result = await this._submitTaste()
 			console.log("result",result);	
-			await this._gotoMain(result);
+			this._gotoMain(result);
 		}
 	}
 
 	_gotoMain = (r) => {
 		if (r) {
-			window.location.href="/main";
+			window.location.href="/mypage";
 		}
 	}
     

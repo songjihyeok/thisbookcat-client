@@ -6,6 +6,7 @@ import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
 //import './CSS/MyPageProFile.css'
 import defaultimage from '../../img/다운로드.png';
+import PickTaste from '../PickTaste/TasteBoard';
 import { Redirect} from "react-router-dom";
 
 class MyPageProFile extends Component {
@@ -17,16 +18,16 @@ class MyPageProFile extends Component {
       show: false,
       author:'',
       counter: 0,
-      ProfileImage: defaultimage,
+      profileImage: defaultimage,
       myPosts: [],
-      myProfile: [],
       per: 16,
       page: 1,
       totalPage:'',
       followed: 0,
       following: 0,
-      userName : '',
-      gotData:false
+      gotData:false,
+      likes: 0,
+      userName: ""
     };
   }
 
@@ -36,6 +37,7 @@ class MyPageProFile extends Component {
      await this._getFollowingFollowed()
      await this._callmyPostAPI()
      await this._getMyProfile()
+     await this.getUsingTags()
      await window.addEventListener('scroll', this._infiniteScroll, true)
   }
 
@@ -51,6 +53,19 @@ class MyPageProFile extends Component {
     }
   }
 
+  getUsingTags = async() =>{
+    const token = window.localStorage.getItem('token')
+	
+		const selectedTags = await axios.get(`https://${server_url}/api/user/getpreference`, {
+			headers: {Authorization: `bearer ${token}`}
+		})
+    let {usingPreference} = selectedTags.data
+    this.setState({likes: usingPreference.length})
+  }
+
+
+
+
   _getMyProfile = () => {
     axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
@@ -58,14 +73,13 @@ class MyPageProFile extends Component {
         alert("잘못된 접근입니다.")
         return;
       }
-      console.log( "이미지 있나?", response.data.profileImage)
       let profileImage = `https://${server_url}/upload/${response.data.profileImage}`
       if(!response.data.profileImage){
         profileImage= defaultimage
       } 
       this.setState({
-        myProfile: response.data,
-        ProfileImage: profileImage, 
+        userName: response.data.userName,
+        profileImage: profileImage, 
         gotData: true
       })
     })
@@ -76,7 +90,7 @@ class MyPageProFile extends Component {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
-      console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
+
       let allofarray = []
       if(response.data.perArray===undefined){
         return;
@@ -88,7 +102,6 @@ class MyPageProFile extends Component {
         }
       })
      }
-      console.log(allofarray);
       this.setState({
         totalPage: response.data.totalpage,
         myPosts: this.state.myPosts.concat(allofarray),
@@ -101,8 +114,6 @@ class MyPageProFile extends Component {
       headers: {Authorization : `bearer ${this.token}`}
     })
     .then(response => {
-      //  console.log("follow response----" ,response);
-      //  console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
       this.setState({
         following: response.data[1].length,
         followed: response.data[3].length
@@ -113,20 +124,17 @@ class MyPageProFile extends Component {
   _renderPost = () => {
     if(this.state.myPosts.length>0){
     const posts = this.state.myPosts.map(post => {
-      console.log("post는",post)
 
       if (post) {
         return <MyBookBoard image={post.mainImage} title={post.title} key={post.id}
                             postid={post.id} likecount={post.likeCount} bookData={post.bookData}/>
       }
     });
-    // console.log(this.state.myPosts)
     return posts
     }
   }
 
   _getImageFromModal = image => {
-    // console.log('_getImageFromModal 이 작동하고 있어요!!')
     if (image) {
       this._getMyProfile()
     }
@@ -134,7 +142,6 @@ class MyPageProFile extends Component {
 
 
   setUserName = (userName)=>{
-    console.log( "userName", userName);
     this.setState({userName : userName})
   }
 
@@ -151,18 +158,15 @@ class MyPageProFile extends Component {
     window.localStorage.removeItem('token');
     this.setState({isLogin: false})
   }
-  _handlingUserName = () =>{
-    if(!this.state.myProfile.userName){
-      return null;
-    }
-    return <span className="ID_user">{this.state.myProfile.userName}</span>
-  }
+
   changeTaste =()=>{
-   window.location.href='/picktaste';
+    window.location.href="/picktaste";
   }
 
+
+
   _handlingUserName = ()=>{
-    if(!this.state.myProfile.userName){
+    if(!this.state.userName){
       return null;
     }
     return <span className="ID_user">{this.state.userName}</span>
@@ -170,9 +174,15 @@ class MyPageProFile extends Component {
 
   render() {
     if (!window.localStorage.getItem("token")) {
-      window.location.href= '/login'
+      window.location.href= '/login';
     } else if (!this.state.gotData){
-      return <div>loading</div>
+      return (
+      <div>
+        <div className="loading">loading <br/>
+        <button className="custom-icon" onClick={this._logout}>로그아웃</button>
+        </div>
+      </div>  
+      )
     }
     else {
       return (
@@ -184,7 +194,7 @@ class MyPageProFile extends Component {
           <div className="myProFileWrap">
             <dl className="ProFilePhotoContainer">
               <dt>
-                <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
+                <img className="ProfilePhoto" src={this.state.profileImage} alt=""/>
               </dt>
               <dd>
                 {this._handlingUserName()}
@@ -197,7 +207,7 @@ class MyPageProFile extends Component {
             <ul className="ProFileDetailContainer">
               <li>
                 <span className='InfoName'>선택한 취향</span>
-                <b>{this.state.myPosts.length}<button className="change_taste" onClick={()=>this.changeTaste()}>변경</button></b>
+                <b>{this.state.likes}<button className="change_taste" onClick={()=>this.changeTaste()}>변경</button></b>
               </li>
               <li>
                 <span className='InfoName'>게시물</span>
@@ -205,23 +215,23 @@ class MyPageProFile extends Component {
               </li>
               <li>
                 <span className='InfoName'>팔로잉</span>
-                <b>{this.state.following}</b>
+                <b>{this.state.followed}</b>
               </li>
               <li>
                 <span className="InfoName">팔로워</span>
-                <b>{this.state.followed}</b>
+                <b>{this.state.following}</b>
               </li>
             </ul>
           </div>
         </div>
-          <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
+          <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>
               <span className='myBookShelfText'>
                 <Icon name='book' size="big"/>내 서재
               </span>
             </div>
-            <div className="bookBoardWrap" style={{'text-align': this.state.myPosts.length>=4 ? 'left' : 'center'}}>
+            <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=4 ? 'left' : 'center'}}>
             {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
             {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
             </div>

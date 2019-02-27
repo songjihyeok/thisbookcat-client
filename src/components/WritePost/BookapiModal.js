@@ -18,7 +18,7 @@ class BookapiModal extends Component {
       show: this.props.showmodal,
       data: null,
       clickedData: null,
-      booktitle: null,
+      booktitle: "",
       finishsearch: false,
       page: 1,
       maxpage: 1
@@ -26,12 +26,14 @@ class BookapiModal extends Component {
     this._handleChange = this._handleChange.bind(this);
   }
   _handleChange(e) {
-    this.setState({ booktitle: e.target.value });
+    let searchingValue = e.target.value
+    this.setState({ booktitle: searchingValue });
   }
 
   _handleKeyPress(e) {
-    e.preventDefault();
+  
     if (e.keyCode == '13') {
+      e.preventDefault();
       this.setbookinfo(); 
     }
   }
@@ -135,7 +137,7 @@ class BookapiModal extends Component {
                   <ControlLabel>
                     원하는 책을 검색해주세요
                   </ControlLabel>
-                  <FormControl type="text" placeholder="책 제목을 입력하세요" onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
+                  <FormControl type="text" placeholder="책 제목을 입력하세요" value={this.state.booktitle} onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
                   
                   <Button bsStyle="info" onClick={this.setbookinfo}> 
                     <Icon name="search plus" size="big" />

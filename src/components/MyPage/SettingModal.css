@@ -173,14 +173,15 @@ h3.logo_aladin {width:56px; height:45px; margin:0; margin-right:19px; vertical-a
 
 @media all and (max-width: 768px) {
   .fileUpload {width:100%;}
+  .modal-manage { width: 90%; }
   .modal-body {position:static;}
   .modal-header {padding:34px 20px 0 20px;}
   .modal-header .close {position:absolute; top:-45px; right:0; margin:0; font-size:34px; color:#fff; opacity:1;}
   .bookSearch_Api {position:static;}
   .bookSearch_Api h3.logo_aladin {position:absolute; top:26px; left:auto; right:0;}
-
   .modal-dialog {padding-top:50px;}
   .bookInfo_view {position:static; width:100%;}
   .bookInfo_view a {padding:20px 20px 0 20px;}
   .bookInfo_view h3.logo_aladin {position:absolute; top:26px; left:auto; right:0;}
+  .userNameWrapper {width:90%;}
 }
