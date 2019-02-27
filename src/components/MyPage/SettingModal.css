@@ -1,28 +1,9 @@
-.PhotoUploadModal {
-  justify-content: center;
-  position: relative;
-  left :50%;
-}
 
-.modal-footer {
-  text-align: center;
-}
-
-
-.setting_item{
-  text-align: center;
-  position: relative;
-}
-
-.modal-body{
-  text-align :center;
-}
-
-input#setting_input{
-  display: inline-block;
-  text-align:center;
-}
-
+.PhotoUploadModal {position: relative; left :50%; justify-content: center;}
+.modal-footer {text-align: center;}
+.setting_item {position: relative; text-align: center;}
+.modal-body{text-align :center;}
+input#setting_input{text-align:center; display: inline-block;}
 .modal-dialog:after {clear:both; display:block; content:'';}
 .modal-footer {text-align: center; border-top:1px solid #ddd;}
 .modal-header {padding:34px 39px 0 39px; border-bottom:0;}
@@ -34,9 +15,7 @@ input#setting_input{
 .btn-default:hover,
 .btn-default:active {min-width:120px; padding:.8em 1.2em; font-size:15px; color:#fff; text-shadow:none; background:#3376ff; border:0; border-radius:1.4em; box-shadow:none;}
 .PhotoUploadModal {left:0;}
-
 .ui.input>input {border:0; opacity:0; cursor:pointer;}
-
 .fileUploadContent {width:100%; padding:20px 0;}
 .fileUploadContent:after {clear:both; display:block; content:'';}
 
@@ -171,6 +150,18 @@ h3.logo_aladin {width:56px; height:45px; margin:0; margin-right:19px; vertical-a
 .bookInfo_view .book_author:after,
 .bookInfo_view .book_publish:after {width:1px; height:12px; margin-left:15px; background-color:#ccc; display:inline-block; content:''; overflow:hidden;}
 .bookInfo_view .book_descript {padding-top:15px;}
+
+
+.agreeLayout {padding:0 40px; text-align:left;}
+.agreeContent {margin-top:25px;}
+.agreeContent:first-child {margin:0;}
+.agreeContent .policy {height:180px; padding:20px; border:1px solid #aaa; background-color:#f4f4f4; overflow-y:scroll;}
+.agreeCheck {margin-top:15px;}
+.agreeCheck label {padding-top:3px; display:inline-block;}
+.agreeCheck label:before {position:relative; width:24px; height:24px; margin:-3px 8px 0 0; vertical-align:middle; font-size:14px; background:url('../../img/input_check.gif') no-repeat; display:inline-block; content:'';}
+.agreeCheck input[type="checkbox"] {position:absolute; top:0; left:0; visibility:hidden; z-index:-1;}
+.agreeCheck input[type="checkbox"]:checked + label:before {background-position:0 -24px;}
+.policy {width:100%; white-space:pre-wrap; border:0; word-break:break-all; border:1px solid #f00;}
 
 @media all and (max-width: 768px) {
   .fileUpload {width:100%;}
