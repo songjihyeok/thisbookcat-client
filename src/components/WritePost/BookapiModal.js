@@ -101,16 +101,19 @@ class BookapiModal extends Component {
     this.pageControl();
   }
 
-  pageControl() {
+  pageControl(e) {
     let buttonPrev = document.querySelector('.prev');
     let buttonNext = document.querySelector('.next');
 
-    if ( this.state.page !== 0 ){
-      (this.state.page - 1) === 0 ?  buttonPrev.classList.remove("active") : buttonPrev.classList.add("active");
-    } if ( this.state.page === this.state.maxpage ){
+    if (this.state.page - 1 === 0 || this.state.page === 1 ){
+      buttonPrev.classList.remove("active");
+    } else {
+      buttonPrev.classList.add("active");
+    }
+    
+    if ( this.state.page === this.state.maxpage ){
       buttonNext.classList.remove("active");
     } else {
-      buttonPrev.classList.remove("active");
       buttonNext.classList.add("active");
     }
   }

@@ -73,10 +73,8 @@ class MyLike extends Component {
         <div className="MyLike">
           <Nav1 />
           <div className="bookBoardWrap">
-            <div className="likeBoard">
             {this.state.likePosts === undefined ? <div className="dataNone">'아직 좋아요하신 포스트가 없습니다'</div> : this._renderMyLikePost()}
             {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
-            </div>
           </div>
         </div>
       );

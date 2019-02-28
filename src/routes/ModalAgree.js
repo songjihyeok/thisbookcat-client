@@ -9,6 +9,7 @@ class ModalAgree extends Component {
     return (
       <Modal show={this.props.show} container={this}
             onHide={this.props.hide} aria-labelledby="contained-modal-title">
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
         <div className="agreeLayout">
           <div className="agreeContent" id="usingPolicy">

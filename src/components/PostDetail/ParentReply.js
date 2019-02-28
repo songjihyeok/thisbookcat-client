@@ -88,11 +88,7 @@ export default class ParentReply extends Component {
         <li id="rereply">
           <form>
           <textarea className="rereply_input" type="text" name="reply" placeholder={this._userNamecontroller()} onChange={this._newReReply}></textarea>
-          <span className="btn_reWrite" onClick={this._makeReReply}>
-          {/*
-            <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
-          */}
-          </span>
+          <span className="rereply_btn" onClick={this._makeReReply}>등록</span>
           </form>
         </li>
         : null
