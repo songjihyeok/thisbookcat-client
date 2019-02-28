@@ -58,14 +58,12 @@ import server_url from '../../url.json'
 
     return (
     <div className='userNamePart'>
-      <span className='confirmedUser'>
-      <form className = 'userNameWrapper'>
-        <input type='text' value={this.state.userName}className="getUserName" onChange={this._setUserName}></input>
-        <button className = 'selectUserName'
-                style={{backgroundColor : this.state.userName === '' ? '#c7c7c7' : '#3376ff'}}
-                onClick={this.state.confirmUN ? this.alreadychecked : this._checkUserName}>중복확인</button>
-      </form>
-      </span>
+    <form className = 'userNameWrapper'>
+      <input type='text' value={this.state.userName}className="getUserNameBox" onChange={this._setUserName}></input>
+      <button className = 'selectUserName'
+              style={{backgroundColor : this.state.userName === '' ? '#c7c7c7' : '#3376ff'}}
+              onClick={this.state.confirmUN ? this.alreadychecked : this._checkUserName}>중복확인</button>
+    </form>
     </div>  
     )
   }
