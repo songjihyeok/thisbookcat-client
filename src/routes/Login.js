@@ -95,15 +95,10 @@ class Login extends Component {
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     
-                    {/*
+                    
                     <div className='login_flex'>
                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                    </div>
-                     */}
-                    {/* <div className='login_flex'>
-                      <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                    </div> */}
-                     
+                    </div>                   
                   </div>
                 </div>
             </div>

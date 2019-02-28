@@ -25,7 +25,7 @@ class LikeBookBoard extends Component {
 			})
 			.catch(error => console.log(error))
 		} else {
-			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{
+			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{},{
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
 				this.setState({

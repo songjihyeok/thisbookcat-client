@@ -13,9 +13,11 @@ import PostDetail from "./routes/PostDetail";
 import MyPage from "./routes/MyPage";
 import TagSearchPage from "./routes/TagSearchPage"
 import editPost from "./routes/editPost"
-import "./default.css";
 import redirect from "./routes/redirect"
 import robot from './robots.txt'
+import agree from './routes/ModalAgree'
+import "./default.css";
+
 
 class App extends Component {
   render() {
@@ -25,7 +27,7 @@ class App extends Component {
           <Switch>
             <Route path="/robots.txt" component={robot}/>
             <Route exact path="/" component={Main} />
-            <Route path="/redirect/:token" component={redirect}/>
+            <Route path="/redirect/:token/:agreed" component={redirect}/>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
             <Route path="/findpw" component={FindPw} />
@@ -38,6 +40,7 @@ class App extends Component {
             <Route path="/writepost" component={WritePost} />
             <Route path="/postdetail" component={PostDetail} />
             <Route path="/mypage" component={MyPage} />
+            <Route path="/agree" component={agree}/>
             <Route path="/TagSearchPage/:TagName" exact component = {TagSearchPage}/>
           </Switch>
         </Router>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Icon } from "semantic-ui-react"
 import axios from 'axios'
 import server_url from '../../url.json'
 import profileimage from "../../img/다운로드.png"
@@ -19,6 +18,7 @@ export default class ParentReply extends Component {
 
   _newReReply = e => { //input 창에 걸어주는 onChange 함수
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
+    e.preventDefault();
     let { userName, id, } = this.props.reply
     if(!userName){
       userName = '지나가는 행인'
@@ -29,6 +29,16 @@ export default class ParentReply extends Component {
       targetUsername: userName  //TODO: 여기에 id가 아니라, user의 닉네임이 떠야함.
     }
   }
+
+  _handleKeyPress= (e)=>{
+    console.log("13131313",e.keyCode)
+    if (e.keyCode == '13') {
+    e.preventDefault();  
+    this._makeReReply(e);
+    }   
+  }
+
+
 
   _userNamecontroller = (userName)=>{
     if(!userName){
@@ -78,7 +88,10 @@ export default class ParentReply extends Component {
             ? <button className='make_rereply btn_del' onClick={this._deleteReply}>{`삭제 `}</button>
             : null
             }
-            <button className='make_rereply btn_wr_reply' onClick={this._handleReReplyInput}>댓글달기</button>
+             {(this.state.show_reReplyInput)
+            ? null
+            : <button className='make_rereply btn_wr_reply' onClick={this._handleReReplyInput}>답글달기</button>
+             }
           </div>
         </li>
         
@@ -87,11 +100,8 @@ export default class ParentReply extends Component {
         ?
         <li id="rereply">
           <form>
-          <textarea className="rereply_input" type="text" name="reply" placeholder={this._userNamecontroller()} onChange={this._newReReply}></textarea>
+          <textarea className="rereply_input" type="text" name="reply" placeholder={this._userNamecontroller()} onChange={this._newReReply} onKeyDown={(e)=>{this._handleKeyPress(e)}}></textarea>
           <span className="btn_reWrite" onClick={this._makeReReply}>
-          {/*
-            <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
-          */}
           </span>
           </form>
         </li>

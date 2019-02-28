@@ -44,7 +44,6 @@ class Main extends Component {
     if (this.state.coverurl) {
       const bookcover = this.state.coverurl.map((url) => {
         if (url) {
-          console.log("그래서 가져오고 싶어")
           return <BookBoard url={url.mainImage}
                             postid={url.id}
                             title={url.title}
@@ -78,7 +77,7 @@ class Main extends Component {
     return axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
-      // console.log('there should be data here',response.data)
+      console.log('there should be data here',response.data)
       this.setState({totalPage: response.data.totalpage})
       let result = response.data.perArray
       // console.log(result)
@@ -112,12 +111,6 @@ class Main extends Component {
           <div className='mainPost'>
           {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
           </div>
-
-         <Button onClick={()=>this.changeTaste()}>취향 변경</Button>
-
-
-         <Button style={{ marginLeft : '10px'}} onClick={this._handleShow}>이용동의팝업</Button>
-         <ModalAgree show={this.state.show} hide={this._handleHide}/>
         </div>
         
       )

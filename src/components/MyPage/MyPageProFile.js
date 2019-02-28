@@ -27,7 +27,8 @@ class MyPageProFile extends Component {
       following: 0,
       gotData:false,
       likes: 0,
-      userName: ""
+      userName: "",
+      howManyPosts: 0
     };
   }
 
@@ -90,7 +91,6 @@ class MyPageProFile extends Component {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
-
       let allofarray = []
       if(response.data.perArray===undefined){
         return;
@@ -105,6 +105,7 @@ class MyPageProFile extends Component {
       this.setState({
         totalPage: response.data.totalpage,
         myPosts: this.state.myPosts.concat(allofarray),
+        howManyPosts : response.data.howManyPosts
       });
     })
   }
@@ -211,7 +212,7 @@ class MyPageProFile extends Component {
               </li>
               <li>
                 <span className='InfoName'>게시물</span>
-                <b>{this.state.myPosts.length}</b>
+                <b>{this.state.howManyPosts}</b>
               </li>
               <li>
                 <span className='InfoName'>팔로잉</span>
