@@ -17,7 +17,8 @@ class editPost extends Component {
       posted : false,
       bookData: null,
       getData:false,
-      posted:false
+      posted:false,
+      usingImage: []
     }  
     
     authHeader = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}   
@@ -54,6 +55,10 @@ class editPost extends Component {
     await this.setState({title: nowtitle});
   }; // 제목을 등록할때 사용하는 함수 입니다.
 
+  _handleImages= (images)=>{
+    this.setState({usingImage: images});
+  }
+
   _handleContents = contents => {
     setTimeout(() => {
       this.setState({contents: contents});
@@ -88,7 +93,7 @@ class editPost extends Component {
     let image = null;
 
       image = <img src={this.handleImage()} alt={"이미지 없음"}/>
-      editor= <MyEditor contents={contents} title={title} _handleTitle={this._handleTitle} _handleContents={this._handleContents}/>
+      editor= <MyEditor contents={contents} title={title} _handleTitle={this._handleTitle} _handleImages={this._handleImages} _handleContents={this._handleContents}/>
 
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
@@ -108,7 +113,8 @@ class editPost extends Component {
                     title: this.state.title,
                     contents: contents,
                     isedit: true,
-                    bookData: this.state.bookData
+                    bookData: this.state.bookData,
+                    usingImage: this.state.usingImage
                     }}/>
             {/* 악시오스 요청을 네브바에서 보냅니다. 네브바에 버튼이 존재하므로 -> 그래서 네브바에 글 제목과 글 내용, 대표이미지를 props로 내려줍니다. */}
               <div className="write_container">

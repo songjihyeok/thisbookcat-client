@@ -42,15 +42,16 @@ export default class ParentReply extends Component {
 
   _userNamecontroller = (userName)=>{
     if(!userName){
-      return '@지나가는 행인'
+      return '@'
     }
     return `@${userName}`
   }
 
 
-  _makeReReply = async () => { //input창에 쓴거 submit 하면 post 날리는 함수.
+  _makeReReply = async (e) => { //input창에 쓴거 submit 하면 post 날리는 함수.
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
     // const res_postReReply = 
+    e.preventDefault();
     await axios.post(`https://${server_url}/api/reply2/${this.props.postId}`, this.reComment, this.authHeader)
     // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();

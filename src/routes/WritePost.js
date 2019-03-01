@@ -49,8 +49,6 @@ class WritePost extends Component {
       this.setState({usingImage: images});
     }
 
-
-
     _postSuccess = () => {
       this.setState({posted: true});
     }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.

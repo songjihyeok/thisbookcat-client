@@ -33,7 +33,7 @@ export default class ChildReply extends Component {
 
   _userNamecontroller = (userName)=>{
     if(!userName){
-      return '@지나가는 행인'
+      return '@'
     }
     return `@${userName}`
   }
@@ -100,7 +100,7 @@ export default class ChildReply extends Component {
             <li id="rereply">
               <form>
                 <textarea className="rereply_input" type="text" name="reply" placeholder={this._userNamecontroller()} onChange={this._newReReply}onKeyDown={(e)=>{this._handleKeyPress(e)}}></textarea>
-                <button className="btn_reWrite" onClick={this._makeReReply} />
+                <span className="rereply_btn" onClick={this._makeReReply}>등록</span>
               </form>
             </li>
           : null
