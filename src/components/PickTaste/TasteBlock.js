@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Images, { Image } from 'react-bootstrap'
+import { Image } from 'react-bootstrap'
 
 class Block extends Component {
 

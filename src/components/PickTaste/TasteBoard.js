@@ -1,10 +1,7 @@
-import React, { Component, Fragment, useImperativeMethods } from 'react'
-/* import {Button, ButtonGroup} from 'react-bootstrap' */
-/* import {Link} from 'react-router-dom' */
+import React, { Component, Fragment} from 'react'
 import { withRouter } from "react-router-dom";
 import axios from 'axios'
 import server_url from '../../url.json'
-//import './CSS/PickTaste.css'
 import TasteBlock from './TasteBlock'
 import NewTagModal from './NewTagModal.js';
 

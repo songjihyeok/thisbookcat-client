@@ -32,7 +32,7 @@ class BookapiModal extends Component {
 
   _handleKeyPress(e) {
   
-    if (e.keyCode == '13') {
+    if (e.keyCode === '13') {
       e.preventDefault();
       this.setbookinfo(); 
     }

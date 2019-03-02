@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Icon } from "semantic-ui-react";
 import axios from 'axios';
 import server_url from '../../url.json';
 //import "./PostDetail.css";

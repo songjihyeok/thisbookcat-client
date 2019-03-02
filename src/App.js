@@ -14,7 +14,7 @@ import MyPage from "./routes/MyPage";
 import TagSearchPage from "./routes/TagSearchPage"
 import editPost from "./routes/editPost"
 import redirect from "./routes/redirect"
-import robot from './robots.txt'
+import robots from './routes/robots'
 import agree from './routes/ModalAgree'
 import "./default.css";
 
@@ -25,7 +25,7 @@ class App extends Component {
       <div className = 'App'>
         <Router>
           <Switch>
-            <Route path="/robots.txt" component={robot}/>
+            <Route path="/robots.txt" component={robots}/>
             <Route exact path="/" component={Main} />
             <Route path="/redirect/:token/:agreed" component={redirect}/>
             <Route path="/login" component={Login} />

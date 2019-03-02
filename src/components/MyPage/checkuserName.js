@@ -55,11 +55,14 @@ import server_url from '../../url.json'
 
 
   render() {
-
+    let userName = this.state.userName
+    if(!userName){
+      userName='' 
+    }
     return (
     <div className='userNamePart'>
     <form className = 'userNameWrapper'>
-      <input type='text' value={this.state.userName}className="getUserNameBox" onChange={this._setUserName}></input>
+      <input type='text' value={userName}className="getUserNameBox" onChange={this._setUserName}></input>
       <button className = 'selectUserName'
               style={{backgroundColor : this.state.userName === '' ? '#c7c7c7' : '#3376ff'}}
               onClick={this.state.confirmUN ? this.alreadychecked : this._checkUserName}>중복확인</button>

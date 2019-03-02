@@ -3,7 +3,6 @@ import FollowingBoard from "../components/Followings/FollowingBoard";
 import Nav1 from "../components/Nav1";
 import axios from 'axios';
 import server_url from '../url.json';
-import _ from "lodash";
 import { Redirect } from "react-router-dom";
 
 //import "../components/Followings/CSS/Followings.css"
@@ -15,7 +14,8 @@ class Followings extends Component {
     per: 16,
     totalPage:'',
     followPost:[],
-    getData: false
+    getData: false,
+    loading: false
   };
 
   componentDidMount() {
@@ -23,17 +23,21 @@ class Followings extends Component {
     window.addEventListener('scroll', this._infiniteScroll, true)
   }
 
+  componentWillMount(){ 
+    window.addEventListener('scroll', this._infiniteScroll, false);
+  }
+
+
   _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-        if (this.state.page !== this.state.totalPage) {
-          this.setState({page: this.state.page+1})
-          this._getFollowPosts()
-        }
+    
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loading) {
+      if (this.state.page !== this.state.totalPage) {
+        this.setState({page: this.state.page+1, loading:false})
+        this._getFollowPosts()
+      }
     }
   }
+
 
   _renderFollowingPost = () => {
     // console.log('this is following post',this.state.followPost)
@@ -42,6 +46,8 @@ class Followings extends Component {
         if (url) {
           return <FollowingBoard image={url.mainImage} key={index} title={url.title} bookData={url.bookData}
                                 likecount={url.likeCount} contents={url.contents} postid={url.id} />
+        }else {
+          return null;
         }
       })
       return follow
@@ -62,7 +68,7 @@ class Followings extends Component {
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      this.setState({totalPage: response.data.totalpage, getData: true})
+      this.setState({totalPage: response.data.totalpage, getData: true ,loading: true})
       // console.log(response.data)
       return response.data.perArray
     })
@@ -82,7 +88,6 @@ class Followings extends Component {
           <div className="Followings">
             <div className='FollowingBoards'>
             {followPost.length===0? <div className="dataNone">팔로우하신 유저가 없습니다!</div> : this._renderFollowingPost()}
-            {page === totalPage ? <div className="dataNone">더이상 콘텐츠가 없습니다!</div> : ''}
             </div>
           </div>
         </Fragment>

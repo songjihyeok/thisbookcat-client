@@ -60,7 +60,9 @@ class TagSearchPage extends Component {
         if(url) {
           return <BookBoard url={url.mainImage} postid={url.id} title={url.title}
                             likecount={url.likeCount} key={url.id}/>
-        } 
+        } else {
+          return null;
+        }
       });
       return bookcover
     }

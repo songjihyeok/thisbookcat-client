@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import { Link } from 'react-router-dom'
-import Images, {Image} from 'react-bootstrap'
+import {Image} from 'react-bootstrap'
 import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json'
 import axios from 'axios'

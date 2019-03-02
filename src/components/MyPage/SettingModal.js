@@ -92,12 +92,11 @@ class SettingModal extends Component {
       }
     }
     catch(err) { 
-      throw new(err)
+      throw new Error(err)
     }
   }
 
   render() {
-    console.log("모달창??? ")
     return (
       <Modal show={this.props.show} container={this}
             onHide={this.props.hide} aria-labelledby="contained-modal-title" className="modal-manage">

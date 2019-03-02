@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import { Button, button } from "semantic-ui-react";
+import { Button} from "semantic-ui-react";
 import axios from 'axios';
-import path from 'path';
 import server_url from '../../url.json';
-//import "./PostDetail.css";
-import { pathToFileURL } from 'url';
 import profileimage from "../../img/다운로드.png"
 import { PropTypes} from 'prop-types';
 
@@ -27,9 +24,7 @@ export default class PostWriter extends Component {
   }
 
   _getUserData = async () => {
-    console.log("user 데이터를 가져와야하는데?")
     const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader)
-    console.log('_getUserData에서 res_getUser =========',res_getUser)
     this.setState({
       userName: res_getUser.data.userName,
       userImage: res_getUser.data.profileImage,
@@ -47,20 +42,20 @@ export default class PostWriter extends Component {
     if (this.state.isFollowing) {
 
       const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader)
-      console.log ("resultfollowDelete",resultfollowDelete)
+
       this.setState({isFollowing: false})
     } else {
       
       const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader)
-      console.log("followResult", followResult)
+
       this.setState({isFollowing: true})
     }
   }
 
   _handleDelete = async () => {
     const res_deletePost = await axios.delete(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader)
-    console.log("props", this.props)
-    console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
+    // console.log("props", this.props)
+    // console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
     window.location.href ="/mypage"
   }
 
@@ -78,7 +73,7 @@ export default class PostWriter extends Component {
     }
   
   render() {
-    const {userImage, userName, isFollowing} = this.state
+    const {userName, isFollowing} = this.state
     return (
       <div className='post_detail_right_1_postWriter'>
         <div className="user_thumbs">{this._userImagecontrollor()}</div>

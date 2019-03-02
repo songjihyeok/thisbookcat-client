@@ -13,7 +13,7 @@ class BookList extends Component {
     return (
       <ul className="bookdetail">
         <li onClick={this.bookclickHandler}>
-        <p className="thumbs"><img src={this.props.book.cover} /></p>
+        <p className="thumbs"><img src={this.props.book.cover} alt="이미지가 등록되지 않았습다"/></p>
         <dl>
           <dt>{this.props.book.title}</dt>
           <dd>

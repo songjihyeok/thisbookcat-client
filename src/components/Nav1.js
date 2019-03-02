@@ -31,7 +31,7 @@ class Nav1 extends Component {
 
   _handleKeyPress(event) {
     
-    if (event.keyCode == '13') {
+    if (event.keyCode === '13') {
       event.preventDefault();
       if(this.state.searchingValue){
         window.location.href = `/tagSearchPage/${this.state.searchingValue}`
@@ -61,7 +61,7 @@ class Nav1 extends Component {
     } else {
       return (
         <div className="nav1">
-          <h1 className="thisBook_Nav1"><Link to="/main"><img className="logoStyle" src={logoImage}/></Link></h1> 
+          <h1 className="thisBook_Nav1"><Link to="/main"><img alt="책이미지" className="logoStyle" src={logoImage}/></Link></h1> 
           <div className="searchForm">
             <form>
               <input className="search_input" placeholder="(예: 힐링, 자기계발, 칼세이건...)" value={this.state.searchingValue}

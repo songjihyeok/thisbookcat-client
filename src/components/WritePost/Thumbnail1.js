@@ -3,7 +3,6 @@ import "./Thumbnail.css";
 import './filepond.min.css';
 import server_url from '../../url.json';
 import {FilePond, File, registerPlugin} from 'react-filepond'
-import { Icon } from "semantic-ui-react";
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';

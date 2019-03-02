@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-//import { Navbar, Nav, NavItem } from "react-bootstrap";
-import { Link } from "react-router-dom";
-//import { Icon } from "semantic-ui-react";
 import axios from "axios";
 import server_url from '../url.json';
 import PropTypes from 'prop-types';
-//import "./Nav2.css";
 
 
 class Nav2 extends Component {

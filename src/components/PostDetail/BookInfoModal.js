@@ -22,7 +22,7 @@ export default class BookInfoModal extends Component {
 
             <div className="bookInfo_view">
               <h3 className="logo_aladin">알라딘</h3>
-              <div className="book_thumbs"><img src={bookData.cover} /></div>
+              <div className="book_thumbs"><img alt="책 이미지" src={bookData.cover} /></div>
 
               <a href={bookData.link}>
                 <span className="book_title">{bookData.title}</span>

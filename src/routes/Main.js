@@ -4,18 +4,16 @@ import axios from "axios";
 import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
-import ModalAgree from './ModalAgree.js';
-import {Button} from "react-bootstrap";
-//import "../components/Main/CSS/Main.css";
 import "../default.css";
 
 class Main extends Component {
   
   state = {
-    per: 18,//한페이지당 가지게될 포스트의 개수
+    per: 16,//한페이지당 가지게될 포스트의 개수
     page: 1,//정해진 per만큼의 포스트를 가지는 페이지
     totalPage: '',
-    show : false
+    show : false,
+    loading : false
   };
 
 //새로 추가된 사항: per와 page추가 됐습니다. per는 1페이지에 보여줄 포스트의 갯수이고 page는 정해주는 per만큼의 post를 가지고 있는 페이지 입니다.
@@ -24,17 +22,17 @@ class Main extends Component {
 
   componentDidMount () {
     this._getUrls()
-    window.addEventListener('scroll', this._infiniteScroll, true)
+    window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
+  componentWillMount(){ 
+    window.addEventListener('scroll', this._infiniteScroll, false);
+  }
   _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
+    
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loading) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState({page: this.state.page+1})
+        this.setState({page: this.state.page+1, loading:false})
         this._getUrls()
       }
     }
@@ -51,17 +49,14 @@ class Main extends Component {
                             key={url.id}
                             bookData= {url.bookData}
                             />;
+        }else {
+          return null;
         }
       });
       return bookcover;
     }
     return <div className="loading">"Loading"</div> 
   };
-
-  changeTaste =()=>{
-    console.log("바뀌고 싶은데?")
-   window.location.href='/picktaste';
-  }
 
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
@@ -78,9 +73,8 @@ class Main extends Component {
       headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
       console.log('there should be data here',response.data)
-      this.setState({totalPage: response.data.totalpage})
+      this.setState({totalPage: response.data.totalpage, loading: true})
       let result = response.data.perArray
-      // console.log(result)
       return result;
      })
      .catch(err => console.log(err))
@@ -107,9 +101,6 @@ class Main extends Component {
           </div> */}
           <div className="bookBoardWrap">
             {this._renderBooKCoverImage()}
-          </div>
-          <div className='mainPost'>
-          {this.state.page === this.state.totalPage ? <div className="dataNone">'더이상 콘텐츠가 없습니다!'</div> : ''}
           </div>
         </div>
         

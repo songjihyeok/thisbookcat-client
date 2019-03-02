@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import { Icon } from "semantic-ui-react";
+import React, { Fragment } from "react";
 import axios from 'axios';
 import server_url from '../url.json';
 import Nav1 from '../components/Nav1';
@@ -7,15 +6,11 @@ import Reply from '../components/PostDetail/Reply';
 import PostContent from '../components/PostDetail/PostContent';
 import PostWriter from '../components/PostDetail/PostWriter';
 import PostInfo from '../components/PostDetail/PostInfo';
-//import "../components/PostDetail/PostDetail.css";
-//import "../default.css";
 import { Redirect } from "react-router-dom";
-// import BookInfoModal from '../components/PostDetail/BookInfoModal';
 
 class PostDetail extends React.Component {
   state = {
     postId : this.props.location.pathname.slice(12),
-    // postId는 props로 받아야 함.
     userId: null,
     replys:[],
     replyCount : 0, //댓글 갯수
@@ -77,7 +72,7 @@ class PostDetail extends React.Component {
 
 
   _handleKeyPress=(e) =>{
-    if (e.keyCode == '13') {
+    if (e.keyCode === '13') {
     this._makeReply(e);
     }   
   }

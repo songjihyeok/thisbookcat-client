@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Modal, Button} from 'react-bootstrap'
-import style from '../components/MyPage/SettingModal.css'
+// import style from '../components/MyPage/SettingModal.css'
 import Using from './PolicyHtml/usingPolicy.js'
 import Privacy from './PolicyHtml/privacyPolicy.js'
 import axios from 'axios';

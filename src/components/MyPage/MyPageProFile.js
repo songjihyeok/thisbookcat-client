@@ -6,8 +6,6 @@ import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
 //import './CSS/MyPageProFile.css'
 import defaultimage from '../../img/다운로드.png';
-import PickTaste from '../PickTaste/TasteBoard';
-import { Redirect} from "react-router-dom";
 
 class MyPageProFile extends Component {
 
@@ -28,7 +26,8 @@ class MyPageProFile extends Component {
       gotData:false,
       likes: 0,
       userName: "",
-      howManyPosts: 0
+      howManyPosts: 0,
+      loading: false 
     };
   }
 
@@ -42,13 +41,15 @@ class MyPageProFile extends Component {
      await window.addEventListener('scroll', this._infiniteScroll, true)
   }
 
+  componentWillMount(){ 
+    window.addEventListener('scroll', this._infiniteScroll, false);
+  }
+
   _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
+    
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loading) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState({page: this.state.page + 1})
+        this.setState({page: this.state.page+1, loading:false})
         this._callmyPostAPI()
       }
     }
@@ -105,7 +106,8 @@ class MyPageProFile extends Component {
       this.setState({
         totalPage: response.data.totalpage,
         myPosts: this.state.myPosts.concat(allofarray),
-        howManyPosts : response.data.howManyPosts
+        howManyPosts : response.data.howManyPosts,
+        loading : true 
       });
     })
   }
@@ -129,6 +131,8 @@ class MyPageProFile extends Component {
       if (post) {
         return <MyBookBoard image={post.mainImage} title={post.title} key={post.id}
                             postid={post.id} likecount={post.likeCount} bookData={post.bookData}/>
+      }else {
+        return null;
       }
     });
     return posts

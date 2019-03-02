@@ -1,9 +1,7 @@
 import React, {Component} from "react"
 import { Link } from 'react-router-dom';
 import server_url from '../../url.json'
-import Images, {Image} from 'react-bootstrap'
-
-/* import './CSS/MyBookBoard.css' */
+import {Image} from 'react-bootstrap'
 import { Icon } from "semantic-ui-react";
 import axios from 'axios'
 

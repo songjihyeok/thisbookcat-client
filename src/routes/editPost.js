@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Nav2 from "../components/Nav2";
 import { Redirect } from "react-router-dom";
-import Thumbnail1 from "../components/WritePost/Thumbnail1";
-//import { Grid, Row, Col } from "react-bootstrap";
 import Bookapi from "../components/WritePost/Bookapi";
 import MyEditor from "../components/WritePost/MyEditor";
 import axios from "axios";
@@ -17,7 +15,6 @@ class editPost extends Component {
       posted : false,
       bookData: null,
       getData:false,
-      posted:false,
       usingImage: []
     }  
     

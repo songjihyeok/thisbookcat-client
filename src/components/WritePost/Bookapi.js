@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Icon } from "semantic-ui-react";
 import BookapiModal from "./BookapiModal";
 import Dotdotdot from 'react-dotdotdot';
-//import "./Bookapi.css";
 
 class Bookapi extends Component {
   constructor(props) {
@@ -29,9 +27,6 @@ class Bookapi extends Component {
 
 
   _handlebookData(){
-    const styleofBook ={ 
-       fontSize : "5px" 
-    }
 
     if(this.state.data){
       return <div className="bookdetail">
@@ -42,7 +37,7 @@ class Bookapi extends Component {
                 <div>{this.state.data.publisher}</div> 
                 <div>{this.state.data.description}</div> 
               */}
-              <p className="thumbs"><img src={this.state.data.cover} /></p>
+              <p className="thumbs"><img src={this.state.data.cover} alt="책커버이미지입니다"/></p>
               <dl>
                 <dt>{this.state.data.title}</dt>
                 <dd>

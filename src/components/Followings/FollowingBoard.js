@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json';
 import axios from 'axios';
-//import Dotdotdot from 'react-dotdotdot';
 import Truncate from 'react-truncate-html';
 import defaultImage from '../../img/다운로드.png'
 

@@ -3,7 +3,6 @@ import { Editor } from "react-draft-wysiwyg";
 import "./MyEditor.css";
 import axios from "axios";
 import ReactQuill, {Quill} from "react-quill";
-// import windowScrollPosition from "window-scroll-position";
 import server_url from '../../url.json';
 import {ImageUpload} from 'quill-image-upload';
 import ImageResize from 'quill-image-resize-module';
@@ -69,7 +68,7 @@ export default class MyEditor extends Component {
 
     for(let element of usingImgFiles){
       if(!imageNames.includes(element)){
-      const deleteResult = await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
       }
     }
     this.setState({usingImgFiles: imageNames});
@@ -156,7 +155,6 @@ function imageHandler () {
   input.setAttribute('accept', 'image/*');
   input.click();
   let token = window.localStorage.getItem('token')
-  let inputImageName= null;
   input.onchange = async () => {
     console.log("change");
 

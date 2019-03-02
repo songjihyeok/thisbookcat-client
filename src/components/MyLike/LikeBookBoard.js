@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import server_url from '../../url.json';
 import {Icon} from 'semantic-ui-react'
 import axios from 'axios'
-import Image from 'react-image-resizer'
 
 class LikeBookBoard extends Component {
 

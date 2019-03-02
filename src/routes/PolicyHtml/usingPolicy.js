@@ -1,5 +1,5 @@
 import React, {Fragment, Component} from 'react'
-import style from '../../components/MyPage/SettingModal.css'
+
 
 
 class Using extends Component {

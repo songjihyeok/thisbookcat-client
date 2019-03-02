@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-//import '../components/Login/Login.css';
-import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import server_url from '../url.json';
-import book from "../img/book-img.png";
 
 class SignUp extends Component {
   state = {
-    // email : '',
-    // password : '',
     confirmPassword : true,
     signUp_Done : false,
     signUp_Err: false,
