@@ -11,7 +11,7 @@ import server_url from '../../url.json'
   }
 
   _setUserName = () => {
-    const inputData = document.getElementsByClassName('getUserName')[0].value
+    const inputData = document.getElementsByClassName('getUserNameBox')[0].value
     // console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
     this.setState ({userName:inputData})
     // console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
