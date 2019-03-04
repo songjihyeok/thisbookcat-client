@@ -17,7 +17,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 .App {max-width:1920px; margin:0 auto;}
 
 /* Main */
-.Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: center;}
+.Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
 .bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px;}
 .postTitle {padding:10px; font-size: 18px; color: #151515; font-weight: 500;}
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
@@ -385,7 +385,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 /* MyLike */
 .MyLikeWrap {padding:30px 0;}
-.MyLike {text-align: center;}
+.MyLike {text-align: left;}
 .likeThumbnail {position: relative;}
 
 
@@ -421,7 +421,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
 .ProFileDetailContainer li > span.InfoName + b {margin-top:5px; padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
-.myBookBoardContainer {position: relative; width:100%; text-align: center; background-color: #f6f6f6; display: inline-block;}
+.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block;}
 .myBookBoardContainer .bookBoardWrap {padding-top:0;}
 .myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
