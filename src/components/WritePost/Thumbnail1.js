@@ -74,7 +74,6 @@ class Thumbnail extends Component {
                             },
                             onload : ()=> this.removefileName()
                           }
-
                     }}
                       accepted-file-types="image/jpeg, image/png"
                       oninit={() => this.handleInit() }

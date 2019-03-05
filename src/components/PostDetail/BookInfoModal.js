@@ -9,7 +9,11 @@ export default class BookInfoModal extends Component {
 
   render() {
       const bookData= JSON.parse(this.props.bookData);
-
+      let bookLink =null
+      if(bookData){
+      bookLink = bookData.link+ "&partner=afteread" 
+      console.log(bookLink)
+      }
       if(bookData&&this.props.show){ 
       return (
         <Fragment>
@@ -23,8 +27,7 @@ export default class BookInfoModal extends Component {
             <div className="bookInfo_view">
               <h3 className="logo_aladin">알라딘</h3>
               <div className="book_thumbs"><img alt="책 이미지" src={bookData.cover} /></div>
-
-              <a href={bookData.link}>
+              <a href={bookLink}>
                 <span className="book_title">{bookData.title}</span>
                 <span className="book_author">{bookData.author}</span>  
                 <span className="book_publish">출판사 : {bookData.publisher}</span>
