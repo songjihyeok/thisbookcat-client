@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Redirect } from "react-router-dom";
+import {Link,Redirect } from "react-router-dom";
 import axios from 'axios';
 import server_url from '../url.json';
 
@@ -62,12 +62,11 @@ class Login extends Component {
     } else {
       return (
         <div className="backImg">
-
                 <div className='login_body'>
                   <div className='login_container'>
                     <h1 id="logo">
-                      <div className="textLogo">나에게 맞는 책들, 그리고 이야기</div>
-                      <div className="imageLogo">Booksteller</div>
+                      <div className="textLogo">내 관심사의 책들, 그리고 이야기</div>
+                      <div className="imageLogo">애프터리드</div>
                       <div className="textLogo">로그인 해주세요</div>
                     </h1>
 
@@ -94,10 +93,10 @@ class Login extends Component {
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     
-{/*                     
+                     
                     <div className='login_flex'>
-                      <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link> */}
-                    {/* </div>                    */}
+                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
+                    </div>
                   </div>
                 </div>
             </div>

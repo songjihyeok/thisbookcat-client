@@ -65,9 +65,6 @@ class MyPageProFile extends Component {
     this.setState({likes: usingPreference.length})
   }
 
-
-
-
   _getMyProfile = () => {
     axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {

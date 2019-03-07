@@ -21,7 +21,8 @@ class BookapiModal extends Component {
       booktitle: "",
       finishsearch: false,
       page: 1,
-      maxpage: 1
+      maxpage: 1,
+      index: null
     };
     this._handleChange = this._handleChange.bind(this);
   }
@@ -31,8 +32,7 @@ class BookapiModal extends Component {
   }
 
   _handleKeyPress(e) {
-  
-    if (e.keyCode === '13') {
+    if (e.keyCode == '13') {
       e.preventDefault();
       this.setbookinfo(); 
     }
@@ -40,11 +40,17 @@ class BookapiModal extends Component {
 
   bookListHandler(){
     if(this.state.data){
-      console.log("array",this.state.data.item)
-      const result = this.state.data.item.map((book)=>{
-       return <BookList book={book} key={this.state.data.item.indexOf(book)} clicked={(book)=>{ this.setState({finishsearch: true, clickedData: book})}}></BookList>
+      let bookListArray= this.state.data.item
+      const result = bookListArray.map((book)=>{
+       return <BookList book={book} 
+                        clickedIndex={this.state.index}
+                        key={bookListArray.indexOf(book)} 
+                        index={bookListArray.indexOf(book)} 
+                        reset={()=>{this.setState({finishsearch:false, index:null,clickedData:null})} } 
+                        finishsearch={this.state.finishsearch}
+                        clicked={(book, index)=>{ this.setState({index: index ,finishsearch: true, clickedData: book})}}>
+              </BookList>
       })
-      console.log("결과??",result);
       return result;                  
     }
   }
@@ -52,9 +58,9 @@ class BookapiModal extends Component {
   setbookinfo = ()=>{
   var resultOfBookdata = null; 
   var callbacks = ()=>{
-    console.log("결과물",resultOfBookdata);
+    // console.log("결과물",resultOfBookdata);
     this.setState({data:resultOfBookdata});
-    console.log("max",Math.floor(resultOfBookdata.totalResults/4)+1)
+    // console.log("max",Math.floor(resultOfBookdata.totalResults/4)+1)
     this.setState({maxpage: Math.floor(resultOfBookdata.totalResults/4)+1 })
   }
     const url = `https://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbKey=ttbporr34441025002&Query=${this.state.booktitle}&output=js&callback=bookdisplay&MaxResults=4&SearchTarget=Book&Sort=SalesPoint&Start=${this.state.page}&Cover=Big`
@@ -89,6 +95,7 @@ class BookapiModal extends Component {
     await this.setbookinfo();
     this.pageControl();
   }
+
   afterPage =async()=>{
   if(this.state.page===this.state.maxpage){
 

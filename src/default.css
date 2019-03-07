@@ -14,7 +14,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s !important; }
 
 
-.App {max-width:1920px; margin:0px;}
+.App {max-width:2100px; margin:auto; }
 
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
@@ -51,7 +51,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 
 /* Nav1 */
 .nav1,
-.nav2 {position:relative; z-index:10; padding:15px 0; background-color:#fff;}
+.nav2 {position:relative; z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
 .nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);}
 .nav2 {height:70px; border-bottom:1px solid #eaeaea;}
 .logoStyle {height:50px; width:150px;}
@@ -73,7 +73,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
   margin: 0;
   padding-left: 66px;
   font-size:17px;
-  color:#a8a8a8;
+  color:black;
   background-color: #f4f4f4; 
   border-radius: 25px;
   border-width: 0;
@@ -96,6 +96,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
   background-size: cover;
   background-attachment: fixed;
   display:table;
+  margin: 0 !important;
 }
 .login_body {
   display:table-cell;
@@ -103,7 +104,6 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
   vertical-align:middle;
   justify-content: center;
   background-color: transparent;
-  text-align: center;
 }
 .login_container {width: 297px; margin:0 auto;}
 #logo {font-size:44px; color:rgba(0,0,0,.8);}
@@ -155,7 +155,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 
 /* PostDetail */
 .img-circle {width:70px; height:70px; margin:0 10px; background-color:#f2f2f2; border-radius:50%; box-shadow:none;}
-.post_detail {position:relative; min-height: calc(100% - 70px); margin: 0 auto;}
+.post_detail {position:relative; min-height: calc(100% - 70px); margin: 0 200px;}
 .post_detail:before,
 .post_detail:after {clear: both; display:block; content:'';}
 .post_detail:before {position:absolute; top:0; left:60%; width:1px; height: 100%; border-left:1px solid #d0d0d0;}
@@ -163,7 +163,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 .post-thumbs {max-width:100%; max-height:auto; text-align:center;}
 .post-thumbs img {box-shadow:none; border-radius:0;}
 .post_detail_left::-webkit-scrollbar {display: none;}
-.post_detail_left .post_detail_content {font-size: 17px; word-break:break-all;}
+.post_detail_left .post_detail_content {font-size: 25px; word-break:break-all;}
 .post_detail_left .post_detail_content img {max-width:100%;}
 .post_detail_3_reply {overflow : scroll; overflow-x: hidden;}
 .post_detail_3_reply::-webkit-scrollbar {display: none;}
@@ -237,7 +237,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 .reply_msg_button {font-size:14px; text-align:right;}
 .reply_msg_button .btn_del,
 .reply_msg_button .btn_wr_reply,
-.rereply_btn {margin:0; margin:-8px 0 0 8px; padding:8px; font-weight:800; letter-spacing:-1px; vertical-align:middle; border:0; background:none; display:inline-block;}
+.rereply_btn {cursor:pointer; margin:0; margin:-8px 0 0 8px; padding:8px; font-weight:800; letter-spacing:-1px; vertical-align:middle; border:0; background:none; display:inline-block;}
 .reply_msg_button .btn_del {color:#8f8f8f;}
 .reply_msg_button .btn_wr_reply,
 .rereply_btn {color:#3376ff;}
@@ -295,7 +295,6 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 /* BookInfoModal */
 .PhotoUploadModal {text-align: center; justify-content: center;}
 
-
 /* Reply */
 .reply{margin: 1% auto; padding-top : 38px;}
 #rereply{
@@ -320,6 +319,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   background-color: #f6f6f6;
   justify-content: center;
   font-family: 'Noto Sans KR';
+  margin: 0 100px;
 }
 .FollowingBoards {
   position: relative;
@@ -390,7 +390,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 
 /* MyPageProFile */
-.MyPageProFile {position: relative; text-align: left; display: block; }
+.MyPageProFile {position: relative; text-align: left; display: block; margin:0 100px;}
 .profileContainer {position:relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
 .myName {position: relative; padding-left:25px; display:block;}
 .ProfilePhoto {width: 90px; height: 90px; margin:0 auto; border-radius: 50%; display:inline-block;}
@@ -515,7 +515,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .searchBook {width:64px; height:64px; vertical-align:middle; border:1px solid #ddd; background:url('./img/aladin-icon.gif') 10px center no-repeat; background-size:45px auto; border-radius:30px; text-indent:-1000em; display:inline-block; cursor:pointer;}
 .searchBook_title {max-width:calc(100% - 100px); padding-left:15px; vertical-align:middle; font-size:17px; line-height:22px; display:inline-block;}
 
-.bookdetail {font-size:14px;}
+.bookdetail {font-size:14px; cursor: pointer;}
 .bookdetail li {width:100%; padding:20px 40px; color:#747474; line-height:19px; border-top:1px solid #ddd;}
 .bookdetail .thumbs {width:90px; max-height:130px; margin:0; margin-right:25px; vertical-align:middle; display:inline-block; overflow:hidden;}
 .bookdetail .thumbs > img {width:90px;}
@@ -530,8 +530,8 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 @media all and (max-width: 891px){
   html, body {height:auto;}
-  .nav1 {height:53px; margin-top:0; padding:7px 0; box-sizing:border-box; z-index:11;}
-  .nav2 {height:auto; padding:10px 0;}
+  .nav1 {height:53px; margin:0; padding:7px 0; box-sizing:border-box; z-index:11;}
+  .nav2 {height:auto; padding:10px 0; margin:0}
   .nav2:after {clear:both; content:''; display:block;}
   img {max-width:100%;}
   #root, .App {width:100%;}
@@ -576,7 +576,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .searchForm form:after {position:absolute; top:11px; left:10px; width:19px; height:20px; z-index:1; content:''; background-image: url("./img/main-search-icon.png"); background-size:19px 20px;}
   .search_input {width:100%; height:40px; padding-left:34px; font-size:14px;}
 
-  .bookBoardWrap {padding:19px 0 19px 19px; text-align:left;}
+  .bookBoardWrap {padding:19px 0 19px 19px; text-align:left; margin:0;}
   .bookBoard {width:calc((100vw - 57px)/2); margin:0 0 19px 0;}
   .bookBoard a {width:100%; height:100%; background-color:#595959; display:block;}
   .bookBoard:nth-child(2n+0) {margin-left:19px;}
@@ -596,9 +596,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail_reply_input {width:calc(100% - 55px); height:34px; vertical-align:middle; border:0;}
   .btn_reWrite {width:45px; height:34px;}
   
-  .Followings {height:calc(100% - 80px); padding:0 9px; background-color:#fff;}
+  .Followings {height:calc(100% - 80px); padding:0 9px; background-color:#fff; margin:0}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
   .FollowingBoard {width:100%; padding:26px 0;}
+  .followingContent {font-size:15px !important;}
   .UserInfoPart {height:50px; padding:0 11px;}
   .imagePart {width:240px; height:240px; margin:20px auto; display:block;}
   /*
@@ -609,7 +610,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .textPart {width:100%; padding:0 9px; display:block; box-sizing:border-box;}
   .textPart li.contentsPart {min-height:auto; height:auto;}
 
-  .post_detail {padding-top:136px;}
+  .post_detail {padding-top:136px; margin:0}
   .post_detail_right_1_postWriter,
   .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0;}
   .post_detail_right_1_postWriter {top:9px; height:88px; padding:19px;}
@@ -640,7 +641,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .tagName {font-size:15px;}
   .Block .BlockImage {width:calc(100% + 10px); min-width:50vw; min-height:auto;}
 
-  .MyPageProFile {width:100%;}
+  .MyPageProFile {width:100%; margin:0}
   .profileContainer {width:100%; padding:39px 0;}
   .myProFileWrap {width:100%; padding:29px 0 0 0;}
   .myBookShelf {width:100%; margin:30px 0 25px 0;}

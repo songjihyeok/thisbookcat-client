@@ -39,8 +39,7 @@ export default class ChildReply extends Component {
   }
 
   _handleKeyPress=(e) =>{
-    console.log("13131313",e.keyCode)
-    if (e.keyCode === '13') {
+    if (e.keyCode == '13') {
     e.preventDefault();    
     this._makeReReply(e);
     }   

@@ -47,8 +47,6 @@ class Bookapi extends Component {
                 </dd>
               </dl>
              </div>
-
-             
     }
   }
 

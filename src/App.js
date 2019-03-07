@@ -25,10 +25,10 @@ class App extends Component {
       <div className = 'App'>
         <Router>
           <Switch>
+            <Route path="/login" component={Login} />
             <Route path="/robots.txt" component={robots}/>
             <Route exact path="/" component={Main} />
             <Route path="/redirect/:token/:agreed" component={redirect}/>
-            <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
             <Route path="/findpw" component={FindPw} />
             <Route path="/resetpw" component={ResetPw} />

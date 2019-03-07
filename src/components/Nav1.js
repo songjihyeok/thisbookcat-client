@@ -31,7 +31,7 @@ class Nav1 extends Component {
 
   _handleKeyPress(event) {
     
-    if (event.keyCode === '13') {
+    if (event.keyCode == '13') {
       event.preventDefault();
       if(this.state.searchingValue){
         window.location.href = `/tagSearchPage/${this.state.searchingValue}`

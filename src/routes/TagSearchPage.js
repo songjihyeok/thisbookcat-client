@@ -15,7 +15,8 @@ class TagSearchPage extends Component {
       page: 1, //정해진 per만큼의 포스트를 가지는 페이지
       totalPage:'',
       coverurl: null,
-      tagName : this.props.match.params.TagName
+      tagName : this.props.match.params.TagName,
+      loading: false
     }
     // console.log("construtor")
   }
@@ -41,13 +42,15 @@ class TagSearchPage extends Component {
     }
   }
 
+
+  componentWillMount(){ 
+    window.addEventListener('scroll', this._infiniteScroll, false);
+  }
   _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
+    
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loading) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState((state) => ({page: state.page+1}))
+        this.setState({page: this.state.page+1, loading:false})
         this._getUrls()
       }
     }
@@ -74,7 +77,7 @@ class TagSearchPage extends Component {
     const coverurl = await this._callTheTagBookCoverAPI();
     // console.log("get url 과정?",coverurl)
     if (this.state.coverurl === null || this.state.coverurl===undefined) {
-      await this.setState({coverurl}) //TODO: coverurl이 키밸류 객체 인가보죠?
+      await this.setState({coverurl}) 
     } else {
       await this.setState({coverurl: this.state.coverurl.concat(coverurl)})
     }
@@ -89,7 +92,7 @@ class TagSearchPage extends Component {
     })
     .then( async(response) => {
       // console.log('there should be data here',response.data)
-      await this.setState({totalPage: response.data.totalpage})
+      await this.setState({totalPage: response.data.totalpage, loading: true})
       let result = response.data.perArray
       // console.log("결과물은??_______",result)
       return result;
