@@ -13,7 +13,8 @@ class Main extends Component {
     page: 1,//정해진 per만큼의 포스트를 가지는 페이지
     totalPage: '',
     show : false,
-    loading : false
+    loaded : false,
+    userName: ''
   };
 
 //새로 추가된 사항: per와 page추가 됐습니다. per는 1페이지에 보여줄 포스트의 갯수이고 page는 정해주는 per만큼의 post를 가지고 있는 페이지 입니다.
@@ -21,19 +22,22 @@ class Main extends Component {
 //더이상 콘텐츠가 없다는 메시지가 나오게 했습니다. 해당사항은 main이외의 다른페이지도 똑같이 적용됐습니다.
 
   componentDidMount () {
-    this._getUrls()
+    this.getUserName();
+    this._getUrls();
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
-  componentWillMount(){ 
-    window.addEventListener('scroll', this._infiniteScroll, false);
+  componentWillUnmount(){
+    console.log("이거 옮길때???")
+    window.removeEventListener('scroll', this._infiniteScroll,false)
   }
-  _infiniteScroll = () => {
+
+  _infiniteScroll = async() => {
     
-    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loading) {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState({page: this.state.page+1, loading:false})
-        this._getUrls()
+       this.setState({page: this.state.page+1,loaded: false})
+       this._getUrls()
       }
     }
   }
@@ -48,6 +52,7 @@ class Main extends Component {
                             likecount={url.likeCount}
                             key={url.id}
                             bookData= {url.bookData}
+                            userName={this.state.userName}
                             />;
         }else {
           return null;
@@ -61,24 +66,38 @@ class Main extends Component {
   _getUrls = async () => {
     const coverurl = await this._callBookCoverAPI();
     if (this.state.coverurl === undefined) {
-      this.setState({coverurl})
+     await this.setState({coverurl})
     } else {
-      this.setState({coverurl: this.state.coverurl.concat(coverurl)})
+     await this.setState({coverurl: this.state.coverurl.concat(coverurl)})
     }
   };
 
   _callBookCoverAPI = () => {
     let token = window.localStorage.getItem('token')
+
     return axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
       console.log('there should be data here',response.data)
-      this.setState({totalPage: response.data.totalpage, loading: true})
+      this.setState({totalPage: response.data.totalpage, loaded: true})
       let result = response.data.perArray
       return result;
      })
      .catch(err => console.log(err))
   };
+
+
+
+  async getUserName(){
+    const token = window.localStorage.getItem('token')
+    let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
+    console.log("유저네임 가져오네?", resultOfget)
+    if(resultOfget.data.userName){
+      this.setState({userName:resultOfget.data.userName})
+    }
+  }
+
+
   
 
   _handleHide = () => {

@@ -67,8 +67,14 @@ class FollowingBoard extends Component {
     let token = window.localStorage.getItem('token')
     return axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postid}`, {
 			headers:{Authorization: `bearer ${token}`}})
-			.then(response=> response.data)
-			.then(response => this.setState({postUserInfo:response}))
+			.then(response=>{	
+				console.log(response.data)
+				if(response.status===200){
+					this.setState({postUserInfo:response.data})
+				} 
+				return;
+			})
+			.catch((err)=>{return;})
 		}
 
 	_handleProfileImage = ()=>{
@@ -83,29 +89,25 @@ class FollowingBoard extends Component {
 		if(this.props.image===''&&this.props.bookData!=='null'){
 			let parsedBookData = JSON.parse(this.props.bookData);
 			let postImage = parsedBookData.cover;
-			console.log( "url 바뀌었나",postImage);
+			// console.log( "url 바뀌었나",postImage);
 			return postImage 
 		} 
 		return `https://${server_url}/upload/${this.props.image}`	
 	}	
 
   render() {
-		//   console.log(this.props.contents)
-		//   console.log(this.props.likecount)
-		console.log(this.state.postUserInfo)
+		let postedUserId =this.state.postUserInfo[0]
     return  (
 			<div className='FollowingBoard'>
-				<div className='UserInfoPart'>
-					<span className="postUserThumb"><img src={this._handleProfileImage()} className='postUserImage' alt={"postUserImage"} /></span>
-					<span className='postUsername'>{this.state.postUserInfo.userName}</span>
-				</div>
+     		 <Link to={`/postWriter/${postedUserId}`}>
+					<div className='UserInfoPart'>
+						<span className="postUserThumb"><img src={this._handleProfileImage()} className='postUserImage' alt={"postUserImage"} /></span>
+						<span className='postUsername'>{this.state.postUserInfo.userName}</span>
+					</div>
+				</Link>
 				<div className='imagePart'>
 					<Link to={{
 							pathname: `/postdetail/${this.props.postid}`,
-						/*  state : {
-											imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-											username : this.props.author,
-									} */
 					}}>
 						<img className='FollowThumbnail' src={this.handleImage()}
 									alt='bookcover' />

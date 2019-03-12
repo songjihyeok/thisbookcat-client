@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Icon } from "semantic-ui-react";
 import axios from "axios";
-import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
-//import './CSS/MyPageProFile.css'
 import defaultimage from '../../img/다운로드.png';
 
 class MyPageProFile extends Component {
@@ -37,7 +35,6 @@ class MyPageProFile extends Component {
      await this._getFollowingFollowed()
      await this._callmyPostAPI()
      await this._getMyProfile()
-     await this.getUsingTags()
      await window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
@@ -56,18 +53,8 @@ class MyPageProFile extends Component {
     }
   }
 
-  getUsingTags = async() =>{
-    const token = window.localStorage.getItem('token')
-	
-		const selectedTags = await axios.get(`https://${server_url}/api/user/getpreference`, {
-			headers: {Authorization: `bearer ${token}`}
-		})
-    let {usingPreference} = selectedTags.data
-    this.setState({likes: usingPreference.length})
-  }
-
   _getMyProfile = () => {
-    axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
+    axios.get(`https://${server_url}/api/follow/profile/${this.props.writerId}}`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
       if(response.status===400){
         alert("잘못된 접근입니다.")
@@ -86,10 +73,12 @@ class MyPageProFile extends Component {
   }
   
   _callmyPostAPI = () => {
-    axios.get(`https://${server_url}/api/post/mypage/${this.state.per}/${this.state.page}`, {
+
+    axios.get(`https://${server_url}/api/writer/post/${this.props.writerId}/${this.state.per}/${this.state.page}`, {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
+      console.log("내용이 확실한가?", response)
       let allofarray = []
       if(response.data.perArray===undefined){
         return;
@@ -111,10 +100,11 @@ class MyPageProFile extends Component {
   }
 
   _getFollowingFollowed = () => {
-    axios.get(`https://${server_url}/api/follow/followingFollowedIds`, {
+    axios.get(`https://${server_url}/api/writer/follow/${this.props.writerId}`, {
       headers: {Authorization : `bearer ${this.token}`}
     })
     .then(response => {
+      console.log("follow?",response)
       this.setState({
         followed: response.data[1].length,
         following: response.data[3].length
@@ -157,16 +147,6 @@ class MyPageProFile extends Component {
   _handleShow = () => {
     this.setState({show: true})
   }
-  _logout = e => {
-    e.preventDefault();
-    window.localStorage.removeItem('token');
-    this.setState({isLogin: false})
-  }
-
-  changeTaste =()=>{
-    window.location.href="/picktaste";
-  }
-
 
 
   _handlingUserName = ()=>{
@@ -193,7 +173,7 @@ class MyPageProFile extends Component {
         <div className="MyPageProFile">
         <div className='profileContainer'>
           <div className='myName'>
-            <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
+            <span className='myNameText'><Icon name="user circle" size="big"/>프로필</span>
           </div>
           <div className="myProFileWrap">
             <dl className="ProFilePhotoContainer">
@@ -202,17 +182,9 @@ class MyPageProFile extends Component {
               </dt>
               <dd>
                 {this._handlingUserName()}
-                <div className="button_area">
-                  <button className="custom-icon" onClick={this._handleShow}>프로필 관리</button>
-                  <button className="custom-icon" onClick={this._logout}>로그아웃</button>
-                </div>
               </dd>
             </dl>
             <ul className="ProFileDetailContainer">
-              <li>
-                <span className='InfoName'>선택한 취향</span>
-                <b>{this.state.likes}<button className="change_taste" onClick={()=>this.changeTaste()}>변경</button></b>
-              </li>
               <li>
                 <span className='InfoName'>게시물</span>
                 <b>{this.state.howManyPosts}</b>
@@ -228,11 +200,10 @@ class MyPageProFile extends Component {
             </ul>
           </div>
         </div>
-          <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>
               <span className='myBookShelfText'>
-                <Icon name='book' size="big"/>내 서재
+                <Icon name='book' size="big"/>서재
               </span>
             </div>
             <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=4 ? 'left' : 'center'}}>

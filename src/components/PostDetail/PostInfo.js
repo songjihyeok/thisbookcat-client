@@ -27,10 +27,12 @@ export default class PostInfo extends Component {
     })
   }
 
-  _handleLike = async () => { //레몬에 온클릭 함수로 걸고있음. 클릭할때마다 axios 요청 보내기.&& state를 setting 하기
-    if (this.state.isLike) { //라이크 되어있는데, 라이크 누르는거면 delete 요청 보내야함.
-      //count-- 시키는 요청 & //postid와 userid의 like join을 삭제하는 요청
-      // const res_deleteLike = 
+  _handleLike = async () => { 
+    if(this.props.userName===''){
+      alert("유저네임을 설정해주세요");
+      return;
+    }
+    if (this.state.isLike) { 
       await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
     //console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res_deleteLike", res_deleteLike)
     } else { //count++ 시키는 요청 & //postid와 userid를 like join 하는 요청

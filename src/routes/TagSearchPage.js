@@ -26,6 +26,10 @@ class TagSearchPage extends Component {
     return isthetagNamechanged
   }
 
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._infiniteScroll,false)
+  }
+
   componentDidMount() {
     this._getUrls().then(() => {
       window.addEventListener('scroll', this._infiniteScroll, true)
@@ -42,10 +46,6 @@ class TagSearchPage extends Component {
     }
   }
 
-
-  componentWillMount(){ 
-    window.addEventListener('scroll', this._infiniteScroll, false);
-  }
   _infiniteScroll = () => {
     
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loading) {

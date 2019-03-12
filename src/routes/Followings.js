@@ -11,29 +11,28 @@ class Followings extends Component {
 
   state = {
     page: 1,
-    per: 16,
+    per: 3,
     totalPage:'',
     followPost:[],
     getData: false,
-    loading: false
+    loaded: false
   };
 
   componentDidMount() {
     this._getFollowPosts()
-    window.addEventListener('scroll', this._infiniteScroll, true)
+    window.addEventListener('scroll', this._infiniteScroll,false)
   }
 
-  componentWillMount(){ 
-    window.addEventListener('scroll', this._infiniteScroll, false);
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._infiniteScroll,false)
   }
-
 
   _infiniteScroll = () => {
     
-    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loading) {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState({page: this.state.page+1, loading:false})
-        this._getFollowPosts()
+         this.setState({page: this.state.page+1, loaded:false})
+         this._getFollowPosts()
       }
     }
   }
@@ -59,7 +58,6 @@ class Followings extends Component {
     const followPost = await this._callFollowAPI()
     if(followPost){
       this.setState({followPost: this.state.followPost.concat(followPost)})
-      console.log(this.state.followPost)
     }
   };
 
@@ -68,20 +66,19 @@ class Followings extends Component {
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      this.setState({totalPage: response.data.totalpage, getData: true ,loading: true})
-      // console.log(response.data)
+      this.setState({totalPage: response.data.totalpage, getData:true, loaded:true})
+      console.log(response.data)
       return response.data.perArray
     })
   };
 
   render() {
-    let { followPost, page, totalPage, getData } = this.state;
+    let { followPost, getData } = this.state;
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else if(!getData){
       return <div>loading</div>
     } else {
-      console.log("followPost", followPost);
       return (
         <Fragment>
           <Nav1/>
@@ -97,40 +94,4 @@ class Followings extends Component {
 }
 
 export default Followings;
-
-/* _infiniteScroll = () => {
-  let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
-  let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-
-  let clientHeight = document.documentElement.clientHeight;
-  
-  if(scrollTop + clientHeight === scrollHeight) {
-    console.log(this.state.coverurl)
-    if(!this.state.preCoverUrl) {
-      this.setState({preCoverUrl:this.state.coverurl})
-    } else if (this.state.preCoverUrl) {
-      this.setState({preCoverUrl:this.state.preCoverUrl.concat(this.state.coverurl)})
-      console.log(this.state.preCoverUrl)
-    }
-    this.setState({
-      preItems: this.state.items,
-      items: this.state.items+20,
-    })
-    console.log(this.state.preItems)
-    console.log(this.state.items)
-    console.log(this.state.coverurl)
-  }
-  this._getUrls()
-} */
-
-  /* _renderPreBooKCoverImage = () => {
-    if(this.state.preCoverUrl) {
-      const bookcover = this.state.preCoverUrl.map((url) => {
-        return < url={url.id} author={url.author} key={url.id} />;
-      });
-      return bookcover;
-    }
-  }; */
-
 

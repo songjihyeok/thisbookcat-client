@@ -16,7 +16,8 @@ class PostDetail extends React.Component {
     replyCount : 0, //댓글 갯수
     isMypost: null,
     bookData: null,
-    replyContents: ''
+    replyContents: '',
+    userName : ''
   }
 
   //보낼 comment
@@ -27,6 +28,7 @@ class PostDetail extends React.Component {
   // }
 
   async componentWillMount(){ 
+    this.getUserName();
     this._getPostData();
     await this._getReply();
     await this._countReply();
@@ -92,6 +94,16 @@ class PostDetail extends React.Component {
     await this._getReply();
     this.setState({replyContents:''})
   }
+
+  async getUserName(){
+    const token = window.localStorage.getItem('token')
+    let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
+    if(resultOfget.data.userName){
+      this.setState({userName:resultOfget.data.userName})
+    }
+  }
+
+
   
   render() {
     const { postId, userId, replys, replyCount, isMypost } = this.state;
@@ -105,8 +117,8 @@ class PostDetail extends React.Component {
           <div className='post_detail'>
             <PostContent postId={postId} />
             <div className='post_detail_right'>
-              <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history}/>
-              <PostInfo bookData={this.state.bookData} postId={postId} replyCount={replyCount} history={this.props.history}/>
+              <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history} userName={this.state.userName}/>
+              <PostInfo bookData={this.state.bookData} postId={postId} replyCount={replyCount} history={this.props.history} userName={this.state.userName}/>
               <div className='post_detail_3_reply'>
                 {typeof(replys) === 'string'
                 ? <div> '댓글이 없습니다.'</div>

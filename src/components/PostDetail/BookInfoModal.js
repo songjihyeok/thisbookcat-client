@@ -21,10 +21,10 @@ export default class BookInfoModal extends Component {
                 aria-labelledby="contained-modal-title">
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title">도서 정보</Modal.Title>
+              <h3 className="logo_aladin">알라딘</h3>
             </Modal.Header>
             <Modal.Body>
-            <div className="bookInfo_view">
-              <h3 className="logo_aladin">알라딘</h3>
+             <div className="bookInfo_view">
               <a href={bookLink}>
                 <div className="book_thumbs"><img alt="책 이미지" src={bookData.cover} /></div>
                 <span className="book_title">{bookData.title}</span>

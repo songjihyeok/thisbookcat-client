@@ -4,11 +4,12 @@ import axios from 'axios';
 import server_url from '../../url.json';
 import profileimage from "../../img/다운로드.png"
 import { PropTypes} from 'prop-types';
-
+import { Link} from "react-router-dom";
 
 export default class PostWriter extends Component {
 
   state = {
+    userId: '',
     userName: '',
     userImage: '',
     isFollowing:false,
@@ -25,10 +26,19 @@ export default class PostWriter extends Component {
 
   _getUserData = async () => {
     const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader)
+    console.log('res_getUser',res_getUser)
+    let userName = null
+    let profileImage =null
+    if(res_getUser.data[1]){
+      userName= res_getUser.data[1].userName
+      profileImage= res_getUser.data[1].profileImage
+    }
+    let userId= res_getUser.data[0]
+
     this.setState({
-      userName: res_getUser.data.userName,
-      userImage: res_getUser.data.profileImage,
-      userId: res_getUser.data.id
+      userName: userName,
+      userImage: profileImage,
+      userId: userId
     })
   }
 
@@ -39,6 +49,13 @@ export default class PostWriter extends Component {
   }
 
   _handleFollowing = async () => {
+
+    if(this.props.userName === ''){
+      alert("유저네임을 설정해주세요")
+      return;
+    }
+
+
     if (this.state.isFollowing) {
 
       const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader)
@@ -64,21 +81,22 @@ export default class PostWriter extends Component {
   }
 
   _userImagecontrollor =()=>{
-    console.log("userImage는?",this.state.userImage)
-      if(this.state.userImage!==null && this.state.userImage.length>0){
-      return  <img src={`https://${server_url}/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} />
+      if(this.state.userImage){
+      return <img src={`https://${server_url}/upload/${this.state.userImage}`} className='img-circle' alt={"user?"} />
       } else {
       return  <img src= {profileimage} className='img-circle' alt={"userImages"} />
       }  
     }
   
   render() {
-    const {userName, isFollowing} = this.state
+    const {userName, isFollowing, userId} = this.state
+    console.log("userId",userId)
     return (
       <div className='post_detail_right_1_postWriter'>
-        <div className="user_thumbs">{this._userImagecontrollor()}</div>
-        <h3 className='post_detail_username'>{userName}</h3>
-        
+        <Link to={`/postWriter/${userId}`}>
+          <div className="user_thumbs">{this._userImagecontrollor()}</div>
+          <div className='post_detail_username'>{userName}</div>
+        </Link>
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
           <div className="user_buttons">
@@ -88,7 +106,7 @@ export default class PostWriter extends Component {
         : 
           <div className="user_follow">
             {(isFollowing)
-            ? <button className="ui teal button" onClick={this._handleFollowing}>팔로우</button>
+            ? <button className="ui teal button" onClick={this._handleFollowing}>팔로잉</button>
             : <button className="ui grey button" onClick={this._handleFollowing}>팔로우</button> 
             }
           </div>

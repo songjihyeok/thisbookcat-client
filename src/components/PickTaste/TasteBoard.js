@@ -22,17 +22,17 @@ class TasteBoard extends Component {
 				'감성'
 		],
 		tasteImgUrl: {
-				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1550578896651.jpg',
-				'에세이':'https://server.afteread.net/serverimage/에세이-1550578874533.jpg',
-				'베스트셀러':'https://server.afteread.net/serverimage/다운로드-1550579180697.jpg',
-				'인문학':'https://server.afteread.net/serverimage/인문학-1550578725790.jpg',
-				'자기계발':'https://server.afteread.net/serverimage/자기계발-1550578956947.jpg',
-				'힐링':'https://server.afteread.net/serverimage/힐링-1550578980583.jpg',
-				'로맨스':'https://server.afteread.net/serverimage/로맨스-1550578994018.jpg',
-				'독립출판':'https://server.afteread.net/serverimage/독립출판-1550579028654.jpg',
-				'일상':'https://server.afteread.net/serverimage/일상-1550579070148.jpg',
-				'신간':'https://server.afteread.net/serverimage/신간-1550579098093.jpg',
-				'감성': 'https://server.afteread.net/serverimage/감성-1550578631526.jpg'
+				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1552362660883.jpg',
+				'에세이':'https://server.afteread.net/serverimage/에세이-1552362682177.jpg',
+				'베스트셀러':'https://server.afteread.net/serverimage/베스트셀러-1552362651936.png',
+				'인문학':'https://server.afteread.net/serverimage/인문학-1552362691967.jpg',
+				'자기계발':'https://server.afteread.net/serverimage/자기계발-1552362713662.jpg',
+				'힐링':'https://server.afteread.net/serverimage/힐링-1552362725990.jpg',
+				'로맨스':'https://server.afteread.net/serverimage/로맨스-1552362637490.jpg',
+				'독립출판':'https://server.afteread.net/serverimage/독립출판-1552362628783.jpg',
+				'일상':'https://server.afteread.net/serverimage/일상-1552362705388.jpg',
+				'신간':'https://server.afteread.net/serverimage/신간-1552362668584.jpg',
+				'감성': 'https://server.afteread.net/serverimage/감성-1552362569421.jpg'
 		},
 		newTagUnUsing: [],
 		defaultTagUsing: [],

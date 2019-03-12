@@ -10,7 +10,7 @@ class BookBoard extends Component {
 	state = {
 			liked: false,
 			likeCount: this.props.likecount
-	}
+	} 
 
 	token = window.localStorage.getItem('token')
 
@@ -31,6 +31,11 @@ class BookBoard extends Component {
 
 
 	_handleLike = () => {
+		if(this.props.userName===''){
+			alert("유져네임을 설정해주세요")
+			return;
+		}
+
 		if (this.state.liked) {
 			axios.delete(`https://${server_url}/api/like/${this.props.postid}`, {
 				headers: {Authorization: `bearer ${this.token}`}
@@ -92,7 +97,6 @@ class BookBoard extends Component {
 							}
 						</div>
 					</div>
-					<span className='userNamePart'>{this.props.username}</span>
 					<p className='postTitle'>{this.props.title}</p>
 				</div>
 		)

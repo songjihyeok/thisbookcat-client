@@ -28,7 +28,8 @@ input#setting_input{text-align:center; display: inline-block;}
 .selectUserName,
 .file_input_button {float:right; min-width:100px; padding:7px; font-size:15px; text-align:center; color:#fffefe; background-color:#3376ff; border: none; border-radius:16px;}
 
-.userNameWrapper {margin-top:20px;}
+.profileChange {margin:20px 0 10px 0; font-size:20px; text-align:left; padding-left:120px}
+.userNameChange  {margin:20px 0 10px 0; font-size:20px; text-align:left; padding-left:120px}
 .getUserNameBox,
 .file_input_textbox {width:calc(100% - 165px);}
 
@@ -51,7 +52,8 @@ input#setting_input{text-align:center; display: inline-block;}
 .bookSearch_Wrap {min-width:300px;}
 .bookSearch_Api {position:relative; padding:0 40px;}
 .bookSearch_Api:after {clear:both; display:block; content:'';}
-h3.logo_aladin {width:56px; height:45px; margin:0; margin-right:19px; vertical-align:top; background:url('../../img/aladin.png') center center no-repeat; text-indent:-1000em; display:inline-block; overflow:hidden;}
+h3.logo_aladin {width:56px; height:45px; margin:0; float:right; margin-right:19px; vertical-align:top; background:url('../../img/aladin.png') center center no-repeat; text-indent:-1000em; display:inline-block; overflow:hidden; }
+#contained-modal-title {display:inline-block}
 .bookSearch_Api > form {position:relative; width:280px; display:inline-block;}
 .bookSearch_Api .form-group {height:48px; margin-bottom:0;}
 .bookSearch_Api .form-group > label {display:none;}
@@ -82,9 +84,9 @@ h3.logo_aladin {width:56px; height:45px; margin:0; margin-right:19px; vertical-a
 
 .bookInfo_view {position:relative;}
 .bookInfo_view h3.logo_aladin {position:absolute; top:0; left:40px;}
-.bookInfo_view .book_thumbs {padding:0 0 30px 0;}
-.bookInfo_view .book_thumbs img {max-width:300px;}
-.bookInfo_view a {padding:30px 40px 0 40px; font-size:14px; color:#747474; text-align:left; border-top:1px solid #ddd; display:block;}
+.bookInfo_view .book_thumbs {padding:0 0 30px 0; }
+.bookInfo_view .book_thumbs img {max-width:300px; margin:auto;}
+.bookInfo_view a {padding:30px 40px 0 40px; font-size:14px; color:#747474; border-top:1px solid #ddd; display:block;}
 .bookInfo_view a > span {display:block;}
 .bookInfo_view .book_title {margin-bottom:7px; font-size:16px; color:#151515;}
 .bookInfo_view .book_author,
@@ -123,4 +125,6 @@ h3.logo_aladin {width:56px; height:45px; margin:0; margin-right:19px; vertical-a
   .bookInfo_view {position:static; width:100%;}
   .bookInfo_view a {padding:20px 20px 0 20px;}
   .bookInfo_view h3.logo_aladin {position:absolute; top:26px; left:auto; right:0;}
+  .profileChange {padding-left:20px}
+  .userNameChange  {padding-left:20px}
 }

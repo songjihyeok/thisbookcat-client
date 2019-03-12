@@ -105,13 +105,17 @@ class SettingModal extends Component {
         </Modal.Header>
         <Modal.Body>
         <div className="fileUploadContent">
-          <div className="fileUpload">
-            <div className="file_input_div">
-              <input type="text" id="fileName" value={this.state.imageName} className="file_input_textbox" readOnly="readonly" />  
-              <input type="button" value="프로필 변경" className="file_input_button" />
-              <input type="file" className="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
+          <p className="profileChange">> 프로필 사진 변경</p>
+            <div className="fileUpload">
+          
+              <div className="file_input_div">
+
+                <input type="text" id="fileName" value={this.state.imageName} className="file_input_textbox" readOnly="readonly" />  
+                <input type="button" value="사진 찾기" className="file_input_button" />
+                <input type="file" className="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
+              </div>
             </div>
-          </div>
+          <p className="userNameChange"> > 유저네임 설정</p>
           <CheckUserName beforeUserName={this.state.userName}checked={(e)=>{this.setUserName(e)}}/>
         </div>
         </Modal.Body>

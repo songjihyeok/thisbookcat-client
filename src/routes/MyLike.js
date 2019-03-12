@@ -18,19 +18,19 @@ class MyLike extends Component {
 
   componentDidMount() {
     this._setMyLikePost()
-    window.addEventListener('scroll', this._infiniteScroll, true)
+    window.addEventListener('scroll', this._infiniteScroll,false)
   }
 
-  componentWillMount(){ 
-    window.addEventListener('scroll', this._infiniteScroll, false);
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
-  _infiniteScroll = () => {
+  _infiniteScroll = async() => {
     
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loading) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState({page: this.state.page+1 , loading:false})
-        this._setMyLikePost()
+       await this.setState({page: this.state.page+1 , loading:false})
+       await this._setMyLikePost()
       }
     }
   }
@@ -40,6 +40,7 @@ class MyLike extends Component {
         headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
       })
        .then(res => {
+         console.log("totalpage",res.data)
          this.setState({totalPage: res.data.totalpage, loading: true})
          return res.data.perArray
        })
