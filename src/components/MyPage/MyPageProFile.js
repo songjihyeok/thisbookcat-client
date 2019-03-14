@@ -6,6 +6,8 @@ import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
 //import './CSS/MyPageProFile.css'
 import defaultimage from '../../img/다운로드.png';
+// import FollowingModal from './followingModal';
+import FollowedModal from './followedModal';
 
 class MyPageProFile extends Component {
 
@@ -21,13 +23,13 @@ class MyPageProFile extends Component {
       per: 16,
       page: 1,
       totalPage:'',
-      followed: 0,
-      following: 0,
+      followData: '',
       gotData:false,
       likes: 0,
       userName: "",
       howManyPosts: 0,
-      loaded: false 
+      loaded: false, 
+      followModalShow:false
     };
   }
 
@@ -115,9 +117,9 @@ class MyPageProFile extends Component {
       headers: {Authorization : `bearer ${this.token}`}
     })
     .then(response => {
+      console.log("responseOffollow", response)
       this.setState({
-        followed: response.data[1].length,
-        following: response.data[3].length
+        followData: response.data
       });
     })
   }
@@ -167,8 +169,6 @@ class MyPageProFile extends Component {
     window.location.href="/picktaste";
   }
 
-
-
   _handlingUserName = ()=>{
     if(!this.state.userName){
       return null;
@@ -176,10 +176,19 @@ class MyPageProFile extends Component {
     return <span className="ID_user">{this.state.userName}</span>
   }
 
+  followerModal=()=>{
+    console.log("시작은 되니?")
+    this.setState({followModalShow: true})
+  }
+
+  _handleFollowModalhide=()=>{
+    this.setState({followModalShow: false})
+  }
+
   render() {
     if (!window.localStorage.getItem("token")) {
       window.location.href= '/login';
-    } else if (!this.state.gotData){
+    } else if (!this.state.gotData || !this.state.followData){
       return (
       <div>
         <div className="loading">loading <br/>
@@ -217,17 +226,19 @@ class MyPageProFile extends Component {
                 <span className='InfoName'>게시물</span>
                 <b>{this.state.howManyPosts}</b>
               </li>
-              <li>
-                <span className='InfoName'>팔로잉</span>
-                <b>{this.state.following}</b>
-              </li>
-              <li>
-                <span className="InfoName">팔로워</span>
-                <b>{this.state.followed}</b>
-              </li>
+                <li>
+                  <span className='InfoName'>팔로잉</span>
+                  <b>{this.state.followData[1].length}</b>
+                  {/* <FollowingModal/> */}
+                </li>
+                <li onClick={()=>this.followerModal()}>
+                  <span className="InfoName">팔로워</span>
+                  <b>{this.state.followData[3].length}</b>
+                </li>
             </ul>
           </div>
         </div>
+          <FollowedModal followList={this.state.followData} show={this.state.followModalShow} hide={this._handleFollowModalhide}  /> 
           <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>

@@ -114,14 +114,14 @@ class Nav1 extends Component {
             <div className="items_list">
               <Link to={"/followings"}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="item">
-                  <path fill="none" stroke="#343434" stroke-width="1.5" d="M8.5 5.5h19a3 3 0 0 1 3 3v20a3 3 0 0 1-3 3h-19a3 3 0 0 1-3-3v-20a3 3 0 0 1 3-3z"/>
-                  <path fill="none" stroke="#343434" stroke-linecap="round" stroke-width="1.5" d="M11.5 12.5h13M11.5 17.5h13M11.5 22.5h7"/>
+                  <path fill="none" stroke="#343434" strokeWidth="1.5" d="M8.5 5.5h19a3 3 0 0 1 3 3v20a3 3 0 0 1-3 3h-19a3 3 0 0 1-3-3v-20a3 3 0 0 1 3-3z"/>
+                  <path fill="none" stroke="#343434" strokeLinecap="round" strokeWidth="1.5" d="M11.5 12.5h13M11.5 17.5h13M11.5 22.5h7"/>
                 </svg>
                   <span className="nav_text">팔로잉 피드</span> 
               </Link>
               <Link to={"/mylike"}>
               <svg xmlns="http://www.w3.org/2000/svg" className="item">
-                 <path fill="none" fill-rule="evenodd" stroke="#343434" stroke-linejoin="round" stroke-width="1.5" d="M20.955 14.42c-.34-.759-2.735-3.629-2.803-3.762-4.034-7.8-14.2-5.619-14.199 4.122 0 6.569 14.562 16.928 14.562 16.928S33.047 20.552 33.047 14.72c.001-7.833-6.653-10.526-11.291-7.411C21.143 7.72 20.5 8.5 20.5 8.5"/>
+                 <path fill="none" fillRule="evenodd" stroke="#343434" stroke-linejoin="round" strokeWidth="1.5" d="M20.955 14.42c-.34-.759-2.735-3.629-2.803-3.762-4.034-7.8-14.2-5.619-14.199 4.122 0 6.569 14.562 16.928 14.562 16.928S33.047 20.552 33.047 14.72c.001-7.833-6.653-10.526-11.291-7.411C21.143 7.72 20.5 8.5 20.5 8.5"/>
               </svg>
                 <span className="nav_text">내 관심 컨텐츠</span>
               </Link>

@@ -297,6 +297,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
   word-break:break-all;
 }
 .reply_targetName {padding-right:8px; font-weight:800; display:inline-block;}
+.replyContents {display: inline-block;}
 .reply_msg_button {font-size:14px; text-align:right;}
 .reply_msg_button .btn_del,
 .reply_msg_button .btn_wr_reply,
@@ -360,6 +361,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 /* Reply */
 .reply{margin: 1% auto; padding-top : 38px;}
+
 #rereply{
   display: flex;
   flex-direction: row;
@@ -683,7 +685,8 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .user_buttons {position:absolute; top:145px; left:0; width:100%; text-align:center; z-index:1;}
   .postContent {width:100%; min-width:100%; margin:0;}
   .post_detail_title {font-size:22px; line-height:34px;}
-  .post_detail_3_reply {border-top:1px solid #eaeaea;}
+  .post_detail_3_reply {border-top:1px solid hsl(0, 0%, 92%);}
+  .post_detail_left .post_detail_content {font-size: 16px}
   .post_detail_username {max-width:calc(100% - 130px); max-height:50px; line-height:25px; vertical-align:middle; overflow:hidden; color:black !important;}
   .img-circle {width:50px; height:50px;}
   .post_detail_3_reply .user_thumbs .img-circle {width:41px; height:41px;}

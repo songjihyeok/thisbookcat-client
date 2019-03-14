@@ -51,6 +51,7 @@ componentWillMount(){
       <div className={this._changeCssonClick()} id = {this.props.select}
           onClick={this._handleClick} >
         <div className='tagName'><span>{this.props.select}</span></div>
+        <div className='tagName'><span>{"this.props.select"}</span></div>
         <Image className='BlockImage' rounded
               src={this.props.imgUrl === 1 ? null : this.props.imgUrl}
               alt={null}/>

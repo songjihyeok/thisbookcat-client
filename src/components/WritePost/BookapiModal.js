@@ -85,45 +85,6 @@ class BookapiModal extends Component {
     this.setState({isclicked : true})
   }  
 
-  beforePage =async()=>{
-    if(this.state.page>1){
-      await this.setState({page: this.state.page-1});
-    } else {
-      alert("맨 앞 페이지입니다.");
-      await this.setState({page:1});
-    }
-    await this.setbookinfo();
-    this.pageControl();
-  }
-
-  afterPage =async()=>{
-  if(this.state.page===this.state.maxpage){
-
-    alert("마지막 페이지입니다.")
-  } else {
-    await this.setState({page: this.state.page+1})
-  }
-    await this.setbookinfo();
-    
-    this.pageControl();
-  }
-
-  pageControl(e) {
-    let buttonPrev = document.querySelector('.prev');
-    let buttonNext = document.querySelector('.next');
-
-    if (this.state.page - 1 === 0 || this.state.page === 1 ){
-      buttonPrev.classList.remove("active");
-    } else {
-      buttonPrev.classList.add("active");
-    }
-    
-    if ( this.state.page === this.state.maxpage ){
-      buttonNext.classList.remove("active");
-    } else {
-      buttonNext.classList.add("active");
-    }
-  }
 
   render() {
     return (
