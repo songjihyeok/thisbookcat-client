@@ -121,7 +121,7 @@ class Nav1 extends Component {
               </Link>
               <Link to={"/mylike"}>
               <svg xmlns="http://www.w3.org/2000/svg" className="item">
-                 <path fill="none" fillRule="evenodd" stroke="#343434" stroke-linejoin="round" strokeWidth="1.5" d="M20.955 14.42c-.34-.759-2.735-3.629-2.803-3.762-4.034-7.8-14.2-5.619-14.199 4.122 0 6.569 14.562 16.928 14.562 16.928S33.047 20.552 33.047 14.72c.001-7.833-6.653-10.526-11.291-7.411C21.143 7.72 20.5 8.5 20.5 8.5"/>
+                 <path fill="none" fillRule="evenodd" stroke="#343434" strokeLinejoin="round" strokeWidth="1.5" d="M20.955 14.42c-.34-.759-2.735-3.629-2.803-3.762-4.034-7.8-14.2-5.619-14.199 4.122 0 6.569 14.562 16.928 14.562 16.928S33.047 20.552 33.047 14.72c.001-7.833-6.653-10.526-11.291-7.411C21.143 7.72 20.5 8.5 20.5 8.5"/>
               </svg>
                 <span className="nav_text">내 관심 컨텐츠</span>
               </Link>

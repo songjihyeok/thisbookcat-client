@@ -29,7 +29,9 @@ class MyPageProFile extends Component {
       userName: "",
       howManyPosts: 0,
       loaded: false, 
-      followModalShow:false
+      followModalShow:false,
+      followingList: '',
+      followedList: ''
     };
   }
 
@@ -124,7 +126,6 @@ class MyPageProFile extends Component {
     })
   }
 
-
   _renderPost = () => {
     if(this.state.myPosts.length>0){
     const posts = this.state.myPosts.map(post => {
@@ -177,13 +178,22 @@ class MyPageProFile extends Component {
   }
 
   followerModal=()=>{
-    console.log("시작은 되니?")
     this.setState({followModalShow: true})
   }
 
   _handleFollowModalhide=()=>{
     this.setState({followModalShow: false})
   }
+
+ _handleFollowModal=()=>{
+   if(this.state.followModalShow){
+     return <FollowedModal show={this.state.followModalShow} hide={this._handleFollowModalhide}  /> 
+   }
+ }
+
+
+
+
 
   render() {
     if (!window.localStorage.getItem("token")) {
@@ -238,7 +248,7 @@ class MyPageProFile extends Component {
             </ul>
           </div>
         </div>
-          <FollowedModal followList={this.state.followData} show={this.state.followModalShow} hide={this._handleFollowModalhide}  /> 
+         {this._handleFollowModal()}
           <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>
