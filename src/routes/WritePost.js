@@ -7,6 +7,7 @@ import Thumbnail1 from "../components/WritePost/Thumbnail1";
 import Bookapi from "../components/WritePost/Bookapi";
 import MyEditor from "../components/WritePost/MyEditor.js";
 import "../heightMax.css";
+import Template from "../components/WritePost/Template";
 
 class WritePost extends Component {
  
@@ -86,6 +87,10 @@ class WritePost extends Component {
                   {/* 대표이미지를 업로드하는 부분입니다. */}
                 </li>
                 <li className="bookSearch">
+                  <h3>템플릿</h3>
+                  <Template bookData={this._getBookData}/>
+                </li>
+                <li>
                   <h3>사진을 저장하거나 책 검색을 하세요.</h3>
                   <Bookapi bookData={this._getBookData}/>
                   {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}
