@@ -8,35 +8,37 @@ import { FAKEDATA } from "./Template";
 
 class TemplateSecondModal extends Component {
   render() {
-    const {
-      text,
-      selectedImg,
-      onChange,
-      onUpload
-    } = this.props;
-    const backgroundImage = FAKEDATA.find((e) => selectedImg === e.id).img;
+    const { selectedImg, onConfirm } = this.props;
     return (
-      <Modal show container={this} aria-labelledby="contained-modal-title">
+      <Modal 
+        container={this} 
+        dialogClassName="template-second-modal"
+        aria-labelledby="contained-modal-title" 
+        show
+        centered
+      >
         <Modal.Header>
-          <Modal.Title id="contained-modal-title">사진 등록</Modal.Title>
+          <Modal.Title id="contained-modal-title">템플릿 고르기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="template-second-modal-body-container">
-            <img className="template-second-modal-img" src={backgroundImage} alt="bg"/>
-            <textarea
-              className="template-second-modal-textarea" 
-              value={text}
-              onChange={onChange}
-            />
+            {FAKEDATA.map(({ id, img }) =>
+              <div className="template-second-modal-card" key={id}>
+                <img 
+                  className={selectedImg === id ? "template-second-modal-selected-img" : "template-second-modal-img"}
+                  src={img} alt="card-img" 
+                  onClick={() => this.handleSelectImage(id)}
+                />
+              </div>)}
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button 
             bsStyle="success" 
-            disabled={false}
-            onClick={onUpload}
+            disabled={!selectedImg}
+            onClick={onConfirm}
           >
-            등록
+            선택완료
           </Button>
         </Modal.Footer>
       </Modal>
@@ -44,7 +46,9 @@ class TemplateSecondModal extends Component {
   }
 
   handleSelectImage(id) {
-    const { onSelect } = this.props;
+    const {
+      onSelect
+    } = this.props;
     onSelect(id);
   }
 }

@@ -67,16 +67,17 @@ class Template extends Component {
       <div className="template">
         {showFirstModal && 
           <TemplateFirstModal
-            selectedImg={selectedImg}
-            onSelect={this.handleSelectedImage}
-            onConfirm={() => this.handleCurrentModal(ModalType.Second)}
-          />}
-        {showSecondModal && 
-          <TemplateSecondModal
             text={text}
             selectedImg={selectedImg}
             onChange={this.handleInputChange}
             onUpload={this.handleUpload}
+            onClick={() => this.handleCurrentModal(ModalType.Second)}
+          />}
+        {showSecondModal && 
+          <TemplateSecondModal
+            selectedImg={selectedImg}
+            onSelect={this.handleSelectedImage}
+            onConfirm={() => this.handleCurrentModal(ModalType.First)}
           />}
         {/* TODO: need to change icon */}
         <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.First)} />
@@ -92,11 +93,6 @@ class Template extends Component {
   }
 
   handleCurrentModal(type) {
-    const { selectedImg } = this.state;
-    if (type === ModalType.Second && !selectedImg) {
-      this.should();
-      return;
-    }
     this.setState({
       activeModal: type
     });

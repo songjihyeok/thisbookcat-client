@@ -8,31 +8,46 @@ import { FAKEDATA } from "./Template";
 
 class TemplateFirstModal extends Component {
   render() {
-    const { selectedImg, onConfirm } = this.props;
+    const {
+      text,
+      selectedImg,
+      onChange,
+      onUpload,
+      onClick
+    } = this.props;
+    
+    const backgroundImage = !selectedImg ? null : FAKEDATA.find((e) => selectedImg === e.id).img;
     return (
-      <Modal show container={this} aria-labelledby="contained-modal-title">
-        <Modal.Header>
-          <Modal.Title id="contained-modal-title">템플릿 고르기</Modal.Title>
+      <Modal show container={this} aria-labelledby="contained-modal-title" centered={true}>
+        <Modal.Header className="template-first-modal-header-container">
+          <Modal.Title id="contained-modal-title" className="template-first-modal-header-title">사진 등록</Modal.Title>
+          <div className="template-first-modal-header-icon" onClick={onClick}>템플릿</div>
         </Modal.Header>
         <Modal.Body>
           <div className="template-first-modal-body-container">
-            {FAKEDATA.map(({ id, img }) =>
-              <div className="template-first-modal-card" key={id}>
-                <img 
-                  className={selectedImg === id ? "template-first-modal-selected-img" : "template-first-modal-img"}
-                  src={img} alt="card-img" 
-                  onClick={() => this.handleSelectImage(id)}
+            {selectedImg ? 
+              <>
+                <img className="template-first-modal-img" src={backgroundImage} alt="bg"/>
+                <textarea
+                  className="template-first-modal-textarea" 
+                  value={text}
+                  onChange={onChange}
                 />
-              </div>)}
+              </>
+                :
+              <div className="template-first-modal-default">
+                <span className="template-first-modal-default-text">이책반냥</span>
+              </div>
+            }
           </div>
         </Modal.Body>
         <Modal.Footer>
           <Button 
             bsStyle="success" 
             disabled={!selectedImg}
-            onClick={onConfirm}
+            onClick={onUpload}
           >
-            선택완료
+            등록
           </Button>
         </Modal.Footer>
       </Modal>
@@ -40,9 +55,7 @@ class TemplateFirstModal extends Component {
   }
 
   handleSelectImage(id) {
-    const {
-      onSelect
-    } = this.props;
+    const { onSelect } = this.props;
     onSelect(id);
   }
 }
