@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import TemplateFirstModal from "./TemplateFirstModal";
-import TemplateSecondModal from "./TemplateSecondModal";
+import TemplateRegisterModal from "./TemplateRegisterModal";
+import TemplateSelectModal from "./TemplateSelectModal";
 
 export const ModalType = {
-  First: 'first',
-  Second: 'second'
+  Register: 'register',
+  Select: 'select'
 }
 
 export const FAKEDATA = [{
@@ -61,26 +61,26 @@ class Template extends Component {
       selectedImg,
       text,
     } = this.state;
-    const showFirstModal = activeModal === ModalType.First;
-    const showSecondModal = activeModal === ModalType.Second;
+    const showRegisterModal = activeModal === ModalType.Register;
+    const showSelectModal = activeModal === ModalType.Select;
     return (
       <div className="template">
-        {showFirstModal && 
-          <TemplateFirstModal
+        {showRegisterModal && 
+          <TemplateRegisterModal
             text={text}
             selectedImg={selectedImg}
             onChange={this.handleInputChange}
             onUpload={this.handleUpload}
-            onClick={() => this.handleCurrentModal(ModalType.Second)}
+            onClick={() => this.handleCurrentModal(ModalType.Select)}
           />}
-        {showSecondModal && 
-          <TemplateSecondModal
+        {showSelectModal && 
+          <TemplateSelectModal
             selectedImg={selectedImg}
             onSelect={this.handleSelectedImage}
-            onConfirm={() => this.handleCurrentModal(ModalType.First)}
+            onConfirm={() => this.handleCurrentModal(ModalType.Register)}
           />}
         {/* TODO: need to change icon */}
-        <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.First)} />
+        <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.Register)} />
       </div>
     );
   }

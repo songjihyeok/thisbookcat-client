@@ -615,31 +615,41 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   display: inline-block;
   cursor: pointer;
 }
-.template-first-modal-header-container {
+.template-register-modal-header-container {
   display: flex;
   align-items: center;
 }
-.template-first-modal-header-title {
+.template-register-modal-header-title {
   width: 400px;
 }
-.template-first-modal-header-icon {
+.template-register-modal-header-icon-left {
+  width: auto;
   height: 34px;
+  font-size: 11.5px;
+  cursor: pointer;
 }
-.template-first-modal-body-container {
+.template-register-modal-header-icon-right {
+  width: auto;
+  height: 34px;
+  margin-left: 34px;
+  font-size: 11.5px;
+  cursor: pointer;  
+}
+.template-register-modal-body-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-.template-first-modal-card {
+.template-register-modal-card {
   padding: 10px;
 }
-.template-first-modal-img {
+.template-register-modal-img {
   width: 300px;
   height: 300px;
   border-radius: 12px;
 }
-.template-first-modal-default {
+.template-register-modal-default {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -649,12 +659,12 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   border: solid 1px #ddd;
   border-radius: 12px;
 }
-.template-first-modal-default-text {
+.template-register-modal-default-text {
   font-size: 25px;
   font-weight: bolder;
   color: #d2d2d2;
 }
-.template-first-modal-textarea {
+.template-register-modal-textarea {
   position: absolute;
   width: 300px;
   height: 300px;
@@ -664,24 +674,24 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   resize: none;
   text-align: center;
 }
-.template-second-modal {
+.template-select-modal {
   width: 925px !important;
 }
-.template-second-modal-body-container {
+.template-select-modal-body-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-.template-second-modal-card {
+.template-select-modal-card {
   padding: 10px;
 }
-.template-second-modal-img {
+.template-select-modal-img {
   width: 180px;
   height: 180px;
   border-radius: 12px;
 }
-.template-second-modal-selected-img {
+.template-select-modal-selected-img {
   width: 180px;
   height: 180px;
   border-radius: 12px;
