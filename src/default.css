@@ -594,6 +594,53 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 .mo_button {background:transparent; display:none;}
 
+/* Template */
+.template-first-modal-body-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.template-first-modal-card {
+  padding: 10px;
+}
+.template-first-modal-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+}
+.template-first-modal-selected-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 15px;
+  opacity: 0.7;
+}
+
+.template-second-modal-body-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.template-second-modal-card {
+  padding: 10px;
+}
+.template-second-modal-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+}
+.template-second-modal-textarea {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  font-size: 18px;
+  background: transparent;
+  border: none;
+  resize: none;
+  text-align: center;
+}
+
 @media all and (max-width: 891px){
   html, body {height:auto;}
   .nav1 {height:53px; margin:0; padding:7px 0; box-sizing:border-box; z-index:11;}

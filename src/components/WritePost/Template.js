@@ -1,38 +1,135 @@
 import React, { Component } from "react";
-import TemplateModal from "./TemplateModal";
+import TemplateFirstModal from "./TemplateFirstModal";
+import TemplateSecondModal from "./TemplateSecondModal";
+
+export const ModalType = {
+  First: 'first',
+  Second: 'second'
+}
+
+export const FAKEDATA = [{
+    id: '1',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '2',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '3',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '4',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '5',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '6',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '7',
+    img: 'http://placehold.it/400x20&text=slide1'
+  },
+  {
+    id: '8',
+    img: 'http://placehold.it/400x20&text=slide1'
+  }
+];
 
 class Template extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      activeModal: false,
+      text: '',
+      selectedImg: null,
     };
-    this._handleModalOpen = this._handleModalOpen.bind(this);
-    this._handleModalClose = this._handleModalClose.bind(this);
-  }
-
-  _handleModalOpen() {
-    this.setState({
-      showModal: true
-    });
-  }
-
-  _handleModalClose() {
-    this.setState({
-      showModal: false
-    });
+    this.handleUpload = this.handleUpload.bind(this);
+    this.handleCurrentModal = this.handleCurrentModal.bind(this);
+    this.handleSelectedImage = this.handleSelectedImage.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   render() {
-    const { showModal } = this.state;
-    console.log(showModal);
+    const {
+      activeModal,
+      selectedImg,
+      text,
+    } = this.state;
+    const showFirstModal = activeModal === ModalType.First;
+    const showSecondModal = activeModal === ModalType.Second;
     return (
       <div className="bookApi">
-        {showModal && <TemplateModal />}
+        {showFirstModal && 
+          <TemplateFirstModal
+            selectedImg={selectedImg}
+            onSelect={this.handleSelectedImage}
+            onConfirm={() => this.handleCurrentModal(ModalType.Second)}
+          />}
+        {showSecondModal && 
+          <TemplateSecondModal
+            text={text}
+            selectedImg={selectedImg}
+            onChange={this.handleInputChange}
+            onUpload={this.handleUpload}
+          />}
         {/* TODO: need to change icon */}
-        <div className="searchBook" onClick={this._handleModalOpen} />
+        <div className="searchBook" onClick={() => this.handleCurrentModal(ModalType.First)} />
       </div>
     );
+  }
+
+  handleUpload() {
+    // TODO : Upload image and text
+    const { selectedImg, text } = this.state;
+    console.log('selectedImage, text : ', selectedImg, text);
+    this.clearState();
+  }
+
+  handleCurrentModal(type) {
+    const { selectedImg } = this.state;
+    if (type === ModalType.Second && !selectedImg) {
+      this.should();
+      return;
+    }
+    this.setState({
+      activeModal: type
+    });
+  }
+
+  handleModalClear() {
+    this.setState({
+      activeModal: null
+    });
+  }
+
+  handleSelectedImage(id) {
+    this.setState({
+      selectedImg: id,
+      showWarning: false
+    })
+  }
+
+  handleInputChange(evt) {
+    const {
+      value
+    } = evt.target;
+    this.setState({
+      text: value
+    })
+  }
+
+  clearState() {
+    this.setState({
+      activeModal: false,
+      text: '',
+      selectedImg: null,
+    });
   }
 }
 
