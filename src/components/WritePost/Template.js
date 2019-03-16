@@ -64,7 +64,7 @@ class Template extends Component {
     const showFirstModal = activeModal === ModalType.First;
     const showSecondModal = activeModal === ModalType.Second;
     return (
-      <div className="bookApi">
+      <div className="template">
         {showFirstModal && 
           <TemplateFirstModal
             selectedImg={selectedImg}
@@ -79,7 +79,7 @@ class Template extends Component {
             onUpload={this.handleUpload}
           />}
         {/* TODO: need to change icon */}
-        <div className="searchBook" onClick={() => this.handleCurrentModal(ModalType.First)} />
+        <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.First)} />
       </div>
     );
   }
