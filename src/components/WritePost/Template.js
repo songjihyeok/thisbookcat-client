@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import html2canvas from "html2canvas";
 import server_url from '../../url.json';
+import axios from "axios";
+
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";
 import axios from 'axios'
+
+import server_url from '../../url.json';
 
 export const ModalType = {
   Register: 'register',
@@ -113,9 +117,16 @@ class Template extends Component {
   }
 
   handleInputChange(evt) {
-    const {
-      value
-    } = evt.target;
+    const { text } = this.state;
+    const { value } = evt.target;
+    // paste 길이 제한
+    if(value.length > 99) {
+      return;
+    }
+    // 글자수 제한
+    if(value.length > text.length && text.length > 99) {
+      return;
+    }
     this.setState({
       text: value
     })
@@ -138,30 +149,23 @@ class Template extends Component {
       }).then((canvas) => {
       console.log(canvas);
       let imgData = canvas.toDataURL('image/png');
-  
-      this.sendToServer(imgData)
+      this.sendToServer(imgData);
       this.clearState();
     });
   }
 
 
-
   async sendToServer(imgData){
-      let token = window.localStorage.getItem('token')
-
-      fetch(imgData)
-      .then(res=>res.blob())
-      .then(async blob=>{
-        console.log(blob)
-        const file = new File([blob], "fileName.jpeg")
-        const formData = new FormData();
-        console.log("file",file)
-        formData.append('imgFile', blob,"fileName.jpeg");
-    
-        const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}});
-        console.log(res)
-      })
-    
+    const token = window.localStorage.getItem('token')
+    fetch(imgData)
+    .then(res => res.blob())
+    .then(async blob => {
+      const formData = new FormData();
+      formData.append('imgFile', blob, "fileName.jpeg");
+  
+      const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, { headers: { 'Authorization' :`bearer ${token}` } });
+      console.log(res)
+    })
   }
 }
 

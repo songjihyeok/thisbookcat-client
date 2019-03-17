@@ -35,7 +35,7 @@ class TemplateRegisterModal extends Component {
                   className="template-register-modal-textarea" 
                   value={text}
                   onChange={onChange}
-                  onKeyDown={this.handleKeyDown}
+                  onKeyPress={this.preventEnter}
                 />
               </>
                 :
@@ -63,22 +63,10 @@ class TemplateRegisterModal extends Component {
     onSelect(id);
   }
 
-  handleKeyDown(e) {
-    // Reset field height
-    e.target.style.height = 'inherit';
-
-    // Get the computed styles for the element
-    const computed = window.getComputedStyle(e.target);
-
-    // Calculate the height
-    const height = parseInt(computed.getPropertyValue('border-top-width'), 10) +
-      parseInt(computed.getPropertyValue('padding-top'), 10) +
-      e.target.scrollHeight +
-      parseInt(computed.getPropertyValue('padding-bottom'), 10) +
-      parseInt(computed.getPropertyValue('border-bottom-width'), 10);
-
-    e.target.style.height = `${height}px`;
-    // e.target.style.paddingTop = `${Math.max(0, (height * 0.5)) - 100}px`;
+  preventEnter(evt) {
+    if (evt.key === 'Enter') {
+      evt.preventDefault();
+    }
   }
 }
 
