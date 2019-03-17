@@ -575,6 +575,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .writeInfo_load li {vertical-align:middle; display:inline-block;}
 .writeInfo_load li.bookSearch {max-width:calc(100% - 300px); margin-left:40px; text-align:left; word-break:break-all;}
 .filepond--image-preview-overlay-success {color:#222 !important;;}
+.icon-wrapper {
+  display: flex;
+  text-align: left;
+}
 
 /* Bookapi */
 .bookApi {position:relative; width:100%;}
@@ -593,6 +597,105 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .searchBook + .bookdetail dt {white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
 
 .mo_button {background:transparent; display:none;}
+
+/* Template */
+.template {
+  position: relative;
+  width: 110px;
+}
+.template_icon {
+  width: 64px;
+  height: 64px;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  background: url('./img/aladin-icon.gif') 10px center no-repeat;
+  background-size: 45px auto;
+  border-radius: 30px;
+  text-indent: -1000em;
+  display: inline-block;
+  cursor: pointer;
+}
+.template-register-modal-header-container {
+  display: flex;
+  align-items: center;
+}
+.template-register-modal-header-title {
+  width: 480px;
+}
+.template-register-modal-header-icon {
+  width: auto;
+  height: 34px;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.template-register-modal-body-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.template-register-modal-card {
+  padding: 10px;
+}
+.template-register-modal-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 12px;
+}
+.template-register-modal-default {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  background: #f5f5f5;
+  border: solid 1px #ddd;
+  border-radius: 12px;
+}
+.template-register-modal-default-text {
+  font-size: 25px;
+  font-weight: bolder;
+  color: #d2d2d2;
+}
+.template-register-modal-textarea {
+  position: absolute;
+  width: 300px;
+  max-height: 300px;
+  padding: 20px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-y: hidden;
+  font-size: 25px;
+  font-weight: bolder;
+  color: #fff;
+  background: transparent;
+  border: none;
+  resize: none;
+  text-align: center;
+}
+.template-select-modal {
+  width: 925px !important;
+}
+.template-select-modal-body-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.template-select-modal-card {
+  padding: 10px;
+}
+.template-select-modal-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+}
+.template-select-modal-selected-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  opacity: 0.7;
+}
 
 @media all and (max-width: 891px){
   html, body {height:auto;}
