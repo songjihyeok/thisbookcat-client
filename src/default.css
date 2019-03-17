@@ -618,7 +618,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   height: 64px;
   vertical-align: middle;
   border: 1px solid #ddd;
-  background: url('./img/aladin-icon.gif') 10px center no-repeat;
+  background: url('./img/templet-icon.svg') 10px center no-repeat;
   background-size: 45px auto;
   border-radius: 30px;
   text-indent: -1000em;
@@ -632,7 +632,26 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .template-register-modal-header-title {
   width: 480px;
 }
-.template-register-modal-header-icon {
+.template-register-modal-header-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 43px !important;
+  cursor: pointer;
+}
+.template-register-modal-header-left-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  background: url('./img/templet-icon.svg') 10px center no-repeat;
+  cursor: pointer;
+}
+.template-register-modal-header-left-text {
+  font-size: 11.5px;
+}
+.template-register-modal-header-left {
   width: auto;
   height: 34px;
   font-size: 11.5px;
