@@ -695,9 +695,8 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   word-break: break-word;
   overflow-y: hidden;
   font-family: "NanumBarunpenB";
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bolder;
-  color: #fff;
   background: transparent;
   border: none;
   resize: none;
