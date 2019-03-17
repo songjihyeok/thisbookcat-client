@@ -70,7 +70,7 @@ class Nav2 extends Component {
     return (
       <div className="nav2">
         <div className="func_Write">
-          <button className="btn_BackPage" onClick={this.context.router.history.goBack}>되돌아가기</button>
+          {/* <button className="btn_BackPage" onClick={this.context.router.history.goBack}>되돌아가기</button> */}
           <button className="btn_WriterSave" href="#" onClick={this._sendPost}>저장하기</button>
         </div>
       </div>
