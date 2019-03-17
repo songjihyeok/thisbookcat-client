@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import html2canvas from "html2canvas";
+
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";
 
@@ -9,35 +11,35 @@ export const ModalType = {
 
 export const FAKEDATA = [{
     id: '1',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'stone.jpeg'
   },
   {
     id: '2',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'harry.jpg'
   },
   {
     id: '3',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'EW_Harry-Potter_Featured.jpg'
   },
   {
     id: '4',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'stone.jpeg'
   },
   {
     id: '5',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'harry.jpg'
   },
   {
     id: '6',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'EW_Harry-Potter_Featured.jpg'
   },
   {
     id: '7',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'stone.jpeg'
   },
   {
     id: '8',
-    img: 'http://placehold.it/400x20&text=slide1'
+    img: 'harry.jpg'
   }
 ];
 
@@ -87,9 +89,7 @@ class Template extends Component {
 
   handleUpload() {
     // TODO : Upload image and text
-    const { selectedImg, text } = this.state;
-    console.log('selectedImage, text : ', selectedImg, text);
-    this.clearState();
+    this.takeScreenshot();
   }
 
   handleCurrentModal(type) {
@@ -125,6 +125,19 @@ class Template extends Component {
       activeModal: false,
       text: '',
       selectedImg: null,
+    });
+  }
+
+  takeScreenshot() {
+    let test = document.querySelector('.template-register-modal-body-container');
+    html2canvas(test, {
+        allowTaint: false,
+        windowWidth: 300,
+        windowHeight: 300
+      }).then((canvas) => {
+      let imgData = canvas.toDataURL('image/png');
+      console.log(imgData);
+      this.clearState();
     });
   }
 }

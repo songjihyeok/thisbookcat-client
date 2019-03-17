@@ -25,7 +25,7 @@ class TemplateSelectModal extends Component {
               <div className="template-select-modal-card" key={id}>
                 <img 
                   className={selectedImg === id ? "template-select-modal-selected-img" : "template-select-modal-img"}
-                  src={img} alt="card-img" 
+                  src={require(`./images/${img}`)} alt={img} 
                   onClick={() => this.handleSelectImage(id)}
                 />
               </div>)}

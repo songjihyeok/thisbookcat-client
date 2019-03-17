@@ -15,8 +15,8 @@ class TemplateRegisterModal extends Component {
       onUpload,
       onClick
     } = this.props;
-    const backgroundImage = !selectedImg ? null : FAKEDATA.find((e) => selectedImg === e.id).img;
-
+    const foundImage = !selectedImg ? null : FAKEDATA.find((e) => selectedImg === e.id).img;
+    const backgroundImage = require(`./images/${foundImage}`);
     return (
       <Modal show container={this} aria-labelledby="contained-modal-title">
         <Modal.Header className="template-register-modal-header-container">
@@ -25,7 +25,7 @@ class TemplateRegisterModal extends Component {
         </Modal.Header>
         <Modal.Body>
           <div className="template-register-modal-body-container">
-            {selectedImg ? 
+            {selectedImg ?
               <>
                 <img className="template-register-modal-img" src={backgroundImage} alt="bg"/>
                 <textarea
