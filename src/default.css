@@ -16,6 +16,16 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 
 .App {max-width:2100px; margin:auto; }
 
+/* Font */ 
+@font-face {
+  font-family: "NanumBarunpenB";
+  src: url("./fonts/NanumBarunpenB.ttf");
+}
+@font-face {
+  font-family: "NanumBarunpenR";
+  src: url("./fonts/NanumBarunpenR.ttf");
+}
+
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
 .bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px;}
@@ -665,6 +675,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   overflow-wrap: break-word;
   word-break: break-word;
   overflow-y: hidden;
+  font-family: "NanumBarunpenB";
   font-size: 25px;
   font-weight: bolder;
   color: #fff;
