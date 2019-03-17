@@ -19,19 +19,19 @@ class followedModal extends Component {
   }
 
   componentDidMount(){
-      this.getFollowingList()
+      this.getFollowedList()
   }
 
 
- getFollowingList=async()=>{
+ getFollowedList=async()=>{
   const token = window.localStorage.getItem('token')
-  const Result = await axios.get(`https://${server_url}/api/follow/following/${this.state.per}/${this.state.page}`, {headers: {Authorization : `bearer ${token}`}})
+  const Result = await axios.get(`https://${server_url}/api/follow/followed/${this.state.per}/${this.state.page}`, {headers: {Authorization : `bearer ${token}`}})
   this.setState({data: Result.data.perArray})
  }
 
   
 
-  renderFollowingList(){
+  renderFollowedList(){
     if(this.state.data){
       console.log(this.state.data)
       const result = this.state.data.map((followed)=>{
@@ -58,7 +58,7 @@ class followedModal extends Component {
               </Modal.Header> 
                 <Modal.Body>
                   <div className="bookInfo_view">
-                      {this.renderFollowingList()}
+                      {this.renderFollowedList()}
                   </div>
                 </Modal.Body>
               <Modal.Footer>

@@ -160,7 +160,6 @@ function imageHandler () {
 
     const file = input.files[0];
     const formData = new FormData();
-
     formData.append('imgFile', file);
 
     // Save current cursor state
