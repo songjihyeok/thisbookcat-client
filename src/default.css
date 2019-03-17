@@ -690,7 +690,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   position: absolute;
   width: 300px;
   max-height: 300px;
-  padding: 20px;
+  padding: 40px 20px;
   overflow-wrap: break-word;
   word-break: break-word;
   overflow-y: hidden;

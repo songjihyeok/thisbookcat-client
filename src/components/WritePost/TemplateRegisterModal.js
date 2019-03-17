@@ -35,7 +35,7 @@ class TemplateRegisterModal extends Component {
                   className="template-register-modal-textarea" 
                   value={text}
                   onChange={onChange}
-                  onKeyPress={(evt) => this.preventOverflow(evt, text.length)}
+                  onKeyPress={this.preventEnter}
                   onPaste={(evt) => evt.preventDefault()}
                 />
               </>
@@ -64,8 +64,8 @@ class TemplateRegisterModal extends Component {
     onSelect(id);
   }
 
-  preventOverflow(evt, textLength) {
-    if (textLength > 99 || evt.key === 'Enter') {
+  preventEnter(evt) {
+    if (evt.key === 'Enter') {
       evt.preventDefault();
     }
   }
