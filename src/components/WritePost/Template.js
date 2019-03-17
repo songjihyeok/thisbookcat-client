@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import html2canvas from "html2canvas";
-
+import server_url from '../../url.json';
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";
+import axios from 'axios'
 
 export const ModalType = {
   Register: 'register',
@@ -135,10 +136,32 @@ class Template extends Component {
         windowWidth: 300,
         windowHeight: 300
       }).then((canvas) => {
+      console.log(canvas);
       let imgData = canvas.toDataURL('image/png');
-      console.log(imgData);
+  
+      this.sendToServer(imgData)
       this.clearState();
     });
+  }
+
+
+
+  async sendToServer(imgData){
+      let token = window.localStorage.getItem('token')
+
+      fetch(imgData)
+      .then(res=>res.blob())
+      .then(async blob=>{
+        console.log(blob)
+        const file = new File([blob], "fileName.jpeg")
+        const formData = new FormData();
+        console.log("file",file)
+        formData.append('imgFile', blob,"fileName.jpeg");
+    
+        const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}});
+        console.log(res)
+      })
+    
   }
 }
 
