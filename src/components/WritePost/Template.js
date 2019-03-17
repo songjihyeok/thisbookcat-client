@@ -117,8 +117,12 @@ class Template extends Component {
   handleInputChange(evt) {
     const { text } = this.state;
     const { value } = evt.target;
+    // paste 길이 제한
+    if(value.length > 99) {
+      return;
+    }
     // 글자수 제한
-    if(value > text && text.length > 99) {
+    if(value.length > text.length && text.length > 99) {
       return;
     }
     this.setState({

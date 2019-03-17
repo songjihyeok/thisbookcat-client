@@ -36,7 +36,6 @@ class TemplateRegisterModal extends Component {
                   value={text}
                   onChange={onChange}
                   onKeyPress={this.preventEnter}
-                  onPaste={(evt) => evt.preventDefault()}
                 />
               </>
                 :
