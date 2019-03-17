@@ -182,6 +182,7 @@ class MyPageProFile extends Component {
   }
 
   _handleFollowModalhide=()=>{
+    this._getFollowingFollowed();
     this.setState({followModalShow: false})
   }
 
@@ -237,12 +238,12 @@ class MyPageProFile extends Component {
                 <b>{this.state.howManyPosts}</b>
               </li>
                 <li>
-                  <span className='InfoName'>팔로잉</span>
+                  <span className='InfoName'>팔로워</span>
                   <b>{this.state.followData[1].length}</b>
                   {/* <FollowingModal/> */}
                 </li>
                 <li onClick={()=>this.followerModal()}>
-                  <span className="InfoName">팔로워</span>
+                  <span className="InfoName">팔로잉</span>
                   <b>{this.state.followData[3].length}</b>
                 </li>
             </ul>
