@@ -65,6 +65,12 @@ class Template extends Component {
     const showSelectModal = activeModal === ModalType.Select;
     return (
       <div className="template">
+        {showSelectModal && 
+          <TemplateSelectModal
+            selectedImg={selectedImg}
+            onSelect={this.handleSelectedImage}
+            onConfirm={() => this.handleCurrentModal(ModalType.Register)}
+        />}
         {showRegisterModal && 
           <TemplateRegisterModal
             text={text}
@@ -73,14 +79,8 @@ class Template extends Component {
             onUpload={this.handleUpload}
             onClick={() => this.handleCurrentModal(ModalType.Select)}
           />}
-        {showSelectModal && 
-          <TemplateSelectModal
-            selectedImg={selectedImg}
-            onSelect={this.handleSelectedImage}
-            onConfirm={() => this.handleCurrentModal(ModalType.Register)}
-          />}
         {/* TODO: need to change icon */}
-        <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.Register)} />
+        <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.Select)} />
       </div>
     );
   }

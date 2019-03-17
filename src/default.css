@@ -620,20 +620,13 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   align-items: center;
 }
 .template-register-modal-header-title {
-  width: 400px;
+  width: 480px;
 }
-.template-register-modal-header-icon-left {
+.template-register-modal-header-icon {
   width: auto;
   height: 34px;
   font-size: 11.5px;
   cursor: pointer;
-}
-.template-register-modal-header-icon-right {
-  width: auto;
-  height: 34px;
-  margin-left: 34px;
-  font-size: 11.5px;
-  cursor: pointer;  
 }
 .template-register-modal-body-container {
   display: flex;
