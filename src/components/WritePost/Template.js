@@ -115,9 +115,7 @@ class Template extends Component {
   }
 
   handleInputChange(evt) {
-    const {
-      value
-    } = evt.target;
+    const { value } = evt.target;
     this.setState({
       text: value
     })
