@@ -665,7 +665,9 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   overflow-wrap: break-word;
   word-break: break-word;
   overflow-y: hidden;
-  font-size: 18px;
+  font-size: 25px;
+  font-weight: bolder;
+  color: #fff;
   background: transparent;
   border: none;
   resize: none;
