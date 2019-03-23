@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import html2canvas from "html2canvas";
+import server_url from '../../url.json';
 import axios from "axios";
 
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";
+import axios from 'axios'
 
 import server_url from '../../url.json';
 
@@ -145,11 +147,13 @@ class Template extends Component {
         windowWidth: 300,
         windowHeight: 300
       }).then((canvas) => {
+      console.log(canvas);
       let imgData = canvas.toDataURL('image/png');
       this.sendToServer(imgData);
       this.clearState();
     });
   }
+
 
   async sendToServer(imgData){
     const token = window.localStorage.getItem('token')
