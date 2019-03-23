@@ -33,7 +33,7 @@ class Main extends Component {
   }
 
   _infiniteScroll = async() => {
-    
+
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
        this.setState({page: this.state.page+1,loaded: false})

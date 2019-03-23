@@ -65,7 +65,6 @@ class MyBookBoard extends Component {
 		if(this.props.image==='' &&this.props.bookData!=='null'){
 			let parsedBookData = JSON.parse(this.props.bookData);
 			let postImage = parsedBookData.cover;
-			console.log( "url 바뀌었나",postImage);
 			return postImage 
 		}  
 		return `https://${server_url}/upload/${this.props.image}`	

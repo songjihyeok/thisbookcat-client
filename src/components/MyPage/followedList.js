@@ -6,15 +6,14 @@ import axios from 'axios';
 class followList extends Component {
 
   state={
-    follow: true
+    follow: false
   }
 
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
-  
-  
+
   handleProfileImage=()=>{
-    if(this.props.data.profileImage){
-      return `https://${server_url}/upload/${this.props.data.profileImage}`
+    if(this.props.data[0].profileImage){
+      return `https://${server_url}/upload/${this.props.data[0].profileImage}`
     }
     return defaultimage
   }
@@ -28,32 +27,30 @@ class followList extends Component {
 
    following=async()=>{
      if(this.state.follow) {
-      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.data.id}`, this.authHeader)  
+      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.data[0].id}`, this.authHeader)  
       console.log(resultfollowDelete)
       this.setState({follow:false})
      } else {
-      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.data.id}`, {}, this.authHeader)
+      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.data[0].id}`, {}, this.authHeader)
       console.log(followResult)
       this.setState({follow:true})
      }
    }   
-
-
+   componentDidMount(){
+    if(this.props.data[1]){
+      this.setState({follow:true})
+    }  
+   }
 
   render(){
-    console.log("데이터?",this.props.data)
-
     return (
-      <ul className="bookdetail">
+      <ul className="followList">
         <li>
         <p className="thumbs">
-        <img src={this.handleProfileImage()} alt="이미지가 등록되지 않았습다"/>
+        <img className="followListProfile" src={this.handleProfileImage()} alt="이미지가 등록되지 않았습다"/>
         </p>
         <dl>
-          <dt>{this.props.data.userName}</dt>
-          <dd>
-            {/* <div className="publisher">{this.props.data.userName}</div> */}
-          </dd>
+          <dt>{this.props.data[0].userName}</dt>
         </dl>
           <div className="user_follow">
            {this._handleFollowings()}   

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import html2canvas from "html2canvas";
-import server_url from '../../url.json';
-import axios from "axios";
 
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";

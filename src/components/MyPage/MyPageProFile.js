@@ -8,6 +8,7 @@ import server_url from '../../url.json';
 import defaultimage from '../../img/다운로드.png';
 // import FollowingModal from './followingModal';
 import FollowedModal from './followedModal';
+import FollowingModal from './followingModal';
 
 class MyPageProFile extends Component {
 
@@ -29,12 +30,13 @@ class MyPageProFile extends Component {
       userName: "",
       howManyPosts: 0,
       loaded: false, 
-      followModalShow:false,
+      followingModalShow:false,
+      followedModalShow:false,
       followingList: '',
       followedList: ''
     };
   }
-
+                    
   token = window.localStorage.getItem('token')
 
    async componentDidMount() {
@@ -177,24 +179,28 @@ class MyPageProFile extends Component {
     return <span className="ID_user">{this.state.userName}</span>
   }
 
-  followerModal=()=>{
-    this.setState({followModalShow: true})
+  followingModal=()=>{
+    this.setState({followingModalShow: true})
   }
+
+  followedModel=()=>{
+    this.setState({followedModalShow: true})
+  }
+
 
   _handleFollowModalhide=()=>{
     this._getFollowingFollowed();
-    this.setState({followModalShow: false})
+    this.setState({followedModalShow: false, followingModalShow:false})
   }
 
  _handleFollowModal=()=>{
-   if(this.state.followModalShow){
-     return <FollowedModal show={this.state.followModalShow} hide={this._handleFollowModalhide}  /> 
+   if(this.state.followingModalShow){
+     return <FollowingModal show={this.state.followingModalShow} hide={this._handleFollowModalhide}/> 
+   }
+   if(this.state.followedModalShow){
+     return <FollowedModal show={this.state.followedModalShow} hide={this._handleFollowModalhide}/>
    }
  }
-
-
-
-
 
   render() {
     if (!window.localStorage.getItem("token")) {
@@ -237,12 +243,12 @@ class MyPageProFile extends Component {
                 <span className='InfoName'>게시물</span>
                 <b>{this.state.howManyPosts}</b>
               </li>
-                <li>
+                <li onClick={()=>this.followedModel()}>
                   <span className='InfoName'>팔로워</span>
                   <b>{this.state.followData[1].length}</b>
                   {/* <FollowingModal/> */}
                 </li>
-                <li onClick={()=>this.followerModal()}>
+                <li onClick={()=>this.followingModal()}>
                   <span className="InfoName">팔로잉</span>
                   <b>{this.state.followData[3].length}</b>
                 </li>
@@ -257,7 +263,7 @@ class MyPageProFile extends Component {
                 <Icon name='book' size="big"/>내 서재
               </span>
             </div>
-            <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=4 ? 'left' : 'center'}}>
+            <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=3 ? 'left' : 'center'}}>
             {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
             {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
             </div>

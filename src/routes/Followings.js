@@ -11,15 +11,18 @@ class Followings extends Component {
 
   state = {
     page: 1,
-    per: 3,
+    per: 8,
     totalPage:'',
     followPost:[],
     getData: false,
     loaded: false
   };
 
+  token = window.localStorage.getItem('token')
+
+
   componentDidMount() {
-    this._getFollowPosts()
+    this._callFollowAPI();
     window.addEventListener('scroll', this._infiniteScroll,false)
   }
 
@@ -28,15 +31,14 @@ class Followings extends Component {
   }
 
   _infiniteScroll = () => {
-    
-    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
+    console.log(window.innerHeight, " ", window.scrollY, ' ', document.body.offsetHeight)
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-600)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
          this.setState({page: this.state.page+1, loaded:false})
-         this._getFollowPosts()
+         this._callFollowAPI();
       }
     }
   }
-
 
   _renderFollowingPost = () => {
     // console.log('this is following post',this.state.followPost)
@@ -44,7 +46,10 @@ class Followings extends Component {
       const follow = this.state.followPost.map((url, index) => {
         if (url) {
           return <FollowingBoard image={url.mainImage} key={index} title={url.title} bookData={url.bookData}
-                                likecount={url.likeCount} contents={url.contents} postid={url.id} />
+                                likecount={url.likeCount} contents={url.contents} postid={url.id} writerName={url.writerName}
+                                createdTime={url.createdTime} likeOrNot={url.likeOrNot} profileImage={url.imageName}
+                                writerId ={url.writerId}
+                                />
         }else {
           return null;
         }
@@ -54,23 +59,48 @@ class Followings extends Component {
     return "Loading"
   };
 
-  _getFollowPosts = async () => {
-    const followPost = await this._callFollowAPI()
-    if(followPost){
-      this.setState({followPost: this.state.followPost.concat(followPost)})
-    }
-  };
-
   _callFollowAPI = () => {
     let token = window.localStorage.getItem('token')
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      this.setState({totalPage: response.data.totalpage, getData:true, loaded:true})
-      console.log(response.data)
-      return response.data.perArray
+      let result = response.data.perArray
+      this.setState({totalPage: response.data.totalpage, 
+                      loaded: true,
+                      getData:true,
+                      followPost: this.state.followPost.concat(result)
+                      })
+      return result;
     })
   };
+
+
+// 	_getLikeData = () => {
+    
+//   axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
+//     headers:{Authorization: `bearer ${this.token}`}})
+//   .then(response => {
+//     // console.log(response.data[0][0][1])
+//     this.setState({liked: response.data[0][0][1]})
+//     //   console.log('liked', this.state.liked)
+//   })
+//   .catch(error => console.log(error))
+// }
+
+
+// _callPostUserAPI = () => {
+//   let token = window.localStorage.getItem('token')
+//   return axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postid}`, {
+//     headers:{Authorization: `bearer ${token}`}})
+//     .then(response=>{	
+//       console.log(response.data)
+//       if(response.status===200){
+//         this.setState({postUserInfo:response.data})
+//       } 
+//       return;
+//     })
+//     .catch((err)=>{return;})
+//   }
 
   render() {
     let { followPost, getData } = this.state;
