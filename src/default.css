@@ -879,6 +879,32 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .searchBook + .bookdetail {width:calc(100% + 140px); margin-top:20px; margin-left:-140px; display:block;}
   .searchBook + .bookdetail dt {white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
   .bookdetail li {width:100%; padding:20px;}
+
+  .template-select-modal {
+    width: 320px !important;
+    margin: 0 auto;    
+  }
+  .template-select-modal-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 20px;
+  }
+  .template-select-modal-selected-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 20px;
+    opacity: 0.7;
+  }
+  .template-select-modal-body {
+    padding: 0px !important;
+    margin-top: 10px !important;
+    height: 420px;
+    overflow-y: scroll;
+  }
+  .template-register-modal {
+    width: 320px !important;
+    margin: 0 auto;
+  }
 }
 
 @media all and (max-width: 321px) {

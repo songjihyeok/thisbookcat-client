@@ -19,7 +19,7 @@ class TemplateSelectModal extends Component {
         <Modal.Header>
           <Modal.Title id="contained-modal-title">템플릿 고르기</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="template-select-modal-body">
           <div className="template-select-modal-body-container">
             {FAKEDATA.map(({ id, img }) =>
               <div className="template-select-modal-card" key={id}>
