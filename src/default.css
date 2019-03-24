@@ -783,16 +783,16 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .searchForm form:after {position:absolute; top:11px; left:10px; width:19px; height:20px; z-index:1; content:''; background-image: url("./img/main-search-icon.png"); background-size:19px 20px;}
   .search_input {width:100%; height:40px; padding-left:34px; font-size:14px;}
 
-  .bookBoardWrap {padding:19px 0 19px 19px; text-align:left; margin:0;}
-  .bookBoard {width:calc((100vw - 57px)/2); margin:0 0 19px 0;}
+  .bookBoardWrap {padding:8px 0 8px 8px; text-align:left; margin:0;}
+  .bookBoard {width:calc((100vw - 32px)/3); margin:0 0 8px 8px;}
   .bookBoard a {width:100%; height:100%; background-color:#595959; display:block;}
-  .bookBoard:nth-child(2n+0) {margin-left:19px;}
-  .imageContainer {width:calc((100vw - 57px)/2); height:calc((100vw - 57px)/2);}
+  .bookBoard:nth-child(3n+1) {margin-left:0px;}
+  .imageContainer {width:calc((100vw - 32px)/3); height:calc((100vw - 32px)/3);}
   .likeBar {padding:7px 12px;}
 
   .mainPost {padding:50px 0; font-size:18px; vertical-align:middle;}
   .postTitle {font-size:15px; color:#151515;}  
-
+/* body * {border:1px solid #f00; box-sizing: border-box;} */
   .post_detail {width:100%;}
   .post_detail_left,
   .post_detail_right {float:none; width:100%;}
@@ -888,6 +888,32 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .searchBook + .bookdetail {width:calc(100% + 140px); margin-top:20px; margin-left:-140px; display:block;}
   .searchBook + .bookdetail dt {white-space:nowrap; text-overflow:ellipsis; overflow:hidden;}
   .bookdetail li {width:100%; padding:20px;}
+
+  .template-select-modal {
+    width: 320px !important;
+    margin: 0 auto;    
+  }
+  .template-select-modal-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 20px;
+  }
+  .template-select-modal-selected-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 20px;
+    opacity: 0.7;
+  }
+  .template-select-modal-body {
+    padding: 0px !important;
+    margin-top: 10px !important;
+    height: 420px;
+    overflow-y: scroll;
+  }
+  .template-register-modal {
+    width: 320px !important;
+    margin: 0 auto;
+  }
 }
 
 @media all and (max-width: 321px) {

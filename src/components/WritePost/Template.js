@@ -3,9 +3,6 @@ import html2canvas from "html2canvas";
 
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";
-import axios from 'axios'
-
-import server_url from '../../url.json';
 
 export const ModalType = {
   Register: 'register',
