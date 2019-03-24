@@ -35,7 +35,6 @@ class TemplateRegisterModal extends Component {
                   className="template-register-modal-textarea" 
                   value={text}
                   onChange={onChange}
-                  onKeyPress={this.preventEnter}
                 />
               </>
                 :
@@ -61,12 +60,6 @@ class TemplateRegisterModal extends Component {
   handleSelectImage(id) {
     const { onSelect } = this.props;
     onSelect(id);
-  }
-
-  preventEnter(evt) {
-    if (evt.key === 'Enter') {
-      evt.preventDefault();
-    }
   }
 }
 
