@@ -54,6 +54,12 @@ class WritePost extends Component {
       this.setState({posted: true});
     }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
+    setTemplate = (imgName)=>{
+      this.setState({mainimage: [imgName]})
+      
+    }
+
+
   render() {
     // console.log(this.state.mainimage, this.state.title, this.state.contents);
     console.log(this.state.posted, "납니까? ");
@@ -83,7 +89,7 @@ class WritePost extends Component {
             <div className="write_container">
               <ul className="writeInfo_load">
                 <li className="thumbLoad">
-                  <Thumbnail1  _handleMainImage={this._handleMainImage} _removeMainImage={this._removeMainImage}/>
+                  <Thumbnail1 _handleMainImage={this._handleMainImage} _removeMainImage={this._removeMainImage}/>
                   {/* 대표이미지를 업로드하는 부분입니다. */}
                 </li>
                 <li className="bookSearch">
@@ -92,7 +98,7 @@ class WritePost extends Component {
                 <li>
                   <h3>사진을 저장하거나 책 검색을 하세요.</h3>
                   <div className="icon-wrapper">
-                    <Template />
+                    <Template getTemplate={(img)=>this.setTemplate(img)}/>
                     <Bookapi bookData={this._getBookData}/>
                   </div>
                   {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}

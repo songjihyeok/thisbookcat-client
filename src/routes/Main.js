@@ -5,6 +5,7 @@ import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 import "../default.css";
+import  WaitingLoader from '../components/Spinner'
 
 class Main extends Component {
   
@@ -17,10 +18,6 @@ class Main extends Component {
     userName: ''
   };
 
-//새로 추가된 사항: per와 page추가 됐습니다. per는 1페이지에 보여줄 포스트의 갯수이고 page는 정해주는 per만큼의 post를 가지고 있는 페이지 입니다.
-//client에서 정해준대로 받아오는 것이 가능합니다. 그래서 현재 스크롤을 끝까지 내리면 페이지 수를 추가하여 페이지가 더 존재하면 컨텐츠를 받아오고 끝이면
-//더이상 콘텐츠가 없다는 메시지가 나오게 했습니다. 해당사항은 main이외의 다른페이지도 똑같이 적용됐습니다.
-
   componentDidMount () {
     this.getUserName();
     this._getUrls();
@@ -28,7 +25,6 @@ class Main extends Component {
   }
 
   componentWillUnmount(){
-    console.log("이거 옮길때???")
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
@@ -53,6 +49,7 @@ class Main extends Component {
                             key={url.id}
                             bookData= {url.bookData}
                             userName={this.state.userName}
+                            isUserLike = {url.isUserLike}
                             />;
         }else {
           return null;
@@ -60,7 +57,10 @@ class Main extends Component {
       });
       return bookcover;
     }
-    return <div className="loading">"Loading"</div> 
+    if(this.state.loaded&&!this.state.coverurl){
+      return <div className="dataNone">컨텐츠가 없습니다. 취향을 재설정해주세요</div>
+    }
+    return <WaitingLoader/>    
   };
 
   _getUrls = async () => {
@@ -78,7 +78,7 @@ class Main extends Component {
     return axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
     .then((response) => {
-      console.log('there should be data here',response.data)
+      // console.log('there should be data here',response.data)
       this.setState({totalPage: response.data.totalpage, loaded: true})
       let result = response.data.perArray
       return result;
@@ -91,7 +91,6 @@ class Main extends Component {
   async getUserName(){
     const token = window.localStorage.getItem('token')
     let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
-    console.log("유저네임 가져오네?", resultOfget)
     if(resultOfget.data.userName){
       this.setState({userName:resultOfget.data.userName})
     }

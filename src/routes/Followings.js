@@ -51,7 +51,7 @@ class Followings extends Component {
                                 writerId ={url.writerId}
                                 />
         }else {
-          return null;
+          return <div className="dataNone">팔로우하신 유저가 없거나 팔로잉 유저의 컨텐츠가 없습니다.!</div>
         }
       })
       return follow
@@ -64,7 +64,8 @@ class Followings extends Component {
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      let result = response.data.perArray
+      let result = response.data.perArra
+
       this.setState({totalPage: response.data.totalpage, 
                       loaded: true,
                       getData:true,
@@ -75,35 +76,9 @@ class Followings extends Component {
   };
 
 
-// 	_getLikeData = () => {
-    
-//   axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
-//     headers:{Authorization: `bearer ${this.token}`}})
-//   .then(response => {
-//     // console.log(response.data[0][0][1])
-//     this.setState({liked: response.data[0][0][1]})
-//     //   console.log('liked', this.state.liked)
-//   })
-//   .catch(error => console.log(error))
-// }
-
-
-// _callPostUserAPI = () => {
-//   let token = window.localStorage.getItem('token')
-//   return axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postid}`, {
-//     headers:{Authorization: `bearer ${token}`}})
-//     .then(response=>{	
-//       console.log(response.data)
-//       if(response.status===200){
-//         this.setState({postUserInfo:response.data})
-//       } 
-//       return;
-//     })
-//     .catch((err)=>{return;})
-//   }
-
   render() {
     let { followPost, getData } = this.state;
+  
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else if(!getData){
@@ -114,7 +89,7 @@ class Followings extends Component {
           <Nav1/>
           <div className="Followings">
             <div className='FollowingBoards'>
-            {followPost.length===0? <div className="dataNone">팔로우하신 유저가 없습니다!</div> : this._renderFollowingPost()}
+              {this._renderFollowingPost()}
             </div>
           </div>
         </Fragment>

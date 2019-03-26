@@ -33,7 +33,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
 .Main_tagsearch {text-align : center;}
-.loading {text-align:center; vertical-align: middle;}
+.loading {text-align:center; vertical-align: middle; margin:300px;}
 
 
 /* App */
@@ -411,6 +411,12 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   padding:43px 49px;
   border-bottom:1px solid  #ddd;
 }
+
+.default_fallowpage {
+  text-align: center;
+  display: inline
+}
+
 .UserInfoPart {
   position: relative;
   line-height:50px;
@@ -849,6 +855,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .tagName {font-size:15px;}
   .Block .BlockImage {width:calc(100% + 10px); min-width:50vw; min-height:auto;}
 
+  .MyPage {height:1000px !important;}
   .MyPageProFile {width:100%; margin:0}
   .profileContainer {width:100%; padding:23px 0;}
   .myProFileWrap {width:100%; padding:29px 0 0 0;}

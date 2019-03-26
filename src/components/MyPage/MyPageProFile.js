@@ -9,6 +9,7 @@ import defaultimage from '../../img/다운로드.png';
 // import FollowingModal from './followingModal';
 import FollowedModal from './followedModal';
 import FollowingModal from './followingModal';
+import  WaitingLoader from '../Spinner'
 
 class MyPageProFile extends Component {
 
@@ -96,20 +97,14 @@ class MyPageProFile extends Component {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
-      let allofarray = []
+  
       if(response.data.perArray===undefined){
+        this.setState({loaded:true})
         return;
       }
-      if(response.data.perArray.length>0){
-      response.data.perArray.forEach((element)=>{
-        if(element){
-          allofarray.push(element)
-        }
-      })
-     }
       this.setState({
         totalPage: response.data.totalpage,
-        myPosts: this.state.myPosts.concat(allofarray),
+        myPosts: this.state.myPosts.concat(response.data.perArray),
         howManyPosts : response.data.howManyPosts,
         loaded: true 
       });
@@ -121,7 +116,7 @@ class MyPageProFile extends Component {
       headers: {Authorization : `bearer ${this.token}`}
     })
     .then(response => {
-      console.log("responseOffollow", response)
+  
       this.setState({
         followData: response.data
       });
@@ -134,13 +129,18 @@ class MyPageProFile extends Component {
 
       if (post) {
         return <MyBookBoard image={post.mainImage} title={post.title} key={post.id} userName ={this.state.userName}
-                            postid={post.id} likecount={post.likeCount} bookData={post.bookData}/>
+                            postid={post.id} likecount={post.likeCount} bookData={post.bookData} likeCount={post.likeCount} 
+                            isUserLike={post.isUserLike}/>
       }else {
         return null;
       }
     });
     return posts
     }
+    if(this.state.loaded&&!this.state.myPosts.length){
+      return <div className="dataNone">컨텐츠가 없습니다. 컨텐츠를 올려주세요</div>
+    }
+    return <WaitingLoader />    
   }
 
   _getImageFromModal = image => {
@@ -264,7 +264,7 @@ class MyPageProFile extends Component {
               </span>
             </div>
             <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=3 ? 'left' : 'center'}}>
-            {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
+             {this._renderPost()}<br/>
             {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
             </div>
           </div>

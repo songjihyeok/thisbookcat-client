@@ -8,27 +8,11 @@ import axios from 'axios'
 class BookBoard extends Component {
 
 	state = {
-			liked: false,
+			liked: this.props.isUserLike,
 			likeCount: this.props.likecount
 	} 
 
 	token = window.localStorage.getItem('token')
-
-	componentDidMount () {
-			this._getLikeData()
-	}
-
-	_getLikeData = () => {
-		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
-			headers: {Authorization: `bearer ${this.token}`}
-		})
-		.then(response => {
-			this.setState({liked: response.data[0][0][1]})
-			//   console.log('liked', this.state.liked)
-		})
-		.catch(error => console.log(error))
-	}
-
 
 	_handleLike = () => {
 		if(this.props.userName===''){
