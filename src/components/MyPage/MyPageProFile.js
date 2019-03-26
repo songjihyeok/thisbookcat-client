@@ -126,7 +126,6 @@ class MyPageProFile extends Component {
   _renderPost = () => {
     if(this.state.myPosts.length>0){
     const posts = this.state.myPosts.map(post => {
-
       if (post) {
         return <MyBookBoard image={post.mainImage} title={post.title} key={post.id} userName ={this.state.userName}
                             postid={post.id} likecount={post.likeCount} bookData={post.bookData} likeCount={post.likeCount} 
