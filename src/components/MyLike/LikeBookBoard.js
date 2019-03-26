@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import server_url from '../../url.json';
 import {Icon} from 'semantic-ui-react'
 import axios from 'axios'
-import Image from 'react-image-resizer'
 
 class LikeBookBoard extends Component {
 
@@ -18,46 +17,52 @@ class LikeBookBoard extends Component {
 			axios.delete(`https://${server_url}/api/like/${this.props.likePost.id}`, {
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
-					// console.log(response)
 				this.setState({
 						liked: false,
 						likeCount: this.state.likeCount-1
 				})
-					// console.log('liked should change', this.state.liked)
 			})
 			.catch(error => console.log(error))
 		} else {
-			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{
+			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{},{
 				headers:{Authorization: `bearer ${token}`}})
 			.then(response => {
-					// console.log(response)
 				this.setState({
 						liked: true,
 						likeCount: this.state.likeCount+1
 				})
-					// console.log('liked should change', this.state.liked)
 			})
 			.catch(error => console.log(error))
 		}
 	}
+	handleImage=()=>{
+		if(this.props.likePost.mainImage===''){
+			let parsedBookData = JSON.parse(this.props.bookData);
+			let postImage = parsedBookData.cover;
+			console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.props.likePost.mainImage}`
+	}	
+
+
 
 	render() {
-		// console.log("LikeBookBoard.js 컴포 > render 함수 안 콘솔 찍는 중 this.props.likePost___", this.props.likePost)
 		return (
-			<div className ='LikeBookBoard'>
-				<Link to={{pathname : `/postdetail/${this.props.postid}`,}}>
-				{/*state : {
-				     imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-				     username : this.props.author
-				 }  */}
-					<Image className = 'likeThumbnail' alt='bookcover' width={240} height={null}
-								src = {`https://${server_url}/upload/${this.props.likePost.mainImage}`}/>
-				</Link>
-				{(this.state.liked)
-				? <span><Icon name='heart' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
-				: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>X{this.state.likeCount}</span>
-				}
-				<span>{this.props.likePost.title}</span>
+			<div className ='bookBoard'>
+				<div className='imageContainer'>
+					<Link to={{pathname : `/postdetail/${this.props.postid}`,}}>
+						<img className = 'likeThumbnail' alt='bookcover'
+									src = {this.handleImage()}/>
+					</Link>
+					<div className='likeBar'>
+						{(this.state.liked)
+						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						}
+					</div>
+				</div>
+					<p className='postTitle'>{this.props.likePost.title}</p>
 			</div>
 		)
 	}

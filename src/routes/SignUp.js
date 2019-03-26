@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-//import '../components/Login/Login.css';
-import { Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import server_url from '../url.json';
-import book from "../img/book-img.png";
 
 class SignUp extends Component {
   state = {
-    // email : '',
-    // password : '',
     confirmPassword : true,
     signUp_Done : false,
     signUp_Err: false,
@@ -22,22 +17,20 @@ class SignUp extends Component {
   }
 
   _setEmail = (e) => {
-    // console.log('Login.js의 setEmail함수입니다. e.target.value 찍는중', e.target.value)
-    // this.setState({email : e.target.value});
+
     this.user.emailId = e.target.value
-    //TODO: 이거 굳이 state 안에 둘 필요없을듯
+
   }
 
   _setPassword = (e) => {
-    // console.log('Login.js의 setPw함수입니다. e.target.value 찍는중', e.target.value)
-    // this.setState({password : e.target.value});
+
     this.user.password = e.target.value
-    //TODO: 이거 굳이 state 안에 둘 필요없을듯
+  
 
   }
 
   _checkPassword = (e) => {
-    // console.log('Login.js의 checkPw함수입니다. e.target.value 찍는중', e.target.value)
+    
     if(this.user.password === e.target.value) {
       this.setState({confirmPassword : true})
     }else{
@@ -65,22 +58,7 @@ class SignUp extends Component {
             signUp_Err: true,
             postedEmail: this.user.emailId,
           })
-        // }
       }
-
-      
-      // .then(res => {
-      //   // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res___', res);
-      //   // console.log('signup.js > _handleSubmit 함수에서 axios.post 요청하고 나서 받는 res.data___', res.data);
-      //     this.setState({
-      //       signUp_Done: true,
-      //       signUp_Err: false,
-      //       // postedEmail: user.emailId, 
-      //     })
-      // })
-      // .catch(err => {
-
-      // })
     }
   }
 
@@ -133,17 +111,9 @@ class SignUp extends Component {
               </form>
               <div className='login_flex'>
                 <Link to="/"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>로그인</div></Link>
-                <Link to="/findpw"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>아이디/비밀번호 찾기</div></Link>
               </div>
             </div>
           </div>
-          {/*
-          <div className="footer">
-            <div>
-              <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
-            </div>
-          </div>
-        */}
         </div>
       )
     }

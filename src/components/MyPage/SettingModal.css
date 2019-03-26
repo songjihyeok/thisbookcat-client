@@ -1,24 +1,130 @@
-.PhotoUploadModal {
-    justify-content: center;
-    position: relative;
-    left :50%;
+
+.PhotoUploadModal {position: relative; left :50%; justify-content: center;}
+.modal-footer {text-align: center;}
+.setting_item {position: relative; text-align: center;}
+.modal-body{text-align :center;}
+input#setting_input{text-align:center; display: inline-block;}
+.modal-dialog:after {clear:both; display:block; content:'';}
+.modal-footer {text-align: center; border-top:1px solid #ddd;}
+.modal-header {padding:34px 39px 0 39px; border-bottom:0;}
+.modal-header .close {margin:-25px -25px 0 0; font-size:34px;}
+.modal-title {margin-bottom:15px; font-family: 'Noto Sans KR'; font-size:24px;}
+.bookSearch_text {font-size:15px; color:#747474;}
+.modal-body {padding:40px 0;}
+.btn-default,
+.btn-default:hover,
+.btn-default:active {min-width:120px; padding:.8em 1.2em; font-size:15px; color:#fff; text-shadow:none; background:#3376ff; border:0; border-radius:1.4em; box-shadow:none;}
+.PhotoUploadModal {left:0;}
+.ui.input>input {border:0; opacity:0; cursor:pointer;}
+.fileUploadContent {width:100%; padding:20px 0;}
+.fileUploadContent:after {clear:both; display:block; content:'';}
+
+.userNameWrapper,
+.fileUpload {position:relative; width:360px; height:44px; padding:6px; vertical-align:middle; background-color:#f4f4f4; border-radius:22px; display:inline-block; border:0;}
+.getUserNameBox,
+.file_input_textbox {float:left; height:32px; padding-left:11px; vertical-align:middle; background-color: #f4f4f4; border:none;}
+.getUserNameBox:focus,
+.file_input_textbox:focus {outline: none !important;}
+.selectUserName,
+.file_input_button {float:right; min-width:100px; padding:7px; font-size:15px; text-align:center; color:#fffefe; background-color:#3376ff; border: none; border-radius:16px;}
+
+.profileChange {margin:20px 0 10px 0; font-size:20px; text-align:left; padding-left:120px}
+.userNameChange  {margin:20px 0 10px 0; font-size:20px; text-align:left; padding-left:120px}
+.getUserNameBox,
+.file_input_textbox {width:calc(100% - 165px);}
+
+.file_input_hidden {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width:100%;
+  height:100%;
+  opacity: 0;
+  z-index:1;
+  cursor:pointer;
+  
+  filter: alpha(opacity=0);
+  -ms-filter: "alpha(opacity=0)";
+  -khtml-opacity: 0;
+  -moz-opacity: 0;
 }
 
-.modal-footer {
-    text-align: center;
-}
+.bookSearch_Wrap {min-width:300px;}
+.bookSearch_Api {position:relative; padding:0 40px;}
+.bookSearch_Api:after {clear:both; display:block; content:'';}
+h3.logo_aladin {width:56px; height:45px; margin:0; float:right; margin-right:19px; vertical-align:top; background:url('../../img/aladin.png') center center no-repeat; text-indent:-1000em; display:inline-block; overflow:hidden; }
+#contained-modal-title {display:inline-block}
+.bookSearch_Api > form {position:relative; width:280px; display:inline-block;}
+.bookSearch_Api .form-group {height:48px; margin-bottom:0;}
+.bookSearch_Api .form-group > label {display:none;}
+.bookSearch_Api .form-control {width:280px; height:48px; padding:0 55px 0 15px; border:1px solid #ddd; border-radius:24px; box-shadow:none;}
+.bookSearch_Api .form-control:focus,
+.bookSearch_Api .form-control.focus {color:#151515; border-color:#3376ff; box-shadow:none;}
+.bookSearch_Api .form-control:focus::-webkit-input-placeholder {color:transparent;}
+.bookSearch_Api .btn-info,
+.bookSearch_Api .btn-info:focus,
+.bookSearch_Api .btn-info:active {position:absolute; top:7px; right:5px; width:48px; height:34px; text-indent:-1000em; overflow:hidden; background:url('../../img/main-search-icon.png') center center no-repeat; border:0; opacity:.7; z-index:1; box-shadow:none; outline:none;}
+.bookSearch_Api .btn-info.focus,
+.bookSearch_Api .btn-info.focus:focus,
+.bookSearch_Api .btn-info.focus:active {background:url('../../img/search_icon_blue.png') center center no-repeat;}
+.bookSearch_Api .resultNum {padding:14px 0 20px 0; font-size:14px; color:#3376ff; line-height:18px; text-align:center;}
+.resultControl {padding-bottom:20px;}
+.resultControl > button {width:41px; height:41px; border:0; background:transparent; text-indent:-1000em; overflow:hidden;}
+.resultControl > button.prev {background:url('../../img/pre_btn_grey.png') no-repeat; margin-right:24px;}
+.resultControl > button.next {background:url('../../img/next_btn_grey.png') no-repeat;}
+.resultControl button.prev.active {background:url('../../img/pre_btn_blue.png') no-repeat !important;}
+.resultControl button.next.active {background:url('../../img/next_btn_blue.png') no-repeat !important;}
+.bookSearch_Api .btn-info i {display:none;}
+.modal-footer .btn-success,
+.modal-footer .btn-success[disabled] {width:280px; height:48px; font-size:15px; color:#fff; text-shadow:none; border:0; border-radius:24px; box-shadow:none; opacity:1;}
+.modal-footer .btn-success[disabled] {background-color:#dadada;}
+.modal-footer .btn-success,
+.modal-footer .btn-success:active,
+.modal-footer .btn-success:visited {background:#3376ff;}
+
+.bookInfo_view {position:relative;}
+.bookInfo_view h3.logo_aladin {position:absolute; top:0; left:40px;}
+.bookInfo_view .book_thumbs {padding:0 0 30px 0; }
+.bookInfo_view .book_thumbs img {max-width:300px; margin:auto;}
+.bookInfo_view a {padding:30px 40px 0 40px; font-size:14px; color:#747474; border-top:1px solid #ddd; display:block;}
+.bookInfo_view a > span {display:block;}
+.bookInfo_view .book_title {margin-bottom:7px; font-size:16px; color:#151515;}
+.bookInfo_view .book_author,
+.bookInfo_view .book_publish,
+.bookInfo_view .book_price {padding-right:15px; display:inline-block;}
+.bookInfo_view .book_price b {color:#3376ff;}
+.bookInfo_view .book_author:after,
+.bookInfo_view .book_publish:after {width:1px; height:12px; margin-left:15px; background-color:#ccc; display:inline-block; content:''; overflow:hidden;}
+.bookInfo_view .book_descript {padding-top:15px;}
 
 
-.setting_item{
-    text-align: center;
-    position: relative;
-}
+.agreeLayout {padding:0 40px; text-align:left;}
+.agreeContent {margin-top:25px;}
+.agreeContent:first-child {margin:0;}
+.agreeContent .policy {height:180px; padding:20px; border:1px solid #aaa; background-color:#f4f4f4; overflow-y:scroll;}
+.agreeCheck {margin-top:15px;}
+.agreeCheck label {padding-top:3px; display:inline-block;}
+.agreeCheck label:before {position:relative; width:24px; height:24px; margin:-3px 8px 0 0; vertical-align:middle; font-size:14px; background:url('../../img/input_check.gif') no-repeat; display:inline-block; content:'';}
+.agreeCheck input[type="checkbox"] {position:absolute; top:0; left:0; visibility:hidden; z-index:-1;}
+.agreeCheck input[type="checkbox"]:checked + label:before {background-position:0 -24px;}
+.policy {width:100%; white-space:pre-wrap; border:0; word-break:break-all; border:1px solid #f00;}
 
-.modal-body{
-    text-align :center;
-}
 
-input#setting_input{
-    display: inline-block;
-    text-align:center;
+@media all and (max-width: 768px) {
+  .fileUpload,
+  .userNameWrapper {width:90%;}
+  .file_input_div {position:relative;}
+  .file_input_textbox {width:calc(100% - 114px);}
+  /* .modal-manage { width: 90%; } */
+  .modal-body {position:static;}
+  .modal-header {padding:34px 20px 0 20px;}
+  .modal-header .close {position:absolute; top:-45px; right:0; margin:0; font-size:34px; color:#fff; opacity:1;}
+  .bookSearch_Api {position:static;}
+  .bookSearch_Api h3.logo_aladin {position:absolute; top:26px; left:auto; right:0;}
+  .modal-dialog {padding-top:50px;}
+  .bookInfo_view {position:static; width:100%;}
+  .bookInfo_view a {padding:20px 20px 0 20px;}
+  .bookInfo_view h3.logo_aladin {position:absolute; top:26px; left:auto; right:0;}
+  .profileChange {padding-left:20px}
+  .userNameChange  {padding-left:20px}
 }

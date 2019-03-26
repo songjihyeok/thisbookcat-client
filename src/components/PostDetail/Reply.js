@@ -10,7 +10,7 @@ export default class Reply extends Component {
   render() {
     const parentReply = this.props.reply[0];//얘가 가장 부모 댓글
     const { reply, postId, _getReply } = this.props;
-   
+  
     return (
       <Fragment>
         {(reply.length===1) //자식댓글이 없으면, 맵돌리지 말고, 바로 뿌리고,

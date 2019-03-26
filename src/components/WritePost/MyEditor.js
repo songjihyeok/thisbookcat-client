@@ -3,11 +3,20 @@ import { Editor } from "react-draft-wysiwyg";
 import "./MyEditor.css";
 import axios from "axios";
 import ReactQuill, {Quill} from "react-quill";
-// import windowScrollPosition from "window-scroll-position";
 import server_url from '../../url.json';
+import {ImageUpload} from 'quill-image-upload';
+import ImageResize from 'quill-image-resize-module';
+import {ImageDrop} from 'quill-image-drop-module';
+var ColorClass = Quill.import('attributors/class/color');
+var SizeStyle = Quill.import('attributors/style/size');
+Quill.register(ColorClass, true);
+Quill.register(SizeStyle, true);
+Quill.import('attributors/style/align')
+Quill.register('modules/imageResize', ImageResize);
+Quill.register('module/imageUpload', ImageUpload);
+Quill.register('modules/imageDrop', ImageDrop);
 
-// import ImageResize from 'quill-image-resize-module';
-// Quill.register('modules/imageResize', ImageResize);
+var imageUsing = null; 
 
 export default class MyEditor extends Component {
   constructor(props) {
@@ -15,77 +24,155 @@ export default class MyEditor extends Component {
     this.state = {
       // editorState: EditorState.createEmpty(),
       files: [],
-      editorHtml: null,
+      editorHtml: '',
       theme: "snow",
       title: "",
       scrollTop: 0,
       contents: "",
-      defaultvalue : ""
+      usingImgFiles :[]
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(html) {
+  async handleChange(html) {
     console.log("뭐가 들어있지?",html);
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
     this.setState({editorHtml: html});
+
+    await this.keepingUsingImgFiles();
+    await this.deleteUnusingImage(html);
   } // 글을 저장하는 함수입니다.
+
+  async keepingUsingImgFiles(){
+    if(imageUsing){
+      await this.setState({usingImgFiles: [...this.state.usingImgFiles,imageUsing]})
+      imageUsing=null;
+    }
+  }
+
+
+  async deleteUnusingImage(contents){
+    let usingImgFiles = this.state.usingImgFiles;
+    const token = window.localStorage.getItem('token')
+    const strReg = new RegExp("https://*[^>]*\\.(jpg|gif|png|jpeg)","gim");
+    let xArr =  contents.match(strReg);
+
+    if(!xArr){
+      xArr=[]; 
+    }
+
+    const imageNames= xArr.map((element)=>{
+      let splitedImageName=element.split('/')
+      return splitedImageName[splitedImageName.length-1]
+    })
+
+    for(let element of usingImgFiles){
+      if(!imageNames.includes(element)){
+      await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      }
+    }
+    this.setState({usingImgFiles: imageNames});
+    this.props._handleImages(imageNames)
+  }
+
+
 
 
   render() {
-    let editorHtml = this.state.editorHtml;
+    let editorHtml =this.state.editorHtml;
     let defaultTitle = this.props.title;
-    let defaultcontents = this.props.contents;
-    
+    let defaultcontents = this.props.contents 
+    console.log("editorHtml", editorHtml)
+    console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
     return (
-
-      <div className="Write-container">
-        <div style={{ marginLeft: -20 }}>
+      <div className="editor_container">
+        <div className="Write_title">
           <form>
             <input className="title" type="text" placeholder="Title"
               onChange={this.props._handleTitle} defaultValue={defaultTitle}/>
           </form>
         </div>
-        <div>
-          <div className="RichEditor-root">
-            <ReactQuill theme={this.state.theme}
-                        onChange={this.handleChange}
-                        defaultValue={defaultcontents}
-                        modules={Editor.modules}
-                        formats={Editor.formats}
-                        bounds={".app"}
-                        placeholder={"tell your story"}>
-            </ReactQuill>        
-          </div>
+        <div className="RichEditor-root">
+          <ReactQuill theme={this.state.theme}
+                      onChange={this.handleChange}
+                      defaultValue={defaultcontents}
+                      modules={Editor.module}
+                      formats={Editor.formats}
+                      bounds={".app"}
+                      placeholder={"tell your story"}>
+          </ReactQuill>        
         </div>
       </div>
     );
   }
 }
 
-Editor.modules = {
-  toolbar: [
-    [{ header: 1 }, { header: 2 }], // custom button values
-    ["bold", "italic", "underline", "strike"], // toggled buttons
-    ["blockquote"],
 
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-
-    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-    [{ align: [] }],
-    ["link", "image", "video"],
-    ["clean"]
-  ],
+Editor.module = {
+  toolbar: {
+    container : [
+      [{ header: 1 }, { header: 2 }], // custom button values
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+  
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"]
+    ],
+    handlers : {
+      image : imageHandler
+    }
+  },
+  imageResize: {
+          displayStyles: {
+            backgroundColor: 'black',
+            border: 'none',
+            color: 'white'
+          },
+          modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
+  },
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false
   },
-  // ImageResize: {
-  //   parchment: Quill.import('parchment')
-  // }
-};
-// 텍스트 에디터에서 사용하는 항목들 입니다.
+  imageDrop : true
+} 
+
+
+
+
+
+
+function imageHandler () {
+  console.log("imageHandler doing!")
+
+  const input = document.createElement('input');
+
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.click();
+  let token = window.localStorage.getItem('token')
+  input.onchange = async () => {
+    console.log("change");
+
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('imgFile', file);
+
+    // Save current cursor state
+    const range = this.quill.getSelection(true);
+ 
+    const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}});
+    imageUsing = res.data
+    this.quill.insertEmbed(range.index, 'image', `https://${server_url}/upload/${res.data}`); 
+    // Move cursor to right side of image (easier to continue typing)
+    this.quill.setSelection(range.index + 1);
+  }
+}
+
 
 Editor.formats = [
   "header",

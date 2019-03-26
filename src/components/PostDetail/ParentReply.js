@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Icon } from "semantic-ui-react"
 import axios from 'axios'
 import server_url from '../../url.json'
 import profileimage from "../../img/다운로드.png"
@@ -19,7 +18,11 @@ export default class ParentReply extends Component {
 
   _newReReply = e => { //input 창에 걸어주는 onChange 함수
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
-    const { userName, id, } = this.props.reply
+    e.preventDefault();
+    let { userName, id, } = this.props.reply
+    if(!userName){
+      userName = '지나가는 행인'
+    }
     this.reComment = {
       replyContents: e.target.value,
       parentsReplyId: id,
@@ -27,9 +30,27 @@ export default class ParentReply extends Component {
     }
   }
 
-  _makeReReply = async () => { //input창에 쓴거 submit 하면 post 날리는 함수.
+  _handleKeyPress= (e)=>{
+    if (e.keyCode == '13') {
+    e.preventDefault();  
+    this._makeReReply(e);
+    }   
+  }
+
+
+
+  _userNamecontroller = (userName)=>{
+    if(!userName){
+      return '@'
+    }
+    return `@${userName}`
+  }
+
+
+  _makeReReply = async (e) => { //input창에 쓴거 submit 하면 post 날리는 함수.
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
     // const res_postReReply = 
+    e.preventDefault();
     await axios.post(`https://${server_url}/api/reply2/${this.props.postId}`, this.reComment, this.authHeader)
     // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();
@@ -45,8 +66,7 @@ export default class ParentReply extends Component {
   render() {
     console.log('ParentReply.js의 render 함수에서 this.props.reply 찍는중....', this.props.reply)
     // console.log('ParentReply.js의 render 함수에서 this.props 찍는중....', this.props)
-    const { userName, replyContents, profileImage, createdTime, istheReplier } = this.props.reply;
-    
+    let { userName, replyContents, profileImage, createdTime, istheReplier } = this.props.reply;
     return (
       <ul className='parent_reply'>
         <li className="reply_userinfo">
@@ -68,7 +88,10 @@ export default class ParentReply extends Component {
             ? <button className='make_rereply btn_del' onClick={this._deleteReply}>{`삭제 `}</button>
             : null
             }
-            <button className='make_rereply btn_wr_reply' onClick={this._handleReReplyInput}>댓글달기</button>
+             {(this.state.show_reReplyInput)
+            ? null
+            : <button className='make_rereply btn_wr_reply' onClick={this._handleReReplyInput}>답글달기</button>
+             }
           </div>
         </li>
         
@@ -77,12 +100,8 @@ export default class ParentReply extends Component {
         ?
         <li id="rereply">
           <form>
-          <textarea className="rereply_input" type="text" name="reply" placeholder={`@${userName}`} onChange={this._newReReply}></textarea>
-          <span className="rereply_btn" onClick={this._makeReReply}>등록
-          {/*
-            <Icon name="pencil alternate" bordered inverted color='grey' fitted size="small" />
-          */}
-          </span>
+          <textarea className="rereply_input" type="text" name="reply" placeholder={this._userNamecontroller()} onChange={this._newReReply} onKeyDown={(e)=>{this._handleKeyPress(e)}}></textarea>
+          <span className="rereply_btn" onClick={this._makeReReply}>등록</span>
           </form>
         </li>
         : null

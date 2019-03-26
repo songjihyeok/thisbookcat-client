@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "semantic-ui-react";
-import Image from 'react-image-resizer'
-import server_url from '../../url.json'
-import axios from 'axios'
+import server_url from '../../url.json';
+import axios from 'axios';
+import Truncate from 'react-truncate-html';
+import defaultImage from '../../img/다운로드.png'
 
 
 class FollowingBoard extends Component {
@@ -66,41 +67,66 @@ class FollowingBoard extends Component {
     let token = window.localStorage.getItem('token')
     return axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postid}`, {
 			headers:{Authorization: `bearer ${token}`}})
-			.then(response=> response.data)
-			.then(response => this.setState({postUserInfo:response}))
+			.then(response=>{	
+				console.log(response.data)
+				if(response.status===200){
+					this.setState({postUserInfo:response.data})
+				} 
+				return;
+			})
+			.catch((err)=>{return;})
 		}
 
+	_handleProfileImage = ()=>{
+		if(!this.state.postUserInfo.profileImage){
+			return defaultImage;
+		}
+		return `https://${server_url}/upload/${this.state.postUserInfo.profileImage}`
+	}	
+
+
+	handleImage=()=>{
+		if(this.props.image===''&&this.props.bookData!=='null'){
+			let parsedBookData = JSON.parse(this.props.bookData);
+			let postImage = parsedBookData.cover;
+			// console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.props.image}`	
+	}	
+
   render() {
-		//   console.log(this.props.contents)
-		//   console.log(this.props.likecount)
-		console.log(this.state.postUserInfo)
+		let postedUserId =this.state.postUserInfo[0]
     return  (
 			<div className='FollowingBoard'>
-				<div className='UserInfoPart'>
-					<span className="postUserThumb"><img src={`https://${server_url}/upload/${this.state.postUserInfo.profileImage}`} className='postUserImage' alt={"postUserImage"} /></span>
-					<span className='postUsername'>{this.state.postUserInfo.userName}</span>
-				</div>
+     		 <Link to={`/postWriter/${postedUserId}`}>
+					<div className='UserInfoPart'>
+						<span className="postUserThumb"><img src={this._handleProfileImage()} className='postUserImage' alt={"postUserImage"} /></span>
+						<span className='postUsername'>{this.state.postUserInfo.userName}</span>
+					</div>
+				</Link>
 				<div className='imagePart'>
 					<Link to={{
 							pathname: `/postdetail/${this.props.postid}`,
-						/*  state : {
-											imgUrl : `https://picsum.photos/300/300?image=${this.props.url}`,
-											username : this.props.author,
-									} */
 					}}>
-						<Image className='FollowThumbnail' src={`https://${server_url}/upload/${this.props.image}`}
-									alt='bookcover' width={330} height={330} />
+						<img className='FollowThumbnail' src={this.handleImage()}
+									alt='bookcover' />
 					</Link>
 				</div>
 				<ul className='textPart'>
-					<li className='contentsPart'>{this.props.title}</li>
+					<li className='contentsPart'>
+						<h3 className="followingTitle">{this.props.title}</h3>
+						<div className="followingContent">
+							<Truncate lines={7} dangerouslySetInnerHTML={{__html:this.props.contents}} />
+						</div>
+					</li>
 					<li className='likeAndLikecount'>
 						{(this.state.liked)
 						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
 						}
 					</li>
-					<li className='followerTag' dangerouslySetInnerHTML={{__html:this.props.contents}}></li>
+					<li className='followerTag'></li>
 				</ul>
 			</div>
     )

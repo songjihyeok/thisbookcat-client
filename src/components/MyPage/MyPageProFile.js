@@ -5,9 +5,12 @@ import SettingModal from "./SettingModal";
 import MyBookBoard from "./MyBookBoard";
 import server_url from '../../url.json';
 //import './CSS/MyPageProFile.css'
-import defaultimage from '../../img/다운로드.png'
+import defaultimage from '../../img/다운로드.png';
+// import FollowingModal from './followingModal';
+import FollowedModal from './followedModal';
 
 class MyPageProFile extends Component {
+
   constructor(props, context) {
     super(props, context);
 
@@ -15,14 +18,20 @@ class MyPageProFile extends Component {
       show: false,
       author:'',
       counter: 0,
-      ProfileImage: defaultimage,
+      profileImage: defaultimage,
       myPosts: [],
-      myProfile: [],
       per: 16,
       page: 1,
       totalPage:'',
-      followed: 0,
-      following: 0
+      followData: '',
+      gotData:false,
+      likes: 0,
+      userName: "",
+      howManyPosts: 0,
+      loaded: false, 
+      followModalShow:false,
+      followingList: '',
+      followedList: ''
     };
   }
 
@@ -32,36 +41,51 @@ class MyPageProFile extends Component {
      await this._getFollowingFollowed()
      await this._callmyPostAPI()
      await this._getMyProfile()
-     await window.addEventListener('scroll', this._infiniteScroll, true)
+     await this.getUsingTags()
+     await window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
-  _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._infiniteScroll,false)
+  }
+
+  _infiniteScroll = async() => {
+    
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
-        this.setState({page: this.state.page + 1})
-        this._callmyPostAPI()
+       await this.setState({page: this.state.page+1, loading:false})
+       await this._callmyPostAPI()
       }
     }
+  }
+
+  getUsingTags = async() =>{
+    const token = window.localStorage.getItem('token')
+	
+		const selectedTags = await axios.get(`https://${server_url}/api/user/getpreference`, {
+			headers: {Authorization: `bearer ${token}`}
+		})
+    let {usingPreference} = selectedTags.data
+    this.setState({likes: usingPreference.length})
   }
 
   _getMyProfile = () => {
     axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
     .then(response => {
-      console.log( "이미지 있나?", response.data.profileImage)
-      if(response.data.profileImage){
-      this.setState({
-        myProfile: response.data,
-        ProfileImage: `https://${server_url}/upload/${response.data.profileImage}`
-      })
-      } else {
-        this.setState({
-          myProfile: response.data,
-          ProfileImage: defaultimage
-        })
+      if(response.status===400){
+        alert("잘못된 접근입니다.")
+        return;
       }
+      let profileImage = `https://${server_url}/upload/${response.data.profileImage}`
+      if(!response.data.profileImage){
+        profileImage= defaultimage
+      } 
+      this.setState({
+        userName: response.data.userName,
+        profileImage: profileImage, 
+        gotData: true
+      })
     })
   }
   
@@ -70,19 +94,22 @@ class MyPageProFile extends Component {
       headers: {Authorization: `bearer ${this.token}`}
     })
     .then(response => {
-      console.log("MyBook.js의 componentDidMount함수 안에서 axios.get 요청 후 받은 response.data___", response.data);
-      const allofarray = []
-      if(response.data.perArray){
+      let allofarray = []
+      if(response.data.perArray===undefined){
+        return;
+      }
+      if(response.data.perArray.length>0){
       response.data.perArray.forEach((element)=>{
         if(element){
           allofarray.push(element)
         }
       })
      }
-      console.log(allofarray);
       this.setState({
         totalPage: response.data.totalpage,
         myPosts: this.state.myPosts.concat(allofarray),
+        howManyPosts : response.data.howManyPosts,
+        loaded: true 
       });
     })
   }
@@ -92,32 +119,39 @@ class MyPageProFile extends Component {
       headers: {Authorization : `bearer ${this.token}`}
     })
     .then(response => {
-      //  console.log("follow response----" ,response);
-      //  console.log("response.data",response.data[1].length, "response.data2",response.data[3].length); 
+      console.log("responseOffollow", response)
       this.setState({
-        following: response.data[1].length,
-        followed: response.data[3].length
+        followData: response.data
       });
     })
   }
 
   _renderPost = () => {
+    if(this.state.myPosts.length>0){
     const posts = this.state.myPosts.map(post => {
+
       if (post) {
-        return <MyBookBoard image={post.mainImage} title={post.title} key={post.id}
-                            postid={post.id} likecount={post.likeCount} />
+        return <MyBookBoard image={post.mainImage} title={post.title} key={post.id} userName ={this.state.userName}
+                            postid={post.id} likecount={post.likeCount} bookData={post.bookData}/>
+      }else {
+        return null;
       }
     });
-    // console.log(this.state.myPosts)
     return posts
-  };
+    }
+  }
 
   _getImageFromModal = image => {
-    // console.log('_getImageFromModal 이 작동하고 있어요!!')
     if (image) {
       this._getMyProfile()
     }
   }
+
+
+  setUserName = (userName)=>{
+    this.setState({userName : userName})
+  }
+
 
   _handleHide = () => {
     this.setState({show: false});
@@ -126,56 +160,111 @@ class MyPageProFile extends Component {
   _handleShow = () => {
     this.setState({show: true})
   }
+  _logout = e => {
+    e.preventDefault();
+    window.localStorage.removeItem('token');
+    this.setState({isLogin: false})
+  }
+
+  changeTaste =()=>{
+    window.location.href="/picktaste";
+  }
+
+  _handlingUserName = ()=>{
+    if(!this.state.userName){
+      return null;
+    }
+    return <span className="ID_user">{this.state.userName}</span>
+  }
+
+  followerModal=()=>{
+    this.setState({followModalShow: true})
+  }
+
+  _handleFollowModalhide=()=>{
+    this._getFollowingFollowed();
+    this.setState({followModalShow: false})
+  }
+
+ _handleFollowModal=()=>{
+   if(this.state.followModalShow){
+     return <FollowedModal show={this.state.followModalShow} hide={this._handleFollowModalhide}  /> 
+   }
+ }
+
+
+
+
 
   render() {
-    // console.log("MyPageProfile.js의 render함수 안에서 this.state.ProfileImage 찍어보는 중입니다. ___", this.state.ProfileImage);
-    // console.log('myprofile', this.state.myProfile)
-    // console.log('totalpage', this.state.totalPage)
-    // console.log('myprofile', this.state.myPosts)
-    // console.log(this.state.page)
-    // console.log(this.state.totalPage)
-    // console.log('this is profileImage', this.state.ProfileImage)
-    return (
-      <div className="MyPageProFile">
-      <div className='profileContainer'>
-        <div className='myName'>
-          <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
+    if (!window.localStorage.getItem("token")) {
+      window.location.href= '/login';
+    } else if (!this.state.gotData || !this.state.followData){
+      return (
+      <div>
+        <div className="loading">loading <br/>
+        <button className="custom-icon" onClick={this._logout}>로그아웃</button>
         </div>
-        <div className="myProFileWrap">
-          <div className="ProFilePhotoContainer">
-            <img className="ProfilePhoto" src={this.state.ProfileImage} alt=""/>
-            <span className="ID_user">{this.state.myProfile.userName}</span>
-            <button className="custom-icon" onClick={this._handleShow}>관리</button>
+      </div>  
+      )
+    }
+    else {
+      return (
+        <div className="MyPageProFile">
+        <div className='profileContainer'>
+          <div className='myName'>
+            <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
           </div>
-          <ul className="ProFileDetailContainer">
-            <li className='MyPostNumberContainer'>
-              <span className='PostNumberText'>게시물</span>
-              <span className='PostNumber'>{this.state.myPosts.length}</span>
-            </li>
-            <li className='FollowingContainer'>
-              <span className='FollowingText'>팔로잉</span>
-              <span className='FollowingNumber'>{this.state.following}</span>
-            </li>
-            <li className='FollowerContainer'>
-              <span className="FollowerText">팔로워</span>
-              <span className='FollowerNumber'>{this.state.followed}</span>
-            </li>
-          </ul>
+          <div className="myProFileWrap">
+            <dl className="ProFilePhotoContainer">
+              <dt>
+                <img className="ProfilePhoto" src={this.state.profileImage} alt=""/>
+              </dt>
+              <dd>
+                {this._handlingUserName()}
+                <div className="button_area">
+                  <button className="custom-icon" onClick={this._handleShow}>프로필 관리</button>
+                  <button className="custom-icon" onClick={this._logout}>로그아웃</button>
+                </div>
+              </dd>
+            </dl>
+            <ul className="ProFileDetailContainer">
+              <li>
+                <span className='InfoName'>선택한 취향</span>
+                <b>{this.state.likes}<button className="change_taste" onClick={()=>this.changeTaste()}>변경</button></b>
+              </li>
+              <li>
+                <span className='InfoName'>게시물</span>
+                <b>{this.state.howManyPosts}</b>
+              </li>
+                <li>
+                  <span className='InfoName'>팔로워</span>
+                  <b>{this.state.followData[1].length}</b>
+                  {/* <FollowingModal/> */}
+                </li>
+                <li onClick={()=>this.followerModal()}>
+                  <span className="InfoName">팔로잉</span>
+                  <b>{this.state.followData[3].length}</b>
+                </li>
+            </ul>
+          </div>
         </div>
-      </div>
-        <SettingModal show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal}/>
-        <div className='myBookBoardContainer'>
-        <div className='myBookShelf'>
-        <span className='myBookShelfText'>
-        <Icon name='book' size="big"/>
-        내 서재
-        </span>
+         {this._handleFollowModal()}
+          <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
+          <div className='myBookBoardContainer'>
+            <div className='myBookShelf'>
+              <span className='myBookShelfText'>
+                <Icon name='book' size="big"/>내 서재
+              </span>
+            </div>
+            <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=4 ? 'left' : 'center'}}>
+            {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
+            {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
+            </div>
+          </div>
         </div>
-          {(this.state.myPosts[0] === undefined) ? <div className="dataNone">아직 올린 게시물이 없습니다!</div> : this._renderPost()}<br/>
-          {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
-        </div>
-      </div>
-    )
+      )
+    }
   }
 }
 

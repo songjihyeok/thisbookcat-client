@@ -1,21 +1,19 @@
 import React, { Component } from "react";
-// import Nav1 from "../components/Nav1";
-// import '../components/Login/Login.css';
-// import { Icon } from "semantic-ui-react";
-import { Link, Redirect } from "react-router-dom";
-// import { Button } from 'react-bootstrap'
+import {Link,Redirect } from "react-router-dom";
 import axios from 'axios';
 import server_url from '../url.json';
-import book from "../img/book-img.png";
+
 
 
 class Login extends Component {
   state = {
     email : '',
+    userID: '',
+    picture:'',
     password : '',
     isLogin : false,
     login_err: false,
-    preference: [],
+    preference: this.props.pickedOrNot || [],
   }
 
   _setEmail = e => {
@@ -54,51 +52,27 @@ class Login extends Component {
         this.setState({
               isLogin : false,
               login_err : true})
-//     }
-//     catch (err){
-//         alert("아이디나 비번이 맞지 않습니다. 다시 확인해주세요.")
     }
   }
 
-  _googleAuth = (e) => {
-    axios.get(`https://${server_url}/auth/google`)
-    .then(res => {
-      console.log('google Auth res입니다.', res)
-    })
-    .catch(err =>{
-      console.log("무슨 에러니?",err);
-      throw new Error(err)
-    })
-  }
-
   render() {
-    if (window.localStorage.getItem('token') && this.state.preference.length) {
-      return <Redirect to ='/' />;
-    } else if (window.localStorage.getItem('token') && this.state.preference.length === 0) {
-      return <Redirect to ='/picktaste' />;
+
+    if (window.localStorage.getItem('token')) {
+      return <Redirect to ='/' /> 
     } else {
       return (
         <div className="backImg">
-          {/* <div className='login_container' >
-            <div className='login_container_1'> */}
-              {/* <div className='login_body'> */}
                 <div className='login_body'>
                   <div className='login_container'>
-                    <div className='title1'>책을 읽고, 이야기를 나누다</div>
-                    <div className='title2'>
-                      <svg xmlns="https://www.w3.org/2000/svg" width="200" height="44">
-                        <text fill="#FEFEFE" fontFamily="BM DoHyeon OTF" fontSize="47.061" transform="translate(.392 35.64) scale(.93495)">
-                          Afteread
-                        </text>
-                      </svg>
-                    </div>
-                    {(this.state.login_err)
-                    ?
-                      <div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>
-      
-                    : <div className='title3'>Afteread에 오신 것을 환영합니다</div>
-                    }
-                    
+                    <h1 id="logo">
+                      <div className="textLogo">책을 인스타처럼</div>
+                      <div className="imageLogo">애프터리드</div>
+                      <div className="textLogo">로그인 해주세요</div>
+                    </h1>
+
+                    {/*}
+                    {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>애프터리드에 오신 것을 환영합니다</div>}
+                    */}
                     <form onSubmit={this._handleSubmit}>
                       <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
                                   onChange={this._setEmail}/>
@@ -108,29 +82,24 @@ class Login extends Component {
                       </div>
                       <div><button id="custom_btn_continue" type='submit' className='login_btn'>계속하기</button></div>
                     </form>
-                    <div style={{color: '#ffffff', fontSize: '13.8px', marginTop: '14px', marginBottom: '24px'}}>
-                      또는
-                    </div>
-                    <div><button id="custom_btn_facebook" className='login_btn'>FACEBOOK으로 계속하기</button></div>
-                    <div><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></div>
+
+
+                    <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_kakao" className='login_btn' >KAKAO로 계속하기</button></a></div> 
+                    <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_naver" className='login_btn' >NAVER로 계속하기</button></a></div> 
+                    <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div>
+                   
+                   {/* <FACEBOOK></FACEBOOK>  */}
+                    <div><a href="https://server.afteread.net/auth/google"><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></a></div>
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
+                    
+                     
                     <div className='login_flex'>
-                      <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                      <Link to="/findpw"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>아이디/비밀번호 찾기</div></Link>
+                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
                     </div>
                   </div>
                 </div>
-              {/* 20190116 삭제
-              <div className="footer">
-                <div>
-                  <img className="book_deco" src={book} style={{width: '85%', height: 'auto'}} alt='deco'></img>
-                </div>
-              </div>
-              */}
             </div>
-          /* </div>
-        </div> */
     );
   }}
 }

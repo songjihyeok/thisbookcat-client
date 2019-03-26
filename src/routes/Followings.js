@@ -3,7 +3,6 @@ import FollowingBoard from "../components/Followings/FollowingBoard";
 import Nav1 from "../components/Nav1";
 import axios from 'axios';
 import server_url from '../url.json';
-import _ from "lodash";
 import { Redirect } from "react-router-dom";
 
 //import "../components/Followings/CSS/Followings.css"
@@ -12,35 +11,42 @@ class Followings extends Component {
 
   state = {
     page: 1,
-    per: 7,
+    per: 3,
     totalPage:'',
-    followPost:[]
+    followPost:[],
+    getData: false,
+    loaded: false
   };
 
   componentDidMount() {
     this._getFollowPosts()
-    window.addEventListener('scroll', this._infiniteScroll, true)
+    window.addEventListener('scroll', this._infiniteScroll,false)
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
   _infiniteScroll = () => {
-    let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-    let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight === scrollHeight) {
-        if (this.state.page !== this.state.totalPage) {
-          this.setState({page: this.state.page+1})
-          this._getFollowPosts()
-        }
+    
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
+      if (this.state.page !== this.state.totalPage) {
+         this.setState({page: this.state.page+1, loaded:false})
+         this._getFollowPosts()
+      }
     }
   }
+
 
   _renderFollowingPost = () => {
     // console.log('this is following post',this.state.followPost)
     if (this.state.followPost) {
       const follow = this.state.followPost.map((url, index) => {
         if (url) {
-          return <FollowingBoard image={url.mainImage} key={index} title={url.title}
+          return <FollowingBoard image={url.mainImage} key={index} title={url.title} bookData={url.bookData}
                                 likecount={url.likeCount} contents={url.contents} postid={url.id} />
+        }else {
+          return null;
         }
       })
       return follow
@@ -50,8 +56,9 @@ class Followings extends Component {
 
   _getFollowPosts = async () => {
     const followPost = await this._callFollowAPI()
-    this.setState({followPost: this.state.followPost.concat(followPost)})
-    console.log(this.state.followPost)
+    if(followPost){
+      this.setState({followPost: this.state.followPost.concat(followPost)})
+    }
   };
 
   _callFollowAPI = () => {
@@ -59,69 +66,32 @@ class Followings extends Component {
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      this.setState({totalPage: response.data.totalpage})
-      // console.log(response.data)
+      this.setState({totalPage: response.data.totalpage, getData:true, loaded:true})
+      console.log(response.data)
       return response.data.perArray
     })
   };
 
   render() {
-    const { followPost, page, totalPage } = this.state;
-    const noFollowList = _.isEmpty(followPost);
-    console.log(noFollowList);
+    let { followPost, getData } = this.state;
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
+    } else if(!getData){
+      return <div>loading</div>
     } else {
       return (
         <Fragment>
           <Nav1/>
           <div className="Followings">
-          <div className='FollowingBoards'>
-          {noFollowList? <span>팔로우하신 유저가 없습니다!</span> : this._renderFollowingPost()}
-          {page === totalPage ? <div className="dataNone">더이상 콘텐츠가 없습니다!</div> : ''}
-          </div>
+            <div className='FollowingBoards'>
+            {followPost.length===0? <div className="dataNone">팔로우하신 유저가 없습니다!</div> : this._renderFollowingPost()}
+            </div>
           </div>
         </Fragment>
       );
     }
-  }
+  }  
 }
 
 export default Followings;
-
-/* _infiniteScroll = () => {
-  let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-
-  let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-
-  let clientHeight = document.documentElement.clientHeight;
-  
-  if(scrollTop + clientHeight === scrollHeight) {
-    console.log(this.state.coverurl)
-    if(!this.state.preCoverUrl) {
-      this.setState({preCoverUrl:this.state.coverurl})
-    } else if (this.state.preCoverUrl) {
-      this.setState({preCoverUrl:this.state.preCoverUrl.concat(this.state.coverurl)})
-      console.log(this.state.preCoverUrl)
-    }
-    this.setState({
-      preItems: this.state.items,
-      items: this.state.items+20,
-    })
-    console.log(this.state.preItems)
-    console.log(this.state.items)
-    console.log(this.state.coverurl)
-  }
-  this._getUrls()
-} */
-
-  /* _renderPreBooKCoverImage = () => {
-    if(this.state.preCoverUrl) {
-      const bookcover = this.state.preCoverUrl.map((url) => {
-        return < url={url.id} author={url.author} key={url.id} />;
-      });
-      return bookcover;
-    }
-  }; */
-
 

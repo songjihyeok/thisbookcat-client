@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Images, { Image } from 'react-bootstrap'
+import { Image } from 'react-bootstrap'
 
 class Block extends Component {
 
@@ -8,7 +8,7 @@ class Block extends Component {
   }
 
 _handleClick = (e) => {
-  console.log('이게 타겟입니다',e)
+  console.log('이게 타겟입니다',e.target.id)
     this._toggleBlockStatus();
     this._selectedCallBack(e.target.id)
 }
@@ -20,6 +20,7 @@ _changeCssonClick = () => {
       return 'Block'
     }
 }
+//블록 테두리 색깔 바꾸는거
 
 _selectedCallBack = e => {
   if (!this.state.isClicked) {
@@ -37,14 +38,23 @@ _toggleBlockStatus = () => {
   }
 }
 
+componentWillMount(){
+  if(this.props.already){
+    this.setState({isClicked :true})
+    this._changeCssonClick();   
+  }
+}
+
   render() {
+  
     return (
       <div className={this._changeCssonClick()} id = {this.props.select}
-          onClick={this._handleClick} key={this.props.key}>
-        <span className='tagName'>{this.props.select}</span>
+          onClick={this._handleClick} >
+        <div className='tagName'><span>{this.props.select}</span></div>
+        <div className='tagName'><span>{"this.props.select"}</span></div>
         <Image className='BlockImage' rounded
               src={this.props.imgUrl === 1 ? null : this.props.imgUrl}
-              alt={this.props.imgUrl === 1 ? null : 'blockimage'}/>
+              alt={null}/>
       </div>
     )
   }

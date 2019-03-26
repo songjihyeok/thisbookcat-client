@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { Icon } from "semantic-ui-react";
 import BookapiModal from "./BookapiModal";
-//import "./Bookapi.css";
+import Dotdotdot from 'react-dotdotdot';
 
 class Bookapi extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showmodal: false,
-      booktitle: ""
+      data: null
     };
     this._handleHide = this._handleHide.bind(this);
     this._handleBook = this._handleBook.bind(this);
@@ -19,8 +18,39 @@ class Bookapi extends Component {
   }
 
   _handleBook(data) {
-    this.setState({booktitle: data});
+    console.log("데이터는 들어갔구",data);
+    this.setState({data: data});
+    
+    this.props.bookData(data);
   }
+
+
+
+  _handlebookData(){
+
+    if(this.state.data){
+      return <div className="bookdetail">
+              {/*
+                <img src={this.state.data.cover}></img>
+                <div>책 제목 : {this.state.data.title}</div>
+                <div>{this.state.data.author}</div>
+                <div>{this.state.data.publisher}</div> 
+                <div>{this.state.data.description}</div> 
+              */}
+              <p className="thumbs"><img src={this.state.data.cover} alt="책커버이미지입니다"/></p>
+              <dl>
+                <dt>{this.state.data.title}</dt>
+                <dd>
+                  <div className="author">{this.state.data.author}</div>   
+                  <div className="publisher">{this.state.data.publisher}</div>
+                  <Dotdotdot clamp={2} className="descript">{this.state.data.description}</Dotdotdot>
+                </dd>
+              </dl>
+             </div>
+    }
+  }
+
+
 
   render() {
     return (
@@ -28,13 +58,8 @@ class Bookapi extends Component {
         {this.state.showmodal
         ? <BookapiModal showmodal={this.state.showmodal} handleHide={this._handleHide} handleBook={this._handleBook}/>
         : null}
-        <div className="searchBook" onClick={() => {this.setState({showmodal: true})}}>
-          <Icon name="book" size="huge" />
-          <div style={{display: "flex"}}><h1>책 검색하기</h1></div>
-        </div>
-        <div style={{flex: "0.2"}}>
-          {this.state.booktitle ? <h1>책 제목 : {this.state.booktitle}</h1> : null}
-        </div>
+        <div className="searchBook" onClick={() => {this.setState({showmodal: true})}}>책 검색하기</div>
+        {this._handlebookData()}
       </div>
     );
   }

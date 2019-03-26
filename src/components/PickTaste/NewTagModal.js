@@ -28,7 +28,7 @@ export default class NewTagModal extends Component {
 				<Modal show={this.props.show} container={this}
 							onHide={this.props.hide} aria-labelledby="contained-modal-title">
 					<Modal.Header closeButton>
-						<Modal.Title id="contained-modal-title">UploadModal</Modal.Title>
+						<Modal.Title id="contained-modal-title">원하는 태그를 적어주세요</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
 						<div className = 'NewTagUploadModal'>
