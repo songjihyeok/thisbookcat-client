@@ -13,7 +13,8 @@ import server_url from '../../url.json'
   _setUserName = () => {
     const inputData = document.getElementsByClassName('getUserNameBox')[0].value
     // console.log('TasteBoard.js > _setUserName 함수에서 inputData___', inputData)
-    this.setState ({userName:inputData})
+    this.setState ({userName:inputData, isOktoUse:false, confirmUN:false})
+
     // console.log('TasteBoard.js > _setUserName 함수에서 this.state.userName___', this.state.userName)
   }
   
@@ -21,7 +22,10 @@ import server_url from '../../url.json'
     e.preventDefault();
     const userName = this.state.userName;
     const token = window.localStorage.getItem('token')
-    // console.log('TasteBoard.js > _setUserName 함수에서 inputData___', username)
+    if( userName.length>15){
+      alert('너무 긴 유저네임입니다.')
+      return;
+    }
     if (userName === '') {
       alert('유저네임을 입력하셔야 합니다!')
     } else {

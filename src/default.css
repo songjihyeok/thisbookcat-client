@@ -12,7 +12,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s !important; }
-
+html { text-rendering: optimizeLegibility;}
 
 .App {max-width:2100px; margin:auto; }
 
@@ -34,7 +34,7 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
 .Main_tagsearch {text-align : center;}
 .loading {text-align:center; vertical-align: middle; margin:300px;}
-
+.NoMatch{text-align:center; vertical-align: middle; margin-top:300px; font-size: 30px}
 
 /* App */
 .App-logo {animation: App-logo-spin infinite 20s linear; height: 40vmin;}
@@ -231,19 +231,21 @@ input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0
 .post_detail {position:relative; min-height: calc(100% - 70px); margin: 0 200px;}
 .post_detail:before,
 .post_detail:after {clear: both; display:block; content:'';}
-.post_detail:before {position:absolute; top:0; left:60%; width:1px; height: 100%; border-left:1px solid #d0d0d0;}
+.post_detail:before {position:relative; top:0; left:60%; width:1px; height: 100%; border-left:1px solid #d0d0d0;}
 .post_detail_left {float: left; width: calc(60% - 46px); padding: 48px 23px;}
 .post-thumbs {max-width:100%; max-height:auto; text-align:center;}
 .post-thumbs img {box-shadow:none; border-radius:0;}
 .post_detail_left::-webkit-scrollbar {display: none;}
 .post_detail_left .post_detail_content {font-size: 25px; word-break:break-all;}
+.post_detail_left .post_detail_content p {line-height: 150%;}  
 .post_detail_left .post_detail_content img {max-width:100%;}
 .post_detail_3_reply {overflow : scroll; overflow-x: hidden;}
 .post_detail_3_reply::-webkit-scrollbar {display: none;}
 .post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 38px; background-color:#fff;}
 .user_thumbs {vertical-align:middle; display: inline-block;}
-.post_detail_username {margin:0; padding: 0 15px 0 5px; word-break:break-all; display:inline-block;}
-.user_thumbs .img-circle {margin:0 10px 0 0;}
+.post_detail_userinfo_wrapper { display:inline-block; width: 280px;}
+.post_detail_username {margin:0; padding: 0 15px 0 5px; word-break:break-all; display:inline-block; font-size:20px}
+.user_thumbs .img-circle {margin:0 10px 10px 0;}
 .user_buttons,
 .user_follow {margin-left:10px; display:inline-block;}
 .post_detail_3_reply .user_thumbs .img-circle {width:55px; height:55px;}
@@ -398,7 +400,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .FollowingBoards {
   position: relative;
   display: block;
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
@@ -471,14 +473,15 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 
 /* MyPageProFile */
+
 .MyPageProFile {position: relative; text-align: left; display: block; margin:0 100px;}
 .profileContainer {position:relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
 .myName {position: relative; padding-left:25px; display:block;}
 .ProfilePhoto {width: 90px; height: 90px; margin:0 auto; border-radius: 50%; display:inline-block;}
-.ProFilePhotoContainer {position: relative; width:35%; min-width:400px; padding:25px 0; vertical-align:middle; display: inline-block;}
+.ProFilePhotoContainer {position: relative; margin:0 10px; width:35%; min-width:400px; padding:25px 0; vertical-align:middle; display: inline-block; text-align: left}
 .ProFilePhotoContainer dt,
 .ProFilePhotoContainer dd {vertical-align:middle; display:inline-block;}
-.ProFilePhotoContainer dd {max-width:calc(100% - 120px); padding:10px 0; text-align:left;}
+.ProFilePhotoContainer dd {max-width:calc(100% - 120px); padding:10px 0; margin-left:10px; text-align:left;}
 .change_taste {min-width:56px; height:28px; margin:-4px 0 0 5px; padding:4px 8px; font-size:14px; color:rgba(59,50,50,.7); vertical-align:middle; background-color:#f8f8f8; border:1px solid #e5e5e5; border-radius:14px;}
 .button_area {padding:0 10px;}
 .button_area .custom-icon {margin-left:12px;}
@@ -782,6 +785,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .thisBook_Nav1 a,
   .thisBook_Nav2 a {width:auto;}
   .logoStyle {height:30px; width:80px;}
+  .loading { margin:200px 100px; }
 
   .backImg {position:absolute; overflow-y:auto; background-attachment:local;}
   .searchForm {width:calc(70% - 60px);}
@@ -815,6 +819,11 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .followingContent {font-size:25px;}
   .UserInfoPart {height:50px; padding:0 11px;}
   .imagePart {width:240px; height:240px; margin:20px auto; display:block;}
+  .followList li {width:100%; padding:0; color:#747474; line-height:19px; border-top:1px solid #ddd; text-align: left; vertical-align: middle;}
+  .followList .thumbs {width:90px; max-height:130px; margin:0; margin-right:25px; vertical-align:middle; margin:10px 10px 10px 15px;display:inline-block; overflow:hidden;} 
+  .followList dl > dt {width:13px; margin-left:10px}
+  .followList {margin-bottom: 0}
+  .followList .user_follow {margin-top: 40.5px; margin-right:10px}
   /*
   .imagePart {width:100%; height:auto; min-height:240px; margin-right:0; padding:20px 0; overflow:hidden;}
   .imagePart a {width:330px; height:auto; margin:0 auto; background-color:#595959;}
@@ -855,12 +864,11 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .tagName {font-size:15px;}
   .Block .BlockImage {width:calc(100% + 10px); min-width:50vw; min-height:auto;}
 
-  .MyPage {height:1000px !important;}
   .MyPageProFile {width:100%; margin:0}
   .profileContainer {width:100%; padding:23px 0;}
   .myProFileWrap {width:100%; padding:29px 0 0 0;}
   .myBookShelf {width:100%; margin:30px 0 25px 0;}
-  .ProFilePhotoContainer {width:100%; min-width:auto; padding:10px 0 30px 0;}
+  .ProFilePhotoContainer {width:100%; min-width:auto; text-align:left; padding:10px 0 30px 0;}
   .ProFilePhotoContainer dd {padding:10px 0 10px 10px}
   .ProFileDetailContainer {width:100%;}
   .ProFileDetailContainer li {min-width:auto;}

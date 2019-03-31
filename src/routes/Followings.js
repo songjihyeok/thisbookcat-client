@@ -4,7 +4,7 @@ import Nav1 from "../components/Nav1";
 import axios from 'axios';
 import server_url from '../url.json';
 import { Redirect } from "react-router-dom";
-
+import Loading from '../components/Spinner'
 //import "../components/Followings/CSS/Followings.css"
 
 class Followings extends Component {
@@ -31,7 +31,6 @@ class Followings extends Component {
   }
 
   _infiniteScroll = () => {
-    console.log(window.innerHeight, " ", window.scrollY, ' ', document.body.offsetHeight)
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-600)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
          this.setState({page: this.state.page+1, loaded:false})
@@ -41,9 +40,9 @@ class Followings extends Component {
   }
 
   _renderFollowingPost = () => {
-    // console.log('this is following post',this.state.followPost)
-    if (this.state.followPost) {
-      const follow = this.state.followPost.map((url, index) => {
+    console.log('this is following post',this.state.followPost)
+    if (this.state.followPost[0]) {
+      let follow = this.state.followPost.map((url, index) => {
         if (url) {
           return <FollowingBoard image={url.mainImage} key={index} title={url.title} bookData={url.bookData}
                                 likecount={url.likeCount} contents={url.contents} postid={url.id} writerName={url.writerName}
@@ -51,12 +50,12 @@ class Followings extends Component {
                                 writerId ={url.writerId}
                                 />
         }else {
-          return <div className="dataNone">팔로우하신 유저가 없거나 팔로잉 유저의 컨텐츠가 없습니다.!</div>
+          return null
         }
       })
       return follow
     }
-    return "Loading"
+    return <div className="dataNone">팔로우하신 유저가 없거나 팔로잉 유저의 컨텐츠가 없습니다.!</div>
   };
 
   _callFollowAPI = () => {
@@ -64,8 +63,8 @@ class Followings extends Component {
     return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
     .then(response => {
-      let result = response.data.perArra
-
+      let result = response.data.perArray || null
+      console.log("이게 맞는 문법이냐???", result)
       this.setState({totalPage: response.data.totalpage, 
                       loaded: true,
                       getData:true,
@@ -82,7 +81,7 @@ class Followings extends Component {
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else if(!getData){
-      return <div>loading</div>
+      return <Fragment><Nav1/><Loading/></Fragment>
     } else {
       return (
         <Fragment>

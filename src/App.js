@@ -18,34 +18,41 @@ import robots from './routes/robots'
 import agree from './routes/ModalAgree'
 import writerPage from './routes/WriterPage'
 import "./default.css";
+import NoMatch from "./routes/notFound";
+import { LastLocationProvider } from "react-router-last-location";
+import ScrollMemory from 'react-router-scroll-memory';
 
 
 class App extends Component {
   render() {
     return (
       <div className = 'App'>
-        <Router>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/robots.txt" component={robots}/>
-            <Route path="/redirect/:token/:agreed" component={redirect}/>
-            <Route path="/signup" component={SignUp} />
-            <Route path="/findpw" component={FindPw} />
-            <Route path="/resetpw" component={ResetPw} />
-            <Route path="/picktaste" component={PickTaste} />
-            <Route path="/main" component={Main} />
-            <Route path="/mylike" component={MyLike} />
-            <Route path="/followings" component={Followings} />
-            <Route path="/writepost/:postid" exact component = {editPost}/>
-            <Route path="/writepost" component={WritePost} />
-            <Route path="/postdetail" component={PostDetail} />
-            <Route path="/mypage" component={MyPage} />
-            <Route path="/agree" component={agree}/>
-            <Route path="/postWriter/:writerId" component={writerPage}/>
-            <Route path="/TagSearchPage/:TagName" exact component = {TagSearchPage}/>
-            <Route exact path="/" component={Main} />
-          </Switch>
-        </Router>
+          <Router>
+            <div>
+            <ScrollMemory/>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/robots.txt" component={robots}/>
+                <Route path="/redirect/:token/:agreed" component={redirect}/>
+                <Route path="/signup" component={SignUp} />
+                <Route path="/findpw" component={FindPw} />
+                <Route path="/resetpw" component={ResetPw} />
+                <Route path="/picktaste" component={PickTaste} />
+                <Route path="/main" component={Main} />
+                <Route path="/mylike" component={MyLike} />
+                <Route path="/followings" component={Followings} />
+                <Route path="/writepost/:postid" exact component = {editPost}/>
+                <Route path="/writepost" component={WritePost} />
+                <Route path="/postdetail/:postid" component={PostDetail} />
+                <Route path="/mypage" component={MyPage} />
+                <Route path="/agree" component={agree}/>
+                <Route path="/postWriter/:writerId" component={writerPage}/>
+                <Route path="/TagSearchPage/:TagName" exact component = {TagSearchPage}/>
+                <Route exact path="/" component={Main} />
+                <Route component={NoMatch}/>
+              </Switch>
+            </div>
+          </Router>
       </div>
     );
   }

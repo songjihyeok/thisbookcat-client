@@ -60,6 +60,7 @@ class Template extends Component {
   }
 
   render() {
+    console.log(this.props)
     const {
       activeModal,
       selectedImg,
@@ -67,10 +68,13 @@ class Template extends Component {
     } = this.state;
     const showRegisterModal = activeModal === ModalType.Register;
     const showSelectModal = activeModal === ModalType.Select;
+
     return (
       <div className="template">
         {showSelectModal && 
           <TemplateSelectModal
+            showmodal={this.props.showmodal}
+            handleHide={this.props.handleHide}
             selectedImg={selectedImg}
             onSelect={this.handleSelectedImage}
             onConfirm={() => this.handleCurrentModal(ModalType.Register)}
@@ -78,6 +82,8 @@ class Template extends Component {
         {showRegisterModal && 
           <TemplateRegisterModal
             text={text}
+            showmodal={this.props.showmodal}
+            handleHide={this.props.handleHide}
             selectedImg={selectedImg}
             onChange={this.handleInputChange}
             onUpload={this.handleUpload}

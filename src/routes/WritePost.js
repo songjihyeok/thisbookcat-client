@@ -17,7 +17,8 @@ class WritePost extends Component {
       posted: false,
       mainimage : [],
       bookData: null,
-      usingImage: []
+      usingImage: [],
+      showmodal:false
     }  
 
     _handleMainImage = savedFilename => {
@@ -55,14 +56,21 @@ class WritePost extends Component {
     }; // 글이 제대로 저장되면 true를 반환하여 페이지를 리다이렉트 시킵니다.
 
     setTemplate = (imgName)=>{
-      this.setState({mainimage: [imgName]})
-      
+      this.setState({mainimage: [imgName]}) 
     }
 
+    _handleHide=()=>{
+      console.log("왜 작동을 안하지")
+      this.setState({showmodal:false});
+    }
 
+    openTemplate=()=>{
+      console.log("showmodat")
+      this.setState({showmodal:true})   
+    } 
+  
   render() {
     // console.log(this.state.mainimage, this.state.title, this.state.contents);
-    console.log(this.state.posted, "납니까? ");
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
@@ -98,10 +106,12 @@ class WritePost extends Component {
                 <li>
                   <h3>사진을 저장하거나 책 검색을 하세요.</h3>
                   <div className="icon-wrapper">
-                    <Template getTemplate={(img)=>this.setTemplate(img)}/>
+                    {/* <div onClick={this.openTemplate}>
+                     <Template getTemplate={(img)=>this.setTemplate(img)} showmodal={this.state.showmodal} handleHide={this._handleHide}/>
+                    </div> */}
                     <Bookapi bookData={this._getBookData}/>
                   </div>
-                  {/* 버튼을 누르면 모달창이 띄워지고 api연결해서 책 검색하는 컴포넌트 입니다. */}
+              
                 </li>
               </ul>
                 {/* <MyEditors></MyEditors> */}

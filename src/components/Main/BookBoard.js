@@ -67,11 +67,12 @@ class BookBoard extends Component {
 	}	
 
 	render(){
+		window.localStorage.setItem("scrollY",window.scrollY)
 		return(
 				<div className ='bookBoard'>
 					<div className='imageContainer'>
-						<Link to={{ pathname : `/postdetail/${this.props.postid}` }}>
-							<Image className = 'mainThumbNail' alt='bookcover' /* width={240} height={240} */
+						<Link to={{ pathname : `/postdetail/${this.props.postid}`}}>
+							<Image className = 'mainThumbNail' alt='bookcover' 
 										src = {this.handleImage()}/>
 						</Link>
 						<div className='likeBar'>

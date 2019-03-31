@@ -7,16 +7,24 @@ import {
 import { FAKEDATA } from "./Template";
 
 class TemplateSelectModal extends Component {
+
+  handleHide=()=>{
+    console.log("버튼이시작은 되냐?")
+    this.props.handleHide()
+  }
+
   render() {
     const { selectedImg, onConfirm } = this.props;
+    console.log("false?",this.props.showmodal)
     return (
       <Modal 
         container={this} 
         dialogClassName="template-select-modal"
         aria-labelledby="contained-modal-title" 
-        show
+        show={this.props.showmodal}
       >
         <Modal.Header>
+          <button type="button" onClick={this.handleHide}className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <Modal.Title id="contained-modal-title">템플릿 고르기</Modal.Title>
         </Modal.Header>
         <Modal.Body className="template-select-modal-body">
