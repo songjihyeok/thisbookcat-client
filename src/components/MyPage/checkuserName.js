@@ -22,7 +22,7 @@ import server_url from '../../url.json'
     e.preventDefault();
     const userName = this.state.userName;
     const token = window.localStorage.getItem('token')
-    if( userName.length>15){
+    if( userName.length>10){
       alert('너무 긴 유저네임입니다.')
       return;
     }

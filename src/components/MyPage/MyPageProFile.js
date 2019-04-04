@@ -10,6 +10,7 @@ import defaultimage from '../../img/다운로드.png';
 import FollowedModal from './followedModal';
 import FollowingModal from './followingModal';
 import  WaitingLoader from '../Spinner'
+import reactTruncateHtml from "react-truncate-html";
 
 class MyPageProFile extends Component {
 
@@ -34,22 +35,28 @@ class MyPageProFile extends Component {
       followingModalShow:false,
       followedModalShow:false,
       followingList: '',
-      followedList: ''
+      followedList: '',
+      scrollY:0
     };
   }
                     
   token = window.localStorage.getItem('token')
 
    async componentDidMount() {
-     await this._getFollowingFollowed()
-     await this._callmyPostAPI()
-     await this._getMyProfile()
-     await this.getUsingTags()
+     await this._getFollowingFollowed();
+     await this._getPosts();
+     await this._getMyProfile();
+     await this.getUsingTags();
+     await this.getScrollY();
      await window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
 
   componentWillUnmount(){
+    let previousInfo = {"scrollY": window.scrollY , "myPost": this.state.myPosts, "page": this.state.page, "totalPage":this.state.totalPage }
+    let stringifiedInfo = JSON.stringify(previousInfo)
+    window.localStorage.setItem("previousMypage", stringifiedInfo);
+
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
@@ -58,70 +65,59 @@ class MyPageProFile extends Component {
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
        await this.setState({page: this.state.page+1, loading:false})
-       await this._callmyPostAPI()
+       await this._getPosts();
       }
     }
   }
 
-  getUsingTags = async() =>{
-    const token = window.localStorage.getItem('token')
-	
-		const selectedTags = await axios.get(`https://${server_url}/api/user/getpreference`, {
-			headers: {Authorization: `bearer ${token}`}
-		})
-    let {usingPreference} = selectedTags.data
-    this.setState({likes: usingPreference.length})
+  getScrollY=()=>{
+    window.scrollTo(0,this.state.scrollY)
   }
 
-  _getMyProfile = () => {
-    axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
-    .then(response => {
-      if(response.status===400){
-        alert("잘못된 접근입니다.")
+  _getPosts=async()=>{
+    let previousInfo =window.localStorage.getItem("previousMypage");
+    window.localStorage.removeItem("previousMypage");
+    
+    let parsedInfo = JSON.parse(previousInfo);
+  
+    console.log("parsedInfo---------------", parsedInfo);
+    let pageNumber = 0
+    if(parsedInfo){
+      pageNumber = parsedInfo.page
+      this.setState({myPosts:this.state.myPosts.concat(parsedInfo.myPost), 
+                    page: pageNumber, 
+                    scrollY: parsedInfo.scrollY ,
+                    totalPage:parsedInfo.totalPage,
+                    gotData:reactTruncateHtml,
+                    loaded:true
+                  })
+      console.log(this.state.myPosts)
+      
+      if(pageNumber === parsedInfo.totalPage){    
         return;
       }
-      let profileImage = `https://${server_url}/upload/${response.data.profileImage}`
-      if(!response.data.profileImage){
-        profileImage= defaultimage
-      } 
-      this.setState({
-        userName: response.data.userName,
-        profileImage: profileImage, 
-        gotData: true
-      })
-    })
+    }
+
+      let mypagePost= await this._callmyPostAPI();
+
+      this.setState({myPosts: this.state.myPosts.concat(mypagePost)})
   }
   
-  _callmyPostAPI = () => {
-    axios.get(`https://${server_url}/api/post/mypage/${this.state.per}/${this.state.page}`, {
+  _callmyPostAPI = async() => {
+    let resultOfMypage = await axios.get(`https://${server_url}/api/post/mypage/${this.state.per}/${this.state.page}`, {
       headers: {Authorization: `bearer ${this.token}`}
-    })
-    .then(response => {
-  
-      if(response.data.perArray===undefined){
-        this.setState({loaded:true})
-        return;
-      }
-      this.setState({
-        totalPage: response.data.totalpage,
-        myPosts: this.state.myPosts.concat(response.data.perArray),
-        howManyPosts : response.data.howManyPosts,
-        loaded: true 
-      });
-    })
+    })    
+    this.setState({
+        totalPage: resultOfMypage.data.totalpage,
+        loaded: true,
+        gotData: true
+    });
+    let result = resultOfMypage.data.perArray || null
+
+    return result;
   }
 
-  _getFollowingFollowed = () => {
-    axios.get(`https://${server_url}/api/follow/followingFollowedIds`, {
-      headers: {Authorization : `bearer ${this.token}`}
-    })
-    .then(response => {
-  
-      this.setState({
-        followData: response.data
-      });
-    })
-  }
+
 
   _renderPost = () => {
     if(this.state.myPosts.length>0){
@@ -142,64 +138,7 @@ class MyPageProFile extends Component {
     return <WaitingLoader />    
   }
 
-  _getImageFromModal = image => {
-    if (image) {
-      this._getMyProfile()
-    }
-  }
 
-
-  setUserName = (userName)=>{
-    this.setState({userName : userName})
-  }
-
-
-  _handleHide = () => {
-    this.setState({show: false});
-  };
-
-  _handleShow = () => {
-    this.setState({show: true})
-  }
-  _logout = e => {
-    e.preventDefault();
-    window.localStorage.removeItem('token');
-    this.setState({isLogin: false})
-  }
-
-  changeTaste =()=>{
-    window.location.href="/picktaste";
-  }
-
-  _handlingUserName = ()=>{
-    if(!this.state.userName){
-      return null;
-    }
-    return <span className="ID_user">{this.state.userName}</span>
-  }
-
-  followingModal=()=>{
-    this.setState({followingModalShow: true})
-  }
-
-  followedModel=()=>{
-    this.setState({followedModalShow: true})
-  }
-
-
-  _handleFollowModalhide=()=>{
-    this._getFollowingFollowed();
-    this.setState({followedModalShow: false, followingModalShow:false})
-  }
-
- _handleFollowModal=()=>{
-   if(this.state.followingModalShow){
-     return <FollowingModal show={this.state.followingModalShow} hide={this._handleFollowModalhide}/> 
-   }
-   if(this.state.followedModalShow){
-     return <FollowedModal show={this.state.followedModalShow} hide={this._handleFollowModalhide}/>
-   }
- }
 
   render() {
     if (!window.localStorage.getItem("token")) {
@@ -264,13 +203,113 @@ class MyPageProFile extends Component {
             </div>
             <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=3 ? 'left' : 'center'}}>
              {this._renderPost()}<br/>
-            {(this.state.page === this.state.totalPage) ? <div className="dataNone" /* style={{'textAlign':'center'}} */>'더이상 콘텐츠가 없습니다!'</div> : ''}
             </div>
           </div>
         </div>
       )
     }
   }
+
+  _getImageFromModal = image => {
+    if (image) {
+      this._getMyProfile()
+    }
+  }
+
+
+  setUserName = (userName)=>{
+    this.setState({userName : userName})
+  }
+
+
+  _handleHide = () => {
+    this.setState({show: false});
+  };
+
+  _handleShow = () => {
+    this.setState({show: true})
+  }
+  _logout = e => {
+    e.preventDefault();
+    window.localStorage.removeItem('token');
+    this.setState({isLogin: false})
+  }
+
+  changeTaste =()=>{
+    window.location.href="/picktaste";
+  }
+
+  _handlingUserName = ()=>{
+    if(!this.state.userName){
+      return null;
+    }
+    return <span className="ID_user">{this.state.userName}</span>
+  }
+
+  followingModal=()=>{
+    this.setState({followingModalShow: true})
+  }
+
+  followedModel=()=>{
+    this.setState({followedModalShow: true})
+  }
+
+
+  _handleFollowModalhide=()=>{
+    this._getFollowingFollowed();
+    this.setState({followedModalShow: false, followingModalShow:false})
+  }
+
+ _handleFollowModal=()=>{
+   if(this.state.followingModalShow){
+     return <FollowingModal show={this.state.followingModalShow} hide={this._handleFollowModalhide}/> 
+   }
+   if(this.state.followedModalShow){
+     return <FollowedModal show={this.state.followedModalShow} hide={this._handleFollowModalhide}/>
+   }
+ }
+
+  _getFollowingFollowed = () => {
+    axios.get(`https://${server_url}/api/follow/followingFollowedIds`, {
+      headers: {Authorization : `bearer ${this.token}`}
+    })
+    .then(response => {
+  
+      this.setState({
+        followData: response.data
+      });
+    })
+  }
+
+  getUsingTags = async() =>{
+    const token = window.localStorage.getItem('token')
+	
+		const selectedTags = await axios.get(`https://${server_url}/api/user/getpreference`, {
+			headers: {Authorization: `bearer ${token}`}
+		})
+    let {usingPreference} = selectedTags.data
+    this.setState({likes: usingPreference.length})
+  }
+
+  _getMyProfile = () => {
+    axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${this.token}`}})
+    .then(response => {
+      if(response.status===400){
+        alert("잘못된 접근입니다.")
+        return;
+      }
+      let profileImage = `https://${server_url}/upload/${response.data.profileImage}`
+      if(!response.data.profileImage){
+        profileImage= defaultimage
+      } 
+      this.setState({
+        userName: response.data.userName,
+        profileImage: profileImage, 
+        gotData: true
+      })
+    })
+  }
+
 }
 
 export default MyPageProFile;

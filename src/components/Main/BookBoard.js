@@ -30,7 +30,6 @@ class BookBoard extends Component {
 					liked:false,
 					likeCount: this.state.likeCount-1
 				})
-				// console.log('liked should change', this.state.liked)
 			})
 			.catch(error => console.log(error))
 		} else {
@@ -67,7 +66,7 @@ class BookBoard extends Component {
 	}	
 
 	render(){
-		window.localStorage.setItem("scrollY",window.scrollY)
+	
 		return(
 				<div className ='bookBoard'>
 					<div className='imageContainer'>

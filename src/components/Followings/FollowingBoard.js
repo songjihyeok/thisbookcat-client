@@ -69,12 +69,10 @@ class FollowingBoard extends Component {
 		let postedUserId= this.props.writerId;
     return  (
 			<div className='FollowingBoard'>
-     		 <Link to={`/postWriter/${postedUserId}`}>
 					<div className='UserInfoPart'>
 						<span className="postUserThumb"><img src={this._handleProfileImage()} className='postUserImage' alt={"postUserImage"} /></span>
 						<span className='postUsername'>{this.props.writerName}</span>
 					</div>
-				</Link>
 				<div className='imagePart'>
 					<Link to={{
 							pathname: `/postdetail/${this.props.postid}`,
@@ -87,7 +85,7 @@ class FollowingBoard extends Component {
 					<li className='contentsPart'>
 						<h3 className="followingTitle">{this.props.title}</h3>
 						<div className="followingContent">
-							<Truncate lines={7} dangerouslySetInnerHTML={{__html:this.props.contents}} />
+							<Truncate lines={8} dangerouslySetInnerHTML={{__html:this.props.contents}} />
 						</div>
 					</li>
 					<li className='likeAndLikecount'>

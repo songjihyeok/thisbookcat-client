@@ -11,36 +11,39 @@ class Followings extends Component {
 
   state = {
     page: 1,
-    per: 8,
+    per: 6,
     totalPage:'',
     followPost:[],
     getData: false,
-    loaded: false
+    loaded: false,
+    scrollY:0
   };
 
-  token = window.localStorage.getItem('token')
-
-
-  componentDidMount() {
-    this._callFollowAPI();
+  async componentDidMount() {
+    await this._getUrls();
+    await this.getScrollY();
     window.addEventListener('scroll', this._infiniteScroll,false)
   }
 
   componentWillUnmount(){
+    let previousInfo = {"scrollY": window.scrollY , "followPost": this.state.followPost, "page": this.state.page, "totalPage":this.state.totalPage }
+    let stringifiedInfo = JSON.stringify(previousInfo)
+    window.localStorage.setItem("previousFollow", stringifiedInfo);
+
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
   _infiniteScroll = () => {
-    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-600)&&this.state.loaded) {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-300)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
          this.setState({page: this.state.page+1, loaded:false})
-         this._callFollowAPI();
+         this._getUrls();
       }
     }
   }
 
   _renderFollowingPost = () => {
-    console.log('this is following post',this.state.followPost)
+    console.log("followpost 원해", this.state.followPost)
     if (this.state.followPost[0]) {
       let follow = this.state.followPost.map((url, index) => {
         if (url) {
@@ -58,20 +61,51 @@ class Followings extends Component {
     return <div className="dataNone">팔로우하신 유저가 없거나 팔로잉 유저의 컨텐츠가 없습니다.!</div>
   };
 
-  _callFollowAPI = () => {
+  getScrollY=()=>{
+    window.scrollTo(0,this.state.scrollY)
+  }
+
+  _getUrls= async()=>{
+    let previousInfo =window.localStorage.getItem("previousFollow");
+    window.localStorage.removeItem("previousFollow");
+  
+    let parsedInfo = JSON.parse(previousInfo);
+  
+    console.log("parsedInfo---------------", parsedInfo);
+    let pageNumber = 0
+    if(parsedInfo){
+      pageNumber = parsedInfo.page
+      this.setState({followPost:this.state.followPost.concat(parsedInfo.followPost), 
+                    page: pageNumber, 
+                    scrollY: parsedInfo.scrollY ,
+                    totalPage:parsedInfo.totalPage,
+                    getData:true
+                  })
+      
+      if(pageNumber === parsedInfo.totalPage){    
+        return;
+      }
+    }
+
+      let followPost= await this._callFollowAPI();
+
+      this.setState({followPost: this.state.followPost.concat(followPost)})
+  }
+
+
+  _callFollowAPI = async() => {
+
     let token = window.localStorage.getItem('token')
-    return axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
+    let resultOfFollow = await axios.get(`https://${server_url}/api/follow/posts/${this.state.per}/${this.state.page}`, {
                       headers:{Authorization: `bearer ${token}`}})
-    .then(response => {
-      let result = response.data.perArray || null
-      console.log("이게 맞는 문법이냐???", result)
-      this.setState({totalPage: response.data.totalpage, 
-                      loaded: true,
-                      getData:true,
-                      followPost: this.state.followPost.concat(result)
-                      })
-      return result;
-    })
+
+    this.setState({totalPage: resultOfFollow.data.totalpage, 
+                    loaded: true,
+                    getData:true,
+                    })
+    let result = resultOfFollow.data.perArray || null   
+
+    return result;
   };
 
 

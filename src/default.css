@@ -28,7 +28,7 @@ html { text-rendering: optimizeLegibility;}
 
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
-.bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px;}
+.bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px; margin-top:10px}
 .postTitle {padding:10px; font-size: 18px; color: #151515; font-weight: 500;}
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
@@ -61,7 +61,7 @@ html { text-rendering: optimizeLegibility;}
 
 /* Nav1 */
 .nav1,
-.nav2 {position:relative; z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
+.nav2 {position:sticky; z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
 .nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);}
 .nav2 {height:70px; border-bottom:1px solid #eaeaea;}
 .logoStyle {height:50px; width:150px;}
@@ -233,7 +233,7 @@ html { text-rendering: optimizeLegibility;}
 .post_detail:after {clear: both; display:block; content:'';}
 .post_detail:before {position:relative; top:0; left:60%; width:1px; height: 100%; border-left:1px solid #d0d0d0;}
 .post_detail_left {float: left; width: calc(60% - 46px); padding: 48px 23px;}
-.post-thumbs {max-width:100%; max-height:auto; text-align:center;}
+.post-thumbs {max-width:100%; max-height:auto; text-align:center; }
 .post-thumbs img {box-shadow:none; border-radius:0;}
 .post_detail_left::-webkit-scrollbar {display: none;}
 .post_detail_left .post_detail_content {font-size: 25px; word-break:break-all;}
@@ -243,12 +243,12 @@ html { text-rendering: optimizeLegibility;}
 .post_detail_3_reply::-webkit-scrollbar {display: none;}
 .post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 38px; background-color:#fff;}
 .user_thumbs {vertical-align:middle; display: inline-block;}
-.post_detail_userinfo_wrapper { display:inline-block; width: 280px;}
+.post_detail_userinfo_wrapper { display:inline-block; width: 100%; }
 .post_detail_username {margin:0; padding: 0 15px 0 5px; word-break:break-all; display:inline-block; font-size:20px}
 .user_thumbs .img-circle {margin:0 10px 10px 0;}
 .user_buttons,
-.user_follow {margin-left:10px; display:inline-block;}
-.post_detail_3_reply .user_thumbs .img-circle {width:55px; height:55px;}
+.user_follow {margin-left:10px; margin-right:130px;margin-top:21px; float:right; display:inline-block;}
+.post_detail_3_reply .user_thumbs .img-circle {width:50px; height:50px;}
 
 .ui.grey.button, 
 .ui.grey.buttons .button,
@@ -285,7 +285,7 @@ html { text-rendering: optimizeLegibility;}
 .ui.inverted.grey.button:hover {color:#939393; background-color:#fff; border:1px solid #939393;}
 .reply_username {margin-bottom:6px; font-size: 16px; font-weight: bold;}
 .reply_time {font-size: 12px; color: lightslategray;}
-.reply_targetName {font-size: 15px; font-weight: bold; color: mediumslateblue;}
+.reply_targetName {font-size: 15px; font-weight: bold; color: black;}
 .parent_reply, 
 .child_reply {
   margin:0;
@@ -550,7 +550,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .getUserName:focus {outline: none !important;}
 .selectUserName {float:right; padding:7px; font-size:15px; text-align:left; color:#fffefe; background-color:#3376ff; border: none; border-radius:16px;}
 .welcomeMesssage {padding:5px 0 0 10px; font-size:19px; color:#1e1e1e; display:inline-block;}
-.userNamePart {font-size:19px; text-align:center;}
+.userNamePart {font-size:19px; text-align:center; margin-bottom:10px;}
 .WelcomeUser {position: relative; color: black;}
 .Block {
   position: relative;
@@ -586,6 +586,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 
 /* WritePost */
 .writePost {min-height:100%; padding-bottom:55px; background-color:#f6f6f6;}
+.linkForWritepost {cursor: pointer;}
 .writePost:ater {clear:both; display:block; content:'';}
 .editWrap {max-width:1280px; margin:38px auto 0 auto; letter-spacing:-1px; background-color:#fff;}
 .write_container {padding:50px; text-align:center;}
@@ -793,7 +794,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .searchForm form:after {position:absolute; top:11px; left:10px; width:19px; height:20px; z-index:1; content:''; background-image: url("./img/main-search-icon.png"); background-size:19px 20px;}
   .search_input {width:100%; height:40px; padding-left:34px; font-size:14px;}
 
-  .bookBoardWrap {padding:8px 0 8px 8px; text-align:left; margin:0;}
+  .bookBoardWrap {padding:8px 0 8px 8px; text-align:left; margin-top:10px}
   .bookBoard {width:calc((100vw - 32px)/3); margin:0 0 8px 8px;}
   .bookBoard a {width:100%; height:100%; background-color:#595959; display:block;}
   .bookBoard:nth-child(3n+1) {margin-left:0px;}
@@ -810,9 +811,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail:after {display:none;}
   .post_detail_left {margin-top:48px; padding-top:20px;}
   .post_detail_right_2 {padding:0 0 0 20px;}
-  .post_detail_reply_input {width:calc(100% - 55px); height:34px; vertical-align:middle; border:0;}
-  .btn_reWrite {width:45px; height:34px;}
-  
+  .post_detail_reply_input {width:calc(100% - 55px); height:60px; vertical-align:middle; border:0;}
+  .btn_reWrite {width:45px; height:34px; margin-top:13px;}
+  .ql-video {width:300px; height:200px;}
+
   .Followings {height:calc(100% - 80px); padding:0 9px; background-color:#fff; margin:0}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
   .FollowingBoard {width:100%; padding:13px 0;}
@@ -821,9 +823,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .imagePart {width:240px; height:240px; margin:20px auto; display:block;}
   .followList li {width:100%; padding:0; color:#747474; line-height:19px; border-top:1px solid #ddd; text-align: left; vertical-align: middle;}
   .followList .thumbs {width:90px; max-height:130px; margin:0; margin-right:25px; vertical-align:middle; margin:10px 10px 10px 15px;display:inline-block; overflow:hidden;} 
-  .followList dl > dt {width:13px; margin-left:10px}
+  .followList dl > dt {width:140px; margin-left:10px}
   .followList {margin-bottom: 0}
   .followList .user_follow {margin-top: 40.5px; margin-right:10px}
+  .modal-dialog {width: 336px}
   /*
   .imagePart {width:100%; height:auto; min-height:240px; margin-right:0; padding:20px 0; overflow:hidden;}
   .imagePart a {width:330px; height:auto; margin:0 auto; background-color:#595959;}
@@ -835,17 +838,17 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail {padding-top:136px; margin:0}
   .post_detail_right_1_postWriter,
   .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0;}
-  .post_detail_right_1_postWriter {top:9px; height:88px; padding:19px;}
+  .post_detail_right_1_postWriter {top:9px; height:88px; padding:10px 30px}
   .postInfo {top:89px; padding-bottom:12px; border-bottom:1px solid #eaeaea;}
   .user_buttons {position:absolute; top:145px; left:0; width:100%; text-align:center; z-index:1;}
   .postContent {width:100%; min-width:100%; margin:0;}
   .post_detail_title {font-size:22px; line-height:34px;}
   .post_detail_3_reply {border-top:1px solid hsl(0, 0%, 92%);}
-  .post_detail_left .post_detail_content {font-size: 16px}
+  .post_detail_left .post_detail_content {font-size: 16px;}
   .post_detail_username {max-width:calc(100% - 130px); max-height:50px; line-height:25px; vertical-align:middle; overflow:hidden; color:black !important;}
   .img-circle {width:50px; height:50px;}
   .post_detail_3_reply .user_thumbs .img-circle {width:41px; height:41px;}
-  .user_follow {float:right; margin-top:10px;}
+  .user_follow {float:right; margin-top:16px;}
   .ui.teal.button,
   .ui.grey.button {padding:.5em .8em; font-size:13px;}
 
@@ -854,7 +857,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .userNameWrapper {width:80%; margin-bottom:13px; background-color:#fff; border:1px solid #ddd;}
   .getUserName {min-width:calc(100% - 75px); height:30px; padding-left:8px; background-color:#fff;}
   .welcomeMesssage {font-size:15px;}
-  .userNamePart {padding-bottom:30px; font-size:15px;}
+  .userNamePart {padding-bottom:10px; font-size:15px;}
   .btnTagAlign, .btnTagCommand {float:none !important;}
   .btnTagCommand {position:fixed; bottom:0; width:100%; padding:13px 0; background-color:#fff; border-top:1px solid #ddd; z-index:10;}
   .selectUserName {font-size:13px;}

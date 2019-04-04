@@ -98,7 +98,7 @@ export default class PostWriter extends Component {
             <div className="user_thumbs">{this._userImagecontrollor()}</div>
             <div className='post_detail_username'>{userName}</div>
           </Link>
-        </div>
+        
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
           <div className="user_buttons">
@@ -113,7 +113,7 @@ export default class PostWriter extends Component {
             }
           </div>
         }
-
+        </div>
       </div>
     )
   }

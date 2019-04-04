@@ -21,7 +21,7 @@ class TemplateSelectModal extends Component {
         container={this} 
         dialogClassName="template-select-modal"
         aria-labelledby="contained-modal-title" 
-        show={this.props.showmodal}
+        show
       >
         <Modal.Header>
           <button type="button" onClick={this.handleHide}className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

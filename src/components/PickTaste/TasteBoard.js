@@ -145,7 +145,7 @@ class TasteBoard extends Component {
     
 
 	_renderTasteBlock = () => {
-		console.log("안쓰는 취향", this.state.newTagUnUsing , "쓰는 취향" , this.state.newTagUsing); 
+		// console.log("안쓰는 취향", this.state.newTagUnUsing , "쓰는 취향" , this.state.newTagUsing); 
 		let newTagsObject = {};
 		if(this.state.newTagUnUsing.length>0){
 			this.state.newTagUnUsing.forEach((element)=>{ newTagsObject[element]=null})
@@ -239,7 +239,7 @@ class TasteBoard extends Component {
 				<Fragment>
 						<div className = 'WelcomeUser'>
 						<div className='userNamePart'>
-								<span className = 'welcomeMesssage'>마음에 드는 관심사를 선택해 주세요. (3개이상) <br/><br/>혹시 원하는 관심사가 없다면? 태그생성으로 만들어주세요!</span>
+								<span className = 'welcomeMesssage'>마음에 드는 관심사를 선택해 주세요. (3개이상) <br/><br/>혹시 원하는 관심사가 없다면? <br/><br/>태그생성으로 만들어주세요!</span>
 						</div>
 						<div className="btnTagAlign">
 							<button className = 'pref'>관심</button>

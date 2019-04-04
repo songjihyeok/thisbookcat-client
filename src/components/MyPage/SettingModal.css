@@ -50,7 +50,7 @@ input#setting_input{text-align:center; display: inline-block;}
 }
 
 .bookSearch_Wrap {min-width:300px;}
-.bookSearch_Api {position:relative; padding:20px 50px;}
+.bookSearch_Api {position:relative; padding:20px 30px;}
 .bookSearch_Api:after {clear:both; display:block; content:'';}
 h3.logo_aladin {width:56px; height:45px; margin:0; float:right; margin-right:19px; vertical-align:top; background:url('../../img/aladin.png') center center no-repeat; text-indent:-1000em; display:inline-block; overflow:hidden; }
 #contained-modal-title {display:inline-block}
@@ -80,10 +80,10 @@ h3.logo_aladin {width:56px; height:45px; margin:0; float:right; margin-right:19p
 .modal-footer .btn-success[disabled] {background-color:#dadada;}
 .modal-footer .btn-success,
 .modal-footer .btn-success:active,
-.modal-footer .btn-success:visited {background:#3376ff;}
+.modal-footer .btn-success:visited {background:hsl(220, 100%, 60%);}
 
 .bookInfo_view {position:relative;}
-.bookInfo_view h3.logo_aladin {position:absolute; top:0; left:40px;}
+.bookInfo_view h3.logo_aladin { position:absolute; top:0; left:40px;}
 .bookInfo_view .book_thumbs {padding:0 0 30px 0; }
 .bookInfo_view .book_thumbs img {max-width:300px; margin:auto;}
 .bookInfo_view a {padding:30px 40px 0 40px; font-size:14px; color:#747474; border-top:1px solid #ddd; display:block;}
@@ -120,6 +120,7 @@ h3.logo_aladin {width:56px; height:45px; margin:0; float:right; margin-right:19p
   .modal-header {padding:34px 20px 0 20px;}
   .modal-header .close {position:absolute; top:-45px; right:0; margin:0; font-size:34px; color:#fff; opacity:1;}
   .bookSearch_Api {position:static;}
+  .writeInfo_load h3 {width:130px;}
   .bookSearch_Api h3.logo_aladin {position:absolute; top:26px; left:auto; right:0;}
   .modal-dialog {padding-top:50px;}
   .bookInfo_view {position:static; width:100%;}
@@ -128,4 +129,5 @@ h3.logo_aladin {width:56px; height:45px; margin:0; float:right; margin-right:19p
   .bookInfo_view img{ max-height: 200px}
   .profileChange {padding-left:20px}
   .userNameChange  {padding-left:20px}
+  h3.logo_aladin {width:85px}
 }

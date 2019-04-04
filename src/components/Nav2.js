@@ -24,7 +24,6 @@ class Nav2 extends Component {
     }
     console.log("이게 수정이니 아니니?",this.props.posting.isedit)
     let bookData = this.props.posting.bookData
-    console.log("bookData", typeof(bookData));
     if(typeof(bookData)!=="string"){
       bookData = JSON.stringify(this.props.posting.bookData)
        //스트링이 아닐 경우에만 적용
@@ -51,7 +50,6 @@ class Nav2 extends Component {
       return false;
     }
     let postid= window.location.href.split('/').pop();
-    console.log("주소?",postid);
     
     if(this.props.posting.isedit){
       console.log("api/edit")
