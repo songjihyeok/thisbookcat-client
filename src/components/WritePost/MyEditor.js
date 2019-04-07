@@ -5,6 +5,8 @@ import axios from "axios";
 import ReactQuill, {Quill} from "react-quill";
 import server_url from '../../url.json';
 import {ImageUpload} from 'quill-image-upload';
+import {getOrientedImage} from 'exif-orientation-image'
+import * as loadImage from "blueimp-load-image";
 import ImageResize from 'quill-image-resize-module';
 import {ImageDrop} from 'quill-image-drop-module';
 var ColorClass = Quill.import('attributors/class/color');
@@ -57,6 +59,7 @@ export default class MyEditor extends Component {
     const strReg = new RegExp("https://*[^>]*\\.(jpg|gif|png|jpeg)","gim");
     let xArr =  contents.match(strReg);
 
+    console.log("xArr?",xArr)
     if(!xArr){
       xArr=[]; 
     }
@@ -68,7 +71,8 @@ export default class MyEditor extends Component {
 
     for(let element of usingImgFiles){
       if(!imageNames.includes(element)){
-      await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      let resultOfDelete= await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      console.log("delete", resultOfDelete)
       }
     }
     this.setState({usingImgFiles: imageNames});
@@ -142,10 +146,6 @@ Editor.module = {
 } 
 
 
-
-
-
-
 function imageHandler () {
   console.log("imageHandler doing!")
 
@@ -155,23 +155,45 @@ function imageHandler () {
   input.setAttribute('accept', 'image/*');
   input.click();
   let token = window.localStorage.getItem('token')
-  input.onchange = async () => {
-    console.log("change");
+    input.onchange = async () => {
+      try{
+        console.log("change");
+      
+        let file = input.files[0];
 
-    const file = input.files[0];
-    const formData = new FormData();
-    formData.append('imgFile', file);
+        const fileType = file.type;
+    
+        loadImage(
+          file,
+          img => {
 
-    // Save current cursor state
-    const range = this.quill.getSelection(true);
- 
-    const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}});
-    imageUsing = res.data
-    this.quill.insertEmbed(range.index, 'image', `https://${server_url}/upload/${res.data}`); 
-    // Move cursor to right side of image (easier to continue typing)
-    this.quill.setSelection(range.index + 1);
+            img.toBlob( async blob => {
+              let createdFile = new File([blob], file.name, {type: fileType});
+       
+              console.log("createdFile",createdFile)
+              const formData = new FormData();
+              formData.append('imgFile', createdFile);
+              // Save current cursor state
+              const range = this.quill.getSelection(true);
+            
+              const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}})
+            
+              this.quill.insertEmbed(range.index, 'image', `https://${server_url}/upload/${res.data}`); 
+              // Move cursor to right side of image (easier to continue typing)
+              this.quill.setSelection(range.index + 1);  
+              // 이미지 업로드 실행은 여기서
+            }, fileType);
+          },
+          { orientation: true }
+        );
+
+
+      }
+      catch(err){
+        alert("error")
+      }
+    }  
   }
-}
 
 
 Editor.formats = [

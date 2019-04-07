@@ -12,7 +12,6 @@ export default class BookInfoModal extends Component {
       let bookLink =null
       if(bookData){
       bookLink = bookData.link+ "&partner=afteread" 
-      console.log(bookLink)
       }
       if(bookData&&this.props.show){ 
       return (

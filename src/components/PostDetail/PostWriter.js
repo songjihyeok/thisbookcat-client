@@ -3,7 +3,6 @@ import { Button} from "semantic-ui-react";
 import axios from 'axios';
 import server_url from '../../url.json';
 import profileimage from "../../img/다운로드.png"
-import { PropTypes} from 'prop-types';
 import { Link} from "react-router-dom";
 
 export default class PostWriter extends Component {
@@ -12,8 +11,7 @@ export default class PostWriter extends Component {
     userId: '',
     userName: '',
     userImage: '',
-    isFollowing:false,
-    router : PropTypes.object
+    isFollowing:false
   }
  
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
@@ -26,7 +24,7 @@ export default class PostWriter extends Component {
 
   _getUserData = async () => {
     const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader)
-    console.log('res_getUser',res_getUser)
+
     let userName = null
     let profileImage =null
     if(res_getUser.data[1]){
@@ -90,7 +88,7 @@ export default class PostWriter extends Component {
   
   render() {
     const {userName, isFollowing, userId} = this.state
-    console.log("userId",userId)
+
     return (
       <div className='post_detail_right_1_postWriter'>
         <div className="post_detail_userinfo_wrapper">

@@ -7,8 +7,10 @@ import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import FilePondpluginImageExifzOrientation from 'filepond-plugin-image-exif-orientation'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-registerPlugin(FilePondPluginImagePreview, FilePondPluginImageCrop, FilePondPluginImageResize, FilePondPluginImageTransform);
+registerPlugin(FilePondPluginImagePreview, FilePondpluginImageExifzOrientation, FilePondPluginImageCrop,
+   FilePondPluginImageResize, FilePondPluginImageTransform);
 
 // import axios from 'axios';
 
@@ -49,7 +51,6 @@ class Thumbnail extends Component {
     
     return (
         <div className="thumbnail_app">
-            {/* Pass FilePond properties as attributes */}
             <FilePond ref={ref => this.pond = ref}
                       allowMultiple={false}
                       allowReplace={false}

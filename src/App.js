@@ -19,8 +19,6 @@ import agree from './routes/ModalAgree'
 import writerPage from './routes/WriterPage'
 import "./default.css";
 import NoMatch from "./routes/notFound";
-import { LastLocationProvider } from "react-router-last-location";
-import ScrollMemory from 'react-router-scroll-memory';
 
 
 class App extends Component {
@@ -28,8 +26,6 @@ class App extends Component {
     return (
       <div className = 'App'>
           <Router>
-            <div>
-            <ScrollMemory/>
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/robots.txt" component={robots}/>
@@ -51,7 +47,6 @@ class App extends Component {
                 <Route exact path="/" component={Main} />
                 <Route component={NoMatch}/>
               </Switch>
-            </div>
           </Router>
       </div>
     );

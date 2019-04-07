@@ -34,7 +34,7 @@ class Followings extends Component {
   }
 
   _infiniteScroll = () => {
-    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-300)&&this.state.loaded) {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
       if (this.state.page !== this.state.totalPage) {
          this.setState({page: this.state.page+1, loaded:false})
          this._getUrls();
@@ -72,6 +72,7 @@ class Followings extends Component {
     let parsedInfo = JSON.parse(previousInfo);
   
     console.log("parsedInfo---------------", parsedInfo);
+
     let pageNumber = 0
     if(parsedInfo){
       pageNumber = parsedInfo.page
@@ -79,16 +80,14 @@ class Followings extends Component {
                     page: pageNumber, 
                     scrollY: parsedInfo.scrollY ,
                     totalPage:parsedInfo.totalPage,
-                    getData:true
+                    getData:true,
                   })
       
       if(pageNumber === parsedInfo.totalPage){    
         return;
       }
     }
-
       let followPost= await this._callFollowAPI();
-
       this.setState({followPost: this.state.followPost.concat(followPost)})
   }
 
@@ -104,7 +103,7 @@ class Followings extends Component {
                     getData:true,
                     })
     let result = resultOfFollow.data.perArray || null   
-
+    console.log("result?",result)
     return result;
   };
 

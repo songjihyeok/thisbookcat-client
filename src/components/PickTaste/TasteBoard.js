@@ -198,7 +198,8 @@ class TasteBoard extends Component {
 		if (howManyLikes.length< 3) {
 			alert('취향을 3개이상 고르셔야합니다!')
 		} else {
-      const result = await this._submitTaste()
+			const result = await this._submitTaste()
+			window.localStorage.removeItem("previousInfo");
 			console.log("result",result);	
 			this._gotoMain(result);
 		}

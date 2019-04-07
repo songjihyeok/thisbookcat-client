@@ -6,9 +6,7 @@ import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 import "../default.css";
 import  WaitingLoader from '../components/Spinner'
-import LastLocation from '../components/PostDetail/lastLocation.js'
-import ScrollMemory from 'react-router-scroll-memory'
-import { string } from "prop-types";
+
 
 class Main extends Component {
   
@@ -20,12 +18,13 @@ class Main extends Component {
     loaded : false,
     userName: '',
     scrollY:0,
-    coverurl: []
+    coverurl: [],
+ 
   };
 
   async componentDidMount () {
     await this._getUrls();
-    this.getScrollY();
+    await this.getScrollY();
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
@@ -33,13 +32,12 @@ class Main extends Component {
     let previousInfo = {"scrollY": window.scrollY , "coverurl": this.state.coverurl, "page": this.state.page, "totalPage":this.state.totalPage }
     let stringifiedInfo = JSON.stringify(previousInfo)
     window.localStorage.setItem("previousInfo", stringifiedInfo);
-
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
   _infiniteScroll = async() => {
 
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight && this.state.loaded) {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loaded) {
       if (this.state.page>1) {
        this.setState({page: this.state.page-1,loaded: false})
        this._getUrls()
@@ -48,13 +46,14 @@ class Main extends Component {
   }
   
 
+
   getScrollY=()=>{
     window.scrollTo(0,this.state.scrollY)
   }
 
   _renderBooKCoverImage =() => {
-    
-    if (this.state.coverurl) {
+
+    if (this.state.coverurl.length>0) {
       const bookcover = this.state.coverurl.map((url) => {
         if (url) {  
           return <BookBoard url={url.mainImage}
@@ -71,7 +70,7 @@ class Main extends Component {
       });
       return bookcover
     }
-    if(this.state.loaded&&!this.state.coverurl){
+    if(this.state.loaded){
       return <div className="dataNone">컨텐츠가 없습니다. 취향을 재설정해주세요</div>
     }
     return <WaitingLoader/>    
@@ -98,12 +97,13 @@ class Main extends Component {
         return;
       }
     }
-    console.log("page----------",this.state.page)
+ 
     let coverurl = await this._callBookCoverAPI();
     this.setState({coverurl: this.state.coverurl.concat(coverurl)})
 
-    if(coverurl.length<12){
-      console.log("여기 오니?",this.state.page-1)
+
+    if(coverurl.length<12 && this.state.page>2){
+
       this.setState({page:this.state.page-1})
       let secondcoverurl = await this._callBookCoverAPI();
       this.setState({coverurl: this.state.coverurl.concat(secondcoverurl)})
@@ -115,12 +115,11 @@ class Main extends Component {
       let token = window.localStorage.getItem('token')
       let resultOfPost= await axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
-      console.log("들어오는 내용?",resultOfPost)
       if(this.state.page===0){
         this.setState({page: resultOfPost.data.totalpage})
       }
       this.setState({totalPage: resultOfPost.data.totalpage, loaded: true})
-      let result = resultOfPost.data.perArray || null
+      let result = resultOfPost.data.perArray || []
       
       return result;
   };
@@ -135,19 +134,20 @@ class Main extends Component {
   }
 
   render() {
+
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
       return (
         <div className="Main_ofmain">
           <Nav1/>
-       
+
           {/* <div className='mostLikedPage'>
           {this._renderMostLikedPage()}
           </div> */}
           <div className="bookBoardWrap">
             {this._renderBooKCoverImage()}
-          </div>       
+          </div>
         </div>
       )
     }

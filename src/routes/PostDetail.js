@@ -33,12 +33,23 @@ class PostDetail extends React.Component {
   // }
 
 
-  async componentWillMount(){ 
-    this.getUserName();
-    this._getPostData();
+  async componentDidMount(){ 
+
+    await this.getUserName();
+
+    await this._getPostData();
+
     await this._getReply();
+
     await this._countReply();
+   
   }
+
+  componentWillMount(){
+    window.scrollTo(0,0);
+  }
+
+
 
   _getPostData = async() => {
     const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader)
@@ -111,7 +122,7 @@ class PostDetail extends React.Component {
   render() {
 
     const { postId, userId, replys, replyCount, isMypost } = this.state;
-   
+
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {

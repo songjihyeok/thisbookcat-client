@@ -61,10 +61,10 @@ html { text-rendering: optimizeLegibility;}
 
 /* Nav1 */
 .nav1,
-.nav2 {position:sticky; z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
+.nav2 { z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
 .nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);}
 .nav2 {height:70px; border-bottom:1px solid #eaeaea;}
-.logoStyle {height:50px; width:150px;}
+.logoStyle {height:50px; width:auto;}
 .thisBook_Nav1,
 .thisBook_Nav2 {float:left; margin:5px 28px 0 40px !important; font-size: 28.4px; text-align: left;}
 .items_list .linkForWritepost {display: inline-block; margin-left: 31px;}
@@ -241,7 +241,7 @@ html { text-rendering: optimizeLegibility;}
 .post_detail_left .post_detail_content img {max-width:100%;}
 .post_detail_3_reply {overflow : scroll; overflow-x: hidden;}
 .post_detail_3_reply::-webkit-scrollbar {display: none;}
-.post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 38px; background-color:#fff;}
+.post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 20px;}
 .user_thumbs {vertical-align:middle; display: inline-block;}
 .post_detail_userinfo_wrapper { display:inline-block; width: 100%; }
 .post_detail_username {margin:0; padding: 0 15px 0 5px; word-break:break-all; display:inline-block; font-size:20px}
@@ -391,7 +391,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 /* Followings */
 .Followings {
   height:calc(100% - 80px);
-  padding:38px 0;
+  padding:0;
   background-color: #f6f6f6;
   justify-content: center;
   font-family: 'Noto Sans KR';
@@ -460,7 +460,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ql-snow .ql-editor h2 {font-size:25px; line-height:24px;}
 .ql-align-center {text-align: center;}
 .ql-align-right {text-align: right;}
-.ql-video {width:800px; height:500px; text-align: center;}
+.ql-video {width:100%; height:500px; text-align: center;}
 
 .followingContent {word-break:break-all;}
 .dataNone {font-size:20px; padding:80px 0; color:#151515; text-align:center;}
@@ -593,7 +593,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .writeInfo_load {padding-bottom:30px; font-size:0; line-height:0; text-align:center;}
 .writeInfo_load li {vertical-align:middle; display:inline-block;}
 .writeInfo_load li.bookSearch {max-width:calc(100% - 300px); margin-left:40px; text-align:left; word-break:break-all;}
-.filepond--image-preview-overlay-success {color:#222 !important;;}
+/* .filepond--image-preview-overlay-success {color:#222 !important;;} */
 .icon-wrapper {
   display: flex;
   text-align: left;
@@ -805,22 +805,24 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .postTitle {font-size:15px; color:#151515;}  
 /* body * {border:1px solid #f00; box-sizing: border-box;} */
   .post_detail {width:100%;}
+  .post_detail_content{padding:0 15px;}
   .post_detail_left,
   .post_detail_right {float:none; width:100%;}
   .post_detail:before,
   .post_detail:after {display:none;}
-  .post_detail_left {margin-top:48px; padding-top:20px;}
+  .post_detail_title {padding:20px 10px}
+  .post_detail_left {margin-top:10px; padding-top:0px; padding:0px}
   .post_detail_right_2 {padding:0 0 0 20px;}
   .post_detail_reply_input {width:calc(100% - 55px); height:60px; vertical-align:middle; border:0;}
   .btn_reWrite {width:45px; height:34px; margin-top:13px;}
   .ql-video {width:300px; height:200px;}
 
-  .Followings {height:calc(100% - 80px); padding:0 9px; background-color:#fff; margin:0}
+  .Followings {height:calc(100% - 80px); background-color:#fff; margin:0}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
-  .FollowingBoard {width:100%; padding:13px 0;}
+  .FollowingBoard {width:100%; padding:0;}
   .followingContent {font-size:25px;}
   .UserInfoPart {height:50px; padding:0 11px;}
-  .imagePart {width:240px; height:240px; margin:20px auto; display:block;}
+  .imagePart {width:100%; margin:20px auto; display:block;}
   .followList li {width:100%; padding:0; color:#747474; line-height:19px; border-top:1px solid #ddd; text-align: left; vertical-align: middle;}
   .followList .thumbs {width:90px; max-height:130px; margin:0; margin-right:25px; vertical-align:middle; margin:10px 10px 10px 15px;display:inline-block; overflow:hidden;} 
   .followList dl > dt {width:140px; margin-left:10px}
@@ -832,14 +834,14 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .imagePart a {width:330px; height:auto; margin:0 auto; background-color:#595959;}
   .imagePart img {width:auto;}
   */
-  .textPart {width:100%; padding:0 9px; display:block; box-sizing:border-box;}
+  .textPart {width:100%; padding:0 12px; display:block; box-sizing:border-box;}
   .textPart li.contentsPart {min-height:auto; height:auto;}
 
   .post_detail {padding-top:136px; margin:0}
   .post_detail_right_1_postWriter,
-  .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0;}
-  .post_detail_right_1_postWriter {top:9px; height:88px; padding:10px 30px}
-  .postInfo {top:89px; padding-bottom:12px; border-bottom:1px solid #eaeaea;}
+  .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0; padding:10px 20px 18px 35px; margin-bottom:20px;}
+  .post_detail_right_1_postWriter {top:9px; height:88px; padding:10px 20px 10px 30px}
+  .postInfo {top:89px; border-bottom:1px solid #eaeaea;}
   .user_buttons {position:absolute; top:145px; left:0; width:100%; text-align:center; z-index:1;}
   .postContent {width:100%; min-width:100%; margin:0;}
   .post_detail_title {font-size:22px; line-height:34px;}
@@ -848,7 +850,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail_username {max-width:calc(100% - 130px); max-height:50px; line-height:25px; vertical-align:middle; overflow:hidden; color:black !important;}
   .img-circle {width:50px; height:50px;}
   .post_detail_3_reply .user_thumbs .img-circle {width:41px; height:41px;}
-  .user_follow {float:right; margin-top:16px;}
+  .user_follow {float:right; margin-top:16px; margin-right:10px;}
   .ui.teal.button,
   .ui.grey.button {padding:.5em .8em; font-size:13px;}
 
@@ -880,7 +882,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .ProFileDetailContainer li > span.infoName + b {font-size:18px;}
   .change_taste {min-width:39px; height:20px; margin:-4px 0 0 5px; padding:2px 4px; font-size:12px;}
 
-  .ProfilePhoto {margin-bottom:15px; display:block;}
+  .ProfilePhoto {margin-bottom:15px; margin-top:20px; margin-left:20px; display:block;}
   .myName, 
   .myBookShelf {padding:0 22px;}
   .myNameText,

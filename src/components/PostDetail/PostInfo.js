@@ -20,7 +20,7 @@ export default class PostInfo extends Component {
 
   _getLikeData = async () => {
     const res_getLike = await axios.get(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
-    console.log("_getLikeData에서 get 해오는 res_getLike.data ===", res_getLike.data)
+
     this.setState({
       isLike: res_getLike.data[0][0][1], 
       likeCount: res_getLike.data[0][1][1], //이 포스트의 좋아요 숫자. isLike state와도 관련있음. (렌더전에 받아온 데이터에 의해 초기값이 세팅되어야 함.)

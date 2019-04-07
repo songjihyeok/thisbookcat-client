@@ -47,15 +47,15 @@ class MyPageProFile extends Component {
      await this._getPosts();
      await this._getMyProfile();
      await this.getUsingTags();
-     await this.getScrollY();
+    //  await this.getScrollY();
      await window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
 
   componentWillUnmount(){
-    let previousInfo = {"scrollY": window.scrollY , "myPost": this.state.myPosts, "page": this.state.page, "totalPage":this.state.totalPage }
-    let stringifiedInfo = JSON.stringify(previousInfo)
-    window.localStorage.setItem("previousMypage", stringifiedInfo);
+    // let previousInfo = {"scrollY": window.scrollY , "myPost": this.state.myPosts, "page": this.state.page, "totalPage":this.state.totalPage }
+    // let stringifiedInfo = JSON.stringify(previousInfo)
+    // window.localStorage.setItem("previousMypage", stringifiedInfo);
 
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
@@ -70,33 +70,7 @@ class MyPageProFile extends Component {
     }
   }
 
-  getScrollY=()=>{
-    window.scrollTo(0,this.state.scrollY)
-  }
-
   _getPosts=async()=>{
-    let previousInfo =window.localStorage.getItem("previousMypage");
-    window.localStorage.removeItem("previousMypage");
-    
-    let parsedInfo = JSON.parse(previousInfo);
-  
-    console.log("parsedInfo---------------", parsedInfo);
-    let pageNumber = 0
-    if(parsedInfo){
-      pageNumber = parsedInfo.page
-      this.setState({myPosts:this.state.myPosts.concat(parsedInfo.myPost), 
-                    page: pageNumber, 
-                    scrollY: parsedInfo.scrollY ,
-                    totalPage:parsedInfo.totalPage,
-                    gotData:reactTruncateHtml,
-                    loaded:true
-                  })
-      console.log(this.state.myPosts)
-      
-      if(pageNumber === parsedInfo.totalPage){    
-        return;
-      }
-    }
 
       let mypagePost= await this._callmyPostAPI();
 
