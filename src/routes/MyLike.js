@@ -11,7 +11,7 @@ class MyLike extends Component {
 
   state = {
     per: 16,
-    page: 1,
+    page: 0,
     totalPage: '',
     loading: false,
     likePost: [],
@@ -35,8 +35,8 @@ class MyLike extends Component {
   _infiniteScroll = async() => {
     
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loading) {
-      if (this.state.page !== this.state.totalPage) {
-       await this.setState({page: this.state.page+1 , loading:false})
+      if (this.state.page>1) {
+       await this.setState({page: this.state.page-1 , loading:false})
        await this._setMyLikePost()
       }
     }
@@ -50,32 +50,49 @@ class MyLike extends Component {
     let resultOflikeData=await axios.get(`https://${server_url}/api/like/user/${this.state.per}/${this.state.page}`,{
         headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
       })
-         console.log("totalpage",resultOflikeData.data)
-         this.setState({totalPage: resultOflikeData.data.totalpage, loading:true})
-         return resultOflikeData.data.perArray || null
+      if(this.state.page===0){
+        this.setState({page: resultOflikeData.data.totalpage})
+      }
+
+      console.log("totalpage",resultOflikeData.data)
+      this.setState({totalPage: resultOflikeData.data.totalpage, loading:true})
+      return resultOflikeData.data.perArray || null
   }
 
   _setMyLikePost = async () => {
     let previousInfo = window.localStorage.getItem("previouslikeData");
-    window.localStorage.removeItem("previouslikeData");
-    let parsedInfo = JSON.parse(previousInfo);
-    let pageNumber = 0
-    if(parsedInfo){
-      pageNumber = parsedInfo.page
+  
+   
+    if(previousInfo){
+      window.localStorage.removeItem("previouslikeData");
+      let parsedInfo = JSON.parse(previousInfo);
+      let pageNumber = parsedInfo.page
+      if(parsedInfo.page>=2){
+        pageNumber-=1
+      }
+
       this.setState({likePost:this.state.likePost.concat(parsedInfo.likePost), 
                     page: pageNumber, 
                     scrollY: parsedInfo.scrollY ,
-                    totalPage:parsedInfo.totalPage,
-                    loading:true
+                    totalPage:parsedInfo.totalPage
                   })
       
-      if(pageNumber === parsedInfo.totalPage){    
+      if(parsedInfo.page == 1){
         return;
       }
     }
 
-    const likePosts = await this._getMyLikePost()
+      const likePosts = await this._getMyLikePost()
       this.setState({likePost: this.state.likePost.concat(likePosts)})
+      
+      console.log(likePosts, this.state.page)
+      if(likePosts.length<12 && this.state.page>=2){
+        this.setState({page:this.state.page-1})
+        let secondlikePosts = await this._getMyLikePost()
+        this.setState({likePost: this.state.likePost.concat(secondlikePosts)})
+      } 
+
+
   }
 
   _renderMyLikePost = () => {

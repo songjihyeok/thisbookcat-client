@@ -184,7 +184,7 @@ function imageHandler () {
               // 이미지 업로드 실행은 여기서
             }, fileType);
           },
-          { orientation: true }
+          { orientation: true, maxWidth:480, maxHeight:480,meta:true}
         );
 
 

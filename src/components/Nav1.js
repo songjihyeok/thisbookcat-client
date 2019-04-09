@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect} from "react-router-dom";
-import logoImage from "../img/로고.png";
+import logoImage from "../img/로고2.png";
 import AutoSuggest from "./autoComplete/autoSuggest"
 import axios from "axios";
 import server_url from '../url.json';

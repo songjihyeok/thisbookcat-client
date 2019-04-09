@@ -45,12 +45,6 @@ class PostDetail extends React.Component {
    
   }
 
-  componentWillMount(){
-    window.scrollTo(0,0);
-  }
-
-
-
   _getPostData = async() => {
     const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader)
   // console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);

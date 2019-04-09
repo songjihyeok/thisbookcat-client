@@ -53,9 +53,9 @@ class MyPageProFile extends Component {
 
 
   componentWillUnmount(){
-    // let previousInfo = {"scrollY": window.scrollY , "myPost": this.state.myPosts, "page": this.state.page, "totalPage":this.state.totalPage }
-    // let stringifiedInfo = JSON.stringify(previousInfo)
-    // window.localStorage.setItem("previousMypage", stringifiedInfo);
+    let previousInfo = {"scrollY": window.scrollY , "myPost": this.state.myPosts, "page": this.state.page, "totalPage":this.state.totalPage }
+    let stringifiedInfo = JSON.stringify(previousInfo)
+    window.localStorage.setItem("previousMypage", stringifiedInfo);
 
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
@@ -72,11 +72,11 @@ class MyPageProFile extends Component {
 
   _getPosts=async()=>{
 
-      let mypagePost= await this._callmyPostAPI();
-
-      this.setState({myPosts: this.state.myPosts.concat(mypagePost)})
+    let mypagePost= await this._callmyPostAPI();
+    let Result= this.state.myPosts.concat(mypagePost)
+    this.setState({myPosts:Result})
   }
-  
+
   _callmyPostAPI = async() => {
     let resultOfMypage = await axios.get(`https://${server_url}/api/post/mypage/${this.state.per}/${this.state.page}`, {
       headers: {Authorization: `bearer ${this.token}`}

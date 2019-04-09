@@ -85,7 +85,8 @@ class FollowingBoard extends Component {
 					<li className='contentsPart'>
 						<h3 className="followingTitle">{this.props.title}</h3>
 						<div className="followingContent">
-							<Truncate lines={3} dangerouslySetInnerHTML={{__html:this.props.contents}} />
+							<Truncate dangerouslySetInnerHTML={{__html:this.props.contents+"..."}} />
+							{/* {this.props.contents} */}
 						</div>
 					</li>
 					<li className='likeAndLikecount'>

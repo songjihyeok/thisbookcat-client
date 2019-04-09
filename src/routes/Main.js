@@ -23,8 +23,8 @@ class Main extends Component {
   };
 
   async componentDidMount () {
-    await this._getUrls();
-    await this.getScrollY();
+     this._getUrls();
+     this.getScrollY();
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
@@ -36,7 +36,6 @@ class Main extends Component {
   }
 
   _infiniteScroll = async() => {
-
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loaded) {
       if (this.state.page>1) {
        this.setState({page: this.state.page-1,loaded: false})
@@ -78,31 +77,31 @@ class Main extends Component {
 
 
   _getUrls = async () => {
-    let pageNumber=0;
+
     let previousInfo = window.localStorage.getItem("previousInfo");
       if(previousInfo){
         let parsedInfo = JSON.parse(previousInfo);
-        console.log("parsedInfo",parsedInfo)
-        
+        let pageNumber =parsedInfo.page
         window.localStorage.removeItem("previousInfo");
-        pageNumber = parsedInfo.page
-
+ 
+        if(parsedInfo.page>=2){
+          pageNumber = parsedInfo.page-1
+        }
+  
         console.log("가지고 있는 내용이?",parsedInfo.coverurl)
         this.setState({coverurl:this.state.coverurl.concat(parsedInfo.coverurl), 
                       page: pageNumber, 
                       scrollY: parsedInfo.scrollY 
                     })
-                    
-        if(parsedInfo.page === 1){
-        return;
+        if(parsedInfo.page === 0,1){
+          return;
+        }
       }
-    }
- 
     let coverurl = await this._callBookCoverAPI();
-    this.setState({coverurl: this.state.coverurl.concat(coverurl)})
-
-
-    if(coverurl.length<12 && this.state.page>2){
+   // let resultOfCoverurl =
+    this.setState({coverurl:  this.state.coverurl.concat(coverurl)})
+ 
+    if(coverurl.length<12 && this.state.page>=2){
 
       this.setState({page:this.state.page-1})
       let secondcoverurl = await this._callBookCoverAPI();

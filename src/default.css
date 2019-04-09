@@ -14,7 +14,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s !important; }
 html { text-rendering: optimizeLegibility;}
 
-.App {max-width:2100px; margin:auto; }
+.App {max-width:2100px; margin:auto; height:auto !important; }
 
 /* Font */ 
 @font-face {
@@ -62,9 +62,9 @@ html { text-rendering: optimizeLegibility;}
 /* Nav1 */
 .nav1,
 .nav2 { z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
-.nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1);}
+.nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1); position:sticky; top:0 }
 .nav2 {height:70px; border-bottom:1px solid #eaeaea;}
-.logoStyle {height:50px; width:auto;}
+.logoStyle {height:40px; width:auto;}
 .thisBook_Nav1,
 .thisBook_Nav2 {float:left; margin:5px 28px 0 40px !important; font-size: 28.4px; text-align: left;}
 .items_list .linkForWritepost {display: inline-block; margin-left: 31px;}
@@ -423,12 +423,12 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   position: relative;
   line-height:50px;
   display: -webkit-box;
-  margin-bottom:20px;
+  margin-bottom:14px;
 }
-.postUserThumb {width: 50px; height: 50px; margin:0 10px 0 0; vertical-align:middle; background-color:#f2f2f2; border-radius: 50%; display:inline-block; overflow:hidden;}
+.postUserThumb {width: 45px; height: 45px; margin:0 10px 0 0; vertical-align:middle; border-radius: 50%; display:inline-block; overflow:hidden;}
 .postUserImage {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
 .postUserName {display: inline-block;}
 .textPart {width:calc(100% - 380px); color: #353535; word-break:break-all; display: inline-block;}
@@ -505,7 +505,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
 .ProFileDetailContainer li > span.InfoName + b {margin-top:5px; padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
-.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: 100%;}
+.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: 700px;}
 .myBookBoardContainer .bookBoardWrap {padding-top:0;}
 .myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
@@ -782,10 +782,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .mo_button.open + .items .items_list {right:0;}
 
   .thisBook_Nav1,
-  .thisBook_Nav2 {margin:6px 15px !important; font-size: 19px;}
+  .thisBook_Nav2 {margin:6px 11px !important; font-size: 19px;}
   .thisBook_Nav1 a,
   .thisBook_Nav2 a {width:auto;}
-  .logoStyle {height:30px; width:80px;}
+  .logoStyle {height:20px; width:auto;}
   .loading { margin:200px 100px; }
 
   .backImg {position:absolute; overflow-y:auto; background-attachment:local;}
@@ -822,13 +822,15 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .FollowingBoard {width:100%; padding:0;}
   .followingContent {font-size:25px;}
   .UserInfoPart {height:50px; padding:0 11px;}
-  .imagePart {width:100%; margin:20px auto; display:block;}
+  .UserInfoPart img { vertical-align:auto;}
+  .imagePart {width:100%; margin:0 auto 20px auto; display:block;}
   .followList li {width:100%; padding:0; color:#747474; line-height:19px; border-top:1px solid #ddd; text-align: left; vertical-align: middle;}
   .followList .thumbs {width:90px; max-height:130px; margin:0; margin-right:25px; vertical-align:middle; margin:10px 10px 10px 15px;display:inline-block; overflow:hidden;} 
   .followList dl > dt {width:140px; margin-left:10px}
   .followList {margin-bottom: 0}
   .followList .user_follow {margin-top: 40.5px; margin-right:10px}
   .modal-dialog {width: 336px}
+
   /*
   .imagePart {width:100%; height:auto; min-height:240px; margin-right:0; padding:20px 0; overflow:hidden;}
   .imagePart a {width:330px; height:auto; margin:0 auto; background-color:#595959;}
