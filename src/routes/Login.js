@@ -73,7 +73,7 @@ class Login extends Component {
                     {/*}
                     {(this.state.login_err)?<div className='title4'>이메일 혹은 비밀번호가 올바르지 않습니다</div>: <div className='title3'>애프터리드에 오신 것을 환영합니다</div>}
                     */}
-                    <form onSubmit={this._handleSubmit}>
+                    {/* <form onSubmit={this._handleSubmit}>
                       <div><input className='login_input' type="email" placeholder="이메일을 입력해주세요"
                                   onChange={this._setEmail}/>
                       </div>
@@ -81,7 +81,7 @@ class Login extends Component {
                                   onChange={this._setPassword}/>
                       </div>
                       <div><button id="custom_btn_continue" type='submit' className='login_btn'>계속하기</button></div>
-                    </form>
+                    </form> */}
 
 
                     <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_kakao" className='login_btn' >KAKAO로 계속하기</button></a></div> 
@@ -94,9 +94,9 @@ class Login extends Component {
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     
                      
-                    <div className='login_flex'>
+                    {/* <div className='login_flex'>
                        <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
             </div>

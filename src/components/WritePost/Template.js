@@ -74,7 +74,7 @@ class Template extends Component {
         {showSelectModal && 
           <TemplateSelectModal
             showmodal={this.props.showmodal}
-            handleHide={this.props.handleHide}
+            handleHide={()=>this.handleModalClear()}
             selectedImg={selectedImg}
             onSelect={this.handleSelectedImage}
             onConfirm={() => this.handleCurrentModal(ModalType.Register)}
@@ -83,7 +83,7 @@ class Template extends Component {
           <TemplateRegisterModal
             text={text}
             showmodal={this.props.showmodal}
-            handleHide={this.props.handleHide}
+            handleHide={()=>this.handleModalClear()}
             selectedImg={selectedImg}
             onChange={this.handleInputChange}
             onUpload={this.handleUpload}
@@ -166,7 +166,7 @@ class Template extends Component {
       formData.append('imgFile', blob, "fileName.jpeg");
   
       const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, { headers: { 'Authorization' :`bearer ${token}` } });
-      console.log(res)
+      console.log("response",res)
       this.props.getTemplate(res.data)
     })
   }

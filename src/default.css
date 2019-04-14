@@ -629,7 +629,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 /* Template */
 .template {
   position: relative;
-  width: 110px;
+  width: 80px;
 }
 .template_icon {
   width: 64px;
