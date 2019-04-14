@@ -106,9 +106,9 @@ class WritePost extends Component {
                 <li>
                   <h3>사진을 저장하거나 책 검색을 하세요.</h3>
                   <div className="icon-wrapper">
-                    {/* <div onClick={this.openTemplate}>
+                    <div onClick={this.openTemplate}>
                      <Template getTemplate={(img)=>this.setTemplate(img)} showmodal={this.state.showmodal} handleHide={this._handleHide}/>
-                    </div> */}
+                    </div>
                     <Bookapi bookData={this._getBookData}/>
                   </div>
               

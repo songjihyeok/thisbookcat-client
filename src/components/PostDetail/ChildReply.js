@@ -32,8 +32,9 @@ export default class ChildReply extends Component {
   }
 
   _userNamecontroller = (userName)=>{
+    console.log("userName",userName)
     if(!userName){
-      return '@'
+      alert("유저네임을 설정해주세요")
     }
     return `@${userName}`
   }

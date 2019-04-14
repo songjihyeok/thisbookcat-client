@@ -11,30 +11,30 @@ class LikeBookBoard extends Component {
 		likeCount: this.props.likePost.likeCount
 	}
     
-	_handleLike = () => {
-		let token = window.localStorage.getItem('token')
-		if (this.state.liked) {
-			axios.delete(`https://${server_url}/api/like/${this.props.likePost.id}`, {
-				headers:{Authorization: `bearer ${token}`}})
-			.then(response => {
-				this.setState({
-						liked: false,
-						likeCount: this.state.likeCount-1
-				})
-			})
-			.catch(error => console.log(error))
-		} else {
-			axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{},{
-				headers:{Authorization: `bearer ${token}`}})
-			.then(response => {
-				this.setState({
-						liked: true,
-						likeCount: this.state.likeCount+1
-				})
-			})
-			.catch(error => console.log(error))
-		}
-	}
+	// _handleLike = () => {
+	// 	let token = window.localStorage.getItem('token')
+	// 	if (this.state.liked) {
+	// 		axios.delete(`https://${server_url}/api/like/${this.props.likePost.id}`, {
+	// 			headers:{Authorization: `bearer ${token}`}})
+	// 		.then(response => {
+	// 			this.setState({
+	// 					liked: false,
+	// 					likeCount: this.state.likeCount-1
+	// 			})
+	// 		})
+	// 		.catch(error => console.log(error))
+	// 	} else {
+	// 		axios.post(`https://${server_url}/api/like/${this.props.likePost.id}`,{},{
+	// 			headers:{Authorization: `bearer ${token}`}})
+	// 		.then(response => {
+	// 			this.setState({
+	// 					liked: true,
+	// 					likeCount: this.state.likeCount+1
+	// 			})
+	// 		})
+	// 		.catch(error => console.log(error))
+	// 	}
+	// }
 	handleImage=()=>{
 		if(this.props.likePost.mainImage===''){
 			let parsedBookData = JSON.parse(this.props.bookData);
@@ -57,8 +57,8 @@ class LikeBookBoard extends Component {
 					</Link>
 					<div className='likeBar'>
 						{(this.state.liked)
-						? <span><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
-						: <span><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						? <span><Icon name='heart' size="large" />{this.state.likeCount}</span>
+						: <span><Icon name='heart outline' size="large" />{this.state.likeCount}</span>
 						}
 					</div>
 				</div>

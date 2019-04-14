@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Router,Route, Switch } from "react-router-dom";
+
 import Login from "./routes/Login";
 import SignUp from "./routes/SignUp";
 import FindPw from "./routes/FindPw";
@@ -19,13 +20,13 @@ import agree from './routes/ModalAgree'
 import writerPage from './routes/WriterPage'
 import "./default.css";
 import NoMatch from "./routes/notFound";
-
+import history from './history';
 
 class App extends Component {
   render() {
     return (
       <div className = 'App'>
-          <Router>
+          <Router history={history}>
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/robots.txt" component={robots}/>

@@ -27,7 +27,7 @@ class FollowingBoard extends Component {
 
 
 	handleImage=()=>{
-		if(this.props.image===''&&this.props.bookData!=='null'){
+		if(this.props.image===''&&this.props.bookData){
 			let parsedBookData = JSON.parse(this.props.bookData);
 			let postImage = parsedBookData.cover;
 			// console.log( "url 바뀌었나",postImage);
@@ -47,7 +47,7 @@ class FollowingBoard extends Component {
 						liked: false,
 						likeCount: this.state.likeCount-1
 				})
-				// console.log('liked should change', this.state.liked)
+
 			})
 			.catch(error => console.log(error))
 		} else {
@@ -59,7 +59,7 @@ class FollowingBoard extends Component {
 					liked: true,
 					likeCount: this.state.likeCount+1
 				})
-				// console.log('liked should change', this.state.liked)
+
 			})
 			.catch(error => console.log(error))
 		}

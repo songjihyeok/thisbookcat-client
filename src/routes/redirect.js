@@ -17,10 +17,10 @@ class redirect extends Component {
   agreeHandler=()=>{
     const token = this.props.match.params.token
     const agreed = this.props.match.params.agreed
-    const parsedAgree = JSON.parse(agreed)
+    let parsedAgree = JSON.parse(agreed)
 
     if(!parsedAgree){
-      console.log("모달창으로 가즈아!!")
+
       return  <ModalAgree token={token} show={this.state.show} hide={this._handleHide}/>
     } else {
       window.localStorage.setItem('token', token);

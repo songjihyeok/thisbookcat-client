@@ -41,8 +41,10 @@ export default class PostWriter extends Component {
   }
 
   _getFollowingData = async () => {
+    console.log("이게 누구?",this.props)
     const res_getFollowing = await axios.get(`https://${server_url}/api/follow/check/${this.props.userId}`, this.authHeader)
     // console.log('_getFollowingData 함수에서 axios.get 받아온 res_getFollowing.data 찍는중... this should be ture or false', res_getFollowing.data)
+    console.log("followData---------", res_getFollowing )
     this.setState({isFollowing: res_getFollowing.data})
   }
 
@@ -52,7 +54,7 @@ export default class PostWriter extends Component {
       alert("유저네임을 설정해주세요")
       return;
     }
-
+    console.log("팔로우??")
 
     if (this.state.isFollowing) {
 
@@ -62,7 +64,7 @@ export default class PostWriter extends Component {
     } else {
       
       const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader)
-
+      console.log("followResult",followResult)
       this.setState({isFollowing: true})
     }
   }
@@ -87,7 +89,7 @@ export default class PostWriter extends Component {
     }
   
   render() {
-    const {userName, isFollowing, userId} = this.state
+    let {userName, isFollowing, userId} = this.state
 
     return (
       <div className='post_detail_right_1_postWriter'>

@@ -36,7 +36,6 @@ class MyPageProFile extends Component {
       followedModalShow:false,
       followingList: '',
       followedList: '',
-      scrollY:0
     };
   }
                     
@@ -47,15 +46,11 @@ class MyPageProFile extends Component {
      await this._getPosts();
      await this._getMyProfile();
      await this.getUsingTags();
-    //  await this.getScrollY();
      await window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
 
   componentWillUnmount(){
-    let previousInfo = {"scrollY": window.scrollY , "myPost": this.state.myPosts, "page": this.state.page, "totalPage":this.state.totalPage }
-    let stringifiedInfo = JSON.stringify(previousInfo)
-    window.localStorage.setItem("previousMypage", stringifiedInfo);
 
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }

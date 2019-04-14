@@ -44,7 +44,6 @@ export default class PostContent extends Component {
   }
 
   render() {
-    console.log(window.scrollY)
     const { title, mainImage, contents } = this.state
     return (
       <div className='post_detail_left'>

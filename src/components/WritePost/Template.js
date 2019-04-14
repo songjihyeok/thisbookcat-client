@@ -13,35 +13,35 @@ export const ModalType = {
 
 export const FAKEDATA = [{
     id: '1',
-    img: 'stone.jpeg'
+    img: 'template1.png'
   },
   {
     id: '2',
-    img: 'harry.jpg'
+    img: 'template1.png'
   },
   {
     id: '3',
-    img: 'EW_Harry-Potter_Featured.jpg'
+    img: 'template2.jpg'
   },
   {
     id: '4',
-    img: 'stone.jpeg'
+    img: 'template2.jpg'
   },
   {
     id: '5',
-    img: 'harry.jpg'
+    img: 'template3.png'
   },
   {
     id: '6',
-    img: 'EW_Harry-Potter_Featured.jpg'
+    img: 'template3.png'
   },
   {
     id: '7',
-    img: 'stone.jpeg'
+    img: 'template4.jpg'
   },
   {
     id: '8',
-    img: 'harry.jpg'
+    img: 'template4.jpg'
   }
 ];
 
@@ -89,7 +89,6 @@ class Template extends Component {
             onUpload={this.handleUpload}
             onClick={() => this.handleCurrentModal(ModalType.Select)}
           />}
-        {/* TODO: need to change icon */}
         <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.Select)} />
       </div>
     );

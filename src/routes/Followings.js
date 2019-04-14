@@ -61,24 +61,21 @@ class Followings extends Component {
       return follow
    
     }
-    return <div className="dataNone">팔로우하신 유저가 없거나 팔로잉 유저의 컨텐츠가 없습니다.!</div>
   };
 
   getScrollY=()=>{
-    console.log("실행이 안되니????",this.state.scrollY)
     window.scrollTo(0,this.state.scrollY)
   }
 
   _getUrls= async()=>{
     let previousInfo =window.localStorage.getItem("previousFollow");
+    window.localStorage.removeItem("previousFollow");
     if(previousInfo){
-       window.localStorage.removeItem("previousFollow");
       let parsedInfo = JSON.parse(previousInfo);
       let pageNumber= parsedInfo.page
       if(parsedInfo.page>=2){
         pageNumber-=1
       }
-      console.log("scrollY", parsedInfo.scrollY)
       this.setState({page: pageNumber, 
                     scrollY: parsedInfo.scrollY,
                     getData:true,
@@ -87,7 +84,6 @@ class Followings extends Component {
         return;
       } 
     }
-    console.log("page", this.state.page)
       let followPost= await this._callFollowAPI();
   }
 
@@ -112,6 +108,14 @@ class Followings extends Component {
   };
 
 
+  handlingNone=()=>{
+    if(this.state.followPost.length===0){
+      return  <div className="followdataNone">팔로우하신 유저가 없거나<br></br><br></br> 팔로잉 유저의 컨텐츠가 없습니다.!</div>
+    }
+  }
+
+
+
   render() {
     let { getData} = this.state;
   
@@ -128,6 +132,7 @@ class Followings extends Component {
               {this._renderFollowingPost()}
             </div>
           </div>
+          {this.handlingNone()}
         </Fragment>
       );
     }

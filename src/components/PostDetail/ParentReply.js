@@ -20,8 +20,9 @@ export default class ParentReply extends Component {
     // console.log('ParentReply.js 컴포넌트의 _newReReply함수에서 e.target.value', e.target.value)
     e.preventDefault();
     let { userName, id, } = this.props.reply
+    console.log("userName",this.props.userName)
     if(!userName){
-      userName = '지나가는 행인'
+      alert("유저네임을 설정해주세요")
     }
     this.reComment = {
       replyContents: e.target.value,
@@ -41,7 +42,7 @@ export default class ParentReply extends Component {
 
   _userNamecontroller = (userName)=>{
     if(!userName){
-      return '@'
+      alert("유저네임을 설정해주세요")
     }
     return `@${userName}`
   }

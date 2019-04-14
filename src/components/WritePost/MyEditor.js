@@ -37,7 +37,6 @@ export default class MyEditor extends Component {
   }
 
   async handleChange(html) {
-    console.log("뭐가 들어있지?",html);
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
     this.setState({editorHtml: html});
 
@@ -103,7 +102,7 @@ export default class MyEditor extends Component {
                       modules={Editor.module}
                       formats={Editor.formats}
                       bounds={".app"}
-                      placeholder={"tell your story"}>
+                      placeholder={"당신의 책 관련 이야기를 들려주세요, #북스타그램"}>
           </ReactQuill>        
         </div>
       </div>

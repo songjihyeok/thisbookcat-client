@@ -65,7 +65,7 @@ class Login extends Component {
                 <div className='login_body'>
                   <div className='login_container'>
                     <h1 id="logo">
-                      <div className="textLogo">책을 인스타처럼</div>
+                      <div className="textLogo">책을 읽고 이야기를 나누다</div>
                       <div className="imageLogo">애프터리드</div>
                       <div className="textLogo">로그인 해주세요</div>
                     </h1>

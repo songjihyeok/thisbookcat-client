@@ -7,6 +7,7 @@ import PostContent from '../components/PostDetail/PostContent';
 import PostWriter from '../components/PostDetail/PostWriter';
 import PostInfo from '../components/PostDetail/PostInfo';
 import { Redirect } from "react-router-dom";
+import  WaitingLoader from '../components/Spinner'
 
 
 
@@ -20,38 +21,29 @@ class PostDetail extends React.Component {
     isMypost: null,
     bookData: null,
     replyContents: '',
-    userName : ''
+    userName : '',
+    loaded: false
   }
 
-
-
-  //보낼 comment
-
   authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
-  // componentDidMount(){
-  //   console.log('PostDatail.js의 ComponentDidMount 함수에서 this.state를 찍어보겠습니다___', this.state)
-  // }
-
 
   async componentDidMount(){ 
 
     await this.getUserName();
-
     await this._getPostData();
-
     await this._getReply();
-
     await this._countReply();
    
   }
 
   _getPostData = async() => {
     const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader)
-  // console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
+  console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
     this.setState({
       bookData: res_getPost.data.bookData,
       userId: res_getPost.data.userId,
       isMypost: res_getPost.data.isthePoster,
+      loaded:true
     })
   }
 
@@ -89,10 +81,16 @@ class PostDetail extends React.Component {
   }
 
   _newReply =  (e)=> {
+
     this.setState({replyContents:e.target.value});
   }
 
   _makeReply = async(e) => {
+    console.log("userName", this.state.userName)
+    if(this.state.userName===''){
+      alert("마이페이지에서 유저네임을 입력해주세요")
+      return;
+    }
     e.preventDefault();
     const respond =await axios.post(`https://${server_url}/api/reply/${this.state.postId}`
       , {replyContents :this.state.replyContents}
@@ -102,9 +100,6 @@ class PostDetail extends React.Component {
     this.setState({replyContents:''})
   }
 
-
-
-
   async getUserName(){
     const token = window.localStorage.getItem('token')
     let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
@@ -112,14 +107,18 @@ class PostDetail extends React.Component {
       this.setState({userName:resultOfget.data.userName})
     }
   }
+
   
   render() {
 
-    const { postId, userId, replys, replyCount, isMypost } = this.state;
-
+    const { postId, userId, replys, replyCount, isMypost, loaded } = this.state;
+    console.log("userId", userId )
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
-    } else {
+    } else if(!loaded){
+      return <WaitingLoader/>  
+    }  
+    else {
     return (
         <Fragment>
           <Nav1 />
@@ -152,8 +151,8 @@ class PostDetail extends React.Component {
           </div>
         </Fragment>
       );
-    }
-  }
+     }
+   }
 }
 
 export default PostDetail;

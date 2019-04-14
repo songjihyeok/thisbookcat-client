@@ -25,9 +25,9 @@ class MyLike extends Component {
   }
 
   componentWillUnmount(){
-    let previousInfo = {"scrollY": window.scrollY , "likePost": this.state.likePost, "page": this.state.page, "totalPage":this.state.totalPage }
-    let stringifiedInfo = JSON.stringify(previousInfo)
-    window.localStorage.setItem("previouslikeData", stringifiedInfo);
+    // let previousInfo = {"scrollY": window.scrollY , "likePost": this.state.likePost, "page": this.state.page, "totalPage":this.state.totalPage }
+    // let stringifiedInfo = JSON.stringify(previousInfo)
+    // window.localStorage.setItem("previouslikeData", stringifiedInfo);
 
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
@@ -56,31 +56,31 @@ class MyLike extends Component {
 
       console.log("totalpage",resultOflikeData.data)
       this.setState({totalPage: resultOflikeData.data.totalpage, loading:true})
-      return resultOflikeData.data.perArray || null
+      return resultOflikeData.data.perArray || []
   }
 
   _setMyLikePost = async () => {
-    let previousInfo = window.localStorage.getItem("previouslikeData");
+    // let previousInfo = window.localStorage.getItem("previouslikeData");
   
    
-    if(previousInfo){
-      window.localStorage.removeItem("previouslikeData");
-      let parsedInfo = JSON.parse(previousInfo);
-      let pageNumber = parsedInfo.page
-      if(parsedInfo.page>=2){
-        pageNumber-=1
-      }
+    // if(previousInfo){
+    //   window.localStorage.removeItem("previouslikeData");
+    //   let parsedInfo = JSON.parse(previousInfo);
+    //   let pageNumber = parsedInfo.page
+    //   if(parsedInfo.page>=2){
+    //     pageNumber-=1
+    //   }
 
-      this.setState({likePost:this.state.likePost.concat(parsedInfo.likePost), 
-                    page: pageNumber, 
-                    scrollY: parsedInfo.scrollY ,
-                    totalPage:parsedInfo.totalPage
-                  })
+    //   this.setState({likePost:this.state.likePost.concat(parsedInfo.likePost), 
+    //                 page: pageNumber, 
+    //                 scrollY: parsedInfo.scrollY ,
+    //                 totalPage:parsedInfo.totalPage
+    //               })
       
-      if(parsedInfo.page == 1){
-        return;
-      }
-    }
+    //   if(parsedInfo.page == 1){
+    //     return;
+    //   }
+    // }
 
       const likePosts = await this._getMyLikePost()
       this.setState({likePost: this.state.likePost.concat(likePosts)})
@@ -117,7 +117,7 @@ class MyLike extends Component {
         <div className="MyLike">
           <Nav1 />
           <div className="bookBoardWrap">
-            {this.state.likePost=== undefined ? <div className="dataNone">'아직 좋아요하신 포스트가 없습니다'</div> : this._renderMyLikePost()}
+            {this.state.likePost.length ===0 ? <div className="dataNone">'아직 좋아요하신 포스트가 없습니다'</div> : this._renderMyLikePost()}
           </div>
         </div>
       );

@@ -26,6 +26,7 @@ class followList extends Component {
   }
 
    following=async()=>{
+   
      if(this.state.follow) {
       const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.data[0].id}`, this.authHeader)  
       console.log(resultfollowDelete)

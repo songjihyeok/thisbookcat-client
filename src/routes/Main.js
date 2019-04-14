@@ -19,19 +19,23 @@ class Main extends Component {
     userName: '',
     scrollY:0,
     coverurl: [],
- 
+    refreshPost: []
   };
 
   async componentDidMount () {
-     this._getUrls();
-     this.getScrollY();
+  
+    await this._getUrls();
+    await this.getScrollY();
+   // await this.refreshLIke();
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
   componentWillUnmount(){
+    
     let previousInfo = {"scrollY": window.scrollY , "coverurl": this.state.coverurl, "page": this.state.page, "totalPage":this.state.totalPage }
     let stringifiedInfo = JSON.stringify(previousInfo)
     window.localStorage.setItem("previousInfo", stringifiedInfo);
+    window.scrollTo(0,0)
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
@@ -44,10 +48,26 @@ class Main extends Component {
     } 
   }
   
+  // refreshLIke=async(refreshPost)=>{
 
+    // if(refreshPost.length>0){
+  //     let postArray=[];
+  //     for(let element of refreshPost){
+  //       postArray.push(element.id)
+  //     }
 
-  getScrollY=()=>{
-    window.scrollTo(0,this.state.scrollY)
+  //     let token = window.localStorage.getItem('token')
+  //     let resultOfRefresh = await axios.post(`https://${server_url}/api/like/getRefresh/refresh`,{ "postArray": postArray},{
+  //       headers:{Authorization: `bearer ${token}`}})
+  //     console.log("결과물은?",resultOfRefresh)
+
+      
+  //   }
+  //   return refreshPost
+  // }
+
+  getScrollY=async()=>{
+    await window.scrollTo(0,this.state.scrollY)
   }
 
   _renderBooKCoverImage =() => {
@@ -78,31 +98,32 @@ class Main extends Component {
 
   _getUrls = async () => {
 
-    let previousInfo = window.localStorage.getItem("previousInfo");
+    let previousInfo =  window.localStorage.getItem("previousInfo");
+    window.localStorage.removeItem("previousInfo");
+    let parsedInfo = JSON.parse(previousInfo);
       if(previousInfo){
-        let parsedInfo = JSON.parse(previousInfo);
+       
         let pageNumber =parsedInfo.page
-        window.localStorage.removeItem("previousInfo");
+     
  
         if(parsedInfo.page>=2){
           pageNumber = parsedInfo.page-1
-        }
-  
-        console.log("가지고 있는 내용이?",parsedInfo.coverurl)
-        this.setState({coverurl:this.state.coverurl.concat(parsedInfo.coverurl), 
+        } 
+        console.log(parsedInfo)
+
+       await this.setState({coverurl:this.state.coverurl.concat(parsedInfo.coverurl), 
                       page: pageNumber, 
-                      scrollY: parsedInfo.scrollY 
-                    })
-        if(parsedInfo.page === 0,1){
-          return;
+                      scrollY: parsedInfo.scrollY, 
+                    })   
+        if(parsedInfo.page===1){
+          return 
         }
       }
+    
     let coverurl = await this._callBookCoverAPI();
-   // let resultOfCoverurl =
     this.setState({coverurl:  this.state.coverurl.concat(coverurl)})
- 
+    
     if(coverurl.length<12 && this.state.page>=2){
-
       this.setState({page:this.state.page-1})
       let secondcoverurl = await this._callBookCoverAPI();
       this.setState({coverurl: this.state.coverurl.concat(secondcoverurl)})
@@ -110,7 +131,6 @@ class Main extends Component {
   }
 
   _callBookCoverAPI = async() => {
-      
       let token = window.localStorage.getItem('token')
       let resultOfPost= await axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
@@ -133,7 +153,6 @@ class Main extends Component {
   }
 
   render() {
-
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
