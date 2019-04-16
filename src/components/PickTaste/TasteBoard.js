@@ -10,29 +10,29 @@ class TasteBoard extends Component {
 	state = {
 		taste: [
 				'북스타그램',
-				'에세이',
+				'북토크',
 				'베스트셀러',
-				'힐링',
-				'인문학',
-				'자기계발',
-				'로맨스',
-				'독립출판',
-				'일상',
-				'신간',
-				'감성'
+				'독립서점',
+				'독서모임',
+				'북 이벤트',
+				'책읽찌라',
+				'책끝을 접다',
+				'커넥츠북',
+				'겨울서점',
+				'책그림'
 		],
 		tasteImgUrl: {
-				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1552362660883.jpg',
-				'에세이':'https://server.afteread.net/serverimage/에세이-1552362682177.jpg',
-				'베스트셀러':'https://server.afteread.net/serverimage/베스트셀러-1552362651936.png',
-				'인문학':'https://server.afteread.net/serverimage/인문학-1552362691967.jpg',
-				'자기계발':'https://server.afteread.net/serverimage/자기계발-1552362713662.jpg',
-				'힐링':'https://server.afteread.net/serverimage/힐링-1552362725990.jpg',
-				'로맨스':'https://server.afteread.net/serverimage/로맨스-1552362637490.jpg',
-				'독립출판':'https://server.afteread.net/serverimage/독립출판-1552362628783.jpg',
-				'일상':'https://server.afteread.net/serverimage/일상-1552362705388.jpg',
-				'신간':'https://server.afteread.net/serverimage/신간-1552362668584.jpg',
-				'감성': 'https://server.afteread.net/serverimage/감성-1552362569421.jpg'
+				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1555420606600.jpg',
+				'북토크':'https://server.afteread.net/serverimage/북토크-1555420198557.png',
+				'베스트셀러':'https://server.afteread.net/serverimage/베스트셀러-1555420584072.png ',
+				'독립서점':'https://server.afteread.net/serverimage/독립서점-1555420252086.jpg',
+				'독서모임':'https://server.afteread.net/serverimage/독서모임-1555420190123.jpg',
+				'북 이벤트':'https://server.afteread.net/serverimage/이벤트-1555420214691.png',
+				'책읽찌라':'https://server.afteread.net/serverimage/책읽찌라-1555420142724.jpg',
+				'책끝을 접다':'https://server.afteread.net/serverimage/책끝을 접다-1555420164310.png',
+				'커넥츠북':'https://server.afteread.net/serverimage/거넥츠북-1555420131165.png',
+				'겨울서점':'https://server.afteread.net/serverimage/겨울서점-1555420182341.jpg',
+				'책그림': 'https://server.afteread.net/serverimage/책그림-1555420155177.png'
 		},
 		newTagUnUsing: [],
 		defaultTagUsing: [],
@@ -242,10 +242,10 @@ class TasteBoard extends Component {
 						<div className='userNamePart'>
 								<span className = 'welcomeMesssage'>마음에 드는 관심사를 선택해 주세요. (3개이상) <br/><br/>혹시 원하는 관심사가 없다면? <br/><br/>태그생성으로 만들어주세요!</span>
 						</div>
-						<div className="btnTagAlign">
-							<button className = 'pref'>관심</button>
-							<button className = 'genre'>장르</button>
-						</div>
+						{/* <div className="btnTagAlign">
+							<button className = 'pref'>리뷰</button>
+							<button className = 'genre'>행사</button>
+						</div> */}
 						<div className="btnTagCommand">
 							<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
 							<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button>

@@ -9,7 +9,6 @@ import { FAKEDATA } from "./Template";
 class TemplateSelectModal extends Component {
 
   handleHide=()=>{
-    console.log("버튼이시작은 되냐?")
     this.props.handleHide()
   }
 
