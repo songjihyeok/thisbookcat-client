@@ -94,9 +94,9 @@ class Login extends Component {
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
                     
                      
-                    {/* <div className='login_flex'>
+                    <div className='login_flex'>
                        <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
             </div>

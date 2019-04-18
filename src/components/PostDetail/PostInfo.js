@@ -32,14 +32,34 @@ export default class PostInfo extends Component {
       alert("유저네임을 설정해주세요");
       return;
     }
+    let previousInfo =  window.localStorage.getItem("previousInfo");
+    window.localStorage.removeItem("previousInfo");
+    let parsedInfo =JSON.parse(previousInfo);
     if (this.state.isLike) { 
-      await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
-    //console.log("_handleLike함수에서 axios.delete 요청 보내고 받는 res_deleteLike", res_deleteLike)
-    } else { //count++ 시키는 요청 & //postid와 userid를 like join 하는 요청
-      // const res_postLike = 
+      let resultOfdelete=await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
+      if(resultOfdelete){
+        parsedInfo.coverurl.map((element)=>{
+          if(element.id==this.props.postId){
+            console.log("이건 실행은 되니??")
+            element["likeCount"]= this.state.likeCount-1
+            element["isUserLike"]=false;
+          }
+        })
+      }
+    } else { 
       await axios.post(`https://${server_url}/api/like/${this.props.postId}`, {}, this.authHeader)
       //console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res_postLike", res_postLike)
+      parsedInfo.coverurl.map((element)=>{
+        if(element.id==this.props.postId){
+          console.log("이게 실행은 되니??")
+          element["likeCount"]= this.state.likeCount+1
+          element["isUserLike"]=true;
+        }
+      })
     }
+    console.log(parsedInfo)
+    let stringified = JSON.stringify(parsedInfo)
+    window.localStorage.setItem("previousInfo", stringified);
     await this._getLikeData();
   }
 

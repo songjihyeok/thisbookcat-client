@@ -1,10 +1,9 @@
 import React, {Component} from "react"
-import { Link } from 'react-router-dom'
 import {Image} from 'react-bootstrap'
 import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json'
-import axios from 'axios'
 import history from '../../history';
+import Truncate from 'react-truncate-html';
 
 class BookBoard extends Component {
 
@@ -89,7 +88,7 @@ class BookBoard extends Component {
 							}
 						</div>
 					</div>
-					<p className='postTitle'>{this.props.title}</p>
+					 <p className='postTitle'>{this.props.title}</p> 
 				</div>
 		)
 	}

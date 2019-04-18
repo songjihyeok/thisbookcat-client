@@ -10,29 +10,37 @@ class TasteBoard extends Component {
 	state = {
 		taste: [
 				'북스타그램',
-				'북토크',
 				'베스트셀러',
-				'독립서점',
+				'독립서점소식',
 				'독서모임',
-				'북 이벤트',
+				'북이벤트',
+				'북토크',
+				'저자와의대화',
+				'이달의신간',
+				'열정에기름붓기',
 				'책읽찌라',
-				'책끝을 접다',
+				'책끝을접다',
 				'커넥츠북',
 				'겨울서점',
-				'책그림'
+				'책그림',
+				"다이애나의책장"
 		],
 		tasteImgUrl: {
 				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1555420606600.jpg',
-				'북토크':'https://server.afteread.net/serverimage/북토크-1555420198557.png',
 				'베스트셀러':'https://server.afteread.net/serverimage/베스트셀러-1555420584072.png ',
-				'독립서점':'https://server.afteread.net/serverimage/독립서점-1555420252086.jpg',
+				'독립서점소식':'https://server.afteread.net/serverimage/독립서점-1555506413220.jpg',
 				'독서모임':'https://server.afteread.net/serverimage/독서모임-1555420190123.jpg',
-				'북 이벤트':'https://server.afteread.net/serverimage/이벤트-1555420214691.png',
+				'북이벤트':'https://server.afteread.net/serverimage/이벤트-1555420214691.png',
+				'북토크':'https://server.afteread.net/serverimage/북토크-1555504525364.png',
+				'이달의신간': 'https://server.afteread.net/serverimage/신간-1555509841854.jpg',
+				'저자와의대화' : 'https://server.afteread.net/serverimage/에세이-1555509860128.jpg',
 				'책읽찌라':'https://server.afteread.net/serverimage/책읽찌라-1555420142724.jpg',
-				'책끝을 접다':'https://server.afteread.net/serverimage/책끝을 접다-1555420164310.png',
+				'책끝을접다':'https://server.afteread.net/serverimage/책끝을 접다-1555420164310.png',
 				'커넥츠북':'https://server.afteread.net/serverimage/거넥츠북-1555420131165.png',
 				'겨울서점':'https://server.afteread.net/serverimage/겨울서점-1555420182341.jpg',
-				'책그림': 'https://server.afteread.net/serverimage/책그림-1555420155177.png'
+				'책그림': 'https://server.afteread.net/serverimage/책그림-1555420155177.png',
+				"다이애나의책장" :'https://server.afteread.net/serverimage/다이애나2-1555508821037.png',
+				'열정에기름붓기' : 'https://server.afteread.net/serverimage/열정에 기름붓기-1555509365298.jpg'
 		},
 		newTagUnUsing: [],
 		defaultTagUsing: [],
@@ -62,8 +70,10 @@ class TasteBoard extends Component {
 	}
 
 	_deleteSellection = (e) => {
-		let isInOrNot = this.state.taste.indexOf(e)
-		if (isInOrNot === -1) {
+
+		let isInOrNot = this.state.taste.includes(e)
+		console.log(isInOrNot)
+		if (!isInOrNot) {
 			let removingArray = this.state.newTagUsing
 			let removingIndex = this.state.newTagUsing.indexOf(e)
 			removingArray.splice(removingIndex, 1)
@@ -77,6 +87,7 @@ class TasteBoard extends Component {
 		} else {
 			let array = this.state.defaultTagUsing
 			let index = this.state.defaultTagUsing.indexOf(e)
+			console.log(array,"지우는 인덱스",index)
 			array.splice(index, 1)
 			this.setState({
 					defaultTagUsing: array
@@ -101,16 +112,17 @@ class TasteBoard extends Component {
 		let defaultTagUsing =[];  	
 		let newTagUnUsing= [];
 
+		let defaultTags= this.state.taste;
 		for(let element of usingTag){
 			console.log("usingTag",element.id);
-			if(element.id>11){
+			if(defaultTags.includes(element)){
 				newTagUsing.push(element.tagName);	
 			} else {
 				defaultTagUsing.push(element.tagName);
 			}
 		}
 		for(let element of unusingTag){
-			if(element.id>11){
+			if(defaultTags.includes(element)){
 				newTagUnUsing.push(element.tagName)	
 			}
 		}
@@ -153,6 +165,7 @@ class TasteBoard extends Component {
 		if(this.state.newTagUsing.length>0){
 			this.state.newTagUsing.forEach((element)=>{ newTagsObject[element]=null});
 		}
+		console.log("뿌려지는데?", this.state.tasteImgUrl, newTagsObject)
 		const wholeTaste = Object.assign(this.state.tasteImgUrl, newTagsObject)
 		const tasteblocks = Object.keys(wholeTaste).map((key, index) => {
 			let alreadyClicked	
@@ -194,15 +207,11 @@ class TasteBoard extends Component {
   
 	_handleSubmit = async () => {
 		console.log("newTagSelected",this.state.newTagUsing)
-		const howManyLikes = this.state.defaultTagUsing.length+this.state.newTagUsing.length 
-		if (howManyLikes.length< 3) {
-			alert('취향을 3개이상 고르셔야합니다!')
-		} else {
+
 			const result = await this._submitTaste()
 			window.localStorage.removeItem("previousInfo");
 			console.log("result",result);	
 			this._gotoMain(result);
-		}
 	}
 
 	_gotoMain = (r) => {
