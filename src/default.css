@@ -511,7 +511,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
 .myBookShelfText > i:before {content:'' !important;}
 
-.bookBoard {position:relative; width:240px; margin:18px; text-align:left; vertical-align:top; border-radius: 22px; display: inline-block;}
+.bookBoard {position:relative; width:240px; margin:8px 18px 3px  18px; text-align:left; vertical-align:top; border-radius: 22px; display: inline-block;}
 .bookBoard img {position:relative;}
 .likeBar {
   position: absolute;
@@ -802,7 +802,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .likeBar {padding:7px 12px;}
 
   .mainPost {padding:50px 0; font-size:18px; vertical-align:middle;}
-  .postTitle {font-size:13px; display:block; width:109px; text-align:left; height:3.8em; white-space:normal;overflow:hidden;text-overflow:ellipsis;color:#151515;}  
+  .postTitle {font-size:13px; display:block; width:109px; text-align:left; height:3.6em; white-space:normal;overflow:hidden;text-overflow:ellipsis;color:#151515;}  
 /* body * {border:1px solid #f00; box-sizing: border-box;} */
   .post_detail {width:100%;}
   .post_detail_content{padding:0 15px;}

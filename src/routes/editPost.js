@@ -42,13 +42,13 @@ class editPost extends Component {
   }
 
   _getBookData= (data)=>{
-    console.log("일단 writepost에는 데이터?",data);
+
     this.setState({bookData:data});
   }
 
   _handleTitle = async e => {
     let nowtitle = e.target.value; 
-    console.log("그래서 지금 이름은?", nowtitle);
+
     await this.setState({title: nowtitle});
   }; // 제목을 등록할때 사용하는 함수 입니다.
 
@@ -71,10 +71,10 @@ class editPost extends Component {
       let parsedBookData = this.state.bookData
       if(typeof(this.state.bookData)==="string"){
         parsedBookData = JSON.parse(this.state.bookData);
-        console.log("bookdata",parsedBookData)
+ 
       }
 			let postImage = parsedBookData.cover;
-			console.log( "url 바뀌었나",postImage);
+
 			return postImage 
 		} 
 		return `https://${server_url}/upload/${this.state.mainImage}`	
@@ -83,8 +83,7 @@ class editPost extends Component {
 
 
   render() {
-    console.log("editpost에 오신걸 환영합니다.")
-    console.log("bookdata", this.state.bookData)
+  
     let {title, contents} = this.state
     let editor = null;
     let image = null;

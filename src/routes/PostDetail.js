@@ -25,7 +25,15 @@ class PostDetail extends React.Component {
     loaded: false
   }
 
-  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
+  authHeader = ()=>{
+    if(window.localStorage.getItem('token')){
+
+      return  {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}} 
+    } else{
+
+      return {headers:{Authorization: `bearer anonymous`}} 
+    }
+  } 
 
   async componentDidMount(){ 
 
@@ -37,8 +45,8 @@ class PostDetail extends React.Component {
   }
 
   _getPostData = async() => {
-    const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader)
-  console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
+    const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader())
+  // console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
     this.setState({
       bookData: res_getPost.data.bookData,
       userId: res_getPost.data.userId,
@@ -48,7 +56,7 @@ class PostDetail extends React.Component {
   }
 
   _getReply = async() => {
-    const res_getReply = await axios.get(`https://${server_url}/api/reply/${this.state.postId}`, this.authHeader)
+    const res_getReply = await axios.get(`https://${server_url}/api/reply/${this.state.postId}`, this.authHeader())
     // console.log('postDetail.js의 _getReply 함수에서 get한 res_getReply 입니다. ', res_getReply)
 
     if (res_getReply.data === "There is no reply") {
@@ -81,20 +89,30 @@ class PostDetail extends React.Component {
   }
 
   _newReply =  (e)=> {
-
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
     this.setState({replyContents:e.target.value});
   }
 
   _makeReply = async(e) => {
     console.log("userName", this.state.userName)
+
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
+
     if(this.state.userName===''){
       alert("마이페이지에서 유저네임을 입력해주세요")
       return;
     }
+
     e.preventDefault();
     const respond =await axios.post(`https://${server_url}/api/reply/${this.state.postId}`
       , {replyContents :this.state.replyContents}
-      , this.authHeader)
+      , this.authHeader())
 
     await this._getReply();
     this.setState({replyContents:''})
@@ -102,7 +120,7 @@ class PostDetail extends React.Component {
 
   async getUserName(){
     const token = window.localStorage.getItem('token')
-    let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
+    let resultOfget = await axios.get(`https://${server_url}/api/user`,this.authHeader())
     if(resultOfget.data.userName){
       this.setState({userName:resultOfget.data.userName})
     }
@@ -112,10 +130,9 @@ class PostDetail extends React.Component {
   render() {
 
     const { postId, userId, replys, replyCount, isMypost, loaded } = this.state;
-    console.log("userId", userId )
-    if (!window.localStorage.getItem("token")) {
-      return <Redirect to="/login" />
-    } else if(!loaded){
+    // if (!window.localStorage.getItem("token")) {
+    //   return <Redirect to="/login" />
+    if(!loaded){
       return <WaitingLoader/>  
     }  
     else {

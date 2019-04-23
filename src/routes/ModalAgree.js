@@ -23,13 +23,11 @@ class ModalAgree extends Component {
 
   _handleConfirm=async()=>{
     if(this.state.usingPolicy&&this.state.privacyUsing){
-      console.log( "token?", this.settingToken, typeof(this.settingToken));
 
       const agreeResult =await axios.post(`https://${serverUrl}/api/user/agree`,{}, {headers: {'authorization': `bearer ${this.settingToken}`}} )
-      console.log("agreeResult",agreeResult);
+
       if(agreeResult){
         window.localStorage.setItem('token', this.settingToken);
-        console.log("토큰 삽입 완료!")
         window.location.href="/"
       }
     

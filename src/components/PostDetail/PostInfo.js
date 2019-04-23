@@ -12,14 +12,20 @@ export default class PostInfo extends Component {
     isMypost: false,
   }
 
-  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
+  authHeader = ()=>{
+    if(window.localStorage.getItem('token')){
+      return  {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}} 
+    } else{
+      return {headers:{Authorization: `bearer anonymous`}} 
+    }
+  } 
 
   componentWillMount(){
     this._getLikeData();
   }
 
   _getLikeData = async () => {
-    const res_getLike = await axios.get(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
+    const res_getLike = await axios.get(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader())
 
     this.setState({
       isLike: res_getLike.data[0][0][1], 
@@ -28,36 +34,43 @@ export default class PostInfo extends Component {
   }
 
   _handleLike = async () => { 
+
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
+
     if(this.props.userName===''){
       alert("유저네임을 설정해주세요");
       return;
     }
+
     let previousInfo =  window.localStorage.getItem("previousInfo");
     window.localStorage.removeItem("previousInfo");
     let parsedInfo =JSON.parse(previousInfo);
     if (this.state.isLike) { 
-      let resultOfdelete=await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader)
+      let resultOfdelete=await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader())
       if(resultOfdelete){
         parsedInfo.coverurl.map((element)=>{
           if(element.id==this.props.postId){
-            console.log("이건 실행은 되니??")
+     
             element["likeCount"]= this.state.likeCount-1
             element["isUserLike"]=false;
           }
         })
       }
     } else { 
-      await axios.post(`https://${server_url}/api/like/${this.props.postId}`, {}, this.authHeader)
+      await axios.post(`https://${server_url}/api/like/${this.props.postId}`, {}, this.authHeader())
       //console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res_postLike", res_postLike)
       parsedInfo.coverurl.map((element)=>{
         if(element.id==this.props.postId){
-          console.log("이게 실행은 되니??")
+
           element["likeCount"]= this.state.likeCount+1
           element["isUserLike"]=true;
         }
       })
     }
-    console.log(parsedInfo)
+
     let stringified = JSON.stringify(parsedInfo)
     window.localStorage.setItem("previousInfo", stringified);
     await this._getLikeData();

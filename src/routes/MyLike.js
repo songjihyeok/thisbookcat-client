@@ -60,27 +60,6 @@ class MyLike extends Component {
   }
 
   _setMyLikePost = async () => {
-    // let previousInfo = window.localStorage.getItem("previouslikeData");
-  
-   
-    // if(previousInfo){
-    //   window.localStorage.removeItem("previouslikeData");
-    //   let parsedInfo = JSON.parse(previousInfo);
-    //   let pageNumber = parsedInfo.page
-    //   if(parsedInfo.page>=2){
-    //     pageNumber-=1
-    //   }
-
-    //   this.setState({likePost:this.state.likePost.concat(parsedInfo.likePost), 
-    //                 page: pageNumber, 
-    //                 scrollY: parsedInfo.scrollY ,
-    //                 totalPage:parsedInfo.totalPage
-    //               })
-      
-    //   if(parsedInfo.page == 1){
-    //     return;
-    //   }
-    // }
 
       const likePosts = await this._getMyLikePost()
       this.setState({likePost: this.state.likePost.concat(likePosts)})

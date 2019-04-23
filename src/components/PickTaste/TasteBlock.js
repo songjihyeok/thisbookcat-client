@@ -49,7 +49,7 @@ changeName=()=>{
     return "책끝을 접다"
   }
   if(this.props.select==="이달의신간"){
-    return  "다이애나의 책장"
+    return  "이달의 신간"
   }
   if(this.props.select==="북이벤트"){
     return  "북 이벤트"

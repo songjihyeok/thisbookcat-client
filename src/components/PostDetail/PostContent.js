@@ -14,19 +14,25 @@ export default class PostContent extends Component {
     title : '',
    }
 
-  authHeader = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}
+   authHeader = ()=>{
+    if(window.localStorage.getItem('token')){
 
+      return  {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}} 
+    } else{
+      return {headers:{Authorization: `bearer anonymous`}} 
+    }
+  } 
   componentDidMount(){
     this._getPostData();
   }
 
   _getPostData = async () => {
-    const res_getPost = await axios.get(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader)
-    console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
+    const res_getPost = await axios.get(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader())
+
     const { contents, bookData, createdTime, likeCount, title, userId, mainImage } = res_getPost.data
     let mainImageUrl = `https://${server_url}/upload/${mainImage}`
 
-    console.log("mainImage", mainImage, "bookData",JSON.parse(bookData));
+  
     
     if(mainImage===""){
       let bookdataParsed= JSON.parse(bookData)

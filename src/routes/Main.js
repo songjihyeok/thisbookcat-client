@@ -26,7 +26,6 @@ class Main extends Component {
   
     await this._getUrls();
     await this.getScrollY();
-   // await this.refreshLIke();
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
@@ -104,14 +103,13 @@ class Main extends Component {
       if(previousInfo){
        
         let pageNumber =parsedInfo.page
-     
- 
+    
         if(parsedInfo.page>=2){
           pageNumber = parsedInfo.page-1
         } 
-        console.log(parsedInfo)
 
-       await this.setState({coverurl:this.state.coverurl.concat(parsedInfo.coverurl), 
+       await this.setState({
+                      coverurl:this.state.coverurl.concat(parsedInfo.coverurl), 
                       page: pageNumber, 
                       scrollY: parsedInfo.scrollY, 
                     })   

@@ -21,7 +21,7 @@ class Nav1 extends Component {
 
   _popoutSpace = (value)=>{
     let valueArray=value.split('')
-    console.log(valueArray)
+
     let resultValue =''
     for(let element of valueArray){
       if(element===" "){
@@ -81,9 +81,9 @@ class Nav1 extends Component {
   async clickHandler(){
     const token = window.localStorage.getItem('token')
     let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
-    console.log("받아온거",resultOfget)  
+
     if(resultOfget.data.userName){
-      console.log("여기 들어온거 맞지?")
+
       window.location.href = "/writepost"
     }else {
       alert("유저네임을 설정해주세요")

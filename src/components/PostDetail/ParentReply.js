@@ -9,9 +9,19 @@ export default class ParentReply extends Component {
   }
 
   reComment = {};
-  authHeader = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}};
+  authHeader = ()=>{
+    if(window.localStorage.getItem('token')){
+      return  {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}} 
+    } else{
+      return {headers:{Authorization: `bearer anonymous`}} 
+    }
+  } 
 
   _handleReReplyInput = () => { //대댓글 쓰고싶다고 하면 input창 보여주기.
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
     let show_reReplyInput = this.state.show_reReplyInput
     this.setState({show_reReplyInput : !show_reReplyInput})
   }
@@ -21,9 +31,17 @@ export default class ParentReply extends Component {
     e.preventDefault();
     let { userName, id, } = this.props.reply
     console.log("userName",this.props.userName)
+
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
+
     if(!userName){
       alert("유저네임을 설정해주세요")
+      return
     }
+    
     this.reComment = {
       replyContents: e.target.value,
       parentsReplyId: id,
@@ -32,18 +50,26 @@ export default class ParentReply extends Component {
   }
 
   _handleKeyPress= (e)=>{
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
     if (e.keyCode == '13') {
     e.preventDefault();  
     this._makeReReply(e);
     }   
   }
 
-
-
   _userNamecontroller = (userName)=>{
+
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
     if(!userName){
       alert("유저네임을 설정해주세요")
     }
+
     return `@${userName}`
   }
 
@@ -52,13 +78,21 @@ export default class ParentReply extends Component {
     // console.log('ParentReply.js 컴포넌트의 _makeReReply 함수에서 this.reComment', this.reComment);
     // const res_postReReply = 
     e.preventDefault();
-    await axios.post(`https://${server_url}/api/reply2/${this.props.postId}`, this.reComment, this.authHeader)
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
+    await axios.post(`https://${server_url}/api/reply2/${this.props.postId}`, this.reComment, this.authHeader())
     // console.log('Reply.js 컴포 > _makeReReply 함수 > axios.post 요청 후 받는 res_postReReply', res_postReReply);
     await this.props._getReply();
   }
 
   _deleteReply = async () => {
-    const res_deleteReply = await axios.delete(`https://${server_url}/api/reply/${this.props.reply.id}`, this.authHeader)
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
+    const res_deleteReply = await axios.delete(`https://${server_url}/api/reply/${this.props.reply.id}`, this.authHeader())
     console.log('Reply.js 컴포 > _deleteReply 함수 > axios.post 요청 후 받는 res_deleteReply', res_deleteReply);
     await this.props._getReply();
   }

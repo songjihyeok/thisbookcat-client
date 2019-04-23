@@ -35,11 +35,10 @@ class Followings extends Component {
 
   _infiniteScroll = () => {
 
-    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loaded) {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight)&&this.state.loaded) {
 
       if (this.state.page>1) {
          this.setState({page: this.state.page-1, loaded:false})
-         console.log("써버 가져오즈아")
          this._getUrls();
       }
     }
@@ -76,7 +75,7 @@ class Followings extends Component {
       if(parsedInfo.page>=2){
         pageNumber-=1
       }
-      this.setState({page: pageNumber, 
+      await this.setState({page: pageNumber, 
                     scrollY: parsedInfo.scrollY,
                     getData:true,
                     followPost:this.state.followPost.concat(parsedInfo.followPost)})

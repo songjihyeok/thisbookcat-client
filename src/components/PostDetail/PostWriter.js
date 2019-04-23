@@ -14,8 +14,13 @@ export default class PostWriter extends Component {
     isFollowing:false
   }
  
-  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
-
+  authHeader = ()=>{
+    if(window.localStorage.getItem('token')){
+      return  {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}} 
+    } else{
+      return {headers:{Authorization: `bearer anonymous`}} 
+    }
+  } 
   async componentDidMount(){
     await this._getUserData()
     await this._getFollowingData()
@@ -23,7 +28,7 @@ export default class PostWriter extends Component {
   }
 
   _getUserData = async () => {
-    const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader)
+    const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader())
 
     let userName = null
     let profileImage =null
@@ -41,36 +46,41 @@ export default class PostWriter extends Component {
   }
 
   _getFollowingData = async () => {
-    console.log("이게 누구?",this.props)
-    const res_getFollowing = await axios.get(`https://${server_url}/api/follow/check/${this.props.userId}`, this.authHeader)
+
+    const res_getFollowing = await axios.get(`https://${server_url}/api/follow/check/${this.props.userId}`, this.authHeader())
     // console.log('_getFollowingData 함수에서 axios.get 받아온 res_getFollowing.data 찍는중... this should be ture or false', res_getFollowing.data)
-    console.log("followData---------", res_getFollowing )
+
     this.setState({isFollowing: res_getFollowing.data})
   }
 
   _handleFollowing = async () => {
 
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
+
     if(this.props.userName === ''){
       alert("유저네임을 설정해주세요")
       return;
     }
-    console.log("팔로우??")
 
+    window.localStorage.removeItem("previousFollow");
     if (this.state.isFollowing) {
 
-      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader)
+      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader())
 
       this.setState({isFollowing: false})
     } else {
       
-      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader)
-      console.log("followResult",followResult)
+      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader())
+
       this.setState({isFollowing: true})
     }
   }
 
   _handleDelete = async () => {
-    const res_deletePost = await axios.delete(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader)
+    const res_deletePost = await axios.delete(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader())
     // console.log("props", this.props)
     // console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
     window.location.href ="/mypage"

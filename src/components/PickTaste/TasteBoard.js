@@ -15,15 +15,15 @@ class TasteBoard extends Component {
 				'독서모임',
 				'북이벤트',
 				'북토크',
-				'저자와의대화',
 				'이달의신간',
+				'저자와의대화',
 				'열정에기름붓기',
 				'책읽찌라',
 				'책끝을접다',
 				'커넥츠북',
 				'겨울서점',
 				'책그림',
-				"다이애나의책장"
+				'다이애나의책장'
 		],
 		tasteImgUrl: {
 				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1555420606600.jpg',
@@ -39,7 +39,7 @@ class TasteBoard extends Component {
 				'커넥츠북':'https://server.afteread.net/serverimage/거넥츠북-1555420131165.png',
 				'겨울서점':'https://server.afteread.net/serverimage/겨울서점-1555420182341.jpg',
 				'책그림': 'https://server.afteread.net/serverimage/책그림-1555420155177.png',
-				"다이애나의책장" :'https://server.afteread.net/serverimage/다이애나2-1555508821037.png',
+				'다이애나의책장' :'https://server.afteread.net/serverimage/다이애나2-1555508821037.png',
 				'열정에기름붓기' : 'https://server.afteread.net/serverimage/열정에 기름붓기-1555509365298.jpg'
 		},
 		newTagUnUsing: [],
