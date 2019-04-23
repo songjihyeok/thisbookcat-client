@@ -8,7 +8,9 @@ import Bookapi from "../components/WritePost/Bookapi";
 import MyEditor from "../components/WritePost/MyEditor.js";
 import "../heightMax.css";
 import Template from "../components/WritePost/Template";
-
+import server_url from '../url.json';
+import axios from "axios";
+import  WaitingLoader from '../components/Spinner'
 class WritePost extends Component {
  
     state = {
@@ -18,8 +20,13 @@ class WritePost extends Component {
       mainimage : [],
       bookData: null,
       usingImage: [],
-      showmodal:false
+      showmodal:false,
+      loaded: false,
+      qualified : false
     }  
+    componentDidMount(){
+      this.isqualified()
+    }
 
     _handleMainImage = savedFilename => {
       this.setState({mainimage: this.state.mainimage.concat(savedFilename)});
@@ -68,11 +75,26 @@ class WritePost extends Component {
       console.log("showmodat")
       this.setState({showmodal:true})   
     } 
+
+    isqualified=async()=>{
+      let token =window.localStorage.getItem("token")
+      let resultOfuserInfo = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
+      let {qualified} = resultOfuserInfo.data
+
+      await this.setState({qualified, loaded:true})
+    }
+
   
   render() {
+    let {loaded,qualified} = this.state
     // console.log(this.state.mainimage, this.state.title, this.state.contents);
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
+    } else if(!loaded){
+      return <WaitingLoader/>  
+    } else if(!qualified){
+      alert("애프터리더 집필진이 아닙니다")
+      return <Redirect to="/main" />
     } else {
       return (
         (this.state.posted)

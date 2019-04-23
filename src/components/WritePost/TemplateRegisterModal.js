@@ -51,7 +51,7 @@ class TemplateRegisterModal extends Component {
               </>
                 :
               <div className="template-register-modal-default">
-                <span className="template-register-modal-default-text">이책반냥</span>
+                <span className="template-register-modal-default-text">애프터리드</span>
               </div>
             }
           </div>

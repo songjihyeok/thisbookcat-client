@@ -65,7 +65,7 @@ class Login extends Component {
                 <div className='login_body'>
                   <div className='login_container'>
                     <h1 id="logo">
-                      <div className="textLogo">책을 읽고 이야기를 나누다</div>
+                      <div className="textLogo">책 관련 행사, 이야기 그리고 모든 것</div>
                       <div className="imageLogo">애프터리드</div>
                       <div className="textLogo">로그인 해주세요</div>
                     </h1>
@@ -95,7 +95,7 @@ class Login extends Component {
                     
                      
                     <div className='login_flex'>
-                       <Link to="/signup"><div style={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
+                       <Link to="/signup"><div style ={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
                     </div>
                   </div>
                 </div>

@@ -102,7 +102,7 @@ export default class MyEditor extends Component {
                       modules={Editor.module}
                       formats={Editor.formats}
                       bounds={".app"}
-                      placeholder={"당신의 책 관련 이야기를 들려주세요, #북스타그램"}>
+                      placeholder={"책관련 행사 혹은 이야기를 들려주세요"}>
           </ReactQuill>        
         </div>
       </div>

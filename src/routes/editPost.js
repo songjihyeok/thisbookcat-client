@@ -38,7 +38,6 @@ class editPost extends Component {
     catch(error){
       throw new Error(error);
     }
-
   }
 
   _getBookData= (data)=>{

@@ -80,13 +80,17 @@ class Nav1 extends Component {
 
   async clickHandler(){
     const token = window.localStorage.getItem('token')
+
     let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
-
-    if(resultOfget.data.userName){
-
+    console.log("결과물", resultOfget)
+    let {userName, qualifed}= resultOfget.data
+    if(userName&& qualifed){
+      console.log("넘어가자")
       window.location.href = "/writepost"
-    }else {
-      alert("유저네임을 설정해주세요")
+    }else if(!qualifed){
+      alert("애프터리더 집필진만 작성가능합니다.")
+    }else if(!userName){
+      alert("유저네임을 입력해주세요")
     }
   }
 
