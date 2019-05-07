@@ -126,7 +126,8 @@ Editor.module = {
       ["clean"]
     ],
     handlers : {
-      image : imageHandler
+      image : imageHandler,
+      link : linkhandlers
     }
   },
   imageResize: {
@@ -193,6 +194,31 @@ function imageHandler () {
       }
     }  
   }
+
+  function linkhandlers(value) {
+    console.log(value)
+    if (value) {
+
+      var href = prompt('Enter the URL');
+      if(!href){
+        return;
+      }
+      var delta = {
+        ops: [
+          {retain: 1},
+          {insert: href, attributes: {link: href}}
+        ]
+      };
+      this.quill.updateContents(delta);
+    } else {
+      return;
+    }
+  }
+    
+  
+
+
+
 
 
 Editor.formats = [

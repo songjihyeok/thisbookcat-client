@@ -85,18 +85,17 @@ class Login extends Component {
 
 
                     <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_kakao" className='login_btn' >KAKAO로 계속하기</button></a></div> 
-                    <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_naver" className='login_btn' >NAVER로 계속하기</button></a></div> 
+                    {/* <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_naver" className='login_btn' >NAVER로 계속하기</button></a></div>  */}
                     <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div>
                    
                    {/* <FACEBOOK></FACEBOOK>  */}
                     <div><a href="https://server.afteread.net/auth/google"><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></a></div>
                     {/* <div className='login_privacy'>{`계속하면 이책반냥 서비스 약관 및 개인정보 보호 정책에 동의하는 것으로 간주합니다.`}</div> */}
                     {/* TODO: 재플린에는 위의 내용이 없습니다용? */}
-                    
                      
-                    <div className='login_flex'>
-                       <Link to="/signup"><div style ={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
-                    </div>
+                     <div className='login_flex'>
+                        <Link to="/signup"><div style ={{color: 'rgba(255, 255, 255, 0.5)'}}>회원가입</div></Link>
+                    </div> 
                   </div>
                 </div>
             </div>

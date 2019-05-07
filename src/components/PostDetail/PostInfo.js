@@ -93,14 +93,42 @@ export default class PostInfo extends Component {
       <ul className='postInfo'>
         <li>
           {(isLike)
-          ? <div><span className="icon like" onClick={this._handleLike}>좋아요</span>{likeCount}</div>
-          : <div><span className="icon unlike" onClick={this._handleLike}>좋아요 해제</span>{likeCount}</div>
+          ? 
+          // <div><span className="icon unlike" onClick={this._handleLike}>좋아요 해제</span>{likeCount}</div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="29" height="28.5" onClick={this._handleLike}>
+             <path fill="#3376FF" fill-rule="evenodd" stroke="#3376FF" strokeLinejoin="round" d="M14.8 7.804a78.67 78.67 0 0 0-.723-1.57C10.445-.717 1.294 1.227 1.294 9.906c0 5.854 13.11 15.084 13.11 15.084s13.082-9.94 13.082-15.137c0-6.979-5.989-9.379-10.165-6.604-.552.367-2.931 2.844-2.931 2.844"/>
+            </svg>
+            <div className="likeCount">{likeCount}</div>
+          </div>
+            // {/* <span className="icon like" onClick={this._handleLike}>좋아요</span>{likeCount}</div> */}
+          :
+          <div> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="28.5" onClick={this._handleLike}>
+              <path fill="none" stroke="#343434" strokeLinejoin="round" d="M14.492 7.804a93 93 0 0 0-.723-1.57C10.137-.717.985 1.227.985 9.906c0 5.854 13.111 15.084 13.111 15.084s13.082-9.94 13.082-15.137c.001-6.979-5.989-9.379-10.164-6.604-.553.367-1.132 1.062-1.132 1.062"/>
+          </svg>
+          <div className="likeCount">{likeCount}</div>
+        </div>
           }
         </li>
-        <li><span className="icon reCount">댓글</span>{(replyCount) ? `${replyCount}` : `0`}</li>
         <li>
-          <span className="icon bookInfo" onClick={this._showModal}>책정보</span>
-          <BookInfoModal bookData={this.props.bookData} show={modal} hide={this._closeModal}/>
+          <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="28.5" height="28.5">
+            <path fill="none" stroke="#343434" d="M14.004 2c6.633 0 12.009 4.817 12.009 10.758 0 2.782-1.177 5.316-3.11 7.225-.543.536 1.395 6.017 1.395 6.017s-4.922-3.572-5.887-3.23a13.219 13.219 0 0 1-4.407.747c-6.632 0-12.01-4.817-12.01-10.759C1.994 6.817 7.372 2 14.004 2z"/>
+          </svg>
+          <div className="replyCount"> {(replyCount) ? `${replyCount}` : `0`}</div>
+          </div>
+        </li>
+        <li>
+        <div className="bookinfoContainer">  
+          <div className="bookInfoImage">  
+            <svg xmlns="http://www.w3.org/2000/svg" width="29.5" height="28.5" onClick={this._showModal}>
+              <path fill="none" stroke="#343434" strokeLinejoin="round" d="M16.23 24.053l11.258-1.435V3.958L16.23 5.393v18.66zM12.745 24.053L1.488 22.618V3.958l11.257 1.435v18.66z"/>
+            </svg>
+          </div>
+          <div className="bookInfo">info</div>
+        </div>  
+           <BookInfoModal bookData={this.props.bookData} show={modal} hide={this._closeModal}/>
         </li>
       </ul>
     )

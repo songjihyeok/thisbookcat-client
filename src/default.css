@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
+p{ margin: 0}
 * {margin:0; padding:0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 li {list-style:none;}
 a, img {border:0;}
@@ -29,7 +30,11 @@ html { text-rendering: optimizeLegibility;}
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
 .bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px; margin-top:10px}
-.postTitle {display:inline-block; width:240px; padding:10px; font-size: 20px; height:3.5em;text-overflow:ellipsis;text-align:left; overflow:hidden;color: #151515; font-weight: 500;}
+.postTitle {
+   /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  width:240px; padding:10px; font-size: 20px; height:2.8em;text-overflow:ellipsis;text-align:left; overflow:hidden;color: #151515; font-weight: 500; font-family: "NanumBarunpenB"; white-space:normal; line-height:1.2; word-wrap:break-word; -webkit-line-clamp:2;  display: -webkit-box; }
 .postImageContainer {position:relative; width: auto; height: 240px; border-radius: 22px; text-align : center;}
 .mainThumbNail {position: relative; width:100%; border-radius: 22px;}
 .Main_tagsearch {text-align : center;}
@@ -228,11 +233,11 @@ html { text-rendering: optimizeLegibility;}
 
 /* PostDetail */
 .img-circle {width:70px; height:70px; margin:0 10px; background-color:#f2f2f2; border-radius:50%; box-shadow:none;}
-.post_detail {position:relative; min-height: calc(100% - 70px); margin: 0 200px;}
+.post_detail {position:relative; min-height: calc(100% - 70px); margin: 0 180px;}
 .post_detail:before,
 .post_detail:after {clear: both; display:block; content:'';}
 .post_detail:before {position:relative; top:0; left:60%; width:1px; height: 100%; border-left:1px solid #d0d0d0;}
-.post_detail_left {float: left; width: calc(60% - 46px); padding: 48px 23px;}
+.post_detail_left {float: left; width: calc(65% - 46px); padding: 48px 23px;}
 .post-thumbs {max-width:100%; max-height:auto; text-align:center; }
 .post-thumbs img {box-shadow:none; border-radius:0;}
 .post_detail_left::-webkit-scrollbar {display: none;}
@@ -241,13 +246,13 @@ html { text-rendering: optimizeLegibility;}
 .post_detail_left .post_detail_content img {max-width:100%;}
 .post_detail_3_reply {overflow : scroll; overflow-x: hidden;}
 .post_detail_3_reply::-webkit-scrollbar {display: none;}
-.post_detail_right {float: right; width: 40%; margin-left: -1px; padding-top : 20px;}
+.post_detail_right {float: left; width: 35%; margin-left: 0px; padding-top : 20px;}
 .user_thumbs {vertical-align:middle; display: inline-block;}
 .post_detail_userinfo_wrapper { display:inline-block; width: 100%; }
-.post_detail_username {margin:0; padding: 0 15px 0 5px; word-break:break-all; display:inline-block; font-size:20px}
+.post_detail_username {margin-bottom:15px; padding: 0 15px 0 5px; word-break:break-all; display:inline-block; font-size:20px}
 .user_thumbs .img-circle {margin:0 10px 10px 0;}
 .user_buttons,
-.user_follow {margin-left:10px; margin-right:130px;margin-top:21px; float:right; display:inline-block;}
+.user_follow {margin-left:10px; margin-right:12px;margin-top:19px; float:right; display:inline-block;}
 .post_detail_3_reply .user_thumbs .img-circle {width:50px; height:50px;}
 
 .ui.grey.button, 
@@ -308,6 +313,7 @@ html { text-rendering: optimizeLegibility;}
   line-height:20px;
   word-break:break-all;
 }
+.replyCount{display:inline-block; margin-left:4px}
 .reply_targetName {padding-right:8px; font-weight:800; display:inline-block;}
 .replyContents {display: inline-block;}
 .reply_msg_button {font-size:14px; text-align:right;}
@@ -337,6 +343,9 @@ html { text-rendering: optimizeLegibility;}
 .postInfo {padding:10px 20px 23px 35px; border-bottom: 1px solid #d0d0d0; display: flex; flex-direction: row;}
 .postInfo li {padding-left:35px;}
 .postInfo li:first-child {padding-left:0;}
+.bookinfoContainer{cursor: pointer;}
+.bookInfo{margin:-10px 0px; text-align:center}
+
 /*
 .postInfo{
   border-bottom: 1px solid #d0d0d0;
@@ -356,7 +365,7 @@ html { text-rendering: optimizeLegibility;}
 .post_detail_right_3_reply::-webkit-scrollbar {display: none;}
 .post_detail_reply_input {width:calc(100% - 70px); height:54px; vertical-align:middle; border:0;}
 .postContent {width:80%; min-width:500px; margin:0 auto;}
-.post_detail_title{padding:45px 0 30px 0; font-size: 30px; font-weight: bold; line-height:38px;}
+.post_detail_title{padding:45px 0 30px 0;font-size: 30px; font-weight: bold; line-height:38px;}
 textarea.rereply_input {width:100%; height:60px; margin-bottom:5px; border:1px solid #d0d0d0; resize:none;}
 span.icon,
 .btn_reWrite {width:28px; height:28px; margin-right:7px; vertical-align:middle; text-indent:-1000em; display:inline-block; overflow:hidden; border:0;}
@@ -460,7 +469,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ql-snow .ql-editor h2 {font-size:25px; line-height:24px;}
 .ql-align-center {text-align: center;}
 .ql-align-right {text-align: right;}
-.ql-video {width:100%; height:500px; text-align: center;}
+.ql-video {width:100%; height:380px; text-align: center;}
 
 .followingContent {word-break:break-all;}
 .dataNone {font-size:20px; padding:80px 0; color:#151515; text-align:center;}
@@ -470,7 +479,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .MyLikeWrap {padding:30px 0;}
 .MyLike {text-align: left;}
 .likeThumbnail {position: relative;}
-
+.likeCount{display:inline-block !important; margin-left:2px;}
 
 /* MyPageProFile */
 
@@ -505,13 +514,13 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
 .ProFileDetailContainer li > span.InfoName + b {margin-top:5px; padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
-.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: 700px;}
+.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: auto;}
 .myBookBoardContainer .bookBoardWrap {padding-top:0;}
 .myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
 .myBookShelfText > i:before {content:'' !important;}
 
-.bookBoard {position:relative; width:240px; margin:8px 18px 3px  18px; text-align:left; vertical-align:top; border-radius: 22px; display: inline-block;}
+.bookBoard {position:relative; width:240px; margin:8px 18px 18px 18px; text-align:left; vertical-align:top; border-radius: 22px; display: inline-block;}
 .bookBoard img {position:relative;}
 .likeBar {
   position: absolute;
@@ -802,7 +811,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .likeBar {padding:7px 12px;}
 
   .mainPost {padding:50px 0; font-size:18px; vertical-align:middle;}
-  .postTitle {font-size:13px; display:block; width:109px; text-align:left; height:3.6em; white-space:normal;overflow:hidden;text-overflow:ellipsis;color:#151515;}  
+  .postTitle {font-size:13px; width:109px; text-align:left; height:3.2em; white-space:normal;overflow:hidden;text-overflow:ellipsis;color:#151515;}  
 /* body * {border:1px solid #f00; box-sizing: border-box;} */
   .post_detail {width:100%;}
   .post_detail_content{padding:0 15px;}
@@ -815,7 +824,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail_right_2 {padding:0 0 0 20px;}
   .post_detail_reply_input {width:calc(100% - 55px); height:60px; vertical-align:middle; border:0;}
   .btn_reWrite {width:45px; height:34px; margin-top:13px;}
-  .ql-video {width:300px; height:200px;}
+  .ql-video {width:330px; height:200px; text-align:center}
 
   .Followings {height:calc(100% - 80px); background-color:#fff; margin:0}
   .FollowingBoards {width:100%; padding-top:4px; box-shadow:none;}
@@ -840,11 +849,14 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .textPart li.contentsPart {min-height:auto; height:auto;}
 
   .post_detail {padding-top:136px; margin:0}
+  .post_detail_right{margin-left:0px}
   .post_detail_right_1_postWriter,
-  .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0; padding:10px 20px 18px 35px; margin-bottom:20px;}
+  .postInfo {position:absolute; width:100%; box-sizing:border-box; border:0; padding:10px 20px 13px 35px; margin-bottom:20px;}
   .post_detail_right_1_postWriter {top:9px; height:88px; padding:10px 20px 10px 30px}
   .postInfo {top:89px; border-bottom:1px solid #eaeaea;}
-  .user_buttons {position:absolute; left:0; width:100%; text-align:right; z-index:1; margin-left:0px; margin-top:14px;}
+
+
+  .user_buttons {position:absolute; left:0; width:100%; text-align:right; z-index:1; margin-left:0px; margin-top:6px;}
   .postContent {width:100%; min-width:100%; margin:0;}
   .post_detail_title {font-size:22px; line-height:34px;}
   .post_detail_3_reply {border-top:1px solid hsl(0, 0%, 92%);}
@@ -852,7 +864,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .post_detail_username {max-width:calc(100% - 130px); max-height:50px; line-height:25px; vertical-align:middle; overflow:hidden; color:black !important;}
   .img-circle {width:50px; height:50px;}
   .post_detail_3_reply .user_thumbs .img-circle {width:41px; height:41px;}
-  .user_follow {float:right; margin-top:16px; margin-right:10px;}
+  .user_follow {float:right; margin-top:10px; margin-right:10px;}
   .ui.teal.button,
   .ui.grey.button {padding:.5em .8em; font-size:13px;}
 

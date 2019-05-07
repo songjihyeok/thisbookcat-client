@@ -39,28 +39,8 @@ _toggleBlockStatus = () => {
 }
 
 changeName=()=>{
-  if(this.props.select==="저자와의대화"){
-    return "저자와의 대화"
-  }
-  if(this.props.select==="독립서점소식"){
-    return "독립서점 소식"
-  }
-  if(this.props.select==="책끝을접다"){
-    return "책끝을 접다"
-  }
-  if(this.props.select==="이달의신간"){
-    return  "이달의 신간"
-  }
-  if(this.props.select==="북이벤트"){
-    return  "북 이벤트"
-  }
-  if(this.props.select==="다이애나의책장"){
-    return  "다이애나의 책장"
-  }
-  if(this.props.select==="열정에 기름붓기"){
-    return "열정에 기름붓기"
-  }
-  return this.props.select
+
+  return "#"+this.props.select
 }
 
 

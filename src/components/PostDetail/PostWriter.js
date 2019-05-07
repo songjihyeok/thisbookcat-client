@@ -104,10 +104,10 @@ export default class PostWriter extends Component {
     return (
       <div className='post_detail_right_1_postWriter'>
         <div className="post_detail_userinfo_wrapper">
-          <Link to={`/postWriter/${userId}`}>
+             {/* <Link to={`/postWriter/${userId}`}> */}
             <div className="user_thumbs">{this._userImagecontrollor()}</div>
             <div className='post_detail_username'>{userName}</div>
-          </Link>
+         {/* </Link> */}
         
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 

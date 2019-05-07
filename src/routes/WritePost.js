@@ -136,9 +136,9 @@ class WritePost extends Component {
               
                 </li>
               </ul>
-                {/* <MyEditors></MyEditors> */}
+          
               <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents} _handleImages={this._handleImages}/>
-
+                
             </div>
                     
           </div>

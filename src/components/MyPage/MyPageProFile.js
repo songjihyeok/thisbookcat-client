@@ -143,7 +143,7 @@ class MyPageProFile extends Component {
             </dl>
             <ul className="ProFileDetailContainer">
               <li>
-                <span className='InfoName'>선택한 취향</span>
+                <span className='InfoName'>선택한 관심사</span>
                 <b>{this.state.likes}<button className="change_taste" onClick={()=>this.changeTaste()}>변경</button></b>
               </li>
               <li>
@@ -200,6 +200,7 @@ class MyPageProFile extends Component {
   }
   _logout = e => {
     e.preventDefault();
+    window.localStorage.removeItem("previousInfo");
     window.localStorage.removeItem('token');
     this.setState({isLogin: false})
   }

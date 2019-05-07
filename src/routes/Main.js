@@ -89,7 +89,7 @@ class Main extends Component {
       return bookcover
     }
     if(this.state.loaded){
-      return <div className="dataNone">컨텐츠가 없습니다. 취향을 재설정해주세요</div>
+      return <div className="dataNone">컨텐츠가 없습니다. 관심사를 재설정해주세요</div>
     }
     return <WaitingLoader/>    
   };
@@ -132,6 +132,7 @@ class Main extends Component {
       let token = window.localStorage.getItem('token')
       let resultOfPost= await axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
+      console.log("결과",resultOfPost)
       if(this.state.page===0){
         this.setState({page: resultOfPost.data.totalpage})
       }
