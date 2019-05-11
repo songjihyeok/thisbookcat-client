@@ -24,8 +24,10 @@ class TasteBoard extends Component {
 				'철학',
 				'심리',
 				'사회',
+				'예술문화',
 				'로맨스',
 				'판타지',
+				'스릴러',
 				'역사'
 		],
 		tasteImgUrl: {
@@ -47,6 +49,7 @@ class TasteBoard extends Component {
 				'예술문화' : 'https://server.afteread.net/serverimage/art-1557239623079.jpg',
 				'로맨스' :'https://server.afteread.net/serverimage/romance-1557238768222.jpg',
 				'판타지' : 'https://server.afteread.net/serverimage/fantasy-1557238870144.png',
+				'스릴러' : "https://server.afteread.net/serverimage/thriller-1557495402840.png",
 				'역사' : 'https://server.afteread.net/serverimage/history-1557239615172.jpg'
 		},
 		newTagUnUsing: [],
@@ -223,7 +226,7 @@ class TasteBoard extends Component {
 
 	_gotoMain = (r) => {
 		if (r) {
-			window.location.href="/mypage";
+			window.location.href="/main";
 		}
 	}
     

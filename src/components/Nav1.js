@@ -83,12 +83,10 @@ class Nav1 extends Component {
 
     let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
     console.log("결과물", resultOfget)
-    let {userName, qualified}= resultOfget.data
+    let {userName}= resultOfget.data
 
-    if(userName&& qualified){
+    if(userName){
       window.location.href = "/writepost"
-    }else if(!qualified){
-      alert("애프터리더 집필진만 작성가능합니다.")
     }else if(!userName){
       alert("유저네임을 입력해주세요")
     }
@@ -116,13 +114,13 @@ class Nav1 extends Component {
           <p className="mo_button"><a href="#none" onClick={this.navClick}><span>메뉴</span></a></p>
           <div className="items">
             <div className="items_list">
-              {/* <Link to={"/followings"}>
+              <Link to={"/followings"}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="item">
                   <path fill="none" stroke="#343434" strokeWidth="1.5" d="M8.5 5.5h19a3 3 0 0 1 3 3v20a3 3 0 0 1-3 3h-19a3 3 0 0 1-3-3v-20a3 3 0 0 1 3-3z"/>
                   <path fill="none" stroke="#343434" strokeLinecap="round" strokeWidth="1.5" d="M11.5 12.5h13M11.5 17.5h13M11.5 22.5h7"/>
                 </svg>
                   <span className="nav_text">팔로잉 피드</span> 
-              </Link> */}
+              </Link>
               <Link to={"/mylike"}>
               <svg xmlns="http://www.w3.org/2000/svg" className="item">
                  <path fill="none" fillRule="evenodd" stroke="#343434" strokeLinejoin="round" strokeWidth="1.5" d="M20.955 14.42c-.34-.759-2.735-3.629-2.803-3.762-4.034-7.8-14.2-5.619-14.199 4.122 0 6.569 14.562 16.928 14.562 16.928S33.047 20.552 33.047 14.72c.001-7.833-6.653-10.526-11.291-7.411C21.143 7.72 20.5 8.5 20.5 8.5"/>

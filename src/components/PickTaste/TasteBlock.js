@@ -40,6 +40,9 @@ _toggleBlockStatus = () => {
 
 changeName=()=>{
 
+  if(this.props.select==="howToWork"){
+    return "#how to work"
+  }
   return "#"+this.props.select
 }
 

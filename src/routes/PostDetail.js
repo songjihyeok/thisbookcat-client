@@ -22,7 +22,12 @@ class PostDetail extends React.Component {
     bookData: null,
     replyContents: '',
     userName : '',
-    loaded: false
+    loaded: false,
+    address: null,
+    isMypost: false,
+    mainImage: null,
+    contents: null,
+    likeCount: null
   }
 
   authHeader = ()=>{
@@ -47,10 +52,17 @@ class PostDetail extends React.Component {
   _getPostData = async() => {
     const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader())
   // console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
+   
+  const { contents, bookData, isthePoster, instagram, createdTime, likeCount, title, userId, mainImage } = res_getPost.data
     this.setState({
-      bookData: res_getPost.data.bookData,
-      userId: res_getPost.data.userId,
-      isMypost: res_getPost.data.isthePoster,
+      bookData: bookData,
+      userId: userId,
+      isMypost: isthePoster,
+      address: instagram,
+      mainImage: mainImage,
+      contents:contents,
+      likeCount:likeCount,
+      title:title,
       loaded:true
     })
   }
@@ -129,7 +141,7 @@ class PostDetail extends React.Component {
   
   render() {
 
-    const { postId, userId, replys, replyCount, isMypost, loaded } = this.state;
+    const { postId, userId, replys, replyCount, isMypost,contents, title,loaded, address, mainImage} = this.state;
     // if (!window.localStorage.getItem("token")) {
     //   return <Redirect to="/login" />
     if(!loaded){
@@ -140,7 +152,7 @@ class PostDetail extends React.Component {
         <Fragment>
           <Nav1 />
           <div className='post_detail'>
-            <PostContent postId={postId} />
+            <PostContent postId={postId} address={address} mainImage={mainImage} title={title} contents={contents} loaded={loaded}/>
             <div className='post_detail_right'>
               <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history} userName={this.state.userName}/>
               <PostInfo bookData={this.state.bookData} postId={postId} replyCount={replyCount} history={this.props.history} userName={this.state.userName}/>

@@ -11,7 +11,7 @@ class redirect extends Component {
 
   _handleHide=()=>{
     this.setState({show:false});
-    window.location.href="/"
+    window.location.href="/picktaste"
   }
 
   agreeHandler=()=>{

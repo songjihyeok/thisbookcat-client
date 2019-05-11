@@ -202,6 +202,7 @@ class MyPageProFile extends Component {
     e.preventDefault();
     window.localStorage.removeItem("previousInfo");
     window.localStorage.removeItem('token');
+    window.localStorage.removeItem("previousFollow");
     this.setState({isLogin: false})
   }
 

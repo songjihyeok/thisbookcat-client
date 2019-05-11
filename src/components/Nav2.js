@@ -45,7 +45,16 @@ class Nav2 extends Component {
       return;
     }
 
-    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents, bookData : bookData, usingImage: this.props.posting.usingImage}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
+    let body = { 
+                title: this.props.posting.title,
+                contents: this.props.posting.contents,
+                bookData : bookData, 
+                usingImage: this.props.posting.usingImage,
+                address: this.props.posting.address
+    }
+    console.log("body", body)
+
+    const titleandcontent = await axios.post(sendurl,body, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
  
       if(!this.props.posting.isedit){
         const config = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}

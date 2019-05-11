@@ -487,7 +487,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .profileContainer {position:relative; width:100%; margin:0 auto; padding:46px 0; background-color: #ffffff;}
 .myName {position: relative; padding-left:25px; display:block;}
 .ProfilePhoto {width: 90px; height: 90px; margin:0 auto; border-radius: 50%; display:inline-block;}
-.ProFilePhotoContainer {position: relative; margin:0 10px; width:35%; min-width:400px; padding:25px 0; vertical-align:middle; display: inline-block; text-align: left}
+.ProFilePhotoContainer {position: relative; width:35%; min-width:400px; padding:25px 0; vertical-align:middle; display: inline-block; text-align: left}
 .ProFilePhotoContainer dt,
 .ProFilePhotoContainer dd {vertical-align:middle; display:inline-block;}
 .ProFilePhotoContainer dd {max-width:calc(100% - 120px); padding:10px 0; margin-left:10px; text-align:left;}
@@ -514,9 +514,9 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
 .ProFileDetailContainer li > span.InfoName + b {margin-top:5px; padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
-.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: auto;}
+.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: auto; height:600px;}
 .myBookBoardContainer .bookBoardWrap {padding-top:0;}
-.myBookShelf {text-align: left; margin:56px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
+.myBookShelf {text-align: left; margin:30px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
 .myBookShelfText > i:before {content:'' !important;}
 
@@ -577,7 +577,8 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .BlockImage {position:absolute; top:0; left:0; max-width:480px; max-height:auto; pointer-events:none; z-index: 1; opacity: 0.5;}
 .BlockSelect {border:5px solid #3376ff;}
 .BlockSelect .BlockImage {top:-5px; left:-5px;}
-.tagName {position:relative; width:100%; height:100%; font-size:20px; font-weight:500;pointer-events:none; z-index: 2; display:table; table-layout:fixed;}
+.BlockSelect .tagName {font-size:23px}
+.tagName {position:relative; width:100%; height:100%; font-size:25px; font-weight:500;pointer-events:none; z-index: 2; display:table; table-layout:fixed;}
 .tagName > span {width:100%; height:100%; padding:15px; vertical-align:middle; word-break: break-all; display:table-cell;}
 .customTag {position: relative;}
 .selectCompleted {all: unset;}
@@ -609,9 +610,12 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 }
 
 /* Bookapi */
-.bookApi {position:relative; width:100%;}
+.bookApi {position:relative; width:82px;}
 .searchBook {width:64px; height:64px; vertical-align:middle; border:1px solid #ddd; background:url('./img/aladin-icon.gif') 10px center no-repeat; background-size:45px auto; border-radius:30px; text-indent:-1000em; display:inline-block; cursor:pointer;}
 .searchBook_title {max-width:calc(100% - 100px); padding-left:15px; vertical-align:middle; font-size:17px; line-height:22px; display:inline-block;}
+.instagram { width:64px; height:64px; vertical-align:middle; border:1px solid #ddd; background: url("./img/instagram.png") 9px center no-repeat; background-size:45px auto; border-radius:30px; text-indent:-1000em; display:inline-block; cursor:pointer; text-align: center;}
+.instagramShow {text-align: center}
+#instagram-embed-0 {display: inline-block!important;}
 
 .bookdetail {font-size:14px; cursor: pointer;}
 .bookdetail li {width:100%; padding:20px 40px; color:#747474; line-height:19px; border-top:1px solid #ddd;}
@@ -640,6 +644,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   position: relative;
   width: 80px;
 }
+.templateIcon {
+  display:inline-block;
+}
+
 .template_icon {
   width: 64px;
   height: 64px;
@@ -882,7 +890,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .Block:nth-child(4n+4) {margin-right:10px;}
   .tagName {font-size:15px;}
   .Block .BlockImage {width:100%; min-width:28vw; min-height:auto;}
-
+  .BlockSelect .tagName {font-size:13px}
   .MyPageProFile {width:100%; margin:0}
   .profileContainer {width:100%; padding:23px 0;}
   .myProFileWrap {width:100%; padding:29px 0 0 0;}
@@ -892,10 +900,10 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .ProFileDetailContainer {width:100%;}
   .ProFileDetailContainer li {min-width:auto;}
   .ProFileDetailContainer li:first-child {padding:0 10px;}
-  .ProFileDetailContainer li > span.InfoName {font-size:14px;}
+  .ProFileDetailContainer li > span.InfoName {font-size:12px;}
   .ProFileDetailContainer li > span.infoName + b {font-size:18px;}
   .change_taste {min-width:39px; height:20px; margin:-4px 0 0 5px; padding:2px 4px; font-size:12px;}
-
+  .myBookBoardContainer {height:300px}
   .ProfilePhoto {margin-bottom:15px; margin-top:20px; margin-left:20px; display:block;}
   .myName, 
   .myBookShelf {padding:0 22px;}

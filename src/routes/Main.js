@@ -6,7 +6,7 @@ import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 import "../default.css";
 import  WaitingLoader from '../components/Spinner'
-
+import InstagramEmbed from 'react-instagram-embed'
 
 class Main extends Component {
   
@@ -47,24 +47,6 @@ class Main extends Component {
     } 
   }
   
-  // refreshLIke=async(refreshPost)=>{
-
-    // if(refreshPost.length>0){
-  //     let postArray=[];
-  //     for(let element of refreshPost){
-  //       postArray.push(element.id)
-  //     }
-
-  //     let token = window.localStorage.getItem('token')
-  //     let resultOfRefresh = await axios.post(`https://${server_url}/api/like/getRefresh/refresh`,{ "postArray": postArray},{
-  //       headers:{Authorization: `bearer ${token}`}})
-  //     console.log("결과물은?",resultOfRefresh)
-
-      
-  //   }
-  //   return refreshPost
-  // }
-
   getScrollY=async()=>{
     await window.scrollTo(0,this.state.scrollY)
   }
@@ -89,7 +71,7 @@ class Main extends Component {
       return bookcover
     }
     if(this.state.loaded){
-      return <div className="dataNone">컨텐츠가 없습니다. 관심사를 재설정해주세요</div>
+      return <div className="dataNone">컨텐츠가 없습니다. <br/><br/> 관심사를 재설정해주세요</div>
     }
     return <WaitingLoader/>    
   };
@@ -132,7 +114,7 @@ class Main extends Component {
       let token = window.localStorage.getItem('token')
       let resultOfPost= await axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
       headers:{Authorization: `bearer ${token}`}})
-      console.log("결과",resultOfPost)
+     
       if(this.state.page===0){
         this.setState({page: resultOfPost.data.totalpage})
       }

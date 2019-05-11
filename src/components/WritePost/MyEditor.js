@@ -9,8 +9,11 @@ import {getOrientedImage} from 'exif-orientation-image'
 import * as loadImage from "blueimp-load-image";
 import ImageResize from 'quill-image-resize-module';
 import {ImageDrop} from 'quill-image-drop-module';
+import { string } from "prop-types";
+import parser from 'html-react-parser';
 var ColorClass = Quill.import('attributors/class/color');
 var SizeStyle = Quill.import('attributors/style/size');
+
 Quill.register(ColorClass, true);
 Quill.register(SizeStyle, true);
 Quill.import('attributors/style/align')
@@ -37,6 +40,7 @@ export default class MyEditor extends Component {
   }
 
   async handleChange(html) {
+
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
     this.setState({editorHtml: html});
 
@@ -86,7 +90,6 @@ export default class MyEditor extends Component {
     let defaultTitle = this.props.title;
     let defaultcontents = this.props.contents 
     console.log("editorHtml", editorHtml)
-    console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
     return (
       <div className="editor_container">
         <div className="Write_title">
@@ -105,6 +108,7 @@ export default class MyEditor extends Component {
                       placeholder={"책관련 행사 혹은 이야기를 들려주세요"}>
           </ReactQuill>        
         </div>
+
       </div>
     );
   }
@@ -123,11 +127,13 @@ Editor.module = {
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       [{ align: [] }],
       ["link", "image", "video"],
-      ["clean"]
+      ["clean"],
+      ["insertHtml"]
     ],
     handlers : {
       image : imageHandler,
-      link : linkhandlers
+      link : linkhandlers,
+      insertHtml: htmlhandlers
     }
   },
   imageResize: {
@@ -195,6 +201,16 @@ function imageHandler () {
     }  
   }
 
+  function htmlhandlers(value) {
+    var html = prompt("Enter html")
+    var parsed=  parser(html)
+    console.log(parsed)
+    //this.quill.clipboard.dangerouslyPasteHTML(parsed)
+  }
+
+
+
+
   function linkhandlers(value) {
     console.log(value)
     if (value) {
@@ -214,11 +230,6 @@ function imageHandler () {
       return;
     }
   }
-    
-  
-
-
-
 
 
 Editor.formats = [
@@ -238,5 +249,6 @@ Editor.formats = [
   "background",
   "align",
   "image",
-  "video"
+  "video",
+  "insertHtml"
 ];
