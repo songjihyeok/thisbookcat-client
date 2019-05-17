@@ -28,7 +28,7 @@ class ModalAgree extends Component {
 
       if(agreeResult){
         window.localStorage.setItem('token', this.settingToken);
-        window.location.href="/"
+        window.location.href="/picktaste"
       }
     
     } else {

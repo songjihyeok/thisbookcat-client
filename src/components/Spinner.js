@@ -9,8 +9,8 @@ export default class waitingLoader extends React.Component {
      <Loader 
         type= "Oval"
         color="#778899"
-        height="125"	
-        width="125"
+        height="50"	
+        width="50"
      />  
     </div>  
     );

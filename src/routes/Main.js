@@ -26,6 +26,7 @@ class Main extends Component {
   
     await this._getUrls();
     await this.getScrollY();
+  
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
@@ -57,7 +58,7 @@ class Main extends Component {
       const bookcover = this.state.coverurl.map((url) => {
         if (url) {  
           return <BookBoard url={url.mainImage}
-                            postid={url.id}
+                            postId={url.id}
                             title={url.title}
                             likecount={url.likeCount}
                             key={url.id}
@@ -123,7 +124,6 @@ class Main extends Component {
       
       return result;
   };
-
  
   
   _handleHide = () => {
@@ -140,7 +140,6 @@ class Main extends Component {
       return (
         <div className="Main_ofmain">
           <Nav1/>
-
           {/* <div className='mostLikedPage'>
           {this._renderMostLikedPage()}
           </div> */}

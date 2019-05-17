@@ -3,10 +3,11 @@ import axios from 'axios';
 import server_url from '../../url.json';
 //import "./PostDetail.css";
 import BookInfoModal from './BookInfoModal';
+import likeControl from '../likeCotrol';
 
 export default class PostInfo extends Component {
   state= {
-    isLike: null,
+    isLike: false,
     likeCount: 0,
     modal: false,
     isMypost: false,
@@ -21,6 +22,7 @@ export default class PostInfo extends Component {
   } 
 
   componentWillMount(){
+    console.log("시작할때")
     this._getLikeData();
   }
 
@@ -44,36 +46,14 @@ export default class PostInfo extends Component {
       alert("유저네임을 설정해주세요");
       return;
     }
-
-    let previousInfo =  window.localStorage.getItem("previousInfo");
-    window.localStorage.removeItem("previousInfo");
-    let parsedInfo =JSON.parse(previousInfo);
-    if (this.state.isLike) { 
-      let resultOfdelete=await axios.delete(`https://${server_url}/api/like/${this.props.postId}`, this.authHeader())
-      if(resultOfdelete){
-        parsedInfo.coverurl.map((element)=>{
-          if(element.id==this.props.postId){
-     
-            element["likeCount"]= this.state.likeCount-1
-            element["isUserLike"]=false;
-          }
-        })
-      }
-    } else { 
-      await axios.post(`https://${server_url}/api/like/${this.props.postId}`, {}, this.authHeader())
-      //console.log("_handleLike함수에서 axios.post 요청 보내고 받는 res_postLike", res_postLike)
-      parsedInfo.coverurl.map((element)=>{
-        if(element.id==this.props.postId){
-
-          element["likeCount"]= this.state.likeCount+1
-          element["isUserLike"]=true;
-        }
-      })
+  
+    await likeControl(this.state.isLike, this.props.postId, this.state.likeCount)
+    
+    if(this.state.isLike){
+      this.setState({isLike:false , likeCount:this.state.likeCount-1})
+    }else {
+      this.setState({isLike:true, likeCount: this.state.likeCount+1})
     }
-
-    let stringified = JSON.stringify(parsedInfo)
-    window.localStorage.setItem("previousInfo", stringified);
-    await this._getLikeData();
   }
 
   _closeModal = () => {
@@ -86,6 +66,12 @@ export default class PostInfo extends Component {
     // console.log('모달을 보여줘. this.state.show',this.state)
   }
 
+  showBookInfo=()=>{
+    if(this.props.bookData!="null"){
+      return <div className="bookInfoImage" onClick={this._showModal}></div>
+    }  
+  }
+
   render() {
     const { isLike, likeCount, modal } = this.state
     const { replyCount } = this.props
@@ -94,14 +80,14 @@ export default class PostInfo extends Component {
         <li>
           {(isLike)
           ? 
-          // <div><span className="icon unlike" onClick={this._handleLike}>좋아요 해제</span>{likeCount}</div>
+
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="29" height="28.5" onClick={this._handleLike}>
-             <path fill="#3376FF" fill-rule="evenodd" stroke="#3376FF" strokeLinejoin="round" d="M14.8 7.804a78.67 78.67 0 0 0-.723-1.57C10.445-.717 1.294 1.227 1.294 9.906c0 5.854 13.11 15.084 13.11 15.084s13.082-9.94 13.082-15.137c0-6.979-5.989-9.379-10.165-6.604-.552.367-2.931 2.844-2.931 2.844"/>
+             <path fill="#3376FF" fillRule="evenodd" stroke="#3376FF" strokeLinejoin="round" d="M14.8 7.804a78.67 78.67 0 0 0-.723-1.57C10.445-.717 1.294 1.227 1.294 9.906c0 5.854 13.11 15.084 13.11 15.084s13.082-9.94 13.082-15.137c0-6.979-5.989-9.379-10.165-6.604-.552.367-2.931 2.844-2.931 2.844"/>
             </svg>
             <div className="likeCount">{likeCount}</div>
           </div>
-            // {/* <span className="icon like" onClick={this._handleLike}>좋아요</span>{likeCount}</div> */}
+  
           :
           <div> 
           <svg xmlns="http://www.w3.org/2000/svg" width="29" height="28.5" onClick={this._handleLike}>
@@ -120,13 +106,8 @@ export default class PostInfo extends Component {
           </div>
         </li>
         <li>
-        <div className="bookinfoContainer">  
-          <div className="bookInfoImage">  
-            <svg xmlns="http://www.w3.org/2000/svg" width="29.5" height="28.5" onClick={this._showModal}>
-              <path fill="none" stroke="#343434" strokeLinejoin="round" d="M16.23 24.053l11.258-1.435V3.958L16.23 5.393v18.66zM12.745 24.053L1.488 22.618V3.958l11.257 1.435v18.66z"/>
-            </svg>
-          </div>
-          <div className="bookInfo">info</div>
+        <div className="bookinfoContainer">
+          {this.showBookInfo()}
         </div>  
            <BookInfoModal bookData={this.props.bookData} show={modal} hide={this._closeModal}/>
         </li>

@@ -27,7 +27,8 @@ class PostDetail extends React.Component {
     isMypost: false,
     mainImage: null,
     contents: null,
-    likeCount: null
+    likeCount: null,
+    instagramLoaded: false
   }
 
   authHeader = ()=>{
@@ -138,12 +139,13 @@ class PostDetail extends React.Component {
     }
   }
 
-  
+  instagramLoaded(){
+    this.setState({instagramLoaded:true})
+  }
+
   render() {
 
-    const { postId, userId, replys, replyCount, isMypost,contents, title,loaded, address, mainImage} = this.state;
-    // if (!window.localStorage.getItem("token")) {
-    //   return <Redirect to="/login" />
+    const { postId, userId, replys, replyCount, isMypost,contents,bookData, title,loaded, address,instagramLoaded, mainImage} = this.state;
     if(!loaded){
       return <WaitingLoader/>  
     }  
@@ -152,7 +154,7 @@ class PostDetail extends React.Component {
         <Fragment>
           <Nav1 />
           <div className='post_detail'>
-            <PostContent postId={postId} address={address} mainImage={mainImage} title={title} contents={contents} loaded={loaded}/>
+            <PostContent postId={postId} address={address} bookData={bookData} mainImage={mainImage} title={title} contents={contents} loaded={loaded} instagramLoaded={()=>this.instagramLoaded()}/>
             <div className='post_detail_right'>
               <PostWriter postId={postId} userId={userId} isMypost={isMypost} history={this.props.history} userName={this.state.userName}/>
               <PostInfo bookData={this.state.bookData} postId={postId} replyCount={replyCount} history={this.props.history} userName={this.state.userName}/>

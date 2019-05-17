@@ -4,6 +4,7 @@ import server_url from '../../url.json';
 import "../../heightMax.css";
 import InstagramShow from 'react-instagram-embed'
 //import "./PostDetail.css";
+import  WaitingLoader from '../Spinner'
 
 export default class PostContent extends Component {
 
@@ -13,7 +14,8 @@ export default class PostContent extends Component {
     createdTime: '',
     likeCount: null,
     title : '',
-    address: this.props.address
+    address: this.props.address,
+    instagramLoaded:false
    }
 
    authHeader = ()=>{
@@ -31,27 +33,32 @@ export default class PostContent extends Component {
   _getPostData = async () => {
     const { bookData,  mainImage } = this.props 
     let mainImageUrl = `https://${server_url}/upload/${mainImage}`
-
-    if(mainImage===null){
+    console.log("mainImage", mainImage ,typeof(mainImage))
+    console.log("bookData",bookData)
+    if(!mainImage&&bookData){
       let bookdataParsed= JSON.parse(bookData)
       mainImageUrl = bookdataParsed.cover
+      console.log("img", mainImageUrl)
     } 
     this.setState({mainImage:mainImageUrl})
   }
 
   instagramPreview=()=>{
-    if(this.state.address&&this.props.loaded){
+    if(this.state.address){
       return <div className="instagramShow">
+        {!this.state.instagramLoaded? <WaitingLoader></WaitingLoader>: null}
         <InstagramShow
         className="EmbededInstagram"
         url= {this.state.address}
-        maxWidth={500}
+        maxWidth={1000}
         hideCaption={false}
         containerTagName='div'
         protocol=''
         injectScript
         onLoading={() => {}}
-        onSuccess={() => {}}
+        onSuccess={() => {
+          this.setState({instagramLoaded:true})
+       }}
         onAfterRender={() => {}}
         onFailure={() => {}}
         ></InstagramShow>
@@ -63,9 +70,8 @@ export default class PostContent extends Component {
     const { title, contents} = this.props
     return (
       <div className='post_detail_left'>
-        <div className="post-thumbs"><img src={this.state.mainImage} alt={title}/></div>
+        {this.props.address?null:<div><div className="post-thumbs"><img src={this.state.mainImage} alt={title}/></div><div className="postContent"><div className='post_detail_title'>{title}</div></div></div>}
         <div className="postContent">
-          <div className='post_detail_title'>{title}</div> 
           {this.instagramPreview()}
           <div className='post_detail_content' dangerouslySetInnerHTML={{__html: contents}}></div>
         </div>

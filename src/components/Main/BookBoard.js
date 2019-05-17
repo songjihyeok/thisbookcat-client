@@ -4,7 +4,7 @@ import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json'
 import history from '../../history';
 import Truncate from 'react-truncate-html';
-import axios from 'axios'
+import likeControl from '../likeCotrol';
 
 class BookBoard extends Component {
 
@@ -15,38 +15,19 @@ class BookBoard extends Component {
 
 	token = window.localStorage.getItem('token')
 
-	_handleLike = () => {
+	_handleLike = async() => {
 		if(this.props.userName===''){
 			alert("유져네임을 설정해주세요")
 			return;
 		}
 
-		if (this.state.liked) {
-			axios.delete(`https://${server_url}/api/like/${this.props.postid}`, {
-				headers: {Authorization: `bearer ${this.token}`}
-			})
-			.then(response => {
-					// console.log(response)
-				this.setState({
-					liked:false,
-					likeCount: this.state.likeCount-1
-				})
-			})
-			.catch(error => console.log(error))
-		} else {
-			axios.post(`https://${server_url}/api/like/${this.props.postid}`, {}, {
-					headers: {Authorization: `bearer ${this.token}`}
-				})
-			.then(response => {
-				// console.log(response)
-				this.setState({
-					liked: true,
-					likeCount: this.state.likeCount+1
-				})
-				// console.log('liked should change', this.state.liked)
-			})
-			.catch(error => console.log(error))
-		}
+		await likeControl(this.state.isLike, this.props.postId, this.state.likeCount)
+    
+    if(this.state.liked){
+      this.setState({liked:false , likeCount:this.state.likeCount-1})
+    }else {
+      this.setState({liked:true, likeCount: this.state.likeCount+1})
+    }
 	}
 
 
@@ -60,12 +41,11 @@ class BookBoard extends Component {
 	}	
 
 	handleLink =()=>{
-		history.push(`/postdetail/${this.props.postid}`);
+		history.push(`/postdetail/${this.props.postId}`);
 	}
 
 
 	render(){
-	
 		return(
 				<div className ='bookBoard'>
 					<div className='imageContainer'>
