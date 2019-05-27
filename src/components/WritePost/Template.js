@@ -147,7 +147,7 @@ class Template extends Component {
     html2canvas(test, {
         allowTaint: false,
         windowWidth: 300,
-        windowHeight: 300
+        windowHeight: 300,
       }).then((canvas) => {
       console.log(canvas);
       let imgData = canvas.toDataURL('image/png');

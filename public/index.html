@@ -16,8 +16,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#FAFAFA">
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/aftereadLogo.png">
+  <link rel="manifest" crossorigin="use-credentials" href="/manifest.json">
+  <link rel="shortcut icon" href="/aftereadLogo.png">
   <!-- Latest compiled and minified CSS -->
   <link href="https://fonts.googleapis.com/css?family=Kosugi+Maru" rel="stylesheet">
   <link href='https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
@@ -26,7 +26,6 @@
   <!-- Optional theme -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
     crossorigin="anonymous">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.3/semantic.min.css"></link>
   <!-- Main Quill library -->
 
   <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -39,7 +38,7 @@
   <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
   <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
   <!-- Core -->
-  <link rel="stylesheet" href="/css/themes/default.css"> 
+  <link type="text/css" href="/css/themes/default.css"> 
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="afteread" content="bookcuration">
   <!--aladin api-->
@@ -50,6 +49,7 @@
 
 <body>
   <div id="root" ></div>
+  <script type="text/javascript" src="../dist/bundle.js"></script>
 </body>
 
 </html>

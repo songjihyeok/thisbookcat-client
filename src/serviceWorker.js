@@ -35,7 +35,7 @@ export function register(config) {
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
-
+        console.log("서비스워커 ! 완료")
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
         navigator.serviceWorker.ready.then(() => {
@@ -79,6 +79,7 @@ function registerValidSW(swUrl, config) {
 
               // Execute callback
               if (config.onSuccess) {
+                console.log("레지스터링 완료")
                 config.onSuccess(registration);
               }
             }

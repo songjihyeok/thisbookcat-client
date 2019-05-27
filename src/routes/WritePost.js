@@ -9,10 +9,10 @@ import MyEditor from "../components/WritePost/MyEditor.js";
 import "../heightMax.css";
 import Template from "../components/WritePost/Template";
 import Instagram from "../components/WritePost/instagram";
-import server_url from '../url.json';
-import axios from "axios";
-import  WaitingLoader from '../components/Spinner'
-import InstagramEmbed from "react-instagram-embed";
+// import server_url from '../url.json';
+// import axios from "axios";
+// import  WaitingLoader from '../components/Spinner'
+// import InstagramEmbed from "react-instagram-embed";
 class WritePost extends Component {
  
     state = {
@@ -160,7 +160,7 @@ class WritePost extends Component {
                   </div>
                 </li>
               </ul>
-              {this.instagramPreview()}  
+              {this.instagramPreview()}
               <MyEditor _handleTitle={this._handleTitle} _handleContents={this._handleContents} _handleImages={this._handleImages}/>
   
             </div>
