@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import html2canvas from "html2canvas";
-import server_url from '../../url.json';
-import axios from "axios";
 
 import TemplateRegisterModal from "./TemplateRegisterModal";
 import TemplateSelectModal from "./TemplateSelectModal";
+import axios from 'axios'
+import server_url from '../../url.json'
 
 export const ModalType = {
   Register: 'register',
@@ -13,35 +13,35 @@ export const ModalType = {
 
 export const FAKEDATA = [{
     id: '1',
-    img: 'stone.jpeg'
+    img: 'template1.png'
   },
   {
     id: '2',
-    img: 'harry.jpg'
+    img: 'template1.png'
   },
   {
     id: '3',
-    img: 'EW_Harry-Potter_Featured.jpg'
+    img: 'template2.jpg'
   },
   {
     id: '4',
-    img: 'stone.jpeg'
+    img: 'template2.jpg'
   },
   {
     id: '5',
-    img: 'harry.jpg'
+    img: 'template3.png'
   },
   {
     id: '6',
-    img: 'EW_Harry-Potter_Featured.jpg'
+    img: 'template3.png'
   },
   {
     id: '7',
-    img: 'stone.jpeg'
+    img: 'template4.jpg'
   },
   {
     id: '8',
-    img: 'harry.jpg'
+    img: 'template4.jpg'
   }
 ];
 
@@ -60,6 +60,7 @@ class Template extends Component {
   }
 
   render() {
+    console.log(this.props)
     const {
       activeModal,
       selectedImg,
@@ -67,10 +68,13 @@ class Template extends Component {
     } = this.state;
     const showRegisterModal = activeModal === ModalType.Register;
     const showSelectModal = activeModal === ModalType.Select;
+
     return (
       <div className="template">
         {showSelectModal && 
           <TemplateSelectModal
+            showmodal={this.props.showmodal}
+            handleHide={()=>this.handleModalClear()}
             selectedImg={selectedImg}
             onSelect={this.handleSelectedImage}
             onConfirm={() => this.handleCurrentModal(ModalType.Register)}
@@ -78,12 +82,13 @@ class Template extends Component {
         {showRegisterModal && 
           <TemplateRegisterModal
             text={text}
+            showmodal={this.props.showmodal}
+            handleHide={()=>this.handleModalClear()}
             selectedImg={selectedImg}
             onChange={this.handleInputChange}
             onUpload={this.handleUpload}
             onClick={() => this.handleCurrentModal(ModalType.Select)}
           />}
-        {/* TODO: need to change icon */}
         <div className="template_icon" onClick={() => this.handleCurrentModal(ModalType.Select)} />
       </div>
     );
@@ -142,7 +147,7 @@ class Template extends Component {
     html2canvas(test, {
         allowTaint: false,
         windowWidth: 300,
-        windowHeight: 300
+        windowHeight: 300,
       }).then((canvas) => {
       console.log(canvas);
       let imgData = canvas.toDataURL('image/png');
@@ -161,7 +166,8 @@ class Template extends Component {
       formData.append('imgFile', blob, "fileName.jpeg");
   
       const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, { headers: { 'Authorization' :`bearer ${token}` } });
-      console.log(res)
+      console.log("response",res)
+      this.props.getTemplate(res.data)
     })
   }
 }

@@ -5,10 +5,15 @@ import axios from "axios";
 import ReactQuill, {Quill} from "react-quill";
 import server_url from '../../url.json';
 import {ImageUpload} from 'quill-image-upload';
+import {getOrientedImage} from 'exif-orientation-image'
+import * as loadImage from "blueimp-load-image";
 import ImageResize from 'quill-image-resize-module';
 import {ImageDrop} from 'quill-image-drop-module';
+import { string } from "prop-types";
+import parser from 'html-react-parser';
 var ColorClass = Quill.import('attributors/class/color');
 var SizeStyle = Quill.import('attributors/style/size');
+
 Quill.register(ColorClass, true);
 Quill.register(SizeStyle, true);
 Quill.import('attributors/style/align')
@@ -35,7 +40,7 @@ export default class MyEditor extends Component {
   }
 
   async handleChange(html) {
-    console.log("뭐가 들어있지?",html);
+
     this.props._handleContents(html); // 이 부분은 WritePost파일에서 state를 변경해주기 위해 사용하는 함수입니다.
     this.setState({editorHtml: html});
 
@@ -57,6 +62,7 @@ export default class MyEditor extends Component {
     const strReg = new RegExp("https://*[^>]*\\.(jpg|gif|png|jpeg)","gim");
     let xArr =  contents.match(strReg);
 
+    console.log("xArr?",xArr)
     if(!xArr){
       xArr=[]; 
     }
@@ -68,7 +74,8 @@ export default class MyEditor extends Component {
 
     for(let element of usingImgFiles){
       if(!imageNames.includes(element)){
-      await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      let resultOfDelete= await axios.delete(`https://${server_url}/img/mainimage/${element}`, {headers:{'Authorization' :`bearer ${token}`}})
+      console.log("delete", resultOfDelete)
       }
     }
     this.setState({usingImgFiles: imageNames});
@@ -83,7 +90,6 @@ export default class MyEditor extends Component {
     let defaultTitle = this.props.title;
     let defaultcontents = this.props.contents 
     console.log("editorHtml", editorHtml)
-    console.log("사용하는 이미지",imageUsing,this.state.usingImgFiles);
     return (
       <div className="editor_container">
         <div className="Write_title">
@@ -99,9 +105,10 @@ export default class MyEditor extends Component {
                       modules={Editor.module}
                       formats={Editor.formats}
                       bounds={".app"}
-                      placeholder={"tell your story"}>
+                      placeholder={"책관련 행사 혹은 이야기를 들려주세요"}>
           </ReactQuill>        
         </div>
+
       </div>
     );
   }
@@ -120,10 +127,13 @@ Editor.module = {
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       [{ align: [] }],
       ["link", "image", "video"],
-      ["clean"]
+      ["clean"],
+      ["insertHtml"]
     ],
     handlers : {
-      image : imageHandler
+      image : imageHandler,
+      link : linkhandlers,
+      insertHtml: htmlhandlers
     }
   },
   imageResize: {
@@ -142,10 +152,6 @@ Editor.module = {
 } 
 
 
-
-
-
-
 function imageHandler () {
   console.log("imageHandler doing!")
 
@@ -155,23 +161,75 @@ function imageHandler () {
   input.setAttribute('accept', 'image/*');
   input.click();
   let token = window.localStorage.getItem('token')
-  input.onchange = async () => {
-    console.log("change");
+    input.onchange = async () => {
+      try{
+        console.log("change");
+      
+        let file = input.files[0];
 
-    const file = input.files[0];
-    const formData = new FormData();
-    formData.append('imgFile', file);
+        const fileType = file.type;
+    
+        loadImage(
+          file,
+          img => {
 
-    // Save current cursor state
-    const range = this.quill.getSelection(true);
- 
-    const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}});
-    imageUsing = res.data
-    this.quill.insertEmbed(range.index, 'image', `https://${server_url}/upload/${res.data}`); 
-    // Move cursor to right side of image (easier to continue typing)
-    this.quill.setSelection(range.index + 1);
+            img.toBlob( async blob => {
+              let createdFile = new File([blob], file.name, {type: fileType});
+       
+              console.log("createdFile",createdFile)
+              const formData = new FormData();
+              formData.append('imgFile', createdFile);
+              // Save current cursor state
+              const range = this.quill.getSelection(true);
+            
+              const res = await axios.post(`https://${server_url}/img/mainimage/`, formData, {headers:{'Authorization' :`bearer ${token}`}})
+            
+              this.quill.insertEmbed(range.index, 'image', `https://${server_url}/upload/${res.data}`); 
+              // Move cursor to right side of image (easier to continue typing)
+              this.quill.setSelection(range.index + 1);  
+              // 이미지 업로드 실행은 여기서
+            }, fileType);
+          },
+          { orientation: true, meta:true}
+        );
+
+
+      }
+      catch(err){
+        alert("error")
+      }
+    }  
   }
-}
+
+  function htmlhandlers(value) {
+    var html = prompt("Enter html")
+    var parsed=  parser(html)
+    console.log(parsed)
+    //this.quill.clipboard.dangerouslyPasteHTML(parsed)
+  }
+
+
+
+
+  function linkhandlers(value) {
+    console.log(value)
+    if (value) {
+
+      var href = prompt('Enter the URL');
+      if(!href){
+        return;
+      }
+      var delta = {
+        ops: [
+          {retain: 1},
+          {insert: href, attributes: {link: href}}
+        ]
+      };
+      this.quill.updateContents(delta);
+    } else {
+      return;
+    }
+  }
 
 
 Editor.formats = [
@@ -191,5 +249,6 @@ Editor.formats = [
   "background",
   "align",
   "image",
-  "video"
+  "video",
+  "insertHtml"
 ];

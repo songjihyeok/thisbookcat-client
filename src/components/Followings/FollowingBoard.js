@@ -9,30 +9,32 @@ import defaultImage from '../../img/다운로드.png'
 
 class FollowingBoard extends Component {
 	state = {
-		liked: false,
+		liked: this.props.likeOrNot,
 		likeCount: this.props.likecount,
-		postUserInfo:''
+		profileImage: this.props.imageName,
+		writerName : this.props.writerName
 	}
 
 	token = window.localStorage.getItem('token')
 
-	componentDidMount () {
-		this._getLikeData()
-		this._callPostUserAPI()
-  }
 
-	_getLikeData = () => {
-			// console.log(this.props.postid)
-		// let token = window.localStorage.getItem('token')
-		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
-			headers:{Authorization: `bearer ${this.token}`}})
-		.then(response => {
-			// console.log(response.data[0][0][1])
-			this.setState({liked: response.data[0][0][1]})
-			//   console.log('liked', this.state.liked)
-		})
-		.catch(error => console.log(error))
-	}
+	_handleProfileImage = ()=>{
+		if(!this.state.profileImage){
+			return defaultImage;
+		}
+		return `https://${server_url}/upload/${this.state.postUserInfo.profileImage}`
+	}	
+
+
+	handleImage=()=>{
+		if(this.props.image===''&&this.props.bookData){
+			let parsedBookData = JSON.parse(this.props.bookData);
+			let postImage = parsedBookData.cover;
+			// console.log( "url 바뀌었나",postImage);
+			return postImage 
+		} 
+		return `https://${server_url}/upload/${this.props.image}`	
+	}	
 
 	_handleLike = () => {
 		// let token = window.localStorage.getItem('token')
@@ -45,7 +47,7 @@ class FollowingBoard extends Component {
 						liked: false,
 						likeCount: this.state.likeCount-1
 				})
-				// console.log('liked should change', this.state.liked)
+
 			})
 			.catch(error => console.log(error))
 		} else {
@@ -57,54 +59,20 @@ class FollowingBoard extends Component {
 					liked: true,
 					likeCount: this.state.likeCount+1
 				})
-				// console.log('liked should change', this.state.liked)
+
 			})
 			.catch(error => console.log(error))
 		}
 	}
 
-	_callPostUserAPI = () => {
-    let token = window.localStorage.getItem('token')
-    return axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postid}`, {
-			headers:{Authorization: `bearer ${token}`}})
-			.then(response=>{	
-				console.log(response.data)
-				if(response.status===200){
-					this.setState({postUserInfo:response.data})
-				} 
-				return;
-			})
-			.catch((err)=>{return;})
-		}
-
-	_handleProfileImage = ()=>{
-		if(!this.state.postUserInfo.profileImage){
-			return defaultImage;
-		}
-		return `https://${server_url}/upload/${this.state.postUserInfo.profileImage}`
-	}	
-
-
-	handleImage=()=>{
-		if(this.props.image===''&&this.props.bookData!=='null'){
-			let parsedBookData = JSON.parse(this.props.bookData);
-			let postImage = parsedBookData.cover;
-			// console.log( "url 바뀌었나",postImage);
-			return postImage 
-		} 
-		return `https://${server_url}/upload/${this.props.image}`	
-	}	
-
   render() {
-		let postedUserId =this.state.postUserInfo[0]
+		let postedUserId= this.props.writerId;
     return  (
 			<div className='FollowingBoard'>
-     		 <Link to={`/postWriter/${postedUserId}`}>
 					<div className='UserInfoPart'>
 						<span className="postUserThumb"><img src={this._handleProfileImage()} className='postUserImage' alt={"postUserImage"} /></span>
-						<span className='postUsername'>{this.state.postUserInfo.userName}</span>
+						<span className='postUsername'>{this.props.writerName}</span>
 					</div>
-				</Link>
 				<div className='imagePart'>
 					<Link to={{
 							pathname: `/postdetail/${this.props.postid}`,
@@ -117,7 +85,8 @@ class FollowingBoard extends Component {
 					<li className='contentsPart'>
 						<h3 className="followingTitle">{this.props.title}</h3>
 						<div className="followingContent">
-							<Truncate lines={7} dangerouslySetInnerHTML={{__html:this.props.contents}} />
+							<Truncate dangerouslySetInnerHTML={{__html:this.props.contents+"..."}} />
+							{/* {this.props.contents} */}
 						</div>
 					</li>
 					<li className='likeAndLikecount'>

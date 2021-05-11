@@ -16,48 +16,68 @@ class Nav2 extends Component {
   }
   // 새로운 프롭스가 들어오면 즉, 사용자가 글 제목이나 글 내용등을 업데이트 하면 re-render시키는 함수 입니다.
 
+  bookDataHandler=()=>{
+    let propBookData = this.props.posting.bookData
+  
+    if(!propBookData){  
+
+      if(window.confirm("책 검색 후 등록하면 다른 사람들이 더 잘 찾을 수 있습니다. 책을 등록하시겠어요?")){
+        return "돌아가기"
+      }
+    } 
+    if(typeof(propBookData)!=="string"){
+      propBookData = JSON.stringify(propBookData)
+       //스트링이 아닐 경우에만 적용
+    }
+    return propBookData;
+  }
+
+
   _sendPost = async() => {
     
     let sendurl = await this._iseditorpost();
     if(!sendurl){
       return;
     }
-    console.log("이게 수정이니 아니니?",this.props.posting.isedit)
-    let bookData = this.props.posting.bookData
-    console.log("bookData", typeof(bookData));
-    if(typeof(bookData)!=="string"){
-      bookData = JSON.stringify(this.props.posting.bookData)
-       //스트링이 아닐 경우에만 적용
-    }
-    console.log("image", this.props.posting.usingImage);
 
-    const titleandcontent = await axios.post(sendurl, { title: this.props.posting.title, contents: this.props.posting.contents, bookData : bookData, usingImage: this.props.posting.usingImage}, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
-    console.log("타이틀이랑 컨텐츠 수정 완료",titleandcontent)  
-    
+    let bookData = this.bookDataHandler();
+    if(bookData==="돌아가기"){
+      return;
+    }
+
+    let body = { 
+                title: this.props.posting.title,
+                contents: this.props.posting.contents,
+                bookData : bookData, 
+                usingImage: this.props.posting.usingImage,
+                address: this.props.posting.address
+    }
+    console.log("body", body)
+
+    const titleandcontent = await axios.post(sendurl,body, {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}})
+ 
       if(!this.props.posting.isedit){
         const config = {headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}}
-        console.log("원하는 id", titleandcontent.data[0].id)
+       // console.log("원하는 id", titleandcontent.data[0].id)
         const imageupdate =  await axios.post(`https://${server_url}/img/mainimage/create/${titleandcontent.data[0].id}`, {fileName: this.props.posting.mainimage},config)
-        console.log("이미지 업로드 완료", imageupdate)
+       // console.log("이미지 업로드 완료", imageupdate)
       }
       this.props._postSuccess();  
   };
 
   _iseditorpost =()=>{
-    console.log("mainimage", this.props.posting.mainimage)
-    console.log("bookData", this.props.posting.bookData)
+
     if(this.props.posting.mainimage.length===0 && this.props.posting.bookData===null){
       alert("사진을 등록하지 않았습니다. 책을 검색하거나 사진을 올려주세요")
       return false;
     }
     let postid= window.location.href.split('/').pop();
-    console.log("주소?",postid);
     
     if(this.props.posting.isedit){
-      console.log("api/edit")
+
       return `https://${server_url}/api/post/edit/${postid}`  
     } else {
-      console.log("api/post")
+
       return `https://${server_url}/api/post/`  
     }    
   }

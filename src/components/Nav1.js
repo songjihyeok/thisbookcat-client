@@ -1,6 +1,7 @@
+
 import React, { Component } from "react";
 import { Link, Redirect} from "react-router-dom";
-import logoImage from "../img/로고.png";
+import logoImage from "../img/로고2.png";
 import AutoSuggest from "./autoComplete/autoSuggest"
 import axios from "axios";
 import server_url from '../url.json';
@@ -21,7 +22,7 @@ class Nav1 extends Component {
 
   _popoutSpace = (value)=>{
     let valueArray=value.split('')
-    console.log(valueArray)
+
     let resultValue =''
     for(let element of valueArray){
       if(element===" "){
@@ -80,17 +81,19 @@ class Nav1 extends Component {
 
   async clickHandler(){
     const token = window.localStorage.getItem('token')
+
     let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
-    console.log("받아온거",resultOfget)  
-    if(resultOfget.data.userName){
-      console.log("여기 들어온거 맞지?")
+    console.log("결과물", resultOfget)
+    let {userName}= resultOfget.data
+
+    if(userName){
       window.location.href = "/writepost"
-    }else {
-      alert("유저네임을 설정해주세요")
+    }else if(!userName){
+      alert("유저네임을 입력해주세요")
     }
   }
 
-
+//
 
   render() {
     if (!this.state.isLogin) {

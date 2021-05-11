@@ -1,77 +1,35 @@
 import React, {Component} from "react"
-import { Link } from 'react-router-dom'
 import {Image} from 'react-bootstrap'
 import { Icon } from "semantic-ui-react";
 import server_url from '../../url.json'
-import axios from 'axios'
+import history from '../../history';
+import Truncate from 'react-truncate-html';
+import likeControl from '../likeCotrol';
 
 class BookBoard extends Component {
 
 	state = {
-			liked: false,
+			liked: this.props.isUserLike,
 			likeCount: this.props.likecount
 	} 
 
 	token = window.localStorage.getItem('token')
 
-	componentDidMount () {
-			this._getLikeData()
-	}
-
-	_getLikeData = () => {
-		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
-			headers: {Authorization: `bearer ${this.token}`}
-		})
-		.then(response => {
-			this.setState({liked: response.data[0][0][1]})
-			//   console.log('liked', this.state.liked)
-		})
-		.catch(error => console.log(error))
-	}
-
-
-	_handleLike = () => {
+	_handleLike = async() => {
 		if(this.props.userName===''){
 			alert("유져네임을 설정해주세요")
 			return;
 		}
 
-		if (this.state.liked) {
-			axios.delete(`https://${server_url}/api/like/${this.props.postid}`, {
-				headers: {Authorization: `bearer ${this.token}`}
-			})
-			.then(response => {
-					// console.log(response)
-				this.setState({
-					liked:false,
-					likeCount: this.state.likeCount-1
-				})
-				// console.log('liked should change', this.state.liked)
-			})
-			.catch(error => console.log(error))
-		} else {
-			axios.post(`https://${server_url}/api/like/${this.props.postid}`, {}, {
-					headers: {Authorization: `bearer ${this.token}`}
-				})
-			.then(response => {
-				// console.log(response)
-				this.setState({
-					liked: true,
-					likeCount: this.state.likeCount+1
-				})
-				// console.log('liked should change', this.state.liked)
-			})
-			.catch(error => console.log(error))
-		}
+		await likeControl(this.state.isLike, this.props.postId, this.state.likeCount)
+    
+    if(this.state.liked){
+      this.setState({liked:false , likeCount:this.state.likeCount-1})
+    }else {
+      this.setState({liked:true, likeCount: this.state.likeCount+1})
+    }
 	}
 
-	/* _changeHeart = () => {
-			this.state.liked?this.setState({liked:false}):this.setState({liked:true})
-	} */
-
-	/* _handleClick =  () => {
-			this._handleLike()
-	} */
 
 	handleImage =()=>{
 		if(this.props.url===''&&this.props.bookData!=='null'){
@@ -82,22 +40,27 @@ class BookBoard extends Component {
 		return `https://${server_url}/upload/${this.props.url}`	
 	}	
 
+	handleLink =()=>{
+		history.push(`/postdetail/${this.props.postId}`);
+	}
+
+
 	render(){
 		return(
 				<div className ='bookBoard'>
 					<div className='imageContainer'>
-						<Link to={{ pathname : `/postdetail/${this.props.postid}` }}>
-							<Image className = 'mainThumbNail' alt='bookcover' /* width={240} height={240} */
+						<div onClick={this.handleLink}>
+							<Image className = 'mainThumbNail' alt='bookcover' 
 										src = {this.handleImage()}/>
-						</Link>
-						<div className='likeBar'>
+						</div>
+						<div className='likeBar' onClick={this._handleLike}>
 							{this.state.liked
-							? <div><Icon name='heart' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
-							: <div><Icon name='heart outline' size="large" onClick={this._handleLike}/>{this.state.likeCount}</div>
+							? <div><Icon name='heart' size="large" />{this.state.likeCount}</div>
+							: <div><Icon name='heart outline' size="large"/>{this.state.likeCount}</div>
 							}
 						</div>
 					</div>
-					<p className='postTitle'>{this.props.title}</p>
+					 <p className='postTitle'>{this.props.title}</p> 
 				</div>
 		)
 	}

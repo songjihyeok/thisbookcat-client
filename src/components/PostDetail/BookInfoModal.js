@@ -12,7 +12,6 @@ export default class BookInfoModal extends Component {
       let bookLink =null
       if(bookData){
       bookLink = bookData.link+ "&partner=afteread" 
-      console.log(bookLink)
       }
       if(bookData&&this.props.show){ 
       return (
@@ -25,7 +24,7 @@ export default class BookInfoModal extends Component {
             </Modal.Header>
             <Modal.Body>
              <div className="bookInfo_view">
-              <a href={bookLink}>
+              <a href={bookLink} target="_blank">
                 <div className="book_thumbs"><img alt="책 이미지" src={bookData.cover} /></div>
                 <span className="book_title">{bookData.title}</span>
                 <span className="book_author">{bookData.author}</span>  

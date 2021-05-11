@@ -3,7 +3,6 @@ import { Button} from "semantic-ui-react";
 import axios from 'axios';
 import server_url from '../../url.json';
 import profileimage from "../../img/다운로드.png"
-import { PropTypes} from 'prop-types';
 import { Link} from "react-router-dom";
 
 export default class PostWriter extends Component {
@@ -12,12 +11,16 @@ export default class PostWriter extends Component {
     userId: '',
     userName: '',
     userImage: '',
-    isFollowing:false,
-    router : PropTypes.object
+    isFollowing:false
   }
  
-  authHeader = {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}}
-
+  authHeader = ()=>{
+    if(window.localStorage.getItem('token')){
+      return  {headers:{Authorization: `bearer ${window.localStorage.getItem('token')}`}} 
+    } else{
+      return {headers:{Authorization: `bearer anonymous`}} 
+    }
+  } 
   async componentDidMount(){
     await this._getUserData()
     await this._getFollowingData()
@@ -25,8 +28,8 @@ export default class PostWriter extends Component {
   }
 
   _getUserData = async () => {
-    const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader)
-    console.log('res_getUser',res_getUser)
+    const res_getUser = await axios.get(`https://${server_url}/api/post/postedUserName/${this.props.postId}`, this.authHeader())
+
     let userName = null
     let profileImage =null
     if(res_getUser.data[1]){
@@ -43,34 +46,41 @@ export default class PostWriter extends Component {
   }
 
   _getFollowingData = async () => {
-    const res_getFollowing = await axios.get(`https://${server_url}/api/follow/check/${this.props.userId}`, this.authHeader)
+
+    const res_getFollowing = await axios.get(`https://${server_url}/api/follow/check/${this.props.userId}`, this.authHeader())
     // console.log('_getFollowingData 함수에서 axios.get 받아온 res_getFollowing.data 찍는중... this should be ture or false', res_getFollowing.data)
+
     this.setState({isFollowing: res_getFollowing.data})
   }
 
   _handleFollowing = async () => {
+
+    if(!window.localStorage.getItem('token')){
+      alert("로그인 해주세요.")
+      return;
+    }
 
     if(this.props.userName === ''){
       alert("유저네임을 설정해주세요")
       return;
     }
 
-
+    window.localStorage.removeItem("previousFollow");
     if (this.state.isFollowing) {
 
-      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader)
+      const resultfollowDelete =await axios.delete(`https://${server_url}/api/follow/delete/${this.props.userId}`, this.authHeader())
 
       this.setState({isFollowing: false})
     } else {
       
-      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader)
+      const followResult =await axios.post(`https://${server_url}/api/follow/${this.props.userId}`, {}, this.authHeader())
 
       this.setState({isFollowing: true})
     }
   }
 
   _handleDelete = async () => {
-    const res_deletePost = await axios.delete(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader)
+    const res_deletePost = await axios.delete(`https://${server_url}/api/post/${this.props.postId}`, this.authHeader())
     // console.log("props", this.props)
     // console.log(res_deletePost.data,'삭제되었습니다. res_deletePost.data');
     window.location.href ="/mypage"
@@ -89,14 +99,16 @@ export default class PostWriter extends Component {
     }
   
   render() {
-    const {userName, isFollowing, userId} = this.state
-    console.log("userId",userId)
+    let {userName, isFollowing, userId} = this.state
+
     return (
       <div className='post_detail_right_1_postWriter'>
-        <Link to={`/postWriter/${userId}`}>
-          <div className="user_thumbs">{this._userImagecontrollor()}</div>
-          <div className='post_detail_username'>{userName}</div>
-        </Link>
+        <div className="post_detail_userinfo_wrapper">
+             {/* <Link to={`/postWriter/${userId}`}> */}
+            <div className="user_thumbs">{this._userImagecontrollor()}</div>
+            <div className='post_detail_username'>{userName}</div>
+         {/* </Link> */}
+        
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
           <div className="user_buttons">
@@ -111,6 +123,7 @@ export default class PostWriter extends Component {
             }
           </div>
         }
+        </div>
       </div>
     )
   }

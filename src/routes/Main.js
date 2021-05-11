@@ -5,101 +5,127 @@ import server_url from '../url.json';
 import Nav1 from "../components/Nav1";
 import BookBoard from "../components/Main/BookBoard";
 import "../default.css";
+import  WaitingLoader from '../components/Spinner'
+import InstagramEmbed from 'react-instagram-embed'
 
 class Main extends Component {
   
   state = {
     per: 16,//한페이지당 가지게될 포스트의 개수
-    page: 1,//정해진 per만큼의 포스트를 가지는 페이지
+    page: 0,//정해진 per만큼의 포스트를 가지는 페이지
     totalPage: '',
     show : false,
     loaded : false,
-    userName: ''
+    userName: '',
+    scrollY:0,
+    coverurl: [],
+    refreshPost: []
   };
 
-//새로 추가된 사항: per와 page추가 됐습니다. per는 1페이지에 보여줄 포스트의 갯수이고 page는 정해주는 per만큼의 post를 가지고 있는 페이지 입니다.
-//client에서 정해준대로 받아오는 것이 가능합니다. 그래서 현재 스크롤을 끝까지 내리면 페이지 수를 추가하여 페이지가 더 존재하면 컨텐츠를 받아오고 끝이면
-//더이상 콘텐츠가 없다는 메시지가 나오게 했습니다. 해당사항은 main이외의 다른페이지도 똑같이 적용됐습니다.
-
-  componentDidMount () {
-    this.getUserName();
-    this._getUrls();
+  async componentDidMount () {
+  
+    await this._getUrls();
+    await this.getScrollY();
+  
     window.addEventListener('scroll', this._infiniteScroll, false)
   }
 
   componentWillUnmount(){
-    console.log("이거 옮길때???")
+    
+    let previousInfo = {"scrollY": window.scrollY , "coverurl": this.state.coverurl, "page": this.state.page, "totalPage":this.state.totalPage }
+    let stringifiedInfo = JSON.stringify(previousInfo)
+    window.localStorage.setItem("previousInfo", stringifiedInfo);
+    window.scrollTo(0,0)
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
   _infiniteScroll = async() => {
-    
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500) && this.state.loaded) {
-      if (this.state.page !== this.state.totalPage) {
-       this.setState({page: this.state.page+1,loaded: false})
+      if (this.state.page>1) {
+       this.setState({page: this.state.page-1,loaded: false})
        this._getUrls()
       }
-    }
+    } 
+  }
+  
+  getScrollY=async()=>{
+    await window.scrollTo(0,this.state.scrollY)
   }
 
-  _renderBooKCoverImage = () => {
-    if (this.state.coverurl) {
+  _renderBooKCoverImage =() => {
+
+    if (this.state.coverurl.length>0) {
       const bookcover = this.state.coverurl.map((url) => {
-        if (url) {
+        if (url) {  
           return <BookBoard url={url.mainImage}
-                            postid={url.id}
+                            postId={url.id}
                             title={url.title}
                             likecount={url.likeCount}
                             key={url.id}
                             bookData= {url.bookData}
-                            userName={this.state.userName}
+                            isUserLike = {url.isUserLike}
                             />;
         }else {
           return null;
         }
       });
-      return bookcover;
+      return bookcover
     }
-    return <div className="loading">"Loading"</div> 
+    if(this.state.loaded){
+      return <div className="dataNone">컨텐츠가 없습니다. <br/><br/> 관심사를 재설정해주세요</div>
+    }
+    return <WaitingLoader/>    
   };
+
 
   _getUrls = async () => {
-    const coverurl = await this._callBookCoverAPI();
-    if (this.state.coverurl === undefined) {
-     await this.setState({coverurl})
-    } else {
-     await this.setState({coverurl: this.state.coverurl.concat(coverurl)})
-    }
-  };
 
-  _callBookCoverAPI = () => {
-    let token = window.localStorage.getItem('token')
+    let previousInfo =  window.localStorage.getItem("previousInfo");
+    window.localStorage.removeItem("previousInfo");
+    let parsedInfo = JSON.parse(previousInfo);
+      if(previousInfo){
+       
+        let pageNumber =parsedInfo.page
+    
+        if(parsedInfo.page>=2){
+          pageNumber = parsedInfo.page-1
+        } 
 
-    return axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
-      headers:{Authorization: `bearer ${token}`}})
-    .then((response) => {
-      console.log('there should be data here',response.data)
-      this.setState({totalPage: response.data.totalpage, loaded: true})
-      let result = response.data.perArray
-      return result;
-     })
-     .catch(err => console.log(err))
-  };
-
-
-
-  async getUserName(){
-    const token = window.localStorage.getItem('token')
-    let resultOfget = await axios.get(`https://${server_url}/api/user`, {headers: {Authorization: `bearer ${token}`}})
-    console.log("유저네임 가져오네?", resultOfget)
-    if(resultOfget.data.userName){
-      this.setState({userName:resultOfget.data.userName})
+       await this.setState({
+                      coverurl:this.state.coverurl.concat(parsedInfo.coverurl), 
+                      page: pageNumber, 
+                      scrollY: parsedInfo.scrollY, 
+                    })   
+        if(parsedInfo.page===1){
+          return 
+        }
+      }
+    
+    let coverurl = await this._callBookCoverAPI();
+    this.setState({coverurl:  this.state.coverurl.concat(coverurl)})
+    
+    if(coverurl.length<12 && this.state.page>=2){
+      this.setState({page:this.state.page-1})
+      let secondcoverurl = await this._callBookCoverAPI();
+      this.setState({coverurl: this.state.coverurl.concat(secondcoverurl)})
     }
   }
 
-
+  _callBookCoverAPI = async() => {
+      let token = window.localStorage.getItem('token')
+      let resultOfPost= await axios.get(`https://${server_url}/api/userTagpost/${this.state.per}/${this.state.page}`,{
+      headers:{Authorization: `bearer ${token}`}})
+     
+      if(this.state.page===0){
+        this.setState({page: resultOfPost.data.totalpage})
+      }
+      this.setState({totalPage: resultOfPost.data.totalpage, loaded: true})
+      let result = resultOfPost.data.perArray || []
+      
+      return result;
+  };
+ 
   
-
   _handleHide = () => {
     this.setState({show: false});
   };
@@ -108,7 +134,6 @@ class Main extends Component {
   }
 
   render() {
-
     if (!window.localStorage.getItem("token")) {
       return <Redirect to="/login" />
     } else {
@@ -122,7 +147,6 @@ class Main extends Component {
             {this._renderBooKCoverImage()}
           </div>
         </div>
-        
       )
     }
   }

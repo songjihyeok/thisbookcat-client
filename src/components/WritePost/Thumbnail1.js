@@ -1,24 +1,32 @@
 import React, { Component } from "react";
 import "./Thumbnail.css";
 import './filepond.min.css';
+import { Link } from 'react-router-dom';
 import server_url from '../../url.json';
 import {FilePond, File, registerPlugin} from 'react-filepond'
 import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
 import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageTransform from 'filepond-plugin-image-transform';
+import FilePondpluginImageExifzOrientation from 'filepond-plugin-image-exif-orientation'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-registerPlugin(FilePondPluginImagePreview, FilePondPluginImageCrop, FilePondPluginImageResize, FilePondPluginImageTransform);
+import { Button } from 'react-bootstrap';
+registerPlugin(FilePondPluginImagePreview, FilePondpluginImageExifzOrientation, FilePondPluginImageCrop,
+   FilePondPluginImageResize, FilePondPluginImageTransform);
 
 // import axios from 'axios';
+
 
 class Thumbnail extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
+  this.state = {
       files: [],
-      savedFilename : null
+      savedFilename : null,
+      ratio: '1:1',
+      Height: "500",
+      width: "500"
     }
   }
 
@@ -42,14 +50,36 @@ class Thumbnail extends Component {
     this.props._removeMainImage()
   }
 
+  downloadImg(){
+    let address = prompt("유튜브 주소를 넣어주세요")
+    if(!address){
+      return
+    }
+    let theUniqueCode = address.split("/")[3]
+    const url = "https://img.youtube.com/vi/"+theUniqueCode+"/sddefault.jpg"
 
 
+    window.location.href = url
+  }
+
+  changeSize(){
+    if(this.state.ratio==="1:1"){
+      this.setState({ratio:"4:3",height:"480", width:"640"},()=>{
+        console.log(this.state.ratio)
+      })
+    }else {
+        this.setState({ratio:"1:1"},()=>{
+          console.log(this.state.ratio)
+        })
+    }
+  }
   render() {
     let token = window.localStorage.getItem('token')
     
     return (
+      <div>
         <div className="thumbnail_app">
-            {/* Pass FilePond properties as attributes */}
+
             <FilePond ref={ref => this.pond = ref}
                       allowMultiple={false}
                       allowReplace={false}
@@ -83,10 +113,10 @@ class Thumbnail extends Component {
                               files: fileItems.map(fileItem => fileItem.file)
                           }); 
                       }}
-                      imageCropAspectRatio = '1:1'
-                      imageResizeTargetWidth ={480}
-                      imageResizeTargetHeight= {480}
-                      imagePreviewHeight = {300}
+                      imageCropAspectRatio = {this.state.ratio}
+                      imageResizeTargetWidth ={this.state.width}
+                      imageResizeTargetHeight= {this.state.height}
+                      imagePreviewHeight = {500}
                       labelIdle = '사진 불러오기'
                       >
                        {this.state.files.map(file => (
@@ -94,6 +124,11 @@ class Thumbnail extends Component {
                     ))}
             </FilePond>
         </div>
+                  
+        {/* <Button variant="primary" onClick={()=>this.changeSize()}>{this.state.ratio}</Button>
+        <Button variant="primary" onClick={()=>this.downloadImg()}>youtube</Button>    */}
+          
+    </div>                    
     );
   }
 }

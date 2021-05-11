@@ -10,29 +10,47 @@ class TasteBoard extends Component {
 	state = {
 		taste: [
 				'북스타그램',
-				'에세이',
-				'베스트셀러',
-				'힐링',
-				'인문학',
+				'북토크',
+				'독서모임',
+				'북이벤트',
+				'재테크',
 				'자기계발',
+				'경영경제',
+				'howToWork',
+				'TECH',
+				'인간관계',
+				'소설',
+				'에세이',
+				'철학',
+				'심리',
+				'사회',
+				'예술문화',
 				'로맨스',
-				'독립출판',
-				'일상',
-				'신간',
-				'감성'
+				'판타지',
+				'스릴러',
+				'역사'
 		],
 		tasteImgUrl: {
-				'북스타그램':'https://server.afteread.net/serverimage/북스타그램-1552362660883.jpg',
-				'에세이':'https://server.afteread.net/serverimage/에세이-1552362682177.jpg',
-				'베스트셀러':'https://server.afteread.net/serverimage/베스트셀러-1552362651936.png',
-				'인문학':'https://server.afteread.net/serverimage/인문학-1552362691967.jpg',
-				'자기계발':'https://server.afteread.net/serverimage/자기계발-1552362713662.jpg',
-				'힐링':'https://server.afteread.net/serverimage/힐링-1552362725990.jpg',
-				'로맨스':'https://server.afteread.net/serverimage/로맨스-1552362637490.jpg',
-				'독립출판':'https://server.afteread.net/serverimage/독립출판-1552362628783.jpg',
-				'일상':'https://server.afteread.net/serverimage/일상-1552362705388.jpg',
-				'신간':'https://server.afteread.net/serverimage/신간-1552362668584.jpg',
-				'감성': 'https://server.afteread.net/serverimage/감성-1552362569421.jpg'
+				'북스타그램':'https://server.afteread.net/serverimage/bookstagram-1557238212033.jpg',
+				'북토크':'https://server.afteread.net/serverimage/booktalk-1557239260732.png',
+				'독서모임':'https://server.afteread.net/serverimage/gathering-1557239251666.jpg',
+				'북이벤트':'https://server.afteread.net/serverimage/event-1557239208813.png',
+				'재테크':'https://server.afteread.net/serverimage/zetech-1557238922801.jpg',
+				'자기계발':'https://server.afteread.net/serverimage/selfdevelopment-1557238474329.jpg',
+				'경영경제': 'https://server.afteread.net/serverimage/economy-1557238649139.jpg',
+				'howToWork' : 'https://server.afteread.net/serverimage/howtowork-1557238881152.jpg',
+				'TECH':'https://server.afteread.net/serverimage/tech-1557238904806.jpg',
+				'인간관계':'https://server.afteread.net/serverimage/relationship-1557239133929.jpg',
+				'소설':'https://server.afteread.net/serverimage/fiction-1557239754514.jpg',
+				'에세이':'https://server.afteread.net/serverimage/assay-1557238804287.jpg',
+				'철학': 'https://server.afteread.net/serverimage/philosophy-1557238666515.jpg',
+				'심리' :'https://server.afteread.net/serverimage/phycology-1557239603948.jpg',
+				'사회' : 'https://server.afteread.net/serverimage/society-1557239884121.jpg',
+				'예술문화' : 'https://server.afteread.net/serverimage/art-1557239623079.jpg',
+				'로맨스' :'https://server.afteread.net/serverimage/romance-1557238768222.jpg',
+				'판타지' : 'https://server.afteread.net/serverimage/fantasy-1557238870144.png',
+				'스릴러' : "https://server.afteread.net/serverimage/thriller-1557495402840.png",
+				'역사' : 'https://server.afteread.net/serverimage/history-1557239615172.jpg'
 		},
 		newTagUnUsing: [],
 		defaultTagUsing: [],
@@ -62,8 +80,10 @@ class TasteBoard extends Component {
 	}
 
 	_deleteSellection = (e) => {
-		let isInOrNot = this.state.taste.indexOf(e)
-		if (isInOrNot === -1) {
+
+		let isInOrNot = this.state.taste.includes(e)
+		console.log(isInOrNot)
+		if (!isInOrNot) {
 			let removingArray = this.state.newTagUsing
 			let removingIndex = this.state.newTagUsing.indexOf(e)
 			removingArray.splice(removingIndex, 1)
@@ -77,6 +97,7 @@ class TasteBoard extends Component {
 		} else {
 			let array = this.state.defaultTagUsing
 			let index = this.state.defaultTagUsing.indexOf(e)
+			console.log(array,"지우는 인덱스",index)
 			array.splice(index, 1)
 			this.setState({
 					defaultTagUsing: array
@@ -101,16 +122,17 @@ class TasteBoard extends Component {
 		let defaultTagUsing =[];  	
 		let newTagUnUsing= [];
 
+		let defaultTags= this.state.taste;
 		for(let element of usingTag){
 			console.log("usingTag",element.id);
-			if(element.id>11){
+			if(defaultTags.includes(element)){
 				newTagUsing.push(element.tagName);	
 			} else {
 				defaultTagUsing.push(element.tagName);
 			}
 		}
 		for(let element of unusingTag){
-			if(element.id>11){
+			if(defaultTags.includes(element)){
 				newTagUnUsing.push(element.tagName)	
 			}
 		}
@@ -145,7 +167,7 @@ class TasteBoard extends Component {
     
 
 	_renderTasteBlock = () => {
-		console.log("안쓰는 취향", this.state.newTagUnUsing , "쓰는 취향" , this.state.newTagUsing); 
+		// console.log("안쓰는 취향", this.state.newTagUnUsing , "쓰는 취향" , this.state.newTagUsing); 
 		let newTagsObject = {};
 		if(this.state.newTagUnUsing.length>0){
 			this.state.newTagUnUsing.forEach((element)=>{ newTagsObject[element]=null})
@@ -153,6 +175,7 @@ class TasteBoard extends Component {
 		if(this.state.newTagUsing.length>0){
 			this.state.newTagUsing.forEach((element)=>{ newTagsObject[element]=null});
 		}
+		console.log("뿌려지는데?", this.state.tasteImgUrl, newTagsObject)
 		const wholeTaste = Object.assign(this.state.tasteImgUrl, newTagsObject)
 		const tasteblocks = Object.keys(wholeTaste).map((key, index) => {
 			let alreadyClicked	
@@ -194,19 +217,16 @@ class TasteBoard extends Component {
   
 	_handleSubmit = async () => {
 		console.log("newTagSelected",this.state.newTagUsing)
-		const howManyLikes = this.state.defaultTagUsing.length+this.state.newTagUsing.length 
-		if (howManyLikes.length< 3) {
-			alert('취향을 3개이상 고르셔야합니다!')
-		} else {
-      const result = await this._submitTaste()
+
+			const result = await this._submitTaste()
+			window.localStorage.removeItem("previousInfo");
 			console.log("result",result);	
 			this._gotoMain(result);
-		}
 	}
 
 	_gotoMain = (r) => {
 		if (r) {
-			window.location.href="/mypage";
+			window.location.href="/main";
 		}
 	}
     
@@ -239,12 +259,12 @@ class TasteBoard extends Component {
 				<Fragment>
 						<div className = 'WelcomeUser'>
 						<div className='userNamePart'>
-								<span className = 'welcomeMesssage'>마음에 드는 관심사를 선택해 주세요. (3개이상) <br/><br/>혹시 원하는 관심사가 없다면? 태그생성으로 만들어주세요!</span>
+								<span className = 'welcomeMesssage'>마음에 드는 관심사를 선택해 주세요. (3개이상) <br/><br/>혹시 원하는 관심사가 없다면? <br/><br/>태그생성으로 만들어주세요!</span>
 						</div>
-						<div className="btnTagAlign">
-							<button className = 'pref'>관심</button>
-							<button className = 'genre'>장르</button>
-						</div>
+						{/* <div className="btnTagAlign">
+							<button className = 'pref'>리뷰</button>
+							<button className = 'genre'>행사</button>
+						</div> */}
 						<div className="btnTagCommand">
 							<button className = 'createNewTag' onClick={this._handleShow} bssize="large">태그생성</button>
 							<button className = 'selectComplete' onClick={this._handleSubmit}>선택완료</button>

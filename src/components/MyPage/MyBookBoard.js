@@ -7,27 +7,12 @@ import axios from 'axios'
 
 class MyBookBoard extends Component {
 	state = {
-		liked: false,
-		likeCount: this.props.likecount
+		liked: this.props.isUserLike,
+		likeCount: this.props.likeCount
 	}
 
 	token = window.localStorage.getItem('token')
 
-	componentDidMount () {
-		this._getLikeData()
-	}
-
-	_getLikeData = () => {
-		axios.get(`https://${server_url}/api/like/${this.props.postid}`, {
-			headers: {Authorization: `bearer ${this.token}`}
-		})
-		.then(response => {
-			this.setState({liked: response.data[0][0][1]})
-			/*  console.log('liked', this.state.liked) */
-		})
-		.catch(error => console.log(error))
-	}
-    
 	_handleLike = () => {
 		if(!this.props.userName){
 			alert("유져네임을 설정해주세요")
@@ -65,7 +50,6 @@ class MyBookBoard extends Component {
 		if(this.props.image==='' &&this.props.bookData!=='null'){
 			let parsedBookData = JSON.parse(this.props.bookData);
 			let postImage = parsedBookData.cover;
-			console.log( "url 바뀌었나",postImage);
 			return postImage 
 		}  
 		return `https://${server_url}/upload/${this.props.image}`	
@@ -75,8 +59,8 @@ class MyBookBoard extends Component {
 
 
 
+
 	render() {
-			/* console.log(this.props) */
 		return (
 			<div className='bookBoard'>
 				{/*  {console.log('BookBoard component에서 this.props 찍는중', this.props)} */}

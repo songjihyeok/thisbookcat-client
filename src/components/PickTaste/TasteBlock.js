@@ -38,6 +38,16 @@ _toggleBlockStatus = () => {
   }
 }
 
+changeName=()=>{
+
+  if(this.props.select==="howToWork"){
+    return "#how to work"
+  }
+  return "#"+this.props.select
+}
+
+
+
 componentWillMount(){
   if(this.props.already){
     this.setState({isClicked :true})
@@ -46,14 +56,13 @@ componentWillMount(){
 }
 
   render() {
-  
+
     return (
       <div className={this._changeCssonClick()} id = {this.props.select}
           onClick={this._handleClick} >
-        <div className='tagName'><span>{this.props.select}</span></div>
-        <div className='tagName'><span>{"this.props.select"}</span></div>
+        <div className='tagName'><span>{this.changeName()}</span></div>
         <Image className='BlockImage' rounded
-              src={this.props.imgUrl === 1 ? null : this.props.imgUrl}
+              src={this.props.imgUrl}
               alt={null}/>
       </div>
     )

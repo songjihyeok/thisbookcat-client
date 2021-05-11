@@ -11,55 +11,72 @@ class MyLike extends Component {
 
   state = {
     per: 16,
-    page: 1,
+    page: 0,
     totalPage: '',
-    loading: false
+    loading: false,
+    likePost: [],
+    scrollY:0
   };
 
-  componentDidMount() {
-    this._setMyLikePost()
+  async componentDidMount() {
+    await this._setMyLikePost();
+    await this. getScrollY();
     window.addEventListener('scroll', this._infiniteScroll,false)
   }
 
   componentWillUnmount(){
+    // let previousInfo = {"scrollY": window.scrollY , "likePost": this.state.likePost, "page": this.state.page, "totalPage":this.state.totalPage }
+    // let stringifiedInfo = JSON.stringify(previousInfo)
+    // window.localStorage.setItem("previouslikeData", stringifiedInfo);
+
     window.removeEventListener('scroll', this._infiniteScroll,false)
   }
 
   _infiniteScroll = async() => {
     
     if (window.innerHeight + window.scrollY >= (document.body.offsetHeight-500)&&this.state.loading) {
-      if (this.state.page !== this.state.totalPage) {
-       await this.setState({page: this.state.page+1 , loading:false})
+      if (this.state.page>1) {
+       await this.setState({page: this.state.page-1 , loading:false})
        await this._setMyLikePost()
       }
     }
   }
 
-  _getMyLikePost = () => {
-    return axios.get(`https://${server_url}/api/like/user/${this.state.per}/${this.state.page}`,{
+  getScrollY=()=>{
+    window.scrollTo(0,this.state.scrollY)
+  }
+
+  _getMyLikePost = async() => {
+    let resultOflikeData=await axios.get(`https://${server_url}/api/like/user/${this.state.per}/${this.state.page}`,{
         headers: {Authorization: `bearer ${window.localStorage.getItem('token')}`}
       })
-       .then(res => {
-         console.log("totalpage",res.data)
-         this.setState({totalPage: res.data.totalpage, loading: true})
-         return res.data.perArray
-       })
-       .catch(err => console.log('_getPostData get 못받음. error', err))
+      if(this.state.page===0){
+        this.setState({page: resultOflikeData.data.totalpage})
+      }
+
+      console.log("totalpage",resultOflikeData.data)
+      this.setState({totalPage: resultOflikeData.data.totalpage, loading:true})
+      return resultOflikeData.data.perArray || []
   }
 
   _setMyLikePost = async () => {
-    const likePosts = await this._getMyLikePost()
-    // console.log(likePosts)
-    if (this.state.likePosts === undefined) {
-      this.setState({likePosts})
-    } else {
-      this.setState({likePosts: this.state.likePosts.concat(likePosts)})
-    }
+
+      const likePosts = await this._getMyLikePost()
+      this.setState({likePost: this.state.likePost.concat(likePosts)})
+      
+      console.log(likePosts, this.state.page)
+      if(likePosts.length<12 && this.state.page>=2){
+        this.setState({page:this.state.page-1})
+        let secondlikePosts = await this._getMyLikePost()
+        this.setState({likePost: this.state.likePost.concat(secondlikePosts)})
+      } 
+
+
   }
 
   _renderMyLikePost = () => {
-      if(this.state.likePosts){
-        const result = this.state.likePosts.map((likePost) => {
+      if(this.state.likePost){
+        const result = this.state.likePost.map((likePost) => {
           if (likePost) {
           return <LikeBookBoard likePost={likePost} key={likePost.id} postid={likePost.id} bookData={likePost.bookData}/>
           } else {
@@ -79,7 +96,7 @@ class MyLike extends Component {
         <div className="MyLike">
           <Nav1 />
           <div className="bookBoardWrap">
-            {this.state.likePosts === undefined ? <div className="dataNone">'아직 좋아요하신 포스트가 없습니다'</div> : this._renderMyLikePost()}
+            {this.state.likePost.length ===0 ? <div className="dataNone">'아직 좋아요하신 포스트가 없습니다'</div> : this._renderMyLikePost()}
           </div>
         </div>
       );
