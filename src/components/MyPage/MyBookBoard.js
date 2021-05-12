@@ -52,7 +52,7 @@ class MyBookBoard extends Component {
 			let postImage = parsedBookData.cover;
 			return postImage 
 		}  
-		return `https://${server_url}/upload/${this.props.image}`	
+		return `https://s3.ap-northeast-2.amazonaws.com/www.afteread.image/${this.props.image}`
 	}	
 
 
@@ -70,8 +70,8 @@ class MyBookBoard extends Component {
 					</Link>
 					<div className='likeBar'>
 						{(this.state.liked)
-						? <span className='likeIconBar'><Icon name="heart" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
-						: <span className='likeIconBar'><Icon name="heart outline" size="large" onClick={this._handleLike}/>{this.state.likeCount}</span>
+						? <span className='likeIconBar'><Icon name="heart" size="large"/>{this.state.likeCount}</span>
+						: <span className='likeIconBar'><Icon name="heart outline" size="large"/>{this.state.likeCount}</span>
 						}
 					</div>
 				</div>

@@ -153,9 +153,9 @@ class WritePost extends Component {
                     <Bookapi bookData={this._getBookData}>
              
                     </Bookapi>
-                    <span className="templateIcon" onClick={this.openTemplate}>
+                    {/* <span className="templateIcon" onClick={this.openTemplate}>
                      <Template getTemplate={(img)=>this.setTemplate(img)} showmodal={this.state.showmodal} handleHide={this._handleHide}/>
-                    </span>
+                    </span> */}
                     <Instagram getAddress={(address)=>this.showinstagram(address)}></Instagram>
                   </div>
                 </li>

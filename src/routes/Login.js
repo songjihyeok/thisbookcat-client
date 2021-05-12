@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Link,Redirect } from "react-router-dom";
 import axios from 'axios';
 import server_url from '../url.json';
-
+import loginText from '../img/loginText.png'
 
 
 class Login extends Component {
@@ -65,9 +65,9 @@ class Login extends Component {
                 <div className='login_body'>
                   <div className='login_container'>
                     <h1 id="logo">
-                      <div className="textLogo">읽고 싶은 책을 찾을 때</div>
-                      <div className="imageLogo">애프터리드</div>
-                      <div className="textLogo">로그인 해주세요</div>
+                        <div style={{marginBottom: '30%'}}>
+                          <img src={loginText}></img>
+                        </div>
                     </h1>
 
                     {/*}
@@ -86,7 +86,7 @@ class Login extends Component {
 
                     <div><a href="https://server.afteread.net/auth/kakao"><button id="custom_btn_kakao" className='login_btn' >KAKAO로 계속하기</button></a></div> 
                     {/* <div><a href="https://server.afteread.net/auth/naver"><button id="custom_btn_naver" className='login_btn' >NAVER로 계속하기</button></a></div>  */}
-                    <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div>
+                    {/* <div><a href="https://server.afteread.net/auth/facebook"><button id="custom_btn_facebook" className='login_btn' >FACEBOOK으로 계속하기</button></a></div> */}
                    
                    {/* <FACEBOOK></FACEBOOK>  */}
                     <div><a href="https://server.afteread.net/auth/google"><button id="custom_btn_google" className='login_btn' onClick={this._googleAuth}>GOOGLE로 계속하기</button></a></div>

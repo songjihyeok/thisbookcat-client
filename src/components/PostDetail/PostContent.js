@@ -32,10 +32,10 @@ export default class PostContent extends Component {
 
   _getPostData = async () => {
     const { bookData,  mainImage } = this.props 
-    let mainImageUrl = `https://${server_url}/upload/${mainImage}`
+    let mainImageUrl = `https://s3.ap-northeast-2.amazonaws.com/www.afteread.image/${mainImage}`
     console.log("mainImage", mainImage ,typeof(mainImage))
     console.log("bookData",bookData)
-    if(!mainImage&&bookData){
+    if(!mainImage && bookData!='null'){
       let bookdataParsed= JSON.parse(bookData)
       mainImageUrl = bookdataParsed.cover
       console.log("img", mainImageUrl)

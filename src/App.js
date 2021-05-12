@@ -21,6 +21,7 @@ import writerPage from './routes/WriterPage'
 import "./default.css";
 import NoMatch from "./routes/notFound";
 import history from './history';
+import 'semantic-ui-css/semantic.min.css'
 
 class App extends Component {
   render() {

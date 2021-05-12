@@ -126,7 +126,7 @@ class MyPageProFile extends Component {
         <div className="MyPageProFile">
         <div className='profileContainer'>
           <div className='myName'>
-            <span className='myNameText'><Icon name="user circle" size="big"/>내 프로필</span>
+            <span className='myNameText'><Icon name="user circle" size="big" style={{width: '24px', height: "25px", marginRight: '10px'}}/>내 프로필</span>
           </div>
           <div className="myProFileWrap">
             <dl className="ProFilePhotoContainer">
@@ -167,7 +167,7 @@ class MyPageProFile extends Component {
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>
               <span className='myBookShelfText'>
-                <Icon name='book' size="big"/>내 서재
+                <Icon name='book' size="big" style={{width: '24px', height: "25px", marginRight: '10px'}}/>내 서재
               </span>
             </div>
             <div className="bookBoardWrap" style={{'textAlign': this.state.myPosts.length>=3 ? 'left' : 'center'}}>

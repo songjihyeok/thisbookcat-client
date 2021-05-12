@@ -112,8 +112,8 @@ export default class PostWriter extends Component {
         {(this.props.isMypost) //내 POST이면, 팔로우/팔로잉 을 보여주지 않고, post수정/삭제 를 보여줍니다.
         ? 
           <div className="user_buttons">
-            <Button inverted color='black' onClick={this._handleEdit}>수정</Button>
-            <Button inverted color='grey' onClick={this._handleDelete}>삭제</Button>
+            <Button basic color='blue' onClick={this._handleEdit}>수정</Button>
+            <Button basic color='red' onClick={this._handleDelete}>삭제</Button>
           </div>
         : 
           <div className="user_follow">

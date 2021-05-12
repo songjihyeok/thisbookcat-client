@@ -30,6 +30,7 @@ html { text-rendering: optimizeLegibility;}
 
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
+.mainPoster img{ max-width: 100%; }
 .bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px; margin-top:10px}
 .postTitle {
    /* autoprefixer: off */
@@ -204,7 +205,7 @@ html { text-rendering: optimizeLegibility;}
   border-width: 0;
 }
 .login_input::placeholder {color: #b3b3b3;}
-.login_btn{position:relative; width:280px; height:48px; margin:0; margin-bottom:10px; font-size:14px; font-weight:600; letter-spacing:-0.01em; text-align:center; border-radius:25px; border:0;}
+.login_btn{position:relative; width:280px; height:48px; margin:0; margin-bottom:15px; font-size:14px; font-weight:600; letter-spacing:-0.01em; text-align:center; border-radius:25px; border:0;}
 .login_btn:before {position:absolute; top:14px; left:21px; width:24px; height:24px; background-position:center; display:inline-block; content:'';}
 .login_btn#custom_btn_google:before {background:url('./img/google-logo.png') no-repeat;}
 .login_btn#custom_btn_kakao:before {background:url('./img/kakao.png') no-repeat;}

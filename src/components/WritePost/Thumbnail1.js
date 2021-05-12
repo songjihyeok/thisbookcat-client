@@ -39,6 +39,7 @@ class Thumbnail extends Component {
     if(res.status===400){
       alert("사진의 크기가 크거나 형식이 맞지 않습니다.")
     }
+    console.log("fileRes-----------", res)
     this.setState({savedFilename :res})
     console.log("props",this.props)
     this.props._handleMainImage(this.state.savedFilename)
@@ -126,7 +127,7 @@ class Thumbnail extends Component {
         </div>
                   
         {/* <Button variant="primary" onClick={()=>this.changeSize()}>{this.state.ratio}</Button>
-        <Button variant="primary" onClick={()=>this.downloadImg()}>youtube</Button>    */}
+        <Button variant="primary" onClick={()=>this.downloadImg()}>youtube</Button>   */}
           
     </div>                    
     );

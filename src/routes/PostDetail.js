@@ -52,7 +52,7 @@ class PostDetail extends React.Component {
 
   _getPostData = async() => {
     const res_getPost = await axios.get(`https://${server_url}/api/post/${this.state.postId}`, this.authHeader())
-  // console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
+  console.log('postdetail 컴포 > _getPostData 함수 > axios.get 요청 후 받는 res_getPost', res_getPost);
    
   const { contents, bookData, isthePoster, instagram, createdTime, likeCount, title, userId, mainImage } = res_getPost.data
     this.setState({

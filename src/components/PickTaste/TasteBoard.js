@@ -4,6 +4,21 @@ import axios from 'axios'
 import server_url from '../../url.json'
 import TasteBlock from './TasteBlock'
 import NewTagModal from './NewTagModal.js';
+import bookstagram from '../../img/bookstagram.jpeg'
+import booktalk from '../../img/booktalk.png'
+import bookclub from '../../img/bookclub.png'
+import fund from '../../img/fund.jpeg'
+import self from '../../img/self.png'
+import economy from '../../img/economy.png'
+import tech from '../../img/tech.png'
+import heart from '../../img/heart.png'
+import relationship from '../../img/relationship.png'
+import philosophy from '../../img/phy.png'
+import novel from  '../../img/novel.png'
+import phycology from '../../img/phycho.png'
+import fantasy from '../../img/fantasy.png'
+import thrill from '../../img/thrill.jpeg'
+import history from '../../img/History.png'
 
 
 class TasteBoard extends Component {
@@ -12,45 +27,35 @@ class TasteBoard extends Component {
 				'북스타그램',
 				'북토크',
 				'독서모임',
-				'북이벤트',
 				'재테크',
 				'자기계발',
 				'경영경제',
-				'howToWork',
 				'TECH',
 				'인간관계',
 				'소설',
-				'에세이',
 				'철학',
 				'심리',
-				'사회',
-				'예술문화',
 				'로맨스',
 				'판타지',
 				'스릴러',
 				'역사'
 		],
 		tasteImgUrl: {
-				'북스타그램':'https://server.afteread.net/serverimage/bookstagram-1557238212033.jpg',
-				'북토크':'https://server.afteread.net/serverimage/booktalk-1557239260732.png',
-				'독서모임':'https://server.afteread.net/serverimage/gathering-1557239251666.jpg',
-				'북이벤트':'https://server.afteread.net/serverimage/event-1557239208813.png',
-				'재테크':'https://server.afteread.net/serverimage/zetech-1557238922801.jpg',
-				'자기계발':'https://server.afteread.net/serverimage/selfdevelopment-1557238474329.jpg',
-				'경영경제': 'https://server.afteread.net/serverimage/economy-1557238649139.jpg',
-				'howToWork' : 'https://server.afteread.net/serverimage/howtowork-1557238881152.jpg',
-				'TECH':'https://server.afteread.net/serverimage/tech-1557238904806.jpg',
-				'인간관계':'https://server.afteread.net/serverimage/relationship-1557239133929.jpg',
-				'소설':'https://server.afteread.net/serverimage/fiction-1557239754514.jpg',
-				'에세이':'https://server.afteread.net/serverimage/assay-1557238804287.jpg',
-				'철학': 'https://server.afteread.net/serverimage/philosophy-1557238666515.jpg',
-				'심리' :'https://server.afteread.net/serverimage/phycology-1557239603948.jpg',
-				'사회' : 'https://server.afteread.net/serverimage/society-1557239884121.jpg',
-				'예술문화' : 'https://server.afteread.net/serverimage/art-1557239623079.jpg',
-				'로맨스' :'https://server.afteread.net/serverimage/romance-1557238768222.jpg',
-				'판타지' : 'https://server.afteread.net/serverimage/fantasy-1557238870144.png',
-				'스릴러' : "https://server.afteread.net/serverimage/thriller-1557495402840.png",
-				'역사' : 'https://server.afteread.net/serverimage/history-1557239615172.jpg'
+				'북스타그램': bookstagram,
+				'북토크': booktalk,
+				'독서모임': bookclub,
+				'재테크': fund,
+				'자기계발': self,
+				'경영경제': economy,
+				'TECH': tech,
+				'인간관계': relationship,
+				'소설': novel,
+				'철학':  philosophy,
+				'심리' : phycology,
+				'로맨스' : heart,
+				'판타지' : fantasy,
+				'스릴러' : thrill,
+				'역사' : history
 		},
 		newTagUnUsing: [],
 		defaultTagUsing: [],

@@ -7,6 +7,7 @@ import BookBoard from "../components/Main/BookBoard";
 import "../default.css";
 import  WaitingLoader from '../components/Spinner'
 import InstagramEmbed from 'react-instagram-embed'
+import mainPoster from '../img/mainPoster.png'
 
 class Main extends Component {
   
@@ -143,6 +144,9 @@ class Main extends Component {
           {/* <div className='mostLikedPage'>
           {this._renderMostLikedPage()}
           </div> */}
+          <div className="mainPoster">
+              <img src={mainPoster}></img>
+          </div>
           <div className="bookBoardWrap">
             {this._renderBooKCoverImage()}
           </div>
