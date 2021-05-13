@@ -10,10 +10,12 @@ class redirect extends Component {
   }
 
   agreeHandler=()=>{
+    console.log("token", this.props.match)
     const token = this.props.match.params.token
     const agreed = this.props.match.params.agreed
     let parsedAgree = JSON.parse(agreed)
-
+    console.log("token", token)
+    console.log("agreed", agreed)
     if(!parsedAgree){
       return  <ModalAgree token={token} show={this.state.show}/>
     } else {

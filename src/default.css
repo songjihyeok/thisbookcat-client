@@ -30,7 +30,7 @@ html { text-rendering: optimizeLegibility;}
 
 /* Main */
 .Main_ofmain {position: relative; font-family:'Noto Sans KR'; text-align: left;}
-.mainPoster img{ max-width: 100%; }
+.mainPoster img{ max-width: 100%; width:100%; }
 .bookBoardWrap {position:relative; max-width:1104px; margin:0 auto; padding-top:25px; margin-top:10px; }
 .postTitle {
    /* autoprefixer: off */
@@ -68,7 +68,7 @@ html { text-rendering: optimizeLegibility;}
 
 /* Nav1 */
 .nav1,
-.nav2 { z-index:10; padding:15px 0; background-color:#fff; margin:0 100px}
+.nav2 { z-index:10; padding:15px 0; background-color:#fff; }
 .nav1 {height:80px; box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.1); position:sticky; top:0 }
 .nav2 {height:70px; border-bottom:1px solid #eaeaea;}
 .logoStyle {height:40px; width:auto;}
@@ -520,7 +520,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
 .ProFileDetailContainer li {min-width:166px; border-right:1px solid #ddd; flex: 3;}
 .ProFileDetailContainer li > span {padding:4px; font-size:18px; display:block;}
 .ProFileDetailContainer li > span.InfoName + b {margin-top:5px; padding:4px; font-size: 24px; font-weight:bold; color: #3376ff; display:block;}
-.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: auto; }
+.myBookBoardContainer {position: relative; width:100%; text-align: left; background-color: #f6f6f6; display: inline-block; height: auto;  min-height: 300px;}
 .myBookBoardContainer .bookBoardWrap {padding-top:0;}
 .myBookShelf {text-align: left; margin:30px 0 25px 0; padding-left:25px; font-size:24px; color: #151515; font-weight: bold; text-align: left;}
 .myBookShelfText > i {width:25px; height:26px; margin-top:-5px 15px 0 0 !important; vertical-align:middle; background:url('./img/my-library-body.svg'); background-size:25px auto; display:inline-block;}
@@ -816,7 +816,7 @@ span.icon.bookInfo {background:url('./img/aladin_icon.png') no-repeat; cursor:po
   .loading { margin:200px 100px; }
 
   .backImg {position:absolute; overflow-y:auto; background-attachment:local;}
-  .searchForm {width:calc(70% - 60px);}
+  .searchForm {width:calc(65% - 60px);}
   .searchForm .item {display:none;}
   .searchForm form:after {position:absolute; top:11px; left:10px; width:19px; height:20px; z-index:1; content:''; background-image: url("./img/main-search-icon.png"); background-size:19px 20px;}
   .search_input {width:100%; height:40px; padding-left:34px; font-size:14px;}
