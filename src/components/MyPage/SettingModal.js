@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Link} from 'react'
 import { Button, Modal} from 'react-bootstrap'
 // import style from './CSS/SettingModal.css'
 import style from './SettingModal.css'
@@ -96,16 +96,21 @@ class SettingModal extends Component {
     }
   }
 
+  removeDataHandler =async()=>{
+    this.props.history.push("/removePrivacy")
+  }
+
+
   render() {
     return (
-      <Modal show={this.props.show} container={this}
+      <Modal show={this.props.show}
             onHide={this.props.hide} aria-labelledby="contained-modal-title" className="modal-manage">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title">내 정보 변경하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className="fileUploadContent">
-          <p className="profileChange">> 프로필 사진 변경</p>
+          <p className="profileChange"> 프로필 사진 변경</p>
             <div className="fileUpload">
           
               <div className="file_input_div">
@@ -115,16 +120,18 @@ class SettingModal extends Component {
                 <input type="file" className="file_input_hidden" id={style.setting_input} name="choose image" onChange={this._getProfileImage} />
               </div>
             </div>
-          <p className="userNameChange"> > 유저네임 설정</p>
+          <p className="userNameChange"> 유저네임 설정</p>
           <CheckUserName beforeUserName={this.state.userName}checked={(e)=>{this.setUserName(e)}}/>
+          <a href="/removePrivacy" >
+              회원 탈퇴 하기
+            </a>
         </div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this._handleConfirm}>닫기</Button>
         </Modal.Footer>
-      </Modal>
-    );
-  }
+      </Modal> 
+     )}
 }  
   
   export default SettingModal

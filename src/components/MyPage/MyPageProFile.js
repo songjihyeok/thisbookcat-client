@@ -163,7 +163,7 @@ class MyPageProFile extends Component {
           </div>
         </div>
          {this._handleFollowModal()}
-          <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}}/>
+          <SettingModal beforeUserName={this.state.userName} beforeImage={this.state.profileImage} show={this.state.show} hide={this._handleHide} callback={this._getImageFromModal} setUserName={(e)=>{this.setUserName(e)}} history={this.props.history}/>
           <div className='myBookBoardContainer'>
             <div className='myBookShelf'>
               <span className='myBookShelfText'>

@@ -16,7 +16,7 @@ export default class BookInfoModal extends Component {
       if(bookData&&this.props.show){ 
       return (
         <Fragment>
-          <Modal show={this.props.show} container={this} onHide={this.props.hide}
+          <Modal show={this.props.show} onHide={this.props.hide}
                 aria-labelledby="contained-modal-title">
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title">도서 정보</Modal.Title>

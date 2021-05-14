@@ -17,7 +17,6 @@ class TemplateSelectModal extends Component {
     console.log("false?",this.props.showmodal)
     return (
       <Modal 
-        container={this} 
         dialogClassName="template-select-modal"
         aria-labelledby="contained-modal-title" 
         show

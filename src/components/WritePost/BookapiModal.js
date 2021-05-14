@@ -5,9 +5,7 @@ import BookList from './BookList'
 import {
   Modal,
   Button,
-  FormGroup,
-  FormControl,
-  FormLabel
+  Form
 } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 
@@ -132,7 +130,6 @@ class BookapiModal extends Component {
       
       <Modal show={this.state.show}
             onHide={() => {this.props.handleHide()}}
-            container={this}
             aria-labelledby="contained-modal-title">
         
         <Modal.Header closeButton>
@@ -144,17 +141,21 @@ class BookapiModal extends Component {
             <div className="bookSearch_Api">
               <h3 className="logo_aladin">알라딘</h3>
               <form>
-                <FormGroup controlId="formBasicText">
-                  <FormLabel>
-                    원하는 책을 검색해주세요
-                  </FormLabel>
-                  <FormControl type="text" placeholder="책 제목을 입력하세요" value={this.state.booktitle} onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
-                  
-                  <Button bsStyle="info" onClick={this.setbookinfo}> 
-                    <Icon name="search plus" size="big" />
-                    알라딘 검색
-                  </Button>
-                </FormGroup>
+                <Form>
+                  <Form.Group controlId="formBasicText">
+                    <Form.Label >
+                      원하는 책을 검색해주세요
+                    </Form.Label>
+                    <Form.Control type="text" placeholder="책 제목을 입력하세요" value={this.state.booktitle} onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}>
+            
+                    </Form.Control>
+                    {/* <Button bsStyle="info" onClick={this.setbookinfo} className="bookSearchButton"> 
+                          <Icon name="search plus" size="big" />
+                        </Button> */}
+    
+                  </Form.Group>
+  
+                </Form>
                 {this.state.data ? <div className="resultNum">{this.state.data.totalResults} 개의 도서가 검색되었습니다.</div> : null}
               </form>
             </div>
@@ -164,7 +165,7 @@ class BookapiModal extends Component {
             {this.state.finishsearch ? <div>검색된 책 : {this.state.data.title}</div> : null}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="bookSearchModalFooter">
 
           {this.state.data ? 
             <div className="resultControl">
@@ -172,6 +173,7 @@ class BookapiModal extends Component {
               <button className="next" onClick={this.afterPage}>다음</button>
             </div>
           : null}
+ 
           <Button bsStyle="success" disabled={!this.state.finishsearch}
                   onClick={() => {
                     console.log(this.state.clickedData.title + "책이 등록되었습니다.")
