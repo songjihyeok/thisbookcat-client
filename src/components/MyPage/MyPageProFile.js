@@ -196,6 +196,7 @@ class MyPageProFile extends Component {
   };
 
   _handleShow = () => {
+    console.log("hello")
     this.setState({show: true})
   }
   _logout = e => {

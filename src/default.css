@@ -16,7 +16,7 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active { transition: background-color 5000s ease-in-out 0s !important; }
 html { text-rendering: optimizeLegibility;}
 
-.App {max-width:2100px; margin:auto; height:auto !important; }
+.App {max-width:2100px; margin:auto; height: 100%; }
 
 /* Font */ 
 @font-face {
@@ -347,6 +347,23 @@ html { text-rendering: optimizeLegibility;}
 .postInfo li:first-child {padding-left:0;}
 .bookinfoContainer{cursor: pointer;}
 .bookInfo{margin:-10px 0px; text-align:center}
+.removePrivacy{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.removeAskText{
+  margin-bottom:40px;
+  font-size: 20px;
+}
+
+.removeButtonWrapper{
+
+}
+
 
 /*
 .postInfo{

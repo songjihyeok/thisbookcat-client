@@ -7,7 +7,7 @@ import {
   Button,
   FormGroup,
   FormControl,
-  ControlLabel
+  FormLabel
 } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 
@@ -145,9 +145,9 @@ class BookapiModal extends Component {
               <h3 className="logo_aladin">알라딘</h3>
               <form>
                 <FormGroup controlId="formBasicText">
-                  <ControlLabel>
+                  <FormLabel>
                     원하는 책을 검색해주세요
-                  </ControlLabel>
+                  </FormLabel>
                   <FormControl type="text" placeholder="책 제목을 입력하세요" value={this.state.booktitle} onChange={this._handleChange} onKeyDown={(e)=>{this._handleKeyPress(e)}}/>
                   
                   <Button bsStyle="info" onClick={this.setbookinfo}> 

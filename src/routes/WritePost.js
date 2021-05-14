@@ -92,11 +92,13 @@ class WritePost extends Component {
     }
 
     instagramPreview=()=>{
+      console.log("address", this.state.address)
       if(this.state.address){
         return <div className="instagramShow">
           <InstagramShow
           className="EmbededInstagram"
           url= {this.state.address}
+          clientAccessToken='266158400828374|41cf6d2ace59f6087385bae9908c94a3'
           maxWidth={1000}
           hideCaption={false}
           containerTagName='div'

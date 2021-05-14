@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "axios-jsonp-pro": "^1.1.4",
     "blueimp-load-image": "^2.21.0",
+    "bootstrap": "^4.6.0",
     "core-js": "^2.6.8",
     "draft-js": "^0.11.7",
     "draft-js-editor": "^1.12.4",
@@ -40,7 +41,7 @@
     "react": "^16.5.2",
     "react-autocomplete": "^1.8.1",
     "react-autosuggest": "^9.4.3",
-    "react-bootstrap": "^0.32.4",
+    "react-bootstrap": "^1.6.0",
     "react-cookie": "^3.0.8",
     "react-cursor-position": "^3.0.3",
     "react-dom": "^16.5.2",
@@ -53,7 +54,7 @@
     "react-helmet": "^5.2.0",
     "react-image-dropzone": "^1.11.0",
     "react-image-file": "^0.3.0",
-    "react-instagram-embed": "^1.5.0",
+    "react-instagram-embed": "^2.0.0",
     "react-kakao-login": "^1.1.0",
     "react-loader-spinner": "^2.3.0",
     "react-provide-scroll-position": "^1.0.2",
@@ -72,10 +73,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 sync ./build s3://www.afteread.net --profile=root",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "aws s3 sync ./build s3://www.afteread.net --profile=songjihyeok",
-    "invalidate": "aws cloudfront create-invalidation --profile=songjihyeok --distribution-id E1P5SA1ED7XVDO --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
+    "invalidate": "aws cloudfront create-invalidation --profile=root --distribution-id E1P5SA1ED7XVDO --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
   },
   "eslintConfig": {
     "extends": "react-app"

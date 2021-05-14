@@ -18,6 +18,7 @@ import redirect from "./routes/redirect"
 import robots from './routes/robots'
 import agree from './routes/ModalAgree'
 import writerPage from './routes/WriterPage'
+import removePrivacy from './routes/removePrivacy'
 import "./default.css";
 import NoMatch from "./routes/notFound";
 import history from './history';
@@ -31,6 +32,7 @@ class App extends Component {
               <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/robots.txt" component={robots}/>
+                <Route path="/removePrivacy" component={removePrivacy}/>
                 <Route path="/redirect/:token/:agreed" component={redirect}/>
                 <Route path="/signup" component={SignUp} />
                 <Route path="/findpw" component={FindPw} />
